@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isascii(char c)
+int	ft_isascii(int c)
 {
 	if (c >= 0 && c <= 127)
 		return (1);
@@ -18,12 +18,20 @@ int	ft_isascii(char c)
 }
 /*
 #include <stdio.h>
+#include <ctype.h>
 
 int	main(void)
 {
+	printf("The result of your function is:\n");
 	printf("%i\n", ft_isascii('a'));
 	printf("%i\n", ft_isascii('\0'));
 	printf("%i\n", ft_isascii('?'));
 	printf("%i\n", ft_isascii((char)127));
 	printf("%i\n", ft_isascii((char)155));
+	printf("The result of the original function is:\n");
+	printf("%i\n", isascii('a'));
+	printf("%i\n", isascii('\0'));
+	printf("%i\n", isascii('?'));
+	printf("%i\n", isascii((char)127));
+	printf("%i\n", isascii((char)155));
 }*/

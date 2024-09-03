@@ -10,14 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isdigit(char c)
+int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
-		return (1);
+		return (2048);
 	return (0);
 }
 /*
 #include <stdio.h>
+#include <ctype.h>
 
 int	main(void)
 {
@@ -26,8 +27,14 @@ int	main(void)
 	char c3 = 'A';
 	char c4 = '?';
 	
+	printf("The result of your function is:\n");
 	printf("%i\n", ft_isdigit(c1));
 	printf("%i\n", ft_isdigit(c2));
 	printf("%i\n", ft_isdigit(c3));
 	printf("%i\n", ft_isdigit(c4));
+	printf("The result of the original function is:\n");
+	printf("%i\n", isdigit(c1));
+	printf("%i\n", isdigit(c2));
+	printf("%i\n", isdigit(c3));
+	printf("%i\n", isdigit(c4));
 }*/

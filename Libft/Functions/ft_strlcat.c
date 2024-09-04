@@ -9,13 +9,10 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	i = 0;
 	src_len = 0;
 	k = 0;
-
 	while (dst[i] && i < size)
 		i++;
-	// Check the size of src
 	while (src[src_len])
 		src_len++;
-	// 
 	if (i >= size)
 		return (src_len + size);
 	while (src[k] && k < (size - (i + 1)))

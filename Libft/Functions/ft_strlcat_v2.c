@@ -1,0 +1,43 @@
+#include <stdlib.h>
+
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
+{
+	int	i;
+	int	src_len;
+	int	k;
+
+	i = 0;
+	src_len = 0;
+	k = 0;
+
+	while (dst[i] && i < size)
+		i++;
+	// Check the size of src
+	while (src[src_len])
+		src_len++;
+	// 
+	if (i >= size)
+		return (src_len + size);
+	while (src[k] && k < (size - (i + 1)))
+	{
+		dst[i + k] = src[k];
+		k++;
+	}
+	dst[i + k] = '\0';
+	return (i + src_len);
+}
+/*
+#include <stdio.h>
+#include <bsd/string.h>
+
+int	main(void)
+{
+	char dst[15] = "Hello";
+	char src[10] = " World";
+	printf("%zu\n", ft_strlcat(dst, src, 15));
+	printf("%s\n", dst);
+	char dst1[15] = "Hello";
+	char src1[10] = " World";
+	printf("%zu\n", strlcat(dst1, src1, 15));
+	printf("%s\n", dst1);
+}*/

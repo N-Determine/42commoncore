@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/05 12:10:57 by adeters           #+#    #+#             */
+/*   Updated: 2024/09/05 12:11:37 by adeters          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 char	*ft_strchr(const char *s, int c)
 {
 	int	i;
@@ -6,11 +18,11 @@ char	*ft_strchr(const char *s, int c)
 	while (s[i])
 	{
 		if (s[i] == c)
-			return (char *)&s[i];
+			return ((char *)&s[i]);
 		i++;
 	}
 	if (s[i] == c)
-		return (char *)&s[i];
+		return ((char *)&s[i]);
 	return (0);
 }
 /*

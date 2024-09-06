@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 19:43:19 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/06 20:09:57 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/06 20:11:42 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	ft_count_bytes(int n)
 	}
 	return (digits);
 }
-
+/*
 #include <stdio.h>
 
 int main(void)
@@ -76,4 +76,4 @@ int main(void)
 	printf("%s\n", ft_itoa(2147483647));
 	printf("%s\n", ft_itoa(-42));
 	printf("%s\n", ft_itoa(42));
-}
+}*/

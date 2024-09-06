@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 19:43:19 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/06 19:59:00 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/06 20:09:57 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ char	*ft_itoa(int n)
 	char	*ptr;
 	int		bytes;
 	int		i;
-	int		check_min;
+	int		check_pos;
 
 	i = 0;
 	bytes = 0;
 	bytes = ft_count_bytes(n);
-	check_min = 2;
+	check_pos = 2;
 	ptr = (char *)malloc (bytes * sizeof(char));
 	if (ptr == 0)
 		return (0);
@@ -37,13 +37,13 @@ char	*ft_itoa(int n)
 	{
 		n = n * (-1);
 		ptr[0] = '-';
-		check_min = 1;
+		check_pos = 1;
 		i = 1;
 	}
 	ptr[bytes - 1] = '\0';
 	while (i < (bytes - 1))
 	{
-		ptr[bytes - check_min - i] = n % 10 + '0';
+		ptr[bytes - check_pos - i] = n % 10 + '0';
 		n = n / 10;
 		i++;
 	}

@@ -2,51 +2,29 @@
 
 // function to check if a character is part of a set
 int		static_checkset(char c, char const *set);
+int 	static_trim_strlen(char const *s1, char const *set, int start);
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	int	start;
-	int	end;
+	//int	end;
 	int	len;
-	int	i;
-	int	j;
+	//int	i;
 	char	*ptr;
 
 	start = 0;
 	// Find the index of the start of the trimmed string
 	while (static_checkset(s1[start], set))
 		start++;
-	end = start;
+	// Find the length of the trimmed string
+	len = static_trim_strlen(s1, set, start);
 
 
 
-	// Make subfunction that returns the length of the trimmed string
-	// Find the index of the end of the trimmed string
-	while (s1)
-	{
-		// increase index as long as checkset is not true
-		while (!static_checkset(s1[end], set) && s1[end])
-			end++;
-		// look for the NUL Byte, if not found before !checkset, start again 
-		i = 0;
-		while (static_checkset(s1[end + i], set) && s1[end])
-		{
-			if (s1[end + i + 1] == '\0')
-				return (end);
-			i++;
-		}
-		end += i;
-	}
 
 
 
-	
 
-
-	// Allocate memory for the trimmed string
-	ptr = (char *)malloc (sizeof(char) * (end - start));
-	if (ptr == 0)
-		return (0);
 	return (ptr);
 }
 
@@ -64,6 +42,32 @@ int		static_checkset(char c, char const *set)
 		i++;
 	}
 	return (check);
+}
+
+int static_trim_strlen(char const *s1, char const *set, int start)
+{
+	int end;
+	int i;
+
+	end = start;
+	i = 0;
+	// Find the index of the end of the trimmed string
+	while (s1)
+	{
+		// increase index as long as checkset is not true
+		while (!static_checkset(s1[end], set) && s1[end])
+			end++;
+		// look for the NUL Byte, if not found before !checkset, start again 
+		i = 0;
+		while (static_checkset(s1[end + i], set) && s1[end])
+		{
+			if (s1[end + i + 1] == '\0')
+				return (end - start);
+			i++;
+		}
+		end += i;
+	}
+
 }
 
 #include <stdio.h>

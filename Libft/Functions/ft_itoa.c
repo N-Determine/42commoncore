@@ -6,13 +6,15 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 19:43:19 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/06 20:20:44 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/06 21:04:30 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
 static int	ft_count_bytes(int n);
+static int	check_int_min(int n);
+static int	min_switch(int *n, int *i, char *ptr);
 
 char	*ft_itoa(int n)
 {
@@ -27,18 +29,10 @@ char	*ft_itoa(int n)
 	ptr = (char *)malloc (bytes * sizeof(char));
 	if (ptr == 0)
 		return (0);
-	if (n == -2147483648)
-	{
-		ptr = "-2147483648";
-		return (ptr);
-	}
+	if (check_int_min(n))
+		return (ptr = "-2147483648");
 	if (n < 0)
-	{
-		n = n * (-1);
-		ptr[0] = '-';
-		check_pos = 1;
-		i = 1;
-	}
+		check_pos = min_switch(&n, &i, ptr);
 	ptr[bytes - 1] = '\0';
 	while (i < (bytes - 1))
 	{
@@ -65,14 +59,29 @@ static int	ft_count_bytes(int n)
 	return (digits);
 }
 
+static int	check_int_min(int n)
+{
+	if (n == -2147483648)
+		return (1);
+	return (0);
+}
+
+static int	min_switch(int *n, int *i, char *ptr)
+{
+	*i = 1;
+	*n = *n * (-1);
+	ptr[0] = '-';
+	return (1);
+}
+/*
 #include <stdio.h>
 
 int main(void)
 {
-	printf("%s\n", ft_itoa(-2147483647));
 	printf("%s\n", ft_itoa(-2147483648));
+	printf("%s\n", ft_itoa(-2147483647));
 	printf("%s\n", ft_itoa(0));
 	printf("%s\n", ft_itoa(2147483647));
 	printf("%s\n", ft_itoa(-42));
 	printf("%s\n", ft_itoa(42));
-}
+}*/

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:08:58 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/07 16:57:38 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/07 17:04:36 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 		return (0);
 	while (i < len)
 	{
-		ptr[i] = f(i, s[i]);
+		ptr[i] = *f(i, s[i]);
 		i++;
 	}
-	return (ptr);
+	return ((char *)ptr);
 }

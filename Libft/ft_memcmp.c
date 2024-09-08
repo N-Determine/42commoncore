@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 14:29:36 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/07 14:34:31 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/08 16:13:07 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
 	unsigned char	*s1_ptr;
 	unsigned char	*s2_ptr;
-	int				i;
+	size_t			i;
 
 	s1_ptr = (unsigned char *)s1;
 	s2_ptr = (unsigned char *)s2;

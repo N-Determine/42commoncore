@@ -12,8 +12,6 @@
 
 #include "libft.h"
 
-int	ft_strlen(char *str);
-
 char	*ft_strdup(const char *s)
 {
 	char	*ptr;
@@ -30,16 +28,6 @@ char	*ft_strdup(const char *s)
 	}
 	ptr[i] = '\0';
 	return (ptr);
-}
-
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
 }
 /*
 #include <stdio.h>

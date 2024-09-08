@@ -5,7 +5,6 @@ SRCS = ft_atoi.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
-	ar rc $(NAME) $(OBJS)
 
 %.o: %.c
 	$(COMP) $(FLAGS) -c $< -o $@

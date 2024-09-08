@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:50:08 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/06 18:43:46 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/08 16:15:59 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ static int	ft_allo_and_copy(char **arr, int arr_len, char const *s, char c)
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	int	i;
-	int	y;
+	size_t	i;
+	int		y;
 
 	i = 0;
 	y = 0;

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:07:29 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/05 13:19:03 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/08 16:18:27 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*ptr;
-	int		i;
+	char		*ptr;
+	size_t		i;
 
 	i = 0;
 	ptr = (char *)malloc((len + 1) * sizeof(char));

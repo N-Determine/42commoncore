@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:08:58 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/07 17:04:36 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/08 11:47:40 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_strlen(char *str);
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char const	*ptr;
+	char		*ptr;
 	int			i;
 	int			len;
 
@@ -27,8 +27,22 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 		return (0);
 	while (i < len)
 	{
-		ptr[i] = *f(i, s[i]);
+		ptr[i] = f(i, s[i]);
 		i++;
 	}
 	return ((char *)ptr);
 }
+/*
+char	test_func(unsigned int i, char c)
+{
+	c = c + (i % 2);
+	return (c);
+}
+
+#include <stdio.h>
+
+int	main(void)
+{
+	char *s = "Hello World!";
+	printf("%s\n", ft_strmapi(s, test_func));
+}*/

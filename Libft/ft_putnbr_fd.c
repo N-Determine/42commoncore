@@ -56,7 +56,7 @@ static int	ft_count_chars(int n)
 	}
 	return (chars);
 }
-
+/*
 #include <stdio.h>
 
 int	main(void)
@@ -67,4 +67,4 @@ int	main(void)
 	printf("\n");
 	ft_putnbr_fd(0, 1);
 	printf("\n");
-}
+}*/

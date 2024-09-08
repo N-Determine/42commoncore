@@ -6,11 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 14:39:38 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:11:47 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/08 16:23:14 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 void	ft_bzero(void *s, size_t n)
 {

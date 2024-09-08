@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 19:43:19 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 19:54:46 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/08 20:05:27 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	ft_count_bytes(int n);
 static int	check_int_min(int n);
 static int	min_switch(int *n, int *i, char *ptr);
+static char	*ft_strcpy(char *dest, const char *src, int size);
 
 char	*ft_itoa(int n)
 {
@@ -30,10 +31,7 @@ char	*ft_itoa(int n)
 	if (ptr == 0)
 		return (0);
 	if (check_int_min(n))
-	{
-		ptr = "-2147483648";
-		return (ptr);
-	}
+		return (ft_strcpy(ptr, "-2147483648", 12));
 	if (n < 0)
 		check_pos = min_switch(&n, &i, ptr);
 	ptr[bytes - 1] = '\0';
@@ -44,6 +42,20 @@ char	*ft_itoa(int n)
 		i++;
 	}
 	return (ptr);
+}
+
+static char	*ft_strcpy(char *dest, const char *src, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
 
 static int	ft_count_bytes(int n)

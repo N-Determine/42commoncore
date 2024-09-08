@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 19:43:19 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/06 21:04:30 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/08 16:10:21 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	*ft_itoa(int n)
 static int	ft_count_bytes(int n)
 {
 	int	digits;
-	int	sign;
 
 	digits = 1;
 	if (n <= 0)

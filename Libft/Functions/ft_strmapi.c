@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:08:58 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 11:47:40 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/08 11:51:18 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 		ptr[i] = f(i, s[i]);
 		i++;
 	}
+	ptr[i] = '\0';
 	return ((char *)ptr);
 }
 /*

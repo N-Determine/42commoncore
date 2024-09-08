@@ -87,7 +87,7 @@ static int	min_switch(int *n, int *i, char *ptr)
 	ptr[0] = '-';
 	return (1);
 }
-
+/*
 #include <stdio.h>
 
 int main(void)
@@ -98,4 +98,4 @@ int main(void)
 	printf("%s\n", ft_itoa(2147483647));
 	printf("%s\n", ft_itoa(-42));
 	printf("%s\n", ft_itoa(42));
-}
+}*/

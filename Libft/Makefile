@@ -5,20 +5,20 @@ SRCS = ft_atoi.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
-	%.o 
+	$(COMP) $(FLAGS) -c $(SRCS) -o $(OBJS)
 
 %.o: %.c
-	$(COMP) $(FLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS)
+$(NAME): %.o
 	ar rc $(NAME) $(OBJS)
 
-clean :
+clean:
 	rm -rf $(OBJS)
 
-fclean : clean
+fclean: clean
 	rm -rf $(NAME)
 
-re : fclean all
+re: fclean all
 
-.PHONY: all clean re
+.PHONY: all clean fclean re

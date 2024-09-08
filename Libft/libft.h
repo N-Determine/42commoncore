@@ -1,9 +1,21 @@
-#ifndef LIBFT_H
-#define LIBFT_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/08 16:33:41 by adeters           #+#    #+#             */
+/*   Updated: 2024/09/08 16:33:42 by adeters          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdint.h>
-#include <unistd.h>
+#ifndef LIBFT_H
+# define LIBFT_H
+
+# include <stdlib.h>
+# include <stdint.h>
+# include <unistd.h>
 
 int		ft_atoi(const char *nptr);
 void	ft_bzero(void *s, size_t n);

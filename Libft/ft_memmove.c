@@ -6,13 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:12:53 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:14:41 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/08 16:28:14 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
-void	*ft_memcpy(void *dest, const void *src, size_t n);
+#include "libft.h"
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {

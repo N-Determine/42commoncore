@@ -6,15 +6,14 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:50:08 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:15:59 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/08 16:29:47 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 static int	ft_arr_len(char const *s, char c);
 static void	ft_free_all(char **arr, int index, int arr_len);
-size_t		ft_strlcpy(char *dest, const char *src, size_t size);
 static int	ft_allo_and_copy(char **arr, int arr_len, char const *s, char c);
 
 char	**ft_split(char const *s, char c)
@@ -91,27 +90,6 @@ static int	ft_allo_and_copy(char **arr, int arr_len, char const *s, char c)
 		index++;
 	}
 	return (1);
-}
-
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
-{
-	size_t	i;
-	int		y;
-
-	i = 0;
-	y = 0;
-	while (src[y])
-		y++;
-	if (size > 0)
-	{
-		while (i < (size - 1))
-		{
-			dest[i] = src[i];
-			i++;
-		}
-		dest[i] = '\0';
-	}
-	return (y);
 }
 
 static void	ft_free_all(char **arr, int index, int arr_len)

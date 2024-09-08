@@ -6,11 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 19:43:19 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:10:21 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/08 16:27:18 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 static int	ft_count_bytes(int n);
 static int	check_int_min(int n);

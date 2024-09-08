@@ -2,6 +2,8 @@
 #define LIBFT_H
 
 #include <stdlib.h>
+#include <stdint.h>
+#include <unistd.h>
 
 int		ft_atoi(const char *nptr);
 void	ft_bzero(void *s, size_t n);

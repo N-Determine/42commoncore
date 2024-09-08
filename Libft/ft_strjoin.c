@@ -6,13 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:02:59 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/05 13:13:54 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/08 16:30:09 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
-int	ft_strlen(char *str);
+#include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -39,16 +37,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	ptr[i + j] = '\0';
 	return (ptr);
-}
-
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
 }
 /*
 #include <stdio.h>

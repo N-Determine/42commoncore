@@ -6,11 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:25:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 15:19:08 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/08 16:30:40 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 static int		ft_checkset(char c, char const *set);
 static int		ft_trim_strlen(char const *s1, char const *set, int start);

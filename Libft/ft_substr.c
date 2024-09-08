@@ -21,7 +21,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	s_len = (unsigned int)ft_strlen(s);
 	if (start > (s_len + 1))
-		return (0);
+		return;
 	else
 		ptr = (char *)malloc((s_len + 1 - start) * sizeof(char));
 	if (ptr == 0)

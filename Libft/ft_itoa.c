@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 19:43:19 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:27:18 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/08 19:54:46 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ char	*ft_itoa(int n)
 	if (ptr == 0)
 		return (0);
 	if (check_int_min(n))
-		return (ptr = "-2147483648");
+	{
+		ptr = "-2147483648";
+		return (ptr);
+	}
 	if (n < 0)
 		check_pos = min_switch(&n, &i, ptr);
 	ptr[bytes - 1] = '\0';
@@ -72,7 +75,7 @@ static int	min_switch(int *n, int *i, char *ptr)
 	ptr[0] = '-';
 	return (1);
 }
-/*
+
 #include <stdio.h>
 
 int main(void)
@@ -83,4 +86,4 @@ int main(void)
 	printf("%s\n", ft_itoa(2147483647));
 	printf("%s\n", ft_itoa(-42));
 	printf("%s\n", ft_itoa(42));
-}*/
+}

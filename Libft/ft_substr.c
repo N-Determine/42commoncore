@@ -13,11 +13,15 @@
 #include "libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char		*ptr;
-	size_t		i;
+{	
+	char			*ptr;
+	size_t			i;
+	unsigned int	s_len;
 
 	i = 0;
+	s_len = (unsigned int)ft_strlen(s);
+	if (start > (s_len + 1))
+		return (0);
 	ptr = (char *)malloc((len + 1) * sizeof(char));
 	if (ptr == 0)
 		return (0);
@@ -35,5 +39,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 int	main(void)
 {
 	char *s = "Ernährungsexperte";
-	printf("%s\n", ft_substr(s, 10, 3));
+	char *s2 = ft_substr(s, 10, 3);
+	if (s2 != 0)
+		printf("%s\n", s2);
+	free(s2);
 }*/

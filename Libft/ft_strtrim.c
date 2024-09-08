@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:25:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:30:40 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/08 16:31:33 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	ft_trim_strlen(char const *s1, char const *set, int start)
 	}
 	return (end - start);
 }
-
+/*
 #include <stdio.h>
 
 int	main(void)
@@ -85,4 +85,4 @@ int	main(void)
 	char *s = "--  .. World. - -";
 	char *set = "- .";
 	printf("%s\n", ft_strtrim(s, set));
-}
+}*/

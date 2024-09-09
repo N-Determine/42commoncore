@@ -20,9 +20,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	i = 0;
 	s_len = (size_t)ft_strlen(s);
-	if (s_len == 0 || (s_len + 1) == start)
-		s_len = 1;
-	if (start > (s_len + 1))
+	if (s_len == 0 || (s_len + 1) <= start)
 	{
 		ptr = (char *)malloc(1);
 		if (ptr == 0)
@@ -31,7 +29,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 			return (ptr);
 	}
 	else
-		ptr = (char *)malloc((s_len + 1 - start) * sizeof(char));
+		ptr = (char *)malloc(len * sizeof(char));
 	if (ptr == 0)
 		return (0);
 	while (i < len && (start + i) < s_len)
@@ -42,7 +40,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ptr[i] = '\0';
 	return (ptr);
 }
-/* 
+
 #include <stdio.h>
 
 int	main(void)
@@ -52,5 +50,5 @@ int	main(void)
 	if (s2 != 0)
 		printf("%s\n", s2);
 	free(s2);
-	printf("%s\n", ft_substr("hola", 4294967295,0));
-}  */
+	printf("%s\n", ft_substr("hola", 4294967295, 0));
+}

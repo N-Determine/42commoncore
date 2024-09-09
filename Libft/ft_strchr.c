@@ -26,7 +26,7 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)&s[i]);
 	return (0);
 }
-
+/* 
 #include <stdio.h>
 #include <string.h>
 
@@ -38,4 +38,4 @@ int	main(void)
 	printf("%s\n", ptr);
 	//printf("%s\n", (char *)0);
 	printf("%s\n", ptr1);
-}
+} */

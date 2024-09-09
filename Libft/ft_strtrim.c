@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static int		ft_checkset(char c, char const *set);
 static int		ft_trim_strlen(char const *s1, char const *set, int start);
@@ -62,7 +63,7 @@ static int	ft_trim_strlen(char const *s1, char const *set, int start)
 
 	end = start;
 	i = 0;
-	while (s1)
+	while (s1[end])
 	{
 		while (!ft_checkset(s1[end], set) && s1[end])
 			end++;
@@ -77,12 +78,12 @@ static int	ft_trim_strlen(char const *s1, char const *set, int start)
 	}
 	return (end - start);
 }
-/*
+
 #include <stdio.h>
 
 int	main(void)
 {
-	char *s = "--  .. World. - -";
-	char *set = "- .";
+	char *s = "- -.. . --Hello World----...-.-  ";
+	char *set = " -.";
 	printf("%s\n", ft_strtrim(s, set));
-}*/
+}

@@ -40,5 +40,5 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 int	main(void)
 {
 	char *s = "Ernährungsexperte";
-	printf("%s\n", ft_substr(s, 10, 3));
+	printf("%s\n", ft_substr(s, 9, 10));
 } */

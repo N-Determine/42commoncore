@@ -21,8 +21,8 @@ char	*ft_strchr(const char *s, int c)
 			return ((char *)&s[i]);
 		i++;
 	}
-	if (s[i] == c)
-		return ((char *)&s[i]);
+	//if (s[i] == c)
+	//	return ((char *)&s[i]);
 	return (0);
 }
 /*
@@ -31,7 +31,10 @@ char	*ft_strchr(const char *s, int c)
 
 int	main(void)
 {
-	char *s = "Hello WorlWd!";
-	printf("%s\n", ft_strchr(s, 'W'));
-	printf("%s\n", strchr(s, 'W'));
+	char *s = "teste";
+	char *ptr = ft_strchr(s, 1);
+	char *ptr1 = strchr(s, 't' + 256);
+	//printf("%s\n", ptr);
+	printf("%s\n", (char *)0);
+	printf("%s\n", ptr1);
 }*/

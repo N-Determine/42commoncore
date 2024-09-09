@@ -19,7 +19,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	unsigned int	s_len;
 
 	i = 0;
-	printf("%u\n", start);
 	s_len = (unsigned int)ft_strlen(s);
 	if (start > (s_len + 1))
 	{

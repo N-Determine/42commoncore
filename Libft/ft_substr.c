@@ -14,12 +14,12 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char			*ptr;
-	size_t			i;
-	unsigned int	s_len;
+	char		*ptr;
+	size_t		i;
+	size_t		s_len;
 
 	i = 0;
-	s_len = (unsigned int)ft_strlen(s);
+	s_len = (size_t)ft_strlen(s);
 	if (start > (s_len + 1))
 	{
 		ptr = (char *)malloc(1);
@@ -27,7 +27,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (ptr);
 	}
 	else
-		ptr = (char *)malloc((s_len + 2 - start) * sizeof(char));
+		ptr = (char *)malloc((s_len + 1 - start) * sizeof(char));
 	if (ptr == 0)
 		return (0);
 	while (i < len && (start + i) < s_len)
@@ -38,15 +38,15 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ptr[i] = '\0';
 	return (ptr);
 }
-/* 
+
 #include <stdio.h>
 
 int	main(void)
 {
-	char *s = "Ernährungsexperte";
+/* 	char *s = "Ernährungsexperte";
 	char *s2 = ft_substr(s, 10, 3);
 	if (s2 != 0)
 		printf("%s\n", s2);
-	free(s2);
+	free(s2); */
 	printf("%s\n", ft_substr("hola", 4294967295,0));
-} */
+} 

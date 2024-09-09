@@ -23,7 +23,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 		y++;
 	if (size > 0)
 	{
-		while (i < (size - 1))
+		while (i < (size - 1) && i < y)
 		{
 			dest[i] = src[i];
 			i++;
@@ -39,9 +39,9 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 int	main(void)
 {
 	char dest1[10];
-	char src1[20] = "worldHellooooooo";
+	char src1[20] = "";
 	char dest2[10];
-	char src2[20] = "worldHellooooooo";
+	char src2[20] = "";
 
 	printf("The result of your function is:\n");
 	printf("%zu\n", ft_strlcpy(dest1, src1, 10));

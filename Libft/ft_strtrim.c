@@ -6,15 +6,15 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:25:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:31:33 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/09 20:16:53 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-static int		ft_checkset(char c, char const *set);
-static int		ft_trim_strlen(char const *s1, char const *set, int start);
+static int	ft_checkset(char c, char const *set);
+static int	ft_trim_strlen(char const *s1, char const *set, int start);
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
@@ -28,7 +28,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (ft_checkset(s1[start], set))
 		start++;
 	size = ft_trim_strlen(s1, set, start) + 1;
-	ptr = (char *) malloc(size * sizeof(char));
+	ptr = (char *)malloc(size * sizeof(char));
 	if (ptr == 0)
 		return (0);
 	while (i < (size - 1))
@@ -78,7 +78,7 @@ static int	ft_trim_strlen(char const *s1, char const *set, int start)
 	}
 	return (end - start);
 }
-
+/* 
 #include <stdio.h>
 
 int	main(void)
@@ -86,4 +86,4 @@ int	main(void)
 	char *s = "- -.. . --Hello World----...-.-  ";
 	char *set = " -.";
 	printf("%s\n", ft_strtrim(s, set));
-}
+} */

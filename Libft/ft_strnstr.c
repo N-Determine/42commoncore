@@ -23,7 +23,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	while (big[i] && i < len)
 	{
 		j = 0;
-		while (big[i + j] == little[j])
+		while (big[i + j] == little[j] && (i + j) < len)
 		{
 			if (little[j + 1] == '\0')
 				return ((char *)&big[i]);
@@ -33,12 +33,16 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	}
 	return (0);
 }
-/*
+/* 
 #include <stdio.h>
 
 int	main(void)
 {
-	char *big = "Hello There";
-	char *little = "There";
-	printf("%s\n", ft_strnstr(big, little, 5));
-}*/
+	char *big = "MZIRIBMZIRIBMZE123";
+	char *little = "MZIRIBMZE";
+	char *test = ft_strnstr(big, little, 9);
+	if (test == 0)
+		printf("%s\n", "(null)");
+	else
+		printf("%s\n", test);
+} */

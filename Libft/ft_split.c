@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:50:08 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/09 20:26:48 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/09 20:43:11 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,7 @@ char	**ft_split(char const *s, char c)
 	arr = (char **)malloc((1 + arr_len) * sizeof(char *));
 	if (arr == 0)
 		return (0);
-	arr[arr_len] = (char *)malloc(sizeof(char));
-	if (arr[arr_len] == 0)
-	{
-		free(arr);
-		return (0);
-	}
-	arr[arr_len][0] = '\0';
+	arr[arr_len] = 0;
 	if (!ft_allo_and_copy(arr, arr_len, s, c))
 		return (0);
 	return (arr);
@@ -50,9 +44,9 @@ static int	ft_arr_len(char const *s, char c)
 	{
 		j = 0;
 		check = 0;
-		while (s[i + j] && s[i + j] == c)
+		while (s[i + j] && s[i + j] == (unsigned char)c)
 			j++;
-		while (s[i + j] && s[i + j] != c)
+		while (s[i + j] && s[i + j] != (unsigned char)c)
 		{
 			j++;
 			check = 1;
@@ -111,18 +105,17 @@ static void	ft_free_all(char **arr, int index, int arr_len)
 		free(arr);
 	}
 }
-/*
+/* 
 #include <stdio.h>
 
 int	main(void)
 {
-	char *s = ",,,,,hello,,,,,,,,,,,there,my,frend,,,,,";
-	char **arr = ft_split(s, ',');
-	printf("%i\n", ft_arr_len(s, ','));
+	//char *s = ",,,,,hello,,,,,,,,,,,there,my,frend,,,,,";
+	char **arr = ft_split(",,,,,,aa,,,,bbb,,,,,", ',');
+	//printf("%i\n", ft_arr_len(s, ','));
 	printf("%s\n", arr[0]);
 	printf("%s\n", arr[1]);
 	printf("%s\n", arr[2]);
-	printf("%s\n", arr[3]);
-	printf("%s\n", arr[4]);
-	ft_free_all(arr, 4, 4);
+	//printf("%s\n", arr[4]);
+	//ft_free_all(arr, 4, 4);
 } */

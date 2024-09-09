@@ -20,23 +20,25 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	while (s1[i] && i < n)
 	{
 		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 		i++;
 	}
 	while (s2[i] && i < n)
 	{
 		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 		i++;
 	}
 	return (0);
 }
 /*
 #include <stdio.h>
+#include <string.h>
 
 int main(void)
 {
-    char *s1 = "ABD";
-    char *s2 = "ABC";
-    printf("%i\n", ft_strncmp(s1, s2, 2));
+    char *s1 = "test\200";
+    char *s2 = "test\0";
+    printf("%i\n", ft_strncmp(s1, s2, 6));
+    printf("%i\n", strncmp(s1, s2, 6));
 }*/

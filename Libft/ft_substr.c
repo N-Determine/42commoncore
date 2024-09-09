@@ -19,9 +19,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	unsigned int	s_len;
 
 	i = 0;
+	printf("%u\n", start);
 	s_len = (unsigned int)ft_strlen(s);
 	if (start > (s_len + 1))
-		return (ptr = (char *)malloc(0));
+	{
+		ptr = (char *)malloc(1);
+		ptr[0] = '\0';
+		return (ptr);
+	}
 	else
 		ptr = (char *)malloc((s_len + 2 - start) * sizeof(char));
 	if (ptr == 0)
@@ -34,7 +39,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ptr[i] = '\0';
 	return (ptr);
 }
-/*
+/* 
 #include <stdio.h>
 
 int	main(void)
@@ -44,4 +49,5 @@ int	main(void)
 	if (s2 != 0)
 		printf("%s\n", s2);
 	free(s2);
-}*/
+	printf("%s\n", ft_substr("hola", 4294967295,0));
+} */

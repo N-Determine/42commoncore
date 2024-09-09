@@ -38,15 +38,15 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ptr[i] = '\0';
 	return (ptr);
 }
-
+/* 
 #include <stdio.h>
 
 int	main(void)
 {
-/* 	char *s = "Ernährungsexperte";
+	char *s = "Ernährungsexperte";
 	char *s2 = ft_substr(s, 10, 3);
 	if (s2 != 0)
 		printf("%s\n", s2);
-	free(s2); */
+	free(s2);
 	printf("%s\n", ft_substr("hola", 4294967295,0));
-} 
+}  */

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:50:08 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:29:47 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/09 20:24:17 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ char	**ft_split(char const *s, char c)
 	char	**arr;
 
 	arr_len = ft_arr_len(s, c);
-	arr = (char **) malloc((1 + arr_len) * sizeof(char *));
+	arr = (char **)malloc((1 + arr_len) * sizeof(char *));
 	if (arr == 0)
 		return (0);
-	arr[arr_len] = (char *)malloc (sizeof(char));
+	arr[arr_len] = (char *)malloc(sizeof(char));
 	if (arr[arr_len] == 0)
 	{
 		free(arr);
@@ -79,7 +79,7 @@ static int	ft_allo_and_copy(char **arr, int arr_len, char const *s, char c)
 		j = 0;
 		while (s[i + j] != c && s[i + j])
 			j++;
-		arr[index] = (char *) malloc(j * sizeof(char) + 1);
+		arr[index] = (char *)malloc(j * sizeof(char) + 1);
 		if (arr[index] == 0)
 		{
 			ft_free_all(arr, index, arr_len);
@@ -114,7 +114,7 @@ static void	ft_free_all(char **arr, int index, int arr_len)
 
 #include <stdio.h>
 
-int main(void)
+int	main(void)
 {
 	char *s = ",,,,,hello,,,,,,,,,,,there,my,frend,,,,,";
 	char **arr = ft_split(s, ',');

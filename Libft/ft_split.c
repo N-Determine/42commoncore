@@ -111,7 +111,7 @@ static void	ft_free_all(char **arr, int index, int arr_len)
 		free(arr);
 	}
 }
-/*
+
 #include <stdio.h>
 
 int main(void)
@@ -125,4 +125,4 @@ int main(void)
 	printf("%s\n", arr[3]);
 	printf("%s\n", arr[4]);
 	ft_free_all(arr, 4, 4);
-}*/
+}

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:50:08 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/09 20:24:17 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/09 20:26:48 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ static void	ft_free_all(char **arr, int index, int arr_len)
 		free(arr);
 	}
 }
-
+/*
 #include <stdio.h>
 
 int	main(void)
@@ -125,4 +125,4 @@ int	main(void)
 	printf("%s\n", arr[3]);
 	printf("%s\n", arr[4]);
 	ft_free_all(arr, 4, 4);
-}
+} */

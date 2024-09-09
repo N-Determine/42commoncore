@@ -15,6 +15,7 @@ char	*ft_strchr(const char *s, int c)
 	int	i;
 
 	i = 0;
+	c = c % 256;
 	while (s[i])
 	{
 		if (s[i] == c)
@@ -25,16 +26,16 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)&s[i]);
 	return (0);
 }
-/*
+
 #include <stdio.h>
 #include <string.h>
 
 int	main(void)
 {
 	char *s = "teste";
-	char *ptr = ft_strchr(s, 1);
+	char *ptr = ft_strchr(s, 't' + 256);
 	char *ptr1 = strchr(s, 't' + 256);
-	//printf("%s\n", ptr);
-	printf("%s\n", (char *)0);
+	printf("%s\n", ptr);
+	//printf("%s\n", (char *)0);
 	printf("%s\n", ptr1);
-}*/
+}

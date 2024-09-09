@@ -18,6 +18,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	unsigned char	*src_ptr;
 	size_t			i;
 
+	if (dest == (void *)0 || src == (void *)0)
+		return (dest);
 	dest_ptr = (unsigned char *)dest;
 	src_ptr = (unsigned char *)src;
 	i = 0;
@@ -35,5 +37,6 @@ int	main(void)
 {
 	char dest[20] = "Hello!!!";
 	char src[20] = "Gfrast";
-	printf("%s\n", (char *)ft_memcpy(dest, src, 6));
+	char *point = (char *)ft_memcpy(dest, (void *)0, 6);
+	printf("%s\n", dest);
 }*/

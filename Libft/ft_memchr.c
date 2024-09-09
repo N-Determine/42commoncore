@@ -21,18 +21,18 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	ptr = (unsigned char *)s;
 	while (i < n)
 	{
-		if (ptr[i] == c)
+		if (ptr[i] == (unsigned char)c)
 			return ((void *)s + i);
 		i++;
 	}
 	return (0);
 }
-/*
+
 #include <stdio.h>
 
 int	main(void)
 {
-	char *s = "Hello World!";
-	char *ptr = ft_memchr(s, 'l', 10);
+	char *s = "/|\x12\xff\x09\x42\2002\42|\\";
+	char *ptr = ft_memchr(s, '\200', 10);
 	printf("%s\n", ptr);
-}*/
+}

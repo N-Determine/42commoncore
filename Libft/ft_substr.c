@@ -23,7 +23,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	sub_len = 0;
 	i = 0;
 	s_len = ft_strlen(s);
-	while (s[sub_len] && sub_len < len)
+	while (s[sub_len] && sub_len < len && (sub_len + start) < s_len)
 		sub_len++;
 	ptr = (char *)malloc((sub_len + 1) * sizeof(char));
 	if (ptr == 0)
@@ -36,9 +36,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	return (ptr);
 }
-/*
+/* 
 int	main(void)
 {
 	char *s = "Ernährungsexperte";
-	printf("%s\n", ft_substr("", 10, 3));
+	printf("%s\n", ft_substr(s, 10, 3));
 } */

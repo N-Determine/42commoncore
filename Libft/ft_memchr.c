@@ -27,7 +27,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	}
 	return (0);
 }
-
+/*
 #include <stdio.h>
 
 int	main(void)
@@ -35,4 +35,4 @@ int	main(void)
 	char *s = "/|\x12\xff\x09\x42\2002\42|\\";
 	char *ptr = ft_memchr(s, '\200', 10);
 	printf("%s\n", ptr);
-}
+}*/

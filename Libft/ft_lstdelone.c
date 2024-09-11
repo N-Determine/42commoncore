@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:25:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/11 12:31:54 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/11 13:06:21 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
 	if (lst != 0)
 	{
-		del(lst);
+		del(lst->content);
 		free(lst);
 	}
 }
-/* 
-void	del_tlist_node(t_list *lst)
+
+void	del_tlist_node(void *content)
 { 
-	free(lst->content);
+	free(content);
 }
 
 #include <stdio.h>
@@ -34,5 +34,5 @@ int	main(void)
 	int size = ft_strlcpy(test, "Hello World", 12);
 	t_list *hello = ft_lstnew(test);
 	printf("%s\n", (char *)hello->content);
-	ft_lstdelone(hello, (void *)del_tlist_node);
-} */
+	ft_lstdelone(hello, del_tlist_node);
+}

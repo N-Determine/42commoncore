@@ -1,0 +1,34 @@
+#include "libft.h"
+
+int	ft_lstsize(t_list *lst)
+{
+	int	counter;
+	t_list *follow;
+
+	if (lst == 0)
+		return (0);
+	counter = 1;
+	follow = lst->next;
+	while (follow != 0)
+	{
+		counter++;
+		follow = follow->next;
+	}
+	return (counter);
+}
+/* 
+#include <stdio.h>
+
+int	main(void)
+{
+	char *text = "Hello";
+	char *text1 = " World!";
+	char *text2 = "Blyat";
+	t_list *node = ft_lstnew(text);
+	t_list *node1 = ft_lstnew(text1);
+	t_list *node2 = ft_lstnew(text2);
+	ft_lstadd_front(&node, node1);
+	ft_lstadd_front(&node1, node2);
+	int size = ft_lstsize(node2);
+	printf("%i\n", size);
+} */

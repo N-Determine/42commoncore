@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:25:05 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/11 12:25:06 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/11 13:23:37 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_lstsize(t_list *lst)
 {
-	int	counter;
-	t_list *follow;
+	int		counter;
+	t_list	*follow;
 
 	if (lst == 0)
 		return (0);
@@ -28,7 +28,7 @@ int	ft_lstsize(t_list *lst)
 	}
 	return (counter);
 }
-/* 
+/*
 #include <stdio.h>
 
 int	main(void)

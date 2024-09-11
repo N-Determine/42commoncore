@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:25:11 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/11 12:25:11 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/11 13:23:45 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	t_list *follow;
+	t_list	*follow;
 
 	if (lst == 0)
 		return (lst);
@@ -25,7 +25,7 @@ t_list	*ft_lstlast(t_list *lst)
 	}
 	return (follow);
 }
-/* 
+/*
 #include <stdio.h>
 
 int	main(void)

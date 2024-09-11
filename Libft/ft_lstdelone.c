@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:25:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/11 13:06:21 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/11 13:24:05 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 		free(lst);
 	}
 }
-
+/*
 void	del_tlist_node(void *content)
-{ 
+{
 	free(content);
 }
 
@@ -35,4 +35,4 @@ int	main(void)
 	t_list *hello = ft_lstnew(test);
 	printf("%s\n", (char *)hello->content);
 	ft_lstdelone(hello, del_tlist_node);
-}
+} */

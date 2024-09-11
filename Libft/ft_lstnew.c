@@ -11,7 +11,7 @@ t_list	*ft_lstnew(void *content)
 	new_node->next = 0;
 	return (new_node);
 }
-
+/* 
 #include <stdio.h>
 
 int	main(void)
@@ -21,4 +21,4 @@ int	main(void)
 	printf("%s\n", (char *)node1->content);
 	printf("%s\n", (char *)node1->next);
 	free(node1);
-}
+} */

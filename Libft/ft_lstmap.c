@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:19:20 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/11 15:58:53 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/11 16:01:10 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static t_list	*ft_dupfail(t_list *dup, int size, void (*del)(void *))
 	ft_lstclear(&dup, del);
 	return (0);
 }
-/*
+
 static void	del(void *content)
 {
 	free(content);
@@ -116,4 +116,4 @@ int	main(void)
 	printf("%s\n", (char *)dup->content);
 	ft_lstclear(&node2, del);
 	ft_lstclear(&dup, del);
-} */
+}

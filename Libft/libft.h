@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:33:41 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/09 21:44:51 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/11 10:44:15 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
+t_list				*ft_lstnew(void *content);
 
 #endif

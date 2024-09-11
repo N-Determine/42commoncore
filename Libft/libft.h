@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:33:41 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/11 10:56:53 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/11 11:34:04 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,7 @@ int					ft_tolower(int c);
 int					ft_toupper(int c);
 t_list				*ft_lstnew(void *content);
 void				ft_lstadd_front(t_list **lst, t_list *new);
+int					ft_lstsize(t_list *lst);
+t_list				*ft_lstlast(t_list *lst);
 
 #endif

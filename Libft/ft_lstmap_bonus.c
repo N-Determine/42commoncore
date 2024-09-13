@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:19:20 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/13 14:05:45 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/13 14:35:05 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	if (dup == 0)
 		return (0);
 	ptr = dup;
-	while (i < size)
+	while (i < (size + 1))
 	{
 		dup->content = ft_strdup(f(lst->content));
 		if (dup->content == 0)

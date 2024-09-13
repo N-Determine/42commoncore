@@ -6,15 +6,13 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:19:20 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/11 16:01:10 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/13 13:07:18 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 static t_list	*ft_lstincrease(t_list *old, int size, void (*del)(void *));
-static void		del(void *content);
-void			*f(void *content);
 static void		ft_free_cont(t_list *dup, int size, void (*del)(void *));
 static t_list	*ft_dupfail(t_list *dup, int size, void (*del)(void *));
 
@@ -58,6 +56,7 @@ static t_list	*ft_lstincrease(t_list *old, int size, void (*del)(void *))
 			ft_lstclear(&old, del);
 			return (0);
 		}
+		node->content = 0;
 		ft_lstadd_front(&old, node);
 		return (ft_lstincrease(node, size - 1, del));
 	}
@@ -83,7 +82,7 @@ static t_list	*ft_dupfail(t_list *dup, int size, void (*del)(void *))
 	ft_lstclear(&dup, del);
 	return (0);
 }
-
+/* 
 static void	del(void *content)
 {
 	free(content);
@@ -116,4 +115,4 @@ int	main(void)
 	printf("%s\n", (char *)dup->content);
 	ft_lstclear(&node2, del);
 	ft_lstclear(&dup, del);
-}
+} */

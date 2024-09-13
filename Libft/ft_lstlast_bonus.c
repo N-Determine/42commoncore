@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:25:11 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/13 13:47:13 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/13 13:55:32 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,9 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	t_list	*follow;
-
-	if (lst->next == 0)
-		return (lst);
-	follow = lst->next;
-	while (follow->next != 0)
-	{
-		follow = follow->next;
-	}
-	return (follow);
+	while (lst->next != 0)
+		lst = lst->next;
+	return (lst);
 }
 /* 
 #include <stdio.h>
@@ -37,8 +30,8 @@ int	main(void)
 	t_list *node1 = ft_lstnew(text1);
 	t_list *node2 = ft_lstnew(text2);
 	ft_lstadd_front(&node, node1);
-	ft_lstadd_front(&node1, node2);
-	t_list *last = ft_lstlast(node2);
+	ft_lstadd_front(&node, node2);
+	t_list *last = ft_lstlast(node);
 	printf("%p\n", last);
-	printf("%p\n", node);
+	printf("%p\n", node1);
 } */

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:25:11 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/13 13:55:32 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/13 13:58:31 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
+	if (lst == 0)
+		return (lst);
 	while (lst->next != 0)
 		lst = lst->next;
 	return (lst);

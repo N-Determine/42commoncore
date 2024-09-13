@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:25:51 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/13 14:04:17 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/13 14:10:03 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 
 	last = ft_lstlast(*lst);
 	if (last != 0)
+	{
 		last->next = new;
+		new->next = 0;
+	}
 }
 /*
 #include <stdio.h>

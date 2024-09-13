@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:25:11 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/11 13:23:45 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/13 13:47:13 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_list	*ft_lstlast(t_list *lst)
 {
 	t_list	*follow;
 
-	if (lst == 0)
+	if (lst->next == 0)
 		return (lst);
 	follow = lst->next;
 	while (follow->next != 0)
@@ -25,7 +25,7 @@ t_list	*ft_lstlast(t_list *lst)
 	}
 	return (follow);
 }
-/*
+/* 
 #include <stdio.h>
 
 int	main(void)

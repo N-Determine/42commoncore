@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/08 16:34:00 by adeters           #+#    #+#              #
-#    Updated: 2024/09/13 13:34:52 by adeters          ###   ########.fr        #
+#    Updated: 2024/09/13 16:14:04 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,4 +46,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

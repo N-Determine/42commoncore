@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:13:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/15 17:26:54 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/15 18:48:16 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 
 #include "libft.h"
 #include <stdarg.h>
-#include <stdio.h>
 #include <unistd.h>
 
 static int	ft_is_specifier(char c);
 static void	ft_var_printer(char code, va_list list);
+void		ft_putunbr_fd(unsigned int n, int fd);
+static void	ft_puthexas(char code, va_list list, int fd);
+void		ft_putnbr_base_fd(int nbr, char *base, int fd);
 
 int	ft_printf(const char *str, ...)
 {
@@ -47,12 +49,13 @@ int	ft_printf(const char *str, ...)
 }
 
 /**
- * @brief Checks if the input character is a specifier or % (in contrast to a flag)
- * 
+ * @brief Checks if the input character is a specifier or
+	% (in contrast to a flag)
+ *
  * @param c The character that needs to be checked
- * 
+ *
  * @return 1 - If the character is a specifier (or %)
- * 
+ *
  * 			0 - If the charater is no a specifier (or %)
  */
 static int	ft_is_specifier(char c)
@@ -79,13 +82,13 @@ static int	ft_is_specifier(char c)
 }
 
 /**
- * @brief Prints the content of the list using a differnt function to print it 
+ * @brief Prints the content of the list using a differnt function to print it
  * depending of the type of content it contains
- * 
+ *
  * @param code The specifier that decides what function needs to be used to
  * print the content
- * 
- * @param list The pointer to the va_list in which the content needs to be printed
+ * @param list The pointer to the va_list in which the content 
+ * needs to be printed
  */
 static void	ft_var_printer(char code, va_list list)
 {
@@ -95,10 +98,51 @@ static void	ft_var_printer(char code, va_list list)
 		ft_putchar_fd((char)va_arg(list, int), 1);
 	else if (code == 'i' || code == 'd')
 		ft_putnbr_fd(va_arg(list, int), 1);
+	else if (code == 'u')
+		ft_putunbr_fd(va_arg(list, unsigned int), 1);
+	else if (code == '%')
+		ft_putchar_fd('%', 1);
+	else if (code == 'p' || code == 'x' || code == 'X')
+		ft_puthexas(code, list, 1);
 }
+
+static void	ft_puthexas(char code, va_list list, int fd)
+{
+	if (code == 'p')
+	{
+		ft_putstr_fd("0x", fd);
+		ft_putnbr_base_fd((long long)va_arg(list, void *), "0123456789abcdef",
+			fd);
+	}
+	else if (code == 'x')
+	{
+		ft_putstr_fd("0x", fd);
+		ft_putnbr_base_fd(va_arg(list, int), "0123456789abcdef", fd);
+	}
+	else if (code == 'X')
+	{
+		ft_putstr_fd("0X", fd);
+		ft_putnbr_base_fd(va_arg(list, int), "0123456789ABCDEF", fd);
+	}
+}
+
+#include <stdio.h>
 
 int	main(void)
 {
+	unsigned int	umax;
+	char			*string;
+
 	ft_printf("I just wanted to say: %s%c%s%c%c%s%i%d\n", "Hello", ' ', "World",
-		'!', ' ', "The year is: ", 20, 24);
+		'!', ' ', "The year is: ", 0x14, 24);
+	ft_printf("But my brain is 100%% sure it is still 2020\n");
+	umax = 4294967295;
+	ft_printf("This is int min: %i\n", -2147483648);
+	string = "I am a String";
+	ft_printf("This is an adress: %p\n", string);
+	ft_printf("This is %i as a lowercase hexadecimal number: %x\n", 123456789,
+		123456789);
+	ft_printf("This is %i as an uppercase hexadecimal number: %X\n", 123456789,
+		123456789);
+	ft_printf("This is unsigned int max: %u\n", umax);
 }

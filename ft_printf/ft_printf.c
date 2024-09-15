@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:13:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/15 18:48:16 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/15 18:56:39 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 static int	ft_is_specifier(char c);
 static void	ft_var_printer(char code, va_list list);
 void		ft_putunbr_fd(unsigned int n, int fd);
-static void	ft_puthexas(char code, va_list list, int fd);
+static void	ft_puthexas_fd(char code, va_list list, int fd);
 void		ft_putnbr_base_fd(int nbr, char *base, int fd);
 
 int	ft_printf(const char *str, ...)
@@ -103,10 +103,20 @@ static void	ft_var_printer(char code, va_list list)
 	else if (code == '%')
 		ft_putchar_fd('%', 1);
 	else if (code == 'p' || code == 'x' || code == 'X')
-		ft_puthexas(code, list, 1);
+		ft_puthexas_fd(code, list, 1);
 }
 
-static void	ft_puthexas(char code, va_list list, int fd)
+/**
+ * @brief This function is used to safe lines in the ft_var_printer function.
+ * 
+ * @param code It takes the codes p, x and X that stand for a pointer or a
+ * number in lowercase or uppercase hexadecimal respectively
+ * 
+ * @param list It takes the same list as the ft_var_printer does
+ * 
+ * @param fd The filedirector it prints to
+ */
+static void	ft_puthexas_fd(char code, va_list list, int fd)
 {
 	if (code == 'p')
 	{

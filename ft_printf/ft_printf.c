@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:13:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/15 19:01:59 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/15 19:06:22 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
  */
 
 #include "libft.h"
-#include <stdarg.h>
-#include <unistd.h>
+#include "libftprintf.h"
 
 static int	ft_is_specifier(char c);
 static void	ft_var_printer(char code, va_list list);
-void		ft_putunbr_fd(unsigned int n, int fd);
 static void	ft_puthexas_fd(char code, va_list list, int fd);
-void		ft_putnbr_base_fd(int nbr, char *base, int fd);
+
 
 int	ft_printf(const char *str, ...)
 {

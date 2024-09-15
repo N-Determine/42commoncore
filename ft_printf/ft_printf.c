@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:13:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/15 18:56:39 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/15 19:01:59 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,25 @@ static void	ft_var_printer(char code, va_list list)
 }
 
 /**
- * @brief This function is used to safe lines in the ft_var_printer function.
+ * @brief Saves lines for the `ft_var_printer` function.
+ *
+ * This function is responsible for handling and saving lines related to 
+ * the formatting and printing of data by the `ft_var_printer` function.
+ *
+ * @param code A character representing the format specifier:
  * 
- * @param code It takes the codes p, x and X that stand for a pointer or a
- * number in lowercase or uppercase hexadecimal respectively
+ *             - `'p'`: Pointer address
  * 
- * @param list It takes the same list as the ft_var_printer does
+ *             - `'x'`: Number in lowercase hexadecimal
  * 
- * @param fd The filedirector it prints to
+ *             - `'X'`: Number in uppercase hexadecimal
+ *
+ * @param list A pointer to the same list of variables used by `ft_var_printer`.
+ *             This list contains the values to be formatted and printed.
+ *
+ * @param fd The file descriptor where the output is printed.
+ *           Typically, this should be `1` for standard output
+ * 				in the ft_var_printer function.
  */
 static void	ft_puthexas_fd(char code, va_list list, int fd)
 {

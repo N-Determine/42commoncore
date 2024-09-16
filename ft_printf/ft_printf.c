@@ -32,6 +32,9 @@ int	ft_printf(const char *str, ...)
 	va_start(args, str);
 	while (str[i])
 	{
+		// Instead loop from % until a specifier or \0 -> Error
+		// Create a function that checks for flags etc. within the loop
+		// Counter für die Minimum Width
 		if (str[i] == '%' && ft_is_specifier(str[i + 1]))
 		{
 			ft_var_printer(str[i + 1], args);
@@ -172,9 +175,9 @@ int	main(void)
 	string = "I am a String";
 	printf("This is an adress: %p\n", string);
 	nptr = 0;
+	ft_printf("This is an adress: %p\n", string);
 	ft_printf("This is a null pointer with %%p: %p\n", nptr);
 	ft_printf("This is a null pointer with %%s: %s\n", nptr);
-	ft_printf("This is an adress: %p\n", string);
 	ft_printf("This is %i as a lowercase hexadecimal number: %x\n", 123456789,
 		123456789);
 	ft_printf("This is %i as an uppercase hexadecimal number: %X\n", 123456789,

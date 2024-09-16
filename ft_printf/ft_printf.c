@@ -151,7 +151,7 @@ static void	ft_puthexas_fd(char code, va_list list, int fd)
 			ft_putnbr_base_fd(vptr, "0123456789abcdef",
 				fd);
 		}
-		else ft_putstr_fd("(null)", fd);
+		else ft_putstr_fd("(nil)", fd);
 	}
 	else if (code == 'x')
 		ft_putnbr_base_fd(va_arg(list, int), "0123456789abcdef", fd);

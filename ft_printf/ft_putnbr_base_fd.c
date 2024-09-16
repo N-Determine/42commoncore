@@ -47,7 +47,7 @@ void	ft_putnbr_base_fd(long long nbr, char *base, int fd)
 	min_div = find_divider(nbr, 16);
 	while (min_div != 1)
 	{
-		write(1, &base[nbr / min_div], fd);
+		write(fd, &base[nbr / min_div], 1);
 		nbr = nbr % min_div;
 		min_div = min_div / 16;
 	}

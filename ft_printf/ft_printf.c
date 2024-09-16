@@ -16,6 +16,7 @@
 
 #include "libft.h"
 #include "libftprintf.h"
+#include <stdio.h>
 
 static int	ft_is_specifier(char c);
 static void	ft_var_printer(char code, va_list list);
@@ -161,7 +162,7 @@ int	main(void)
 	printf("This is an adress: %p\n", string);
 	ft_printf("This is an adress: %p\n", string);
 	ft_printf("This is %i as a lowercase hexadecimal number: %x\n", 123456789,
-		123456789);
+		-123456789);
 	ft_printf("This is %i as an uppercase hexadecimal number: %X\n", 123456789,
 		123456789);
 	ft_printf("This is unsigned int max: %u\n", umax);

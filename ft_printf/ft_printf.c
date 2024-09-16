@@ -62,23 +62,12 @@ int	ft_printf(const char *str, ...)
  */
 static int	ft_is_specifier(char c)
 {
-	if (c == 'c')
+
+	if (c == 's' || c == 'p' || c == 'c')
 		return (1);
-	if (c == 's')
+	if (c == 'd' || c == 'i' || c == 'u')
 		return (1);
-	if (c == 'p')
-		return (1);
-	if (c == 'd')
-		return (1);
-	if (c == 'i')
-		return (1);
-	if (c == 'u')
-		return (1);
-	if (c == 'x')
-		return (1);
-	if (c == 'X')
-		return (1);
-	if (c == '%')
+	if (c == 'x' || c == 'X' || c == '%')
 		return (1);
 	return (0);
 }

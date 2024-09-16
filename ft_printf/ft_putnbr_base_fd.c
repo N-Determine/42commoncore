@@ -11,12 +11,13 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-static int	find_divider(int number, int base_number)
+static long long	find_divider(long long number, long long base_number)
 {
-	int	i;
-	int	n;
-	int	base2;
+	long long	i;
+	long long	n;
+	long long	base2;
 
 	i = 0;
 	n = base_number;
@@ -32,7 +33,7 @@ static int	find_divider(int number, int base_number)
 	return (base2);
 }
 
-static int	base_is_valid(char *base, int base_number)
+static int	base_is_valid(char *base, long long base_number)
 {
 	int	i;
 	int	k;
@@ -61,11 +62,10 @@ static int	base_is_valid(char *base, int base_number)
 	return (1);
 }
 
-void	ft_putnbr_base_fd(int nbr, char *base, int fd)
+void	ft_putnbr_base_fd(long long nbr, char *base, int fd)
 {
-	int	base_number;
-	int	min_div;
-
+	long long	base_number;
+	long long	min_div;
 	if (nbr < 0)
 		write(1, "-", fd);
 	if (nbr < 0)

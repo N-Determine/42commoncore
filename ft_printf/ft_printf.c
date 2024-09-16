@@ -158,6 +158,7 @@ int	main(void)
 	umax = 4294967295;
 	ft_printf("This is int min: %i\n", -2147483648);
 	string = "I am a String";
+	printf("This is an adress: %p\n", string);
 	ft_printf("This is an adress: %p\n", string);
 	ft_printf("This is %i as a lowercase hexadecimal number: %x\n", 123456789,
 		123456789);

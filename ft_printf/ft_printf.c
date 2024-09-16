@@ -91,8 +91,17 @@ static int	ft_is_specifier(char c)
  */
 static void	ft_var_printer(char code, va_list list)
 {
+	char *ptr;
+
+	ptr = 0;
 	if (code == 's')
-		ft_putstr_fd(va_arg(list, char *), 1);
+	{
+		ptr = va_arg(list, char *);
+		if (ptr != 0)
+			ft_putstr_fd(ptr, 1);
+		else
+			ft_putstr_fd("(null)", 1);
+	}
 	else if (code == 'c')
 		ft_putchar_fd((char)va_arg(list, int), 1);
 	else if (code == 'i' || code == 'd')
@@ -128,22 +137,23 @@ static void	ft_var_printer(char code, va_list list)
  */
 static void	ft_puthexas_fd(char code, va_list list, int fd)
 {
+	long long vptr;
+
 	if (code == 'p')
 	{
-		ft_putstr_fd("0x", fd);
-		ft_putnbr_base_fd((long long)va_arg(list, void *), "0123456789abcdef",
-			fd);
+		vptr = (long long)va_arg(list, void *);
+		if (vptr != 0)
+		{
+			ft_putstr_fd("0x", fd);
+			ft_putnbr_base_fd(vptr, "0123456789abcdef",
+				fd);
+		}
+		else ft_putstr_fd("(null)", fd);
 	}
 	else if (code == 'x')
-	{
-		ft_putstr_fd("0x", fd);
 		ft_putnbr_base_fd(va_arg(list, int), "0123456789abcdef", fd);
-	}
 	else if (code == 'X')
-	{
-		ft_putstr_fd("0X", fd);
 		ft_putnbr_base_fd(va_arg(list, int), "0123456789ABCDEF", fd);
-	}
 }
 
 #include <stdio.h>
@@ -151,6 +161,7 @@ static void	ft_puthexas_fd(char code, va_list list, int fd)
 int	main(void)
 {
 	unsigned int	umax;
+	char			*nptr;
 	char			*string;
 
 	ft_printf("I just wanted to say: %s%c%s%c%c%s%i%d\n", "Hello", ' ', "World",
@@ -160,9 +171,12 @@ int	main(void)
 	ft_printf("This is int min: %i\n", -2147483648);
 	string = "I am a String";
 	printf("This is an adress: %p\n", string);
+	nptr = 0;
+	ft_printf("This is a null pointer with %%p: %p\n", nptr);
+	ft_printf("This is a null pointer with %%s: %s\n", nptr);
 	ft_printf("This is an adress: %p\n", string);
 	ft_printf("This is %i as a lowercase hexadecimal number: %x\n", 123456789,
-		-123456789);
+		123456789);
 	ft_printf("This is %i as an uppercase hexadecimal number: %X\n", 123456789,
 		123456789);
 	ft_printf("This is unsigned int max: %u\n", umax);

@@ -32,59 +32,24 @@ static long long	find_divider(long long number, long long base_number)
 		base2 = base2 * n;
 	return (base2);
 }
-
-static int	base_is_valid(char *base, long long base_number)
-{
-	int	i;
-	int	k;
-
-	i = 0;
-	k = 0;
-	if (base_number <= 1)
-		return (0);
-	while (base[i])
-	{
-		if (base[i] == '+' || base[i] == '-')
-			return (0);
-		i++;
-	}
-	while (base[i])
-	{
-		k = i + 1;
-		while (base[k])
-		{
-			if (base[i] == base[k])
-				return (0);
-			k++;
-		}
-		i++;
-	}
-	return (1);
-}
-
 void	ft_putnbr_base_fd(long long nbr, char *base, int fd)
 {
-	long long	base_number;
 	long long	min_div;
 	if (nbr < 0)
-		write(1, "-", fd);
+		write(fd, "-", 1);
 	if (nbr < 0)
 		nbr = nbr * -1;
-	base_number = 0;
 	if (nbr == 0)
-		write(1, &base[0], fd);
-	if (nbr == 0)
+	{
+		write(fd, &base[0], 1);
 		return ;
-	while (base[base_number])
-		base_number++;
-	if (!base_is_valid(base, base_number))
-		return ;
-	min_div = find_divider(nbr, base_number);
+	}
+	min_div = find_divider(nbr, 16);
 	while (min_div != 1)
 	{
 		write(1, &base[nbr / min_div], fd);
 		nbr = nbr % min_div;
-		min_div = min_div / base_number;
+		min_div = min_div / 16;
 	}
-	write(1, &base[nbr / min_div], fd);
+	write(fd, &base[nbr], 1);
 }

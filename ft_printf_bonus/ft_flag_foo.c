@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnumbers_fd.c                                 :+:      :+:    :+:   */
+/*   ft_flag_foo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 14:29:51 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 20:32:12 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/18 21:07:03 by adeters           #+#    #+#             */
+/*   Updated: 2024/09/18 21:26:56 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft.h"
 
-int	ft_putnumbers_fd(char code, va_list list, int plus_ident, int fd)
+void	ft_init_flags(t_bonus_flags *flag)
 {
-	int	i;
+	flag->hexa_ident = 0;
+	flag->plus_ident = 0;
+	flag->space_ident = 0;
+}
 
-	i = 0;
-	if (code == 'i' || code == 'd')
-	{
-		i = va_arg(list, int);
-		if (plus_ident == 1 && i >= 0)
-			write(fd, "+", 1);
-		ft_putnbr_fd(i, fd);
-		return (ft_count_bytes(i));
-	}
-	else if (code == 'u')
-		return (ft_putunbr_fd(va_arg(list, unsigned int), fd));
-	return (-1);
+void	ft_check_flags(t_bonus_flags *flag, char flag_code)
+{
+	if (flag_code == '#')
+		flag->hexa_ident = 1;
+	if (flag_code == '+')
+		flag->plus_ident = 1;
+	if (flag_code == ' ')
+		flag->space_ident = 1;
 }

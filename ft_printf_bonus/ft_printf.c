@@ -6,27 +6,26 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:13:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 20:02:07 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/18 21:44:00 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "ft_printf.h"
-#include <stdio.h>
+#include "libft.h"
 #include <limits.h>
+#include <stdio.h>
 
-static int	ft_is_specifier(char c);
-static int	ft_var_printer(char code, va_list list);
+static int	ft_var_printer(char code, va_list list, int plus_ident);
 static int	ft_is_flag(char c);
+static int	ft_print_by_flags(t_bonus_flags flag, char code, va_list list,
+				int bytes_written);
+static int	ft_save_lines(const char *str, int *i, int bytes_written,
+				va_list args);
 
 int	ft_printf(const char *str, ...)
 {
 	int		i;
 	int		bytes_written;
-	int		hexa_ident = 0;
-	int		plus_ident = 0;
-	int		space_ident = 0;
-	int		minus_ident = 0;
 	va_list	args;
 
 	i = 0;
@@ -35,54 +34,12 @@ int	ft_printf(const char *str, ...)
 		return (-1);
 	va_start(args, str);
 	while (str[i])
-	{
-		
-		if (str[i] == '%')
-		{
-			i++;
-			while (str[i] && !ft_is_specifier(str[i]) && ft_is_flag(str[i]))
-			{
-				// Check for flags
-				if (str[i] == '#')
-					hexa_ident = 1;
-				if (str[i] == '+')
-					plus_ident = 1;
-				if (str[i] == ' ')
-					space_ident = 1;
-				i++;
-			}
-			// Do the thing that the flags do
-			if ((str[i] == 'x' || str[i] == 'X') && hexa_ident == 1)
-			{
-				ft_puthexaident_fd(str[i], 1);
-				bytes_written += ft_var_printer(str[i], args) + 2;
-			}
-			else if (ft_is_specifier(str[i]) == 2 && plus_ident == 1)
-			{
-				ft_putchar_fd('+', 1);
-				bytes_written += ft_var_printer(str[i], args) + 1;
-			}
-			else if (ft_is_specifier(str[i]) == 2 && space_ident == 1)
-			{
-				ft_putchar_fd(' ', 1);
-				bytes_written += ft_var_printer(str[i], args) + 1;
-			}
-			else 
-				bytes_written += ft_var_printer(str[i], args);
-			i++;
-		}
-		if (str[i] && str[i] != '%')
-		{
-			write(1, &str[i], 1);
-			bytes_written++;
-			i++;
-		}
-	}
+		bytes_written = ft_save_lines(str, &i, bytes_written, args);
 	va_end(args);
 	return (bytes_written);
 }
 
-static int ft_is_flag(char c)
+static int	ft_is_flag(char c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
@@ -90,27 +47,6 @@ static int ft_is_flag(char c)
 		return (1);
 	else if (c == '.' || c == '-')
 		return (1);
-	return (0);
-}
-
-/**
- * @brief Checks if the input character is a specifier or
-	% (in contrast to a flag)
- *
- * @param c The character that needs to be checked
- *
- * @return 1 - If the character is a specifier (or %)
- *
- * 			0 - If the charater is no a specifier (or %)
- */
-static int	ft_is_specifier(char c)
-{
-	if (c == 's' || c == 'p' || c == 'c')
-		return (1);
-	if (c == 'd' || c == 'i' || c == 'u')
-		return (2);
-	if (c == 'x' || c == 'X' || c == '%')
-		return (3);
 	return (0);
 }
 
@@ -123,7 +59,7 @@ static int	ft_is_specifier(char c)
  * @param list The pointer to the va	_list in which the content
  * needs to be printed
  */
-static int	ft_var_printer(char code, va_list list)
+static int	ft_var_printer(char code, va_list list, int plus_ident)
 {
 	char	*ptr;
 
@@ -142,20 +78,66 @@ static int	ft_var_printer(char code, va_list list)
 	else if (code == 'c' || code == '%')
 		return (ft_putchars_fd(code, list));
 	else if (code == 'i' || code == 'd' || code == 'u')
-		return (ft_putnumbers_fd(code, list, 1));
+		return (ft_putnumbers_fd(code, list, plus_ident, 1));
 	else if (code == 'p' || code == 'x' || code == 'X')
 		return (ft_puthexas_fd(code, list, 1));
 	return (-1);
 }
 
+static int	ft_print_by_flags(t_bonus_flags flag, char code, va_list list,
+		int bytes_written)
+{
+	if ((code == 'x' || code == 'X') && flag.hexa_ident == 1)
+	{
+		ft_puthexaident_fd(code, 1);
+		bytes_written += ft_var_printer(code, list, flag.plus_ident) + 2;
+	}
+	else if ((code == 'd' || code == 'i') && flag.plus_ident == 1)
+		bytes_written += ft_var_printer(code, list, flag.plus_ident)
+			+ flag.plus_ident;
+	else if (ft_is_specifier(code) == 2 && flag.space_ident == 1)
+	{
+		ft_putchar_fd(' ', 1);
+		bytes_written += ft_var_printer(code, list, flag.plus_ident) + 1;
+	}
+	else
+		bytes_written += ft_var_printer(code, list, flag.plus_ident);
+	return (bytes_written);
+}
+
+static int	ft_save_lines(const char *str, int *i, int bytes_written,
+		va_list args)
+{
+	int				a;
+	t_bonus_flags	flag;
+
+	a = *i;
+	if (str[a] == '%')
+	{
+		a++;
+		ft_init_flags(&flag);
+		while (str[a] && !ft_is_specifier(str[a]) && ft_is_flag(str[a]))
+			ft_check_flags(&flag, str[a++]);
+		bytes_written = ft_print_by_flags(flag, str[a++], args, bytes_written);
+	}
+	if (str[a] && str[a] != '%')
+	{
+		write(1, &str[a], 1);
+		bytes_written++;
+		a++;
+	}
+	*i = a;
+	return (bytes_written);
+}
+/* 
 #include <stdio.h>
 
 int	main(void)
 {
-	unsigned int	umax;
-	char			*nptr;
-	char			*string;
-	int				check;
+	unsigned int umax;
+	char *nptr;
+	char *string;
+	int check;
 
 	ft_printf("I just wanted to say: %s%c%s%c%c%s%i%d\n", "Hello", ' ', "World",
 		'!', ' ', "The year is: ", 0x14, 24);
@@ -168,8 +150,8 @@ int	main(void)
 	ft_printf("This is an adress: %p\n", string);
 	ft_printf("This is a null pointer with %%p: %p\n", nptr);
 	ft_printf("This is a null pointer with %%s: %s\n", nptr);
-	ft_printf("This is %i as a lowercase hexadecimal number: %x\n",\
-	 -2147483648, -2147483648);
+	ft_printf("This is %i as a lowercase hexadecimal number: %x\n", -2147483648,
+		-2147483648);
 	ft_printf("This is %i as an uppercase hexadecimal number: %X\n", 123456789,
 		123456789);
 	ft_printf("This is unsigned int max: %u\n", umax);
@@ -178,6 +160,5 @@ int	main(void)
 	ft_printf("%x\n", 120);
 	ft_printf("%#x\n", 120);
 	ft_printf("%+i\n", 120);
-	printf("% i\n", 120);
 	ft_printf("%+i\n", -120);
-}
+} */

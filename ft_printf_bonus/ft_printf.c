@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:13:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 21:44:00 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/18 22:08:26 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <limits.h>
 #include <stdio.h>
 
-static int	ft_var_printer(char code, va_list list, int plus_ident);
+static int	ft_var_printer(char code, va_list list, t_bonus_flags flag);
 static int	ft_is_flag(char c);
 static int	ft_print_by_flags(t_bonus_flags flag, char code, va_list list,
 				int bytes_written);
@@ -59,7 +59,7 @@ static int	ft_is_flag(char c)
  * @param list The pointer to the va	_list in which the content
  * needs to be printed
  */
-static int	ft_var_printer(char code, va_list list, int plus_ident)
+static int	ft_var_printer(char code, va_list list, t_bonus_flags flag)
 {
 	char	*ptr;
 
@@ -78,7 +78,7 @@ static int	ft_var_printer(char code, va_list list, int plus_ident)
 	else if (code == 'c' || code == '%')
 		return (ft_putchars_fd(code, list));
 	else if (code == 'i' || code == 'd' || code == 'u')
-		return (ft_putnumbers_fd(code, list, plus_ident, 1));
+		return (ft_putnumbers_fd(code, list, flag, 1));
 	else if (code == 'p' || code == 'x' || code == 'X')
 		return (ft_puthexas_fd(code, list, 1));
 	return (-1);
@@ -90,18 +90,14 @@ static int	ft_print_by_flags(t_bonus_flags flag, char code, va_list list,
 	if ((code == 'x' || code == 'X') && flag.hexa_ident == 1)
 	{
 		ft_puthexaident_fd(code, 1);
-		bytes_written += ft_var_printer(code, list, flag.plus_ident) + 2;
+		bytes_written += ft_var_printer(code, list, flag) + 2;
 	}
 	else if ((code == 'd' || code == 'i') && flag.plus_ident == 1)
-		bytes_written += ft_var_printer(code, list, flag.plus_ident)
-			+ flag.plus_ident;
+		bytes_written += ft_var_printer(code, list, flag);
 	else if (ft_is_specifier(code) == 2 && flag.space_ident == 1)
-	{
-		ft_putchar_fd(' ', 1);
-		bytes_written += ft_var_printer(code, list, flag.plus_ident) + 1;
-	}
+		bytes_written += ft_var_printer(code, list, flag);
 	else
-		bytes_written += ft_var_printer(code, list, flag.plus_ident);
+		bytes_written += ft_var_printer(code, list, flag);
 	return (bytes_written);
 }
 
@@ -160,5 +156,6 @@ int	main(void)
 	ft_printf("%x\n", 120);
 	ft_printf("%#x\n", 120);
 	ft_printf("%+i\n", 120);
-	ft_printf("%+i\n", -120);
+	ft_printf("% i\n", -120);
+	printf("% i\n", -120);
 } */

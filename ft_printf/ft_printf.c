@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:13:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 14:31:09 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/18 14:50:34 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static int	ft_var_printer(char code, va_list list)
 		return (ft_puthexas_fd(code, list, 1));
 	return (-1);
 }
-
+/* 
 #include <stdio.h>
 
 int	main(void)
@@ -124,4 +124,4 @@ int	main(void)
 	ft_printf("This is %i as an uppercase hexadecimal number: %X\n", 123456789,
 		123456789);
 	ft_printf("This is unsigned int max: %u\n", umax);
-}
+} */

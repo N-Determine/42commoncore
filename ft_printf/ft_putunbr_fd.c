@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 12:43:33 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/15 19:06:44 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/18 13:54:53 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_count_chars(unsigned int n);
 
-void	ft_putunbr_fd(unsigned int n, int fd)
+int	ft_putunbr_fd(unsigned int n, int fd)
 {
 	char	nbr[9];
 	int		chars;
@@ -25,7 +25,10 @@ void	ft_putunbr_fd(unsigned int n, int fd)
 	first_ind = 9 - chars;
 	i = 0;
 	if (n == 0)
+	{
 		write (fd, "0", 1);
+		return (1);
+	}
 	while (n > 0)
 	{
 		nbr[(first_ind + (chars - 1)) - i] = n % 10 + '0';
@@ -33,6 +36,7 @@ void	ft_putunbr_fd(unsigned int n, int fd)
 		i++;
 	}
 	write(fd, &nbr[first_ind], chars);
+	return (chars);
 }
 
 static int	ft_count_chars(unsigned int n)

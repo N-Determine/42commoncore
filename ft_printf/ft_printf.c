@@ -6,48 +6,42 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:13:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/15 19:06:22 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/18 14:31:09 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/**
- * Lets make the most simple printf possible as a first test
- */
 
 #include "libft.h"
 #include "libftprintf.h"
 #include <stdio.h>
 
 static int	ft_is_specifier(char c);
-static void	ft_var_printer(char code, va_list list);
-static void	ft_puthexas_fd(char code, va_list list, int fd);
-
+static int	ft_var_printer(char code, va_list list);
 
 int	ft_printf(const char *str, ...)
 {
 	int		i;
+	int		bytes_written;
 	va_list	args;
 
 	i = 0;
+	bytes_written = 0;
 	va_start(args, str);
 	while (str[i])
 	{
-		// Instead loop from % until a specifier or \0 -> Error
-		// Create a function that checks for flags etc. within the loop
-		// Counter für die Minimum Width
 		if (str[i] == '%' && ft_is_specifier(str[i + 1]))
 		{
-			ft_var_printer(str[i + 1], args);
+			bytes_written += ft_var_printer(str[i + 1], args);
 			i += 2;
 		}
 		if (str[i] && str[i] != '%')
 		{
 			write(1, &str[i], 1);
+			bytes_written++;
 			i++;
 		}
 	}
 	va_end(args);
-	return (1);
+	return (bytes_written);
 }
 
 /**
@@ -62,7 +56,6 @@ int	ft_printf(const char *str, ...)
  */
 static int	ft_is_specifier(char c)
 {
-
 	if (c == 's' || c == 'p' || c == 'c')
 		return (1);
 	if (c == 'd' || c == 'i' || c == 'u')
@@ -78,74 +71,32 @@ static int	ft_is_specifier(char c)
  *
  * @param code The specifier that decides what function needs to be used to
  * print the content
- * @param list The pointer to the va_list in which the content 
+ * @param list The pointer to the va	_list in which the content
  * needs to be printed
  */
-static void	ft_var_printer(char code, va_list list)
+static int	ft_var_printer(char code, va_list list)
 {
-	char *ptr;
+	char	*ptr;
 
 	ptr = 0;
 	if (code == 's')
 	{
 		ptr = va_arg(list, char *);
 		if (ptr != 0)
-			ft_putstr_fd(ptr, 1);
+			return (ft_putstr_fd_retbytes(ptr, 1));
 		else
-			ft_putstr_fd("(null)", 1);
-	}
-	else if (code == 'c')
-		ft_putchar_fd((char)va_arg(list, int), 1);
-	else if (code == 'i' || code == 'd')
-		ft_putnbr_fd(va_arg(list, int), 1);
-	else if (code == 'u')
-		ft_putunbr_fd(va_arg(list, unsigned int), 1);
-	else if (code == '%')
-		ft_putchar_fd('%', 1);
-	else if (code == 'p' || code == 'x' || code == 'X')
-		ft_puthexas_fd(code, list, 1);
-}
-
-/**
- * @brief Saves lines for the `ft_var_printer` function.
- *
- * This function is responsible for handling and saving lines related to 
- * the formatting and printing of data by the `ft_var_printer` function.
- *
- * @param code A character representing the format specifier:
- * 
- *             - `'p'`: Pointer address
- * 
- *             - `'x'`: Number in lowercase hexadecimal
- * 
- *             - `'X'`: Number in uppercase hexadecimal
- *
- * @param list A pointer to the same list of variables used by `ft_var_printer`.
- *             This list contains the values to be formatted and printed.
- *
- * @param fd The file descriptor where the output is printed.
- *           Typically, this should be `1` for standard output
- * 				in the ft_var_printer function.
- */
-static void	ft_puthexas_fd(char code, va_list list, int fd)
-{
-	long long vptr;
-
-	if (code == 'p')
-	{
-		vptr = (long long)va_arg(list, void *);
-		if (vptr != 0)
 		{
-			ft_putstr_fd("0x", fd);
-			ft_putnbr_base_fd(vptr, "0123456789abcdef",
-				fd);
+			ft_putstr_fd("(null)", 1);
+			return (0);
 		}
-		else ft_putstr_fd("(nil)", fd);
 	}
-	else if (code == 'x')
-		ft_putnbr_base_fd(va_arg(list, int), "0123456789abcdef", fd);
-	else if (code == 'X')
-		ft_putnbr_base_fd(va_arg(list, int), "0123456789ABCDEF", fd);
+	else if (code == 'c' || code == '%')
+		return (ft_putchars_fd(code, list));
+	else if (code == 'i' || code == 'd' || code == 'u')
+		return (ft_putnumbers_fd(code, list, 1));
+	else if (code == 'p' || code == 'x' || code == 'X')
+		return (ft_puthexas_fd(code, list, 1));
+	return (-1);
 }
 
 #include <stdio.h>
@@ -155,6 +106,7 @@ int	main(void)
 	unsigned int	umax;
 	char			*nptr;
 	char			*string;
+	int				check;
 
 	ft_printf("I just wanted to say: %s%c%s%c%c%s%i%d\n", "Hello", ' ', "World",
 		'!', ' ', "The year is: ", 0x14, 24);

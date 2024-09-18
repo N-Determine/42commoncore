@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:13:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 17:58:28 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/18 18:24:37 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 static int	ft_is_specifier(char c);
 static int	ft_var_printer(char code, va_list list);
+static int	ft_is_flag(char c);
 
 int	ft_printf(const char *str, ...)
 {
@@ -31,10 +32,16 @@ int	ft_printf(const char *str, ...)
 	va_start(args, str);
 	while (str[i])
 	{
-		if (str[i] == '%' && ft_is_specifier(str[i + 1]))
+		
+		if (str[i] == '%')
 		{
-			bytes_written += ft_var_printer(str[i + 1], args);
-			i += 2;
+			i++;
+			while (str[i] && !ft_is_specifier(str[i]) && ft_is_flag(str[i]))
+			{
+				i++;
+			}
+			bytes_written += ft_var_printer(str[i], args);
+			i++;
 		}
 		if (str[i] && str[i] != '%')
 		{
@@ -45,6 +52,17 @@ int	ft_printf(const char *str, ...)
 	}
 	va_end(args);
 	return (bytes_written);
+}
+
+static int ft_is_flag(char c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	else if (c == '#' || c == ' ' || c == '+')
+		return (1);
+	else if (c == '.' || c == '-')
+		return (1);
+	return (0);
 }
 
 /**
@@ -101,7 +119,7 @@ static int	ft_var_printer(char code, va_list list)
 		return (ft_puthexas_fd(code, list, 1));
 	return (-1);
 }
-/* 
+
 #include <stdio.h>
 
 int	main(void)
@@ -127,6 +145,6 @@ int	main(void)
 	ft_printf("This is %i as an uppercase hexadecimal number: %X\n", 123456789,
 		123456789);
 	ft_printf("This is unsigned int max: %u\n", umax);
-	check = ft_printf("%p", LONG_MAX);
+	check = ft_printf("%p\n", LONG_MAX);
 	ft_printf("%i\n", check);
-} */
+}

@@ -13,6 +13,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 #include <stdio.h>
+#include <limits.h>
 
 static int	ft_is_specifier(char c);
 static int	ft_var_printer(char code, va_list list);
@@ -119,9 +120,12 @@ int	main(void)
 	ft_printf("This is an adress: %p\n", string);
 	ft_printf("This is a null pointer with %%p: %p\n", nptr);
 	ft_printf("This is a null pointer with %%s: %s\n", nptr);
-	ft_printf("This is %i as a lowercase hexadecimal number: %x\n", 123456789,
-		123456789);
+	ft_printf("This is %i as a lowercase hexadecimal number: %x\n", -2147483648, -2147483648);
 	ft_printf("This is %i as an uppercase hexadecimal number: %X\n", 123456789,
 		123456789);
 	ft_printf("This is unsigned int max: %u\n", umax);
+	check = ft_printf("%x\n", -1);
+	ft_printf("%i\n", check);
+	check = printf("%x\n", -1);
+	ft_printf("%i\n", check);
 } */

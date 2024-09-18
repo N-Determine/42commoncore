@@ -32,8 +32,8 @@ int	ft_puthexas_fd(char code, va_list list, int fd)
 		}
 	}
 	else if (code == 'x')
-		return (ft_putnbr_base_fd(va_arg(list, int), "0123456789abcdef", fd));
+		return (ft_putnbr_base_fd(va_arg(list, unsigned int), "0123456789abcdef", fd));
 	else if (code == 'X')
-		return (ft_putnbr_base_fd(va_arg(list, int), "0123456789ABCDEF", fd));
+		return (ft_putnbr_base_fd(va_arg(list, unsigned int), "0123456789ABCDEF", fd));
 	return (-1);
 }

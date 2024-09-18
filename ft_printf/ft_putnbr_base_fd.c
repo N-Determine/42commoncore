@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include <stdio.h>
+#include <limits.h>
 
 static long long	find_divider(long long number, long long base_number)
 {
@@ -22,6 +23,7 @@ static long long	find_divider(long long number, long long base_number)
 	i = 0;
 	n = base_number;
 	base2 = base_number;
+
 	if (number / base_number)
 	{
 		while (number / base_number)
@@ -45,9 +47,10 @@ int	ft_putnbr_base_fd(long long nbr, char *base, int fd)
 
 	bytes_written = 0;
 	if (nbr < 0)
-		write(fd, "-", 1);
-	if (nbr < 0)
+	{	write(fd, "-", 1);
 		nbr = nbr * -1;
+		bytes_written = 1;
+	}
 	if (nbr == 0)
 	{
 		write(fd, &base[0], 1);

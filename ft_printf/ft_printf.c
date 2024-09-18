@@ -26,6 +26,8 @@ int	ft_printf(const char *str, ...)
 
 	i = 0;
 	bytes_written = 0;
+	if (str == 0)
+		return (-1);
 	va_start(args, str);
 	while (str[i])
 	{
@@ -99,10 +101,10 @@ static int	ft_var_printer(char code, va_list list)
 		return (ft_puthexas_fd(code, list, 1));
 	return (-1);
 }
-/* 
+
 #include <stdio.h>
 
-int	main(void)
+/* int	main(void)
 {
 	unsigned int	umax;
 	char			*nptr;
@@ -124,8 +126,12 @@ int	main(void)
 	ft_printf("This is %i as an uppercase hexadecimal number: %X\n", 123456789,
 		123456789);
 	ft_printf("This is unsigned int max: %u\n", umax);
-	check = ft_printf("%x\n", -1);
+	check = ft_printf("%p", LONG_MAX);
 	ft_printf("%i\n", check);
-	check = printf("%x\n", -1);
-	ft_printf("%i\n", check);
+} */
+
+/* int	main(void)
+{
+	ft_printf("%p\n", ULONG_MAX);
+	printf("%p\n", ULONG_MAX);
 } */

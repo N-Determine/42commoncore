@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd_retbytes.c                            :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 14:02:09 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 14:16:35 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/05 12:10:24 by adeters           #+#    #+#             */
+/*   Updated: 2024/09/11 13:51:24 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-
-int	ft_putstr_fd_retbytes(char *str, int fd)
+int	ft_tolower(int c)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	write(fd, str, i);
-	return (i);
+	if (c >= 'A' && c <= 'Z')
+		return (c + 32);
+	return (c);
 }
+/*
+#include <stdio.h>
+
+int	main(void)
+{
+	printf("%c\n", ft_tolower('B'));
+	printf("%c\n", ft_tolower('A'));
+	printf("%c\n", ft_tolower('Z'));
+	printf("%c\n", ft_tolower('a'));
+	printf("%c\n", ft_tolower(' '));
+	printf("%c\n", ft_tolower('?'));
+	printf("%c\n", ft_tolower('5'));
+}*/

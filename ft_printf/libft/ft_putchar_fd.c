@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd_retbytes.c                            :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 14:02:09 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 14:16:35 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/08 12:14:09 by adeters           #+#    #+#             */
+/*   Updated: 2024/09/08 16:29:05 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstr_fd_retbytes(char *str, int fd)
+void	ft_putchar_fd(char c, int fd)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	write(fd, str, i);
-	return (i);
+	write (fd, &c, 1);
 }
+/*
+int	main(void)
+{
+	ft_putchar_fd('c', 1);
+}*/

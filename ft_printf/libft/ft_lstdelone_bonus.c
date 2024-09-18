@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnumbers_fd.c                                 :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 14:29:51 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 14:50:40 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/11 12:25:40 by adeters           #+#    #+#             */
+/*   Updated: 2024/09/11 13:24:05 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "libft.h"
 
-int	ft_putnumbers_fd(char code, va_list list, int fd)
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	int	i;
-
-	i = 0;
-	if (code == 'i' || code == 'd')
+	if (lst != 0)
 	{
-		i = va_arg(list, int);
-		ft_putnbr_fd(i, fd);
-		return (ft_count_bytes(i));
+		del(lst->content);
+		free(lst);
 	}
-	else if (code == 'u')
-		return (ft_putunbr_fd(va_arg(list, unsigned int), fd));
-	return (-1);
 }
+/*
+void	del_tlist_node(void *content)
+{
+	free(content);
+}
+
+#include <stdio.h>
+
+int	main(void)
+{
+	char *test = (char *)malloc(12 * sizeof(char));
+	int size = ft_strlcpy(test, "Hello World", 12);
+	t_list *hello = ft_lstnew(test);
+	printf("%s\n", (char *)hello->content);
+	ft_lstdelone(hello, del_tlist_node);
+} */

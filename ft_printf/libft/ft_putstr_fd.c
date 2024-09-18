@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd_retbytes.c                            :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 14:02:09 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 14:16:35 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/08 12:18:03 by adeters           #+#    #+#             */
+/*   Updated: 2024/09/15 17:24:47 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstr_fd_retbytes(char *str, int fd)
+/**
+ * @brief Outputs the string ’s’ to the given file
+descriptor 'fd'.
+ */
+void	ft_putstr_fd(char *s, int fd)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (s[i])
+	{
+		write (fd, &s[i], 1);
 		i++;
-	write(fd, str, i);
-	return (i);
+	}
 }
+/*
+int	main(void)
+{
+	char *str = "Hey du gfrast!";
+	ft_putstr_fd(str, 1);
+}*/

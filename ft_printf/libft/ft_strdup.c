@@ -1,24 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd_retbytes.c                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 14:02:09 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 14:16:35 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/06 20:08:13 by adeters           #+#    #+#             */
+/*   Updated: 2024/09/08 16:29:54 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstr_fd_retbytes(char *str, int fd)
+char	*ft_strdup(const char *s)
 {
-	int	i;
+	char	*ptr;
+	int		i;
 
 	i = 0;
-	while (str[i])
+	ptr = (char *)malloc((ft_strlen((char *)s) + 1) * sizeof(char));
+	if (ptr == 0)
+		return (0);
+	while (i < ft_strlen((char *)s))
+	{
+		ptr[i] = s[i];
 		i++;
-	write(fd, str, i);
-	return (i);
+	}
+	ptr[i] = '\0';
+	return (ptr);
 }
+/*
+#include <stdio.h>
+
+int	main(void)
+{
+	char *str = "Hello World!";
+	printf("%s\n", ft_strdup(str));
+}*/

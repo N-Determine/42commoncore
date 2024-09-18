@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd_retbytes.c                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 14:02:09 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 14:16:35 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/07 14:39:38 by adeters           #+#    #+#             */
+/*   Updated: 2024/09/08 16:32:30 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstr_fd_retbytes(char *str, int fd)
+void	ft_bzero(void *s, size_t n)
 {
-	int	i;
+	char	*ptr;
+	size_t	i;
 
+	ptr = (char *)s;
 	i = 0;
-	while (str[i])
+	while (i < n)
+	{
+		ptr[i] = '\0';
 		i++;
-	write(fd, str, i);
-	return (i);
+	}
 }
+/*
+#include <stdio.h>
+
+int	main(void)
+{
+	char s[20] = "Hello World!";
+	ft_bzero(s, 4);
+	printf("%s\n", s);
+}*/

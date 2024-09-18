@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnumbers_fd.c                                 :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 14:29:51 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 14:50:40 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/11 12:25:08 by adeters           #+#    #+#             */
+/*   Updated: 2024/09/11 12:25:09 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "libft.h"
 
-int	ft_putnumbers_fd(char code, va_list list, int fd)
+t_list	*ft_lstnew(void *content)
 {
-	int	i;
+	t_list	*new_node;
 
-	i = 0;
-	if (code == 'i' || code == 'd')
-	{
-		i = va_arg(list, int);
-		ft_putnbr_fd(i, fd);
-		return (ft_count_bytes(i));
-	}
-	else if (code == 'u')
-		return (ft_putunbr_fd(va_arg(list, unsigned int), fd));
-	return (-1);
+	new_node = (t_list *)malloc(sizeof(t_list));
+	if (new_node == 0)
+		return (0);
+	new_node->content = content;
+	new_node->next = 0;
+	return (new_node);
 }
+/* 
+#include <stdio.h>
+
+int	main(void)
+{
+	char *content = "Hello World!";
+	t_list *node1 = ft_lstnew((void *)content);
+	printf("%s\n", (char *)node1->content);
+	printf("%s\n", (char *)node1->next);
+	free(node1);
+} */

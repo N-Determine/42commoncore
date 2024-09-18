@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd_retbytes.c                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adeters <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 14:02:09 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 14:16:35 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/02 16:52:11 by adeters           #+#    #+#             */
+/*   Updated: 2024/09/02 16:52:12 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-
-int	ft_putstr_fd_retbytes(char *str, int fd)
+int	ft_strlen(const char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 		i++;
-	write(fd, str, i);
 	return (i);
 }
+/*
+#include <stdio.h>
+
+int	main(int argc, char *argv[])
+{
+	if (argc != 2)
+	{
+		printf("Usage: ./a.out String\n");
+		return (1);
+	}
+	
+	printf("The string in argv[1] is %i character long\n", ft_strlen(argv[1]));
+}*/

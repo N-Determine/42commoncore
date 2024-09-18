@@ -24,5 +24,6 @@ int	ft_puthexas_fd(char code, va_list list, int fd);
 int	ft_putchars_fd(char code, va_list list);
 int	ft_putnumbers_fd(char code, va_list list, int fd);
 int	ft_puthexaident_fd(char code, int fd);
+int	ft_printf(const char *str, ...);
 
 #endif

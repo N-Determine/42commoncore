@@ -1,24 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd_retbytes.c                            :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 14:02:09 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 14:16:35 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/07 14:29:36 by adeters           #+#    #+#             */
+/*   Updated: 2024/09/08 16:27:40 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstr_fd_retbytes(char *str, int fd)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	int	i;
+	unsigned char	*s1_ptr;
+	unsigned char	*s2_ptr;
+	size_t			i;
 
+	s1_ptr = (unsigned char *)s1;
+	s2_ptr = (unsigned char *)s2;
 	i = 0;
-	while (str[i])
+	while (i < n && s1_ptr[i] == s2_ptr[i])
+	{
 		i++;
-	write(fd, str, i);
-	return (i);
+	}
+	if (i == n)
+		return (0);
+	return (s1_ptr[i] - s2_ptr[i]);
 }
+/*
+#include <stdio.h>
+
+int	main(void)
+{
+	char *s1 = "ABD";
+	char *s2 = "ABC";
+	printf("%i\n", ft_memcmp(s1, s2, 3));
+}*/

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:13:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 14:50:34 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/18 17:58:28 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,8 @@ int	main(void)
 	ft_printf("This is an adress: %p\n", string);
 	ft_printf("This is a null pointer with %%p: %p\n", nptr);
 	ft_printf("This is a null pointer with %%s: %s\n", nptr);
-	ft_printf("This is %i as a lowercase hexadecimal number: %x\n", -2147483648, -2147483648);
+	ft_printf("This is %i as a lowercase hexadecimal number: %x\n",\
+	 -2147483648, -2147483648);
 	ft_printf("This is %i as an uppercase hexadecimal number: %X\n", 123456789,
 		123456789);
 	ft_printf("This is unsigned int max: %u\n", umax);

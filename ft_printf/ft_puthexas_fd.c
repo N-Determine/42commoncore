@@ -6,12 +6,12 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:30:43 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 14:50:48 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/18 17:58:37 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "ft_printf.h"
+#include "libft.h"
 
 int	ft_puthexas_fd(char code, va_list list, int fd)
 {
@@ -32,8 +32,10 @@ int	ft_puthexas_fd(char code, va_list list, int fd)
 		}
 	}
 	else if (code == 'x')
-		return (ft_putnbr_base_fd(va_arg(list, unsigned int), "0123456789abcdef", fd));
+		return (ft_putnbr_base_fd(va_arg(list, unsigned int),
+				"0123456789abcdef", fd));
 	else if (code == 'X')
-		return (ft_putnbr_base_fd(va_arg(list, unsigned int), "0123456789ABCDEF", fd));
+		return (ft_putnbr_base_fd(va_arg(list, unsigned int),
+				"0123456789ABCDEF", fd));
 	return (-1);
 }

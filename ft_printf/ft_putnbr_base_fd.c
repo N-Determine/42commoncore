@@ -6,17 +6,17 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:39:29 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 14:02:44 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/18 17:58:56 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 #include <limits.h>
+#include <stdio.h>
 
 int	ft_putnbr_base_fd(long long nbr, char *base, int fd)
 {
-	int bytes_written;
+	int	bytes_written;
 
 	if (nbr == (long long)ULONG_MAX)
 	{
@@ -35,6 +35,7 @@ int	ft_putnbr_base_fd(long long nbr, char *base, int fd)
 		write(fd, &base[nbr % 16], 1);
 		return (bytes_written = 1);
 	}
-	bytes_written = ft_putnbr_base_fd(nbr / 16, base, fd) + ft_putnbr_base_fd(nbr % 16, base, fd);
+	bytes_written = ft_putnbr_base_fd(nbr / 16, base, fd)
+		+ ft_putnbr_base_fd(nbr % 16, base, fd);
 	return (bytes_written);
 }

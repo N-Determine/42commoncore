@@ -101,10 +101,10 @@ static int	ft_var_printer(char code, va_list list)
 		return (ft_puthexas_fd(code, list, 1));
 	return (-1);
 }
-
+/* 
 #include <stdio.h>
 
-/* int	main(void)
+int	main(void)
 {
 	unsigned int	umax;
 	char			*nptr;
@@ -128,10 +128,4 @@ static int	ft_var_printer(char code, va_list list)
 	ft_printf("This is unsigned int max: %u\n", umax);
 	check = ft_printf("%p", LONG_MAX);
 	ft_printf("%i\n", check);
-} */
-
-/* int	main(void)
-{
-	ft_printf("%p\n", ULONG_MAX);
-	printf("%p\n", ULONG_MAX);
 } */

@@ -28,7 +28,7 @@ int	ft_puthexas_fd(char code, va_list list, int fd)
 		else
 		{
 			ft_putstr_fd("(nil)", fd);
-			return (0);
+			return (5);
 		}
 	}
 	else if (code == 'x')

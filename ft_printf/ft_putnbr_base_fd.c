@@ -22,11 +22,16 @@ static long long	find_divider(long long number, long long base_number)
 	i = 0;
 	n = base_number;
 	base2 = base_number;
-	while (number / base_number)
+	if (number / base_number)
 	{
-		i++;
-		base_number = base_number * n;
+		while (number / base_number)
+		{
+			i++;
+			base_number = base_number * n;
+		}
 	}
+	else
+		return (1);
 	i = i - 1;
 	while (i-- > 0)
 		base2 = base2 * n;

@@ -87,7 +87,7 @@ static int	ft_var_printer(char code, va_list list)
 		else
 		{
 			ft_putstr_fd("(null)", 1);
-			return (0);
+			return (6);
 		}
 	}
 	else if (code == 'c' || code == '%')

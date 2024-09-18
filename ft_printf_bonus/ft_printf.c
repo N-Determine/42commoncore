@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:13:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 20:03:31 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/18 20:02:07 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,34 @@ int	ft_printf(const char *str, ...)
 		{
 			i++;
 			while (str[i] && !ft_is_specifier(str[i]) && ft_is_flag(str[i]))
+			{
+				// Check for flags
+				if (str[i] == '#')
+					hexa_ident = 1;
+				if (str[i] == '+')
+					plus_ident = 1;
+				if (str[i] == ' ')
+					space_ident = 1;
 				i++;
-			bytes_written += ft_var_printer(str[i], args);
+			}
+			// Do the thing that the flags do
+			if ((str[i] == 'x' || str[i] == 'X') && hexa_ident == 1)
+			{
+				ft_puthexaident_fd(str[i], 1);
+				bytes_written += ft_var_printer(str[i], args) + 2;
+			}
+			else if (ft_is_specifier(str[i]) == 2 && plus_ident == 1)
+			{
+				ft_putchar_fd('+', 1);
+				bytes_written += ft_var_printer(str[i], args) + 1;
+			}
+			else if (ft_is_specifier(str[i]) == 2 && space_ident == 1)
+			{
+				ft_putchar_fd(' ', 1);
+				bytes_written += ft_var_printer(str[i], args) + 1;
+			}
+			else 
+				bytes_written += ft_var_printer(str[i], args);
 			i++;
 		}
 		if (str[i] && str[i] != '%')

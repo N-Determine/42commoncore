@@ -6,27 +6,22 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:13:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/18 20:03:31 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/25 14:19:33 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "ft_printf.h"
-#include <stdio.h>
+#include "libft.h"
 #include <limits.h>
+#include <stdio.h>
 
 static int	ft_is_specifier(char c);
 static int	ft_var_printer(char code, va_list list);
-static int	ft_is_flag(char c);
 
 int	ft_printf(const char *str, ...)
 {
 	int		i;
 	int		bytes_written;
-	int		hexa_ident = 0;
-	int		plus_ident = 0;
-	int		space_ident = 0;
-	int		minus_ident = 0;
 	va_list	args;
 
 	i = 0;
@@ -36,35 +31,20 @@ int	ft_printf(const char *str, ...)
 	va_start(args, str);
 	while (str[i])
 	{
-		
 		if (str[i] == '%')
 		{
-			i++;
-			while (str[i] && !ft_is_specifier(str[i]) && ft_is_flag(str[i]))
-				i++;
-			bytes_written += ft_var_printer(str[i], args);
-			i++;
+			if (!str[++i])
+				return (bytes_written = -1);
+			if (ft_is_specifier(str[i]))
+				bytes_written += ft_var_printer(str[i++], args);
+			else
+				bytes_written += write(1, "%", 1);
 		}
 		if (str[i] && str[i] != '%')
-		{
-			write(1, &str[i], 1);
-			bytes_written++;
-			i++;
-		}
+			bytes_written += write(1, &str[i++], 1);
 	}
 	va_end(args);
 	return (bytes_written);
-}
-
-static int ft_is_flag(char c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	else if (c == '#' || c == ' ' || c == '+')
-		return (1);
-	else if (c == '.' || c == '-')
-		return (1);
-	return (0);
 }
 
 /**
@@ -114,22 +94,22 @@ static int	ft_var_printer(char code, va_list list)
 		}
 	}
 	else if (code == 'c' || code == '%')
-		return (ft_putchars_fd(code, list));
+		return (ft_putchars_fd(code, list, 1));
 	else if (code == 'i' || code == 'd' || code == 'u')
 		return (ft_putnumbers_fd(code, list, 1));
 	else if (code == 'p' || code == 'x' || code == 'X')
 		return (ft_puthexas_fd(code, list, 1));
 	return (-1);
 }
-
+/* 
 #include <stdio.h>
 
 int	main(void)
 {
-	unsigned int	umax;
-	char			*nptr;
-	char			*string;
-	int				check;
+	unsigned int umax;
+	char *nptr;
+	char *string;
+	int check;
 
 	ft_printf("I just wanted to say: %s%c%s%c%c%s%i%d\n", "Hello", ' ', "World",
 		'!', ' ', "The year is: ", 0x14, 24);
@@ -142,16 +122,67 @@ int	main(void)
 	ft_printf("This is an adress: %p\n", string);
 	ft_printf("This is a null pointer with %%p: %p\n", nptr);
 	ft_printf("This is a null pointer with %%s: %s\n", nptr);
-	ft_printf("This is %i as a lowercase hexadecimal number: %x\n",\
-	 -2147483648, -2147483648);
+	ft_printf("This is %i as a lowercase hexadecimal number: %x\n", -2147483648,
+		-2147483648);
 	ft_printf("This is %i as an uppercase hexadecimal number: %X\n", 123456789,
 		123456789);
 	ft_printf("This is unsigned int max: %u\n", umax);
 	check = ft_printf("%p\n", LONG_MAX);
 	ft_printf("%i\n", check);
 	ft_printf("%x\n", 120);
-	ft_printf("%#x\n", 120);
-	ft_printf("%+i\n", 120);
-	printf("% i\n", 120);
-	ft_printf("%+i\n", -120);
-}
+	check = ft_printf("%%%%");
+	ft_printf("%i\n", check);
+	check = printf("%%%%");
+	fflush(stdout);
+	ft_printf("%i\n", check);
+} */
+/* 
+#include <stdio.h>
+#include <stdlib.h>
+
+int    main(void)
+{
+    char    *ptr;
+
+    ptr = "Hello world!";
+
+    printf("%d\n", printf("%c\n", ptr[2]));
+    printf("%d\n", ft_printf("%c\n", ptr[2]));
+
+    printf("%d\n", printf("%s\n", ptr));
+    printf("%d\n", ft_printf("%s\n", ptr));
+
+    printf("%d\n", printf("%d\n", -214748364));
+    printf("%d\n", ft_printf("%d\n", -214748364));
+
+    printf("%d\n", printf("%i\n", -214748364));
+    printf("%d\n", ft_printf("%i\n", -214748364));
+
+    printf("%d\n", printf("%u\n", -214748364));
+    printf("%d\n", ft_printf("%u\n", -214748364));
+
+    printf("%d\n", printf("%%\n"));
+    printf("%d\n", ft_printf("%%\n"));
+
+    printf("%d\n", printf("%x %x %x %x %x\n", -42, 42, -452, 4242, NULL));
+    printf("%d\n", ft_printf("%x %x %x %x %x\n", -42, 42, -452, 4242, NULL));
+
+    printf("%d\n", printf("%X\n", -42));
+    printf("%d\n", ft_printf("%X\n", -42));
+
+    printf("%d\n", printf("%p\n", &ptr));
+    printf("%d\n", ft_printf("%p\n", &ptr));
+
+    printf("%d\n", printf("Hello world!%what now\n"));
+    printf("%d\n", ft_printf("Hello world!%what now\n"));
+
+    printf("%d\n", printf("Hello wo%%rld!\n"));
+    printf("%d\n", ft_printf("Hello wo%%rld!\n"));
+
+    printf("%d\n", printf("ハロ\n"));
+    printf("%d\n", ft_printf("ハロ\n"));
+
+    printf("%d\n", printf("%s\n", NULL));
+    printf("%d\n", ft_printf("%s\n", NULL));
+
+} */

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:13:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/25 14:19:33 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/27 10:51:34 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,8 @@ int	main(void)
 	fflush(stdout);
 	ft_printf("%i\n", check);
 } */
-/* 
-#include <stdio.h>
+
+/* #include <stdio.h>
 #include <stdlib.h>
 
 int    main(void)

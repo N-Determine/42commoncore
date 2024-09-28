@@ -135,7 +135,6 @@ char	*get_next_line(int fd)
 			old_saver = ft_update_saver(new_saver);
 			return (line);
 		}
-		// Don't have to allocate memory for the old_saver but now I do
 		old_saver = ft_update_saver(new_saver);
 	}
 	return (NULL);
@@ -146,6 +145,9 @@ int	main(void)
 	int i = 0;
 	int fd = open("text.txt", O_RDWR);
 	char *str = get_next_line(fd);
+	printf("%s", str);
+	free(str);
+	str = get_next_line(fd);
 	printf("%s", str);
 	free(str);
 	close(fd);

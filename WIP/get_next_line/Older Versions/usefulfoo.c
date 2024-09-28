@@ -6,9 +6,9 @@
 /**
  * @brief Check if there is a newline within a string str
  * 
- * @return 1 - if there is a newline 
+ * @return Value of position of nl - if there is a newline 
  * 
- * 			0 - if not
+ * 			0 - if there is no newline
  */
 int	ft_check_nl(char *str)
 {
@@ -18,7 +18,7 @@ int	ft_check_nl(char *str)
 	while (index++ < BUFFER_SIZE && str[index])
 	{
 		if (str[index] == '\n')
-			return (1);
+			return (index);
 	}
 	return (0);
 }
@@ -63,6 +63,16 @@ char	*ft_calloc(size_t nmemb, size_t size)
 		i++;
 	}
 	return (ptr);
+}
+
+int	ft_strlen(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
 /* int main(void)

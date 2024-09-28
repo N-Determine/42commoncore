@@ -50,7 +50,7 @@ int	ft_check_nl(char *str)
 	while (index++ < BUFFER_SIZE && str[index])
 	{
 		if (str[index] == '\n')
-			return (1);
+			return (index);
 	}
 	return (0);
 }

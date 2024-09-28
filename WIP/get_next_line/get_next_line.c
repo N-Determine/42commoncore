@@ -75,38 +75,37 @@ char	*ft_copy_until_char(char *dest, char *src, char c)
 
 	* @brief This function updates the saver to only contain the characters after the first newline
  */
-char	*ft_update_saver(char *old_saver)
+char	*ft_update_saver(char *buffer)
 {
 	int		nl_pos;
 	char	*new_saver;
 
-	nl_pos = ft_check_nl(old_saver);
+	nl_pos = ft_check_nl(buffer);
 	if (nl_pos == 0)
 	{
-		new_saver = ft_calloc(ft_strlen(old_saver) + 1, sizeof(char));
+		new_saver = ft_calloc(ft_strlen(buffer) + 1, sizeof(char));
 		if (new_saver == NULL)
 			return (NULL);
-		new_saver = ft_copy_until_char(new_saver, old_saver, '\0');
-		free(old_saver);
+		new_saver = ft_copy_until_char(new_saver, buffer, '\0');
+		free(buffer);
 	}
 	else
 	{
-		new_saver = ft_calloc(ft_strlen(old_saver + nl_pos + 1) + 1,
+		new_saver = ft_calloc(ft_strlen(buffer + nl_pos + 1) + 1,
 				sizeof(char));
 		if (new_saver == NULL)
 			return (NULL);
-		new_saver = ft_copy_until_char(new_saver, (old_saver + nl_pos + 1),
+		new_saver = ft_copy_until_char(new_saver, (buffer + nl_pos + 1),
 				'\0');
-		free(old_saver);
+		free(buffer);
 	}
 	return (new_saver);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*new_saver;
-	// Does not have to be initialized
-	static char	*old_saver;
+	char		*buffer;
+	static char	*saver;
 	char		*line;
 	size_t		isn_eof;
 
@@ -115,27 +114,27 @@ char	*get_next_line(int fd)
 	isn_eof = 1;
 	while (isn_eof)
 	{
-		new_saver = ft_calloc(sizeof(char), BUFFER_SIZE + 1
-				+ ft_strlen(old_saver));
-		if (new_saver == NULL)
+		buffer = ft_calloc(sizeof(char), BUFFER_SIZE + 1
+				+ ft_strlen(saver));
+		if (buffer == NULL)
 			return (NULL);
-		ft_copy_until_char(new_saver, old_saver, '\0');
-		isn_eof = read(fd, new_saver + ft_strlen(old_saver), BUFFER_SIZE);
+		ft_copy_until_char(buffer, saver, '\0');
+		isn_eof = read(fd, buffer + ft_strlen(saver), BUFFER_SIZE);
 		if (isn_eof < 0)
 		{
-			free(new_saver);
+			free(buffer);
 			return (NULL);
 		}
-		if (ft_check_nl(new_saver))
+		if (ft_check_nl(buffer))
 		{
-			line = ft_calloc(sizeof(char), ft_check_nl(new_saver) + 2);
+			line = ft_calloc(sizeof(char), ft_check_nl(buffer) + 2);
 			if (line == NULL)
 				return (NULL);
-			line = ft_copy_until_char(line, new_saver, '\n');
-			old_saver = ft_update_saver(new_saver);
+			line = ft_copy_until_char(line, buffer, '\n');
+			saver = ft_update_saver(buffer);
 			return (line);
 		}
-		old_saver = ft_update_saver(new_saver);
+		saver = ft_update_saver(buffer);
 	}
 	return (NULL);
 }

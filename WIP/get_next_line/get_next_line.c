@@ -51,6 +51,9 @@ int	ft_check_nl(char *str)
 	return (0);
 }
 
+/**
+ * Probably very unsafe because it can segfault if dest is to small, don't forgett to allocate for \0
+ */
 char	*ft_copy_until_char(char *dest, char *src, char c)
 {
 	int	index;
@@ -66,14 +69,13 @@ char	*ft_copy_until_char(char *dest, char *src, char c)
 		index++;
 	}
 	dest[index] = src[index];
-	if (c == '\0')
-		dest[index] = '\0';
+	if (c != '\0')
+		dest[index + 1] = '\0';
 	return (dest);
 }
 
 /**
-
-	* @brief This function updates the saver to only contain the characters after the first newline
+* @brief This function updates the saver to only contain the characters after the first newline
  */
 char	*ft_update_saver(char *buffer)
 {
@@ -125,16 +127,24 @@ char	*get_next_line(int fd)
 			free(buffer);
 			return (NULL);
 		}
+		// Right now it only works if the text file ends with a new line
 		if (ft_check_nl(buffer))
 		{
 			line = ft_calloc(sizeof(char), ft_check_nl(buffer) + 2);
 			if (line == NULL)
 				return (NULL);
 			line = ft_copy_until_char(line, buffer, '\n');
+			free(saver);
 			saver = ft_update_saver(buffer);
 			return (line);
 		}
+		free(saver);
 		saver = ft_update_saver(buffer);
+	}
+	if (!isn_eof)
+	{
+		free(saver);
+		saver = NULL;
 	}
 	return (NULL);
 }
@@ -142,12 +152,16 @@ char	*get_next_line(int fd)
 int	main(void)
 {
 	int i = 0;
-	int fd = open("text.txt", O_RDWR);
+	int fd = open("./texts/text.txt", O_RDWR);
 	char *str = get_next_line(fd);
 	printf("%s", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("%s", str);
+	while (str)
+	{
+		free(str);
+		str = get_next_line(fd);
+		if (str)
+			printf("%s", str);
+	}
 	free(str);
 	close(fd);
 }

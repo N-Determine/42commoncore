@@ -72,6 +72,10 @@ char	*ft_copy_until_char(char *dest, char *src, char c)
 	return (dest);
 }
 
+/**
+ * @brief Updates the static string 'saver' to either contain the new buffer if there is no newline
+ * or the rest after the newline. It free's the saver everytime before overwritting it.
+ */
 char	*ft_update_saver(char *buf, char *old_saver)
 {
 	int		nl_pos;
@@ -106,10 +110,10 @@ int		ft_line_len(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	char		*buffer;
-	static char	*saver;
-	char		*line;
-	size_t		isn_eof;
+	char			*buffer;
+	static char		*saver;
+	char			*line;
+	size_t			isn_eof;
 
 	if (fd < 0)
 		return (NULL);
@@ -122,11 +126,6 @@ char	*get_next_line(int fd)
 			return (NULL);
 		ft_copy_until_char(buffer, saver, '\0');
 		isn_eof = read(fd, buffer + ft_strlen(saver), BUFFER_SIZE);
-		if (isn_eof < 0)
-		{
-			free(buffer);
-			return (NULL);
-		}
 		if (ft_check_nl(buffer))
 		{
 			line = ft_calloc(sizeof(char), ft_line_len(buffer) + 1);
@@ -138,6 +137,16 @@ char	*get_next_line(int fd)
 		}
 		saver = ft_update_saver(buffer, saver);
 	}
+	if (saver && ft_strlen(saver) > 0)
+	{
+		line = ft_calloc(sizeof(char), ft_line_len(saver) + 1);
+		if (line == NULL)
+			return (NULL);
+		line = ft_copy_until_char(line, saver, '\0');
+		free(saver);
+		saver = NULL;
+		return (line);
+	}
 	free(saver);
 	return (NULL);
 }
@@ -145,14 +154,15 @@ char	*get_next_line(int fd)
 int	main(void)
 {
 	int i = 0;
-	int fd = open("./texts/text.txt", O_RDWR);
+	int fd = open("./texts/text2.txt", O_RDWR);
 	char *str = get_next_line(fd);
 	printf("%s", str);
 	while (str)
 	{
 		free(str);
 		str = get_next_line(fd);
-		printf("%s", str);
+		if (str)
+			printf("%s", str);
 	}
 	free(str);
 	close(fd);

@@ -63,7 +63,7 @@ char	*ft_copy_until_char(char *dest, char *src, char c)
 		return (src);
 	if (src == NULL)
 		return (NULL);
-	while (src[index] != c)
+	while (src[index] != c && src[index])
 	{
 		dest[index] = src[index];
 		index++;
@@ -102,6 +102,14 @@ char	*ft_update_saver(char *buffer)
 	return (new_saver);
 }
 
+int		ft_line_len(char *buffer)
+{
+	if (ft_check_nl(buffer))
+		return (ft_check_nl(buffer) + 1);
+	else
+		return (ft_strlen(buffer));
+}
+
 char	*get_next_line(int fd)
 {
 	char		*buffer;
@@ -128,7 +136,7 @@ char	*get_next_line(int fd)
 		// Right now it only works if the text file ends with a new line
 		if (ft_check_nl(buffer))
 		{
-			line = ft_calloc(sizeof(char), ft_check_nl(buffer) + 2);
+			line = ft_calloc(sizeof(char), ft_line_len(buffer) + 1);
 			if (line == NULL)
 				return (NULL);
 			line = ft_copy_until_char(line, buffer, '\n');

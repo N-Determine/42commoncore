@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/29 19:32:35 by adeters           #+#    #+#             */
+/*   Updated: 2024/09/29 20:05:11 by adeters          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <fcntl.h>
 #include <stdint.h>
 #include <stdio.h>
+
+int	make_line(char *saver, char *line);
 
 int	ft_strlen(char *str)
 {
@@ -52,7 +65,8 @@ int	ft_check_nl(char *str)
 }
 
 /**
- * Probably very unsafe because it can segfault if dest is to small, don't forgett to allocate for \0
+ * Probably very unsafe because it can segfault if dest is to small, 
+ * don't forgett to allocate for \0
  */
 char	*ft_copy_until_char(char *dest, char *src, char c)
 {
@@ -73,8 +87,10 @@ char	*ft_copy_until_char(char *dest, char *src, char c)
 }
 
 /**
- * @brief Updates the static string 'saver' to either contain the new buffer if there is no newline
- * or the rest after the newline. It free's the saver everytime before overwritting it.
+ * @brief Updates the static string 'saver' to either contain the 
+ * new buffer if there is no newline
+ * or the rest after the newline. 
+ * It free's the saver everytime before overwritting it.
  */
 char	*ft_update_saver(char *buf, char *old_saver)
 {
@@ -120,12 +136,16 @@ char	*get_next_line(int fd)
 	isn_eof = 1;
 	while (isn_eof)
 	{
-		buffer = ft_calloc(sizeof(char), BUFFER_SIZE + 1
-				+ ft_strlen(saver));
+		buffer = ft_calloc(sizeof(char), BUFFER_SIZE + 1 + ft_strlen(saver));
 		if (buffer == NULL)
 			return (NULL);
 		ft_copy_until_char(buffer, saver, '\0');
 		isn_eof = read(fd, buffer + ft_strlen(saver), BUFFER_SIZE);
+		if (isn_eof < 0)
+		{
+			free(buffer);
+			return (NULL);
+		}
 		if (ft_check_nl(buffer))
 		{
 			line = ft_calloc(sizeof(char), ft_line_len(buffer) + 1);

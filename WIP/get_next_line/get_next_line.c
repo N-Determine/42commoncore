@@ -147,11 +147,7 @@ char	*get_next_line(int fd)
 		free(saver);
 		saver = ft_update_saver(buffer);
 	}
-	if (!isn_eof)
-	{
-		free(saver);
-		saver = NULL;
-	}
+	free(saver);
 	return (NULL);
 }
 
@@ -165,8 +161,7 @@ int	main(void)
 	{
 		free(str);
 		str = get_next_line(fd);
-		if (str)
-			printf("%s", str);
+		printf("%s", str);
 	}
 	free(str);
 	close(fd);

@@ -68,9 +68,7 @@ char	*ft_copy_until_char(char *dest, char *src, char c)
 		dest[index] = src[index];
 		index++;
 	}
-	dest[index] = src[index];
-	if (c != '\0')
-		dest[index + 1] = '\0';
+	dest[index] = c;
 	return (dest);
 }
 

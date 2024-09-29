@@ -72,91 +72,29 @@ char	*ft_copy_until_char(char *dest, char *src, char c)
 	return (dest);
 }
 
-/**
-* @brief This function updates the saver to only contain the characters after the first newline
-
-char	*ft_update_saver(char *buffer)
+char	*ft_update_saver(char *buf, char *old_saver)
 {
 	int		nl_pos;
-	char	*new_saver;
-
-	nl_pos = ft_check_nl(buffer);
-	if (nl_pos == 0)
-	{
-		new_saver = ft_calloc(ft_strlen(buffer) + 1, sizeof(char));
-		if (new_saver == NULL)
-			return (NULL);
-		new_saver = ft_copy_until_char(new_saver, buffer, '\0');
-		free(buffer);
-	}
-	else
-	{
-		new_saver = ft_calloc(ft_strlen(buffer + nl_pos + 1) + 1,
-				sizeof(char));
-		if (new_saver == NULL)
-			return (NULL);
-		new_saver = ft_copy_until_char(new_saver, (buffer + nl_pos + 1),
-				'\0');
-		free(buffer);
-	}
-	return (new_saver);
-} */
-
-char	*ft_update_saver(char *buffer, char *old_saver)
-{
-	int		nl_pos;
+	int		size;
 	char	*new_saver;
 
 	free(old_saver);
-	nl_pos = ft_check_nl(buffer);
+	size = 0;
+	nl_pos = ft_check_nl(buf);
 	if (nl_pos == 0)
-	{
-		new_saver = ft_calloc(ft_strlen(buffer) + 1, sizeof(char));
-		if (new_saver == NULL)
-			return (NULL);
-		new_saver = ft_copy_until_char(new_saver, buffer, '\0');
-		free(buffer);
-	}
+		size = ft_strlen(buf) + 1;
 	else
-	{
-		new_saver = ft_calloc(ft_strlen(buffer + nl_pos + 1) + 1,
-				sizeof(char));
-		if (new_saver == NULL)
-			return (NULL);
-		new_saver = ft_copy_until_char(new_saver, (buffer + nl_pos + 1),
-				'\0');
-		free(buffer);
-	}
+		size = ft_strlen(buf + nl_pos + 1) + 1;
+	new_saver = ft_calloc(size, sizeof(char));
+	if (new_saver == NULL)
+		return (NULL);
+	if (nl_pos == 0)
+		new_saver = ft_copy_until_char(new_saver, buf, '\0');
+	else
+		new_saver = ft_copy_until_char(new_saver, (buf + nl_pos + 1), '\0');
+	free(buf);
 	return (new_saver);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 int		ft_line_len(char *buffer)
 {

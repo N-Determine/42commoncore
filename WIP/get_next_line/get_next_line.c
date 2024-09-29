@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:32:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/29 20:05:11 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/29 23:41:51 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,15 +174,33 @@ char	*get_next_line(int fd)
 int	main(void)
 {
 	int i = 0;
-	int fd = open("./texts/text2.txt", O_RDWR);
+	int lines_per_frame = 10;
+	int frame_line = 1;
+	int frames = 11;
+	int index = 0;
+	int fd = open("./texts/text3.txt", O_RDWR);
 	char *str = get_next_line(fd);
 	printf("%s", str);
 	while (str)
 	{
-		free(str);
-		str = get_next_line(fd);
-		if (str)
-			printf("%s", str);
+		// Print frames * a single frame
+		while (str && index < frames)
+		{
+			// Clear screen & Print a single frame
+			printf("\033[H\033[J"); fflush(stdout);
+			frame_line = 0;
+			while (str && frame_line < lines_per_frame)
+			{
+				free(str);
+				str = get_next_line(fd);
+				if (str)
+					printf("%s", str);
+				frame_line++;
+			}
+			// Delay für 6 fps
+			usleep(166667);
+			index++;
+		}
 	}
 	free(str);
 	close(fd);

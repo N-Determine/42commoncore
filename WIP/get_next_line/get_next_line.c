@@ -74,7 +74,7 @@ char	*ft_copy_until_char(char *dest, char *src, char c)
 
 /**
 * @brief This function updates the saver to only contain the characters after the first newline
- */
+
 char	*ft_update_saver(char *buffer)
 {
 	int		nl_pos;
@@ -100,7 +100,63 @@ char	*ft_update_saver(char *buffer)
 		free(buffer);
 	}
 	return (new_saver);
+} */
+
+char	*ft_update_saver(char *buffer, char *old_saver)
+{
+	int		nl_pos;
+	char	*new_saver;
+
+	free(old_saver);
+	nl_pos = ft_check_nl(buffer);
+	if (nl_pos == 0)
+	{
+		new_saver = ft_calloc(ft_strlen(buffer) + 1, sizeof(char));
+		if (new_saver == NULL)
+			return (NULL);
+		new_saver = ft_copy_until_char(new_saver, buffer, '\0');
+		free(buffer);
+	}
+	else
+	{
+		new_saver = ft_calloc(ft_strlen(buffer + nl_pos + 1) + 1,
+				sizeof(char));
+		if (new_saver == NULL)
+			return (NULL);
+		new_saver = ft_copy_until_char(new_saver, (buffer + nl_pos + 1),
+				'\0');
+		free(buffer);
+	}
+	return (new_saver);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 int		ft_line_len(char *buffer)
 {
@@ -133,19 +189,16 @@ char	*get_next_line(int fd)
 			free(buffer);
 			return (NULL);
 		}
-		// Right now it only works if the text file ends with a new line
 		if (ft_check_nl(buffer))
 		{
 			line = ft_calloc(sizeof(char), ft_line_len(buffer) + 1);
 			if (line == NULL)
 				return (NULL);
 			line = ft_copy_until_char(line, buffer, '\n');
-			free(saver);
-			saver = ft_update_saver(buffer);
+			saver = ft_update_saver(buffer, saver);
 			return (line);
 		}
-		free(saver);
-		saver = ft_update_saver(buffer);
+		saver = ft_update_saver(buffer, saver);
 	}
 	free(saver);
 	return (NULL);

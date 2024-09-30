@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:32:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/30 20:51:59 by adeters          ###   ########.fr       */
+/*   Updated: 2024/09/30 20:58:15 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,14 +228,9 @@ int	main(void)
 	int frame_line = 0;
 	int index = 0;
 	int fd = open("./anime.txt", O_RDWR);
-		// Print frames * a single frame
 		while (index < frames)
 		{
-			// Clear screen & Print a single frame
-			// printf("\033[H\033[J"); fflush(stdout);
 			system("clear");
-			//ft_putstr_fd("\033[H\033[J", 1);
-			//fflush(stdout);
 			frame_line = 0;
 			while (frame_line < lines_per_frame)
 			{
@@ -249,7 +244,6 @@ int	main(void)
 				}
 				frame_line++;
 			}
-			// Delay für 6 fps
 			usleep(83333);
 			index++;
 		}

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:32:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/10/01 20:50:43 by adeters          ###   ########.fr       */
+/*   Updated: 2024/10/01 20:59:05 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,6 @@ char	*get_next_line(int fd)
 	isn_eof = 1;
 	while (isn_eof)
 	{
-		// this is a test
 		buffer = ft_calloc(sizeof(char), BUFFER_SIZE + 1 + ft_strlen(saver));
 		if (buffer == NULL)
 			return(free_foo(saver, NULL));
@@ -176,7 +175,7 @@ char	*get_next_line(int fd)
 	free_foo(saver, NULL);
 	return (NULL);
 }
-
+/* 
 int	main(void)
 {
 	int fd = open("./texts/text.txt", O_RDWR);
@@ -200,26 +199,21 @@ int	main(void)
 	free(str);
 	close(fd);
 	return (0);
-}
+} */
 
 #include "libft.h"
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-int decode_file(int *lpf, int *f, int *fr, char *str);
-int	error_handler(int code);
-
-
-ssize_t frame_proc_duration(clock_t start, clock_t end)
-{
-	return ((ssize_t)((double)(end - start) / CLOCKS_PER_SEC * 1000000));
-}
+int		decode_file(int *lpf, int *f, int *fr, char *str);
+int		error_handler(int code);
+ssize_t	frame_proc_duration(clock_t start, clock_t end);
 
 int	main(int argc, char **argv)
 {
 	int 	lines_per_frame; int frames; int frame_rate;
-	ssize_t	proc_time;
+	ssize_t	proc_time; ssize_t delay_time;
 	clock_t	start, end;
 	char	*str = NULL;
 
@@ -234,6 +228,7 @@ int	main(int argc, char **argv)
 	str = get_next_line(fd);
 	if (!decode_file(&lines_per_frame, &frames, &frame_rate, str))
 		return (error_handler(4));
+	delay_time = 1000000 / frame_rate;
 	// Play movie for chosen duration
 	do {
 		int frame_line = 0;
@@ -257,10 +252,10 @@ int	main(int argc, char **argv)
 			index++;
 			end = clock();
 			proc_time = frame_proc_duration(start, end);
-			if (proc_time < (1000000 / frame_rate))
-				usleep((1000000 / frame_rate) - proc_time);
+			if (proc_time < delay_time)
+				usleep(delay_time - proc_time);
 			else
-				usleep(1000000 / frame_rate);
+				usleep(delay_time);
 		}
 		close(fd);
 		fd = open(argv[1], O_RDWR);
@@ -305,4 +300,9 @@ int	error_handler(int code)
 		return (4);
 	}
 	return (0);
+}
+
+ssize_t frame_proc_duration(clock_t start, clock_t end)
+{
+	return ((ssize_t)((double)(end - start) / CLOCKS_PER_SEC * 1000000));
 }

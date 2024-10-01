@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:32:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/10/01 20:21:05 by adeters          ###   ########.fr       */
+/*   Updated: 2024/10/01 20:50:43 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ char	*get_next_line(int fd)
 	return (NULL);
 }
 
-/* int	main(void)
+int	main(void)
 {
 	int fd = open("./texts/text.txt", O_RDWR);
 	char *str = get_next_line(fd);
@@ -200,7 +200,7 @@ char	*get_next_line(int fd)
 	free(str);
 	close(fd);
 	return (0);
-} */
+}
 
 #include "libft.h"
 #include <stdlib.h>
@@ -213,8 +213,7 @@ int	error_handler(int code);
 
 ssize_t frame_proc_duration(clock_t start, clock_t end)
 {
-	printf("%zi", (end-start) / CLOCKS_PER_SEC * 1000000);
-	return ((end - start) / CLOCKS_PER_SEC * 1000000);
+	return ((ssize_t)((double)(end - start) / CLOCKS_PER_SEC * 1000000));
 }
 
 int	main(int argc, char **argv)
@@ -243,7 +242,7 @@ int	main(int argc, char **argv)
 		while (index < frames && duration > 0)
 		{
 			start = clock();
-			//system("clear");
+			system("clear");
 			frame_line = 0;
 			while (frame_line < lines_per_frame)
 			{
@@ -258,7 +257,6 @@ int	main(int argc, char **argv)
 			index++;
 			end = clock();
 			proc_time = frame_proc_duration(start, end);
-			printf("%zi", proc_time); fflush(stdout);
 			if (proc_time < (1000000 / frame_rate))
 				usleep((1000000 / frame_rate) - proc_time);
 			else

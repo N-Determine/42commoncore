@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:32:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/10/01 16:47:16 by adeters          ###   ########.fr       */
+/*   Updated: 2024/10/01 17:33:52 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,31 +220,36 @@ int	main(int argc, char **argv)
 	int frame_rate;
 	char *str = NULL;
 
-	if (argc != 2)
+	if (argc != 3)
 	{
-		fprintf(stderr, "Usage: ./a.out [file.txt]\n");
+		fprintf(stderr, "Usage: ./a.out [file.txt] [duration in s]\n");
 		return (1);
+	}
+	ssize_t duration = ft_atoi(argv[2]) * 1000000;
+	if (duration <= 0)
+	{
+		fprintf(stderr, "Not a valid duration");
+		return (2);
 	}
 	
 	int fd = open(argv[1], O_RDWR);
 	if (fd < 0)
 	{
 		fprintf(stderr, "Could not open file.\n");
-		return(2);
+		return(3);
 	}
 	str = get_next_line(fd);
 	if (!decode_file(&lines_per_frame, &frames, &frame_rate, str))
 	{
 		fprintf(stderr, "File does not contain formating code.\n");
-		return (3);
+		return (4);
 	}
-	
 	do
 	{
 	int frame_line = 0;
 	int index = 0;
 	
-		while (index < frames)
+		while (index < frames && duration > 0)
 		{
 			system("clear");
 			frame_line = 0;
@@ -261,12 +266,15 @@ int	main(int argc, char **argv)
 				frame_line++;
 			}
 			usleep(1000000 / frame_rate);
+			duration -= 1000000 / frame_rate;
 			index++;
 		}
 	close(fd);
 	fd = open(argv[1], O_RDWR);
 	str = get_next_line(fd);
-	} while (1);
+	} while (duration > 0);
+	system("clear");
+	get_next_line(-1);
 	free(str);
 }
 

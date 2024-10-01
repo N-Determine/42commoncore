@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:32:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/30 20:58:15 by adeters          ###   ########.fr       */
+/*   Updated: 2024/10/01 15:36:58 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,13 +204,6 @@ char	*get_next_line(int fd)
 	str = get_next_line(fd);
 	printf("%s", str);
 	free(str);
-	while (str)
-	{
-		free(str);
-		str = get_next_line(fd);
-		if (str)
-			printf("%s", str);
-	}
 	close(fd);
 	return (0);
 } */
@@ -220,14 +213,14 @@ char	*get_next_line(int fd)
 int	main(void)
 {
 	int i = 0;
-	int lines_per_frame = 88;
-	int frames = 6;
+	int lines_per_frame = 41;
+	int frames = 162;
 	char *str = NULL;
 	do
 	{
 	int frame_line = 0;
 	int index = 0;
-	int fd = open("./anime.txt", O_RDWR);
+	int fd = open("texts/akirav1.txt", O_RDWR);
 		while (index < frames)
 		{
 			system("clear");
@@ -244,7 +237,7 @@ int	main(void)
 				}
 				frame_line++;
 			}
-			usleep(83333);
+			usleep(100000);
 			index++;
 		}
 	close(fd);

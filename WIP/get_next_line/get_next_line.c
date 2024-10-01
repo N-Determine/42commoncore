@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:32:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/10/01 18:50:59 by adeters          ###   ########.fr       */
+/*   Updated: 2024/10/01 19:38:09 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,45 +211,34 @@ char	*get_next_line(int fd)
 } */
 
 #include "libft.h"
+#include <stdlib.h>
+#include <string.h>
 
 int decode_file(int *lpf, int *f, int *fr, char *str);
+int	error_handler(int code);
 
 int	main(int argc, char **argv)
 {
-	int i = 0;
 	int lines_per_frame;
 	int frames;
 	int frame_rate;
 	char *str = NULL;
 
 	if (argc != 3)
-	{
-		fprintf(stderr, "Usage: ./a.out [file.txt] [duration in s]\n");
-		return (1);
-	}
-	ssize_t duration = ft_atoi(argv[2]) * 1000000;
+		return (error_handler(1));
+	ssize_t duration = atoi(argv[2]) * 1000000;
 	if (duration <= 0)
-	{
-		fprintf(stderr, "Not a valid duration");
-		return (2);
-	}
-	
+		return (error_handler(2));
 	int fd = open(argv[1], O_RDWR);
 	if (fd < 0)
-	{
-		fprintf(stderr, "Could not open file.\n");
-		return(3);
-	}
+		return (error_handler(3));
 	str = get_next_line(fd);
 	if (!decode_file(&lines_per_frame, &frames, &frame_rate, str))
-	{
-		fprintf(stderr, "File does not contain formating code.\n");
-		return (4);
-	}
-	do
-	{
-	int frame_line = 0;
-	int index = 0;
+		return (error_handler(4));
+	// Play movie for chosen duration
+	do {
+		int frame_line = 0;
+		int index = 0;
 		// Print a single frame
 		while (index < frames && duration > 0)
 		{
@@ -261,19 +250,16 @@ int	main(int argc, char **argv)
 					free(str);
 				str = get_next_line(fd);
 				if (str)
-				{
-					ft_putstr_fd(str, 1);
-					fflush(stdout);
-				}
+					ft_putstr_fd(str, 1); fflush(stdout);
 				frame_line++;
 			}
 			usleep(1000000 / frame_rate);
 			duration -= 1000000 / frame_rate;
 			index++;
 		}
-	close(fd);
-	fd = open(argv[1], O_RDWR);
-	str = get_next_line(fd);
+		close(fd);
+		fd = open(argv[1], O_RDWR);
+		str = get_next_line(fd);
 	} while (duration > 0);
 	system("clear");
 	get_next_line(-1);
@@ -282,20 +268,36 @@ int	main(int argc, char **argv)
 
 int decode_file(int *lpf, int *f, int *fr, char *str)
 {
-	char **arr = ft_split(str, '-');
-	int i = 0;
-	while (arr && arr[i])
-		i++;
-	if (i != 3)
-		return (0);
-	*lpf = ft_atoi(arr[0]);
-	free(arr[0]);
-	*f = ft_atoi(arr[1]);
-	free(arr[1]);
-	*fr = ft_atoi(arr[2]);
-	free(arr[2]);
-	free(arr);
+
+	*lpf = atoi(str);
+	*f = atoi(strchr(str, '-') + 1);
+	*fr = atoi(strchr(strchr(str, '-') + 1, '-') + 1);
 	if (!*lpf || !*f || !*fr)
 		return (0);
 	return (1);
+}
+
+int	error_handler(int code)
+{
+	if (code == 1)
+	{
+		fprintf(stderr, "Usage: ./a.out [file.txt] [duration in s]\n");
+		return (1);
+	}
+	if (code == 2)
+	{
+		fprintf(stderr, "Not a valid duration");
+		return (2);
+	}
+	if (code == 3)
+	{
+		fprintf(stderr, "Could not open file.\n");
+		return(3);
+	}
+	if (code == 4)
+	{
+		fprintf(stderr, "Error reading formating code.\n");
+		return (4);
+	}
+	return (0);
 }

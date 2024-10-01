@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:32:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/10/01 17:33:52 by adeters          ###   ########.fr       */
+/*   Updated: 2024/10/01 17:47:27 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ char	*get_next_line(int fd)
 		{
 			free(buffer);
 			free(saver);
+			saver = NULL;
 			return (NULL);
 		}
 		if (ft_check_nl(buffer) != -1)
@@ -282,7 +283,7 @@ int decode_file(int *lpf, int *f, int *fr, char *str)
 {
 	char **arr = ft_split(str, '-');
 	int i = 0;
-	while (arr[i])
+	while (arr && arr[i])
 		i++;
 	if (i != 3)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:32:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/10/01 16:36:42 by adeters          ###   ########.fr       */
+/*   Updated: 2024/10/01 16:47:16 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,19 +208,9 @@ char	*get_next_line(int fd)
 	return (0);
 } */
 
-void decode_file(int *lpf, int *f, int *fr, char *str)
-{
-	char **arr = ft_split(str, '-');
-	*lpf = ft_atoi(arr[0]);
-	free(arr[0]);
-	*f = ft_atoi(arr[1]);
-	free(arr[1]);
-	*fr = ft_atoi(arr[2]);
-	free(arr[2]);
-	free(arr);
-}
-
 #include "libft.h"
+
+int decode_file(int *lpf, int *f, int *fr, char *str);
 
 int	main(int argc, char **argv)
 {
@@ -232,18 +222,23 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		fprintf(2, "Usage: ./a.out [file.txt]");
+		fprintf(stderr, "Usage: ./a.out [file.txt]\n");
 		return (1);
 	}
 	
 	int fd = open(argv[1], O_RDWR);
 	if (fd < 0)
 	{
-		fprintf(2, "Could not open file.");
+		fprintf(stderr, "Could not open file.\n");
 		return(2);
 	}
 	str = get_next_line(fd);
-	decode_file(lines_per_frame, frames, frame_rate, str);
+	if (!decode_file(&lines_per_frame, &frames, &frame_rate, str))
+	{
+		fprintf(stderr, "File does not contain formating code.\n");
+		return (3);
+	}
+	
 	do
 	{
 	int frame_line = 0;
@@ -273,4 +268,24 @@ int	main(int argc, char **argv)
 	str = get_next_line(fd);
 	} while (1);
 	free(str);
+}
+
+int decode_file(int *lpf, int *f, int *fr, char *str)
+{
+	char **arr = ft_split(str, '-');
+	int i = 0;
+	while (arr[i])
+		i++;
+	if (i != 3)
+		return (0);
+	*lpf = ft_atoi(arr[0]);
+	free(arr[0]);
+	*f = ft_atoi(arr[1]);
+	free(arr[1]);
+	*fr = ft_atoi(arr[2]);
+	free(arr[2]);
+	free(arr);
+	if (!*lpf || !*f || !*fr)
+		return (0);
+	return (1);
 }

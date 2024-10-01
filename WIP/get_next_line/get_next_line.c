@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:32:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/10/01 18:44:50 by adeters          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:50:59 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,7 @@ int	main(int argc, char **argv)
 	{
 	int frame_line = 0;
 	int index = 0;
-	
+		// Print a single frame
 		while (index < frames && duration > 0)
 		{
 			system("clear");

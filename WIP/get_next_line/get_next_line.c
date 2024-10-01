@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:32:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/10/01 15:36:58 by adeters          ###   ########.fr       */
+/*   Updated: 2024/10/01 16:36:42 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,19 +208,47 @@ char	*get_next_line(int fd)
 	return (0);
 } */
 
+void decode_file(int *lpf, int *f, int *fr, char *str)
+{
+	char **arr = ft_split(str, '-');
+	*lpf = ft_atoi(arr[0]);
+	free(arr[0]);
+	*f = ft_atoi(arr[1]);
+	free(arr[1]);
+	*fr = ft_atoi(arr[2]);
+	free(arr[2]);
+	free(arr);
+}
+
 #include "libft.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	int i = 0;
-	int lines_per_frame = 41;
-	int frames = 162;
+	int lines_per_frame;
+	int frames;
+	int frame_rate;
 	char *str = NULL;
+
+	if (argc != 2)
+	{
+		fprintf(2, "Usage: ./a.out [file.txt]");
+		return (1);
+	}
+	
+	int fd = open(argv[1], O_RDWR);
+	if (fd < 0)
+	{
+		fprintf(2, "Could not open file.");
+		return(2);
+	}
+	str = get_next_line(fd);
+	decode_file(lines_per_frame, frames, frame_rate, str);
 	do
 	{
 	int frame_line = 0;
 	int index = 0;
-	int fd = open("texts/akirav1.txt", O_RDWR);
+	
 		while (index < frames)
 		{
 			system("clear");
@@ -237,10 +265,12 @@ int	main(void)
 				}
 				frame_line++;
 			}
-			usleep(100000);
+			usleep(1000000 / frame_rate);
 			index++;
 		}
 	close(fd);
+	fd = open(argv[1], O_RDWR);
+	str = get_next_line(fd);
 	} while (1);
 	free(str);
 }

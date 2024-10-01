@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:32:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/10/01 21:15:29 by adeters          ###   ########.fr       */
+/*   Updated: 2024/10/01 21:24:13 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,7 @@ int	ft_line_len(char *buffer)
 void	*free_foo(char *str1, char *str2)
 {
 	free(str1);
-	str1 = NULL;
 	free(str2);
-	str2 = NULL;
 	return (NULL);
 }
 
@@ -193,9 +191,9 @@ int	main(void)
 	str = get_next_line(fd);
 	printf("%s", str);
 	free(str);
-	str = get_next_line(fd);
-	printf("%s", str);
-	free(str);
+	// str = get_next_line(fd);
+	// printf("%s", str);
+	// free(str);
 	close(fd);
 	return (0);
 }

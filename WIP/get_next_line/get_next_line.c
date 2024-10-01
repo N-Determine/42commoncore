@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:32:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/10/01 17:47:27 by adeters          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:44:50 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ char	*get_next_line(int fd)
 	isn_eof = 1;
 	while (isn_eof)
 	{
+		// this is a test
 		buffer = ft_calloc(sizeof(char), BUFFER_SIZE + 1 + ft_strlen(saver));
 		if (buffer == NULL)
 		{

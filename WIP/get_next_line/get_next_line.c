@@ -102,8 +102,8 @@ static char	*make_line(char **buffer, char *line, int code)
 {
 	if (code == 1)
 	{
-		line = ft_calloc(1, (ft_strchr(*buffer, '\n') + 2 - *buffer) + 1);
-		ft_strlcpy(line, *buffer, (ft_strchr(*buffer, '\n') + 2 - *buffer));
+		line = ft_calloc(1, (ft_strchr(*buffer, '\n') + 1 - *buffer) + 1);
+		ft_strlcpy(line, *buffer, (ft_strchr(*buffer, '\n') + 1 - *buffer) + 1);
 		*buffer = ft_update(*buffer);
 		if (!*buffer || !line)
 			return (free_foo(buffer, line));
@@ -116,20 +116,20 @@ static char	*make_line(char **buffer, char *line, int code)
 		return (free_foo(buffer, line));
 	return (line);
 }
-
+/* 
 #include <stdio.h>
 
 int	main(void)
 {
-	int fd = open("./texts/nonl.txt", O_RDWR);
-	for (int i = 0; i < 2; i++)
-	{
-		char *str = get_next_line(fd);
-		printf("%s", str);
-		free(str);
-	}
-	close(fd);
-	fd = open("./texts/onlynl.txt", O_RDWR);
+	// int fd = open("./texts/nonl.txt", O_RDWR);
+	// for (int i = 0; i < 2; i++)
+	// {
+	// 	char *str = get_next_line(fd);
+	// 	printf("%s", str);
+	// 	free(str);
+	// }
+	// close(fd);
+	int fd = open("./texts/onlynl.txt", O_RDWR);
 	for (int i = 0; i < 2; i++)
 	{
 		char *str = get_next_line(fd);
@@ -154,4 +154,4 @@ int	main(void)
 	free(str);
 	close(fd);
 	return (0);
-}
+} */

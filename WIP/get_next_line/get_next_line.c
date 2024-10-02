@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:12:06 by adeters           #+#    #+#             */
-/*   Updated: 2024/10/02 15:36:01 by adeters          ###   ########.fr       */
+/*   Updated: 2024/10/02 16:08:04 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,13 +121,24 @@ static char	*make_line(char **buffer, char *line, int code)
 
 int	main(void)
 {
-	int fd = open("./texts/onlynl.txt", O_RDWR);
-	char *str = get_next_line(fd);
-	printf("%s", str);
-	free(str);
+	int fd = open("./texts/nonl.txt", O_RDWR);
+	for (int i = 0; i < 2; i++)
+	{
+		char *str = get_next_line(fd);
+		printf("%s", str);
+		free(str);
+	}
+	close(fd);
+	fd = open("./texts/onlynl.txt", O_RDWR);
+	for (int i = 0; i < 2; i++)
+	{
+		char *str = get_next_line(fd);
+		printf("%s", str);
+		free(str);
+	}
 	close(fd);
 	fd = -1;
-	str = get_next_line(fd);
+	char *str = get_next_line(fd);
 	printf("%s", str);
 	free(str);
 	close(fd);

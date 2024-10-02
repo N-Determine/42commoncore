@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   new_newline.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/02 13:12:06 by adeters           #+#    #+#             */
+/*   Updated: 2024/10/02 13:23:03 by adeters          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 #include <fcntl.h>
 #include <stdint.h>
@@ -26,6 +38,8 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 
 	i = 0;
 	y = 0;
+	if (!dest || !src)
+		return (0);
 	while (src[y])
 		y++;
 	if (size > 0)
@@ -90,7 +104,7 @@ char	*ft_calloc(size_t nmemb, size_t size)
 
 void	ft_strcpy(char *dest, char *src)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (src && src[i])
@@ -100,29 +114,62 @@ void	ft_strcpy(char *dest, char *src)
 	}
 }
 
+char	*free_foo(char *buffer, char *line)
+{
+	free(buffer);
+	free(line);
+	buffer = NULL;
+	return (NULL);
+}
+
 char	*ft_update(char *buffer)
 {
-	char *tmp_buffer;
+	char	*tmp_buffer;
 
 	if (buffer == NULL)
 	{
 		buffer = ft_calloc(BUFFER_SIZE + 1, 1);
+		if (!buffer)
+			return (NULL);
 		return (buffer);
 	}
 	else if (!(ft_check_nl(buffer)))
 	{
-		tmp_buffer = ft_calloc(BUFFER_SIZE + 1 + ft_strlen(buffer), 1); // Protect
+		tmp_buffer = ft_calloc(BUFFER_SIZE + 1 + ft_strlen(buffer), 1);
+		if (!tmp_buffer)
+			return (free_foo(buffer, NULL));
 		ft_strcpy(tmp_buffer, buffer);
 		free(buffer);
 		return (tmp_buffer);
 	}
 	tmp_buffer = ft_calloc(ft_strlen(ft_strchr(buffer, '\n') + 1) + 1, 1);
+	if (!tmp_buffer)
+		return (free_foo(buffer, NULL));
 	ft_strcpy(tmp_buffer, (ft_strchr(buffer, '\n') + 1));
 	free(buffer);
 	return (tmp_buffer);
 }
 
-char *get_next_line(int fd)
+char	*make_line(char **buffer, char *line, int code)
+{
+	if (code == 1)
+	{
+		line = ft_calloc(1, (ft_strchr(*buffer, '\n') + 2 - *buffer) + 1);
+		ft_strlcpy(line, *buffer, (ft_strchr(*buffer, '\n') + 2 - *buffer));
+		*buffer = ft_update(*buffer);
+		if (!*buffer || !line)
+			return (free_foo(*buffer, line));
+		return (line);
+	}
+	line = ft_calloc(1, ft_strlen(*buffer) + 1);
+	ft_strlcpy(line, *buffer, ft_strlen(*buffer) + 1);
+	*buffer = ft_update(*buffer);
+	if (!*buffer || !line)
+		return (free_foo(*buffer, line));
+	return (line);
+}
+
+char	*get_next_line(int fd)
 {
 	static char	*buffer = NULL;
 	char		*line;
@@ -130,36 +177,26 @@ char *get_next_line(int fd)
 
 	line = NULL;
 	if (fd < 0)
-	{
-		free(buffer);
-		return (NULL);
-	}
+		return (free_foo(buffer, NULL));
 	bytes_read = 1;
 	while (!ft_check_nl(buffer) && bytes_read > 0)
 	{
-		buffer = ft_update(buffer); // Protect
-		bytes_read = read(fd, buffer + ft_strlen(buffer), BUFFER_SIZE); // Protect
-	}
-	// Buffer included nl -> return nl
-	if (ft_check_nl(buffer))
-	{
-		line = ft_calloc(1, (ft_strchr(buffer, '\n') + 2 - buffer) + 1); // Protect
-		ft_strlcpy(line, buffer, (ft_strchr(buffer, '\n') + 2 - buffer));
 		buffer = ft_update(buffer);
-		return (line);
+		if (!buffer)
+			return (NULL);
+		bytes_read = read(fd, buffer + ft_strlen(buffer), BUFFER_SIZE);
+		if (bytes_read < 0)
+			return (free_foo(buffer, NULL));
 	}
-	// Does not work if buffer size is smaller than the last line without a newline
+	if (ft_check_nl(buffer))
+		return (make_line(&buffer, line, 1));
 	if (buffer && ft_strlen(buffer))
-	{
-		line = ft_calloc(1, ft_strlen(buffer) + 1); // Protect
-		ft_strlcpy(line, buffer, ft_strlen(buffer) + 1);
-		buffer = ft_update(buffer); // Protect
-	}
+		line = make_line(&buffer, line, 0);
 	free(buffer);
 	buffer = NULL;
 	return (line);
 }
-
+/* 
 int	main(void)
 {
 	int fd = open("./texts/text.txt", O_RDWR);
@@ -183,4 +220,4 @@ int	main(void)
 	free(str);
 	close(fd);
 	return (0);
-}
+} */

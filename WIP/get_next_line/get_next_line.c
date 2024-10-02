@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:12:06 by adeters           #+#    #+#             */
-/*   Updated: 2024/10/02 14:57:43 by adeters          ###   ########.fr       */
+/*   Updated: 2024/10/02 15:00:12 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ static char	*make_line(char **buffer, char *line, int code)
 		return (free_foo(buffer, line));
 	return (line);
 }
-
+/* 
 #include <stdio.h>
 
 int	main(void)
@@ -146,4 +146,4 @@ int	main(void)
 	free(str);
 	close(fd);
 	return (0);
-}
+} */

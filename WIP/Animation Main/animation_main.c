@@ -1,4 +1,3 @@
-#include "libft.h"
 #include "get_next_line.h"
 #include <stdlib.h>
 #include <string.h>
@@ -45,7 +44,7 @@ int	main(int argc, char **argv)
 					free(str);
 				str = get_next_line(fd);
 				if (str)
-					ft_putstr_fd(str, 1); fflush(stdout);
+					printf("%s", str); fflush(stdout);
 				frame_line++;
 			}
 			duration -= 1000000 / frame_rate;

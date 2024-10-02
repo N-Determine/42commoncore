@@ -66,8 +66,8 @@ int	ft_strlen(char *str)
 
 char	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*ptr;
-	int		i;
+	char		*ptr;
+	size_t		i;
 
 	i = 0;
 	if (size != 0 && nmemb > SIZE_MAX / size)

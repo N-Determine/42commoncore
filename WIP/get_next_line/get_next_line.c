@@ -21,10 +21,10 @@ char	*get_next_line(int fd)
 {
 	static char	*buffer = NULL;
 	char		*line;
-	size_t		bytes_read;
+	ssize_t		bytes_read;
 
 	line = NULL;
-	if (fd < 0)
+	if (fd < 0 || read(fd, 0, 0) < 0)
 		return (free_foo(buffer, NULL));
 	bytes_read = 1;
 	while (!ft_check_nl(buffer) && bytes_read > 0)

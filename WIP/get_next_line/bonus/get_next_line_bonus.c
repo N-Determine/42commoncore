@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:12:06 by adeters           #+#    #+#             */
-/*   Updated: 2024/10/09 20:19:41 by adeters          ###   ########.fr       */
+/*   Updated: 2024/10/09 21:05:28 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,3 +116,48 @@ static char	*make_line(char **buffer, char *line, int code)
 		return (free_foo(buffer, line));
 	return (line);
 }
+/* 
+#include <stdio.h>
+
+int main(void)
+{
+	int fd1 = open("t1.txt", O_RDWR);
+	int fd2 = open("t2.txt", O_RDWR);
+	int fd3 = open("t3.txt", O_RDWR);
+	int i;
+	int j = 0;
+	char *str;
+	
+	while (j < 7)
+	{
+		i = 0;
+		while (i < 3)
+		{
+			str = get_next_line(fd1);
+			printf("%s", str);
+			free(str);
+			i++;
+		}
+		i = 0;
+		while (i < 3)
+		{
+			str = get_next_line(fd2);
+			printf("%s", str);
+			free(str);
+			i++;
+		}
+		i = 0;
+		while (i < 3)
+		{
+			str = get_next_line(fd3);
+			printf("%s", str);
+			free(str);
+			i++;
+		}
+		j++;
+	}
+	free(str);
+	close(fd1);
+	close(fd2);
+	close(fd3);
+} */

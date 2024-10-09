@@ -24,7 +24,7 @@ char	*get_next_line(int fd)
 	ssize_t		bytes_read;
 
 	line = NULL;
-	if (fd < 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || fd >= 1024)
 		return (free_foo(&buffer, NULL));
 	bytes_read = 1;
 	while (!ft_check_nl(buffer) && bytes_read > 0)

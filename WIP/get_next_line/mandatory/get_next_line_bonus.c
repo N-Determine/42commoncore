@@ -12,10 +12,10 @@
 
 #include "get_next_line_bonus.h"
 
-static int	ft_check_nl(char *str);
-static char	*free_foo(char **buffer, char *line);
-static char	*ft_update(char *buffer);
-static char	*make_line(char **buffer, char *line, int code);
+int		ft_check_nl(char *str);
+char	*free_foo(char **buffer, char *line);
+char	*ft_update(char *buffer);
+char	*make_line(char **buffer, char *line, int code);
 
 char	*get_next_line(int fd)
 {
@@ -24,8 +24,8 @@ char	*get_next_line(int fd)
 	ssize_t		bytes_read;
 
 	line = NULL;
-	if (fd < 0 || read(fd, 0, 0) < 0)
-		return (free_foo(&buffer[fd], NULL));
+	if (fd < 0 || fd >= 1024)
+		return (NULL);
 	bytes_read = 1;
 	while (!ft_check_nl(buffer[fd]) && bytes_read > 0)
 	{
@@ -45,7 +45,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-static int	ft_check_nl(char *str)
+int	ft_check_nl(char *str)
 {
 	int	index;
 
@@ -61,7 +61,7 @@ static int	ft_check_nl(char *str)
 	return (0);
 }
 
-static char	*free_foo(char **buffer, char *line)
+char	*free_foo(char **buffer, char *line)
 {
 	free(*buffer);
 	free(line);
@@ -69,7 +69,7 @@ static char	*free_foo(char **buffer, char *line)
 	return (NULL);
 }
 
-static char	*ft_update(char *buffer)
+char	*ft_update(char *buffer)
 {
 	char	*tmp_buffer;
 
@@ -98,7 +98,7 @@ static char	*ft_update(char *buffer)
 	return (tmp_buffer);
 }
 
-static char	*make_line(char **buffer, char *line, int code)
+char	*make_line(char **buffer, char *line, int code)
 {
 	if (code == 1)
 	{

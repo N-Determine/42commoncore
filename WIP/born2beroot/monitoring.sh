@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Make variables for later use here
-architec=$(uname -vps)
+architec=$(uname -a | awk '{print $12}')
+version=$(uname -v)
 physical=$(lscpu | grep "Socket(s):" | awk '{print $2}')
 virtual=$(nproc)
 mem=$(free | grep Mem | awk '{printf "%s/%sMB	(%.2f%%)", $3, $2, $3/$2 * 100}')
@@ -12,14 +13,10 @@ boot=$(who -b | awk '{print $3" "$4}')
 tcp=$(netstat -ant | grep ESTABLISHED | wc -l)
 users=$(who | wc -l)
 
-
 mac=$(ifconfig -a | grep ether | sed -n '2p' | awk '{print $2}')
 ipv4=$(ifconfig -a | grep "inet " | sed -n '2p' | awk '{print $2}')
 
-
-
-# This is the layout of the message using the variables we have created
-echo "#Architecture:		$architec"
+echo "#Architecture:		$version $architec"
 echo "#CPU Physical:		$physical"
 echo "#vCPU:			$virtual"
 echo "#Memory Usage:		$mem"

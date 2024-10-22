@@ -46,6 +46,11 @@ int main(int ac, char **av)
 	if (ac == 3) // Needs more protections for valid inputs
 	{
 		int fd = open(av[2], O_RDONLY);
+		if (fd < 0)
+		{
+			printf("Wordlist could not be loaded. Use a real one!\n");
+			return (1);
+		}
 		int lines_in_dic = 0;
 		while ((word = get_next_line(fd)) != NULL)
 		{
@@ -54,6 +59,11 @@ int main(int ac, char **av)
 		}
 		close(fd);
 		fd = open(av[2], O_RDONLY);
+		if (fd < 0)
+		{
+			printf("Wordlist could not be loaded. Use a real one!\n");
+			return (1);
+		}
 		word = get_next_line(fd);
 		while (word && i < (atoi(av[1]) % lines_in_dic))
 		{

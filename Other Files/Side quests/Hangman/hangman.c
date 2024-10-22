@@ -45,7 +45,7 @@ int main(int ac, char **av)
 		word = av[1];
 	if (ac == 3) // Needs more protections for valid inputs
 	{
-		int fd = open("test.txt", O_RDONLY);
+		int fd = open(av[2], O_RDONLY);
 		int lines_in_dic = 0;
 		while ((word = get_next_line(fd)) != NULL)
 		{
@@ -53,7 +53,7 @@ int main(int ac, char **av)
 			free(word);
 		}
 		close(fd);
-		fd = open("test.txt", O_RDONLY);
+		fd = open(av[2], O_RDONLY);
 		word = get_next_line(fd);
 		while (word && i < (atoi(av[1]) % lines_in_dic))
 		{

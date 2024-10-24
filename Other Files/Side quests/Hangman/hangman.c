@@ -1,54 +1,49 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <ctype.h>
-#include <fcntl.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hangman.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/24 20:56:51 by adeters           #+#    #+#             */
+/*   Updated: 2024/10/24 21:41:32 by adeters          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
+#include "hangman.h"
 
-// Global Variable Tries, no protection if the word has more than tries different letters (unless you can enter the whole word)
-int TRIES = 11;
+int 	TRIES = 7;
+char	*DEFAULT_WORD_LIST = "Wordlists/bigger3.txt";
 
-int print_str(int letters[26], char *str)
-{
-	printf("Word: "); fflush(stdout);
-	int i = 0;
-	int game_state = 0;
-	while (str[i])
-	{
-		if (letters[str[i] - 'a'] == 0)
-		{
-			write(1, "_ ", 2);
-			game_state = 1;
-		}
-		else
-		{
-			write(1, &str[i], 1);
-			write(1, " ", 1);
-		}
-		i++;
-	}
-	return (game_state);
-}
-// make input upper lower case independent
-// make it able to insert the full word
-// make it able to use word from wordlist
 int main(int ac, char **av)
 {
-	if (ac < 2 || ac > 3)
+	if (ac > 3)
 	{
-		printf("Usage: ./a.out \"word to find\" OR ./a.out seed(random nr) wordlist\n");
+		fprintf(stderr, "Please read the manual on how to run the program properly\n");
 		return (1);
 	}
 	char *word = NULL;
 	int i = 0;
 	if (ac == 2)
-		word = av[1];
-	if (ac == 3) // Needs more protections for valid inputs
 	{
-		int fd = open(av[2], O_RDONLY);
+		if (!str_isalpha(av[1]))
+		{
+			fprintf(stderr, "Why can you not just follow the rules and use only letters for the word!?\n");
+			return (1);
+		}
+		word = make_lower(av[1]);
+	}
+	if (ac == 3 || ac == 1)
+	{
+		int fd = 0;	
+		if (ac == 3)
+			fd = open(av[2], O_RDONLY);
+		else
+			fd = open(DEFAULT_WORD_LIST, O_RDONLY);
 		if (fd < 0)
 		{
-			printf("Wordlist could not be loaded. Use a real one!\n");
+			fprintf(stderr, "Wordlist could not be loaded. Use a real one!\n");
 			return (1);
 		}
 		int lines_in_dic = 0;
@@ -58,70 +53,107 @@ int main(int ac, char **av)
 			free(word);
 		}
 		close(fd);
-		fd = open(av[2], O_RDONLY);
+		if (!lines_in_dic)
+		{
+			fprintf(stderr, "Something went horribly wrong while counting the amount of words in the wordlist\n");
+			return (1);
+		}
+		if (ac == 3)
+			fd = open(av[2], O_RDONLY);
+		else
+			fd = open(DEFAULT_WORD_LIST, O_RDONLY);
 		if (fd < 0)
 		{
-			printf("Wordlist could not be loaded. Use a real one!\n");
+			fprintf(stderr, "Wordlist could not be loaded. Use a real one!\n");
 			return (1);
 		}
 		word = get_next_line(fd);
-		while (word && i < (atoi(av[1]) % lines_in_dic))
+		srand(time(NULL));
+		if (ac == 3 && strcmp(av[1], "-r") == 0)
 		{
-			free(word);
-			word = get_next_line(fd);
-			i++;
+			int line = rand();
+			while (word && i < line % lines_in_dic)
+			{
+				free(word);
+				word = get_next_line(fd);
+				i++;
+			}
 		}
-		word[strlen(word) - 1] = '\0';
+		else if (ac == 3)
+		{
+			while (word && i < (atoi(av[1]) % lines_in_dic))
+			{
+				free(word);
+				word = get_next_line(fd);
+				i++;
+			}
+		}
+		else
+		{
+			int line = rand();
+			while (word && i < line % lines_in_dic)
+			{
+				free(word);
+				word = get_next_line(fd);
+				i++;
+			}
+		}
+		if (!word)
+		{
+			fprintf(stderr, "Somehow there could be no word extracted from the wordlist\n");
+			return (1);
+		}
+		if (word[strlen(word) - 1] == '\n')
+			word[strlen(word) - 1] = '\0';
 		close(fd);
+		word = make_lower(word); // Just in case there is accidentally a capital letter in a wordlist
 	}
 	get_next_line(-1);
 	if (!word)
+	{
+		fprintf(stderr, "Somehow there could be no word extracted from the wordlist\n");
 		return (1);
-	int letters[26];
-	int letter_in_word[26];
-	char used_characters[78];
-	int used_characters_index = 0;
-	i = 0;
-	while (i < 78)
-	{
-		used_characters[i] = 0;
-		i++;
 	}
-	i = 0;
-	while (i < 26)
-	{
-		letters[i] = 0;
-		letter_in_word[i] = 0;
-		i++;
-	}
+	int letters[26] = {0}; // Array that tracks all the letters the user has already tried
+	int letter_in_word[26] = {0}; // Array that stores all letters from the word to be found
+	char used_characters[78] = {0}; // String that displays the used characters
+	int used_characters_index = 0; // The index of the used characters string (to print the next ones)
+	int game_state = 1; // Become 0 if game is won and thus exits the game loop
+	int input_state = 0; // Becomes 1 if the user input is invalid and keeps do-while loop going
+	char *buff; // Temporary buffer for every new letter
+	char character; // Character extrated from buff
+	int turn = 0; // Number of turns
+	int fails = 0; // Number of fails
 	i = 0;
 	while (word[i])
 	{
 		letter_in_word[word[i] - 'a'] = 1;
 		i++;
 	}
-	int game_state = 1;
 	system("clear");
 	print_str(letters, word);
-	printf("   Tries left: %i\n", (TRIES));
-	printf("\nUsed characters: %s\n", used_characters);
-	int input_state = 0;
-	char character;
-	char *buff;
-	int turn = 0;
-
-	while(game_state && turn < TRIES)
+	printf("   Fails left: %i/%i\n", TRIES, TRIES);
+	printf("\nUsed characters: \n");
+	while(game_state && fails < TRIES)
 	{
+		if (TRIES == 7)
+			print_hangman(fails);
 		if (turn == 0)
 		{
-			printf("\nPlease insert the first letter: "); fflush(stdout);
+			printf("Please insert the first letter: "); fflush(stdout);
 		}
 		else
+		{
 			printf("Please insert the next letter: "); fflush(stdout);
+		}
 		do {
 			input_state = 0;
 			buff = get_next_line(0);
-			// Check if the input is valid
+			if (!buff)
+			{	
+				fprintf(stderr, "Something went horribly wrong. We're sorry (It's not our fault)\n");
+				return (free(word), 1);
+			}
 			if (strlen(buff) != 2)
 			{
 				free(buff);
@@ -148,31 +180,31 @@ int main(int ac, char **av)
 				input_state = 1;
 			}
 		} while (input_state == 1);
-		// Make sure the character is always lower case
 		if islower(buff[0])
 			character = buff[0];
 		else
 			character = tolower(buff[0]);
-		// First turn we do not need a Space and Comma between used letters
 		if (turn == 0)
 		{
 			used_characters[used_characters_index] = character;
 			used_characters_index++;
 		}
-		else // Then we do
+		else
 		{
 			used_characters[used_characters_index] = ',';
 			used_characters[used_characters_index + 1] = ' ';
 			used_characters[used_characters_index + 2] = character;
 			used_characters_index += 3;
 		}
-		letters[character - 'a'] = 1; // Update the hashtable after letter is found
-		system("clear"); 
+		letters[character - 'a'] = 1;
+		system("clear");
+		if (letter_in_word[tolower(buff[0]) - 'a'] == 0)
+			fails++;
 		game_state = print_str(letters, word);
-		printf("   Tries left: %i\n", (TRIES - turn - 1));
-		printf("\nUsed characters: %s\n\n", used_characters);
-		free(buff);
+		printf("   Fails left: %i/%i\n", (TRIES - fails), TRIES);
+		printf("\nUsed characters: %s\n", used_characters);
 		turn++;
+		free(buff);
 	}
 	system("clear");
 	get_next_line(-1);
@@ -187,13 +219,17 @@ int main(int ac, char **av)
 			i++;
 		}
 		printf("*\n");
-		if (ac == 3)
+		if (ac == 3 || ac == 1)
 			free(word);
 	}
 	else
 	{
-		printf("\n\nthe word was actually \"%s\". Wasn't that obvious..\n\n\n\n", word);
-		if (ac == 3)
+		printf("\n\n\n");
+		if (TRIES == 7)
+			print_hangman(fails);
+		print_insult(word);
+		//printf("the word was actually \"%s\". Wasn't that obvious..\n\n\n\n", word);
+		if (ac == 3 || ac == 1)
 			free(word);
 	}
 	return (0);

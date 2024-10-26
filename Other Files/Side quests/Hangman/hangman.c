@@ -13,7 +13,6 @@
 #include "get_next_line.h"
 #include "hangman.h"
 
-int 	TRIES = 7;
 char	*DEFAULT_WORD_LIST = "Wordlists/bigger3.txt";
 
 int main(int ac, char **av)

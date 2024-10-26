@@ -9,6 +9,8 @@
 #include <fcntl.h>
 #include <time.h>
 
+#define TRIES 7
+
 /**
  * @brief Prints the ASCII art representation of the hangman.
  * 

@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/08 16:34:00 by adeters           #+#    #+#              #
-#    Updated: 2024/09/13 16:14:04 by adeters          ###   ########.fr        #
+#    Updated: 2024/10/28 10:34:56 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,5 +45,8 @@ fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
+
+quick: 
+	make --jobs=16
 
 .PHONY: all clean fclean re bonus

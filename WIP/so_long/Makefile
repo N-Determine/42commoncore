@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 10:19:36 by adeters           #+#    #+#              #
-#    Updated: 2024/10/28 11:24:11 by adeters          ###   ########.fr        #
+#    Updated: 2024/10/31 12:10:13 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,10 @@ fclean: clean
 
 re: fclean all
 
+tidy: all clean
+
 multire: fclean quick
 	
-
 multi:
 	make --jobs=16
 

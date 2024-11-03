@@ -9,3 +9,8 @@ Map Valid:
 - All lines of equal size
 - Only 1s on the outer layers
 
+
+
+
+
+

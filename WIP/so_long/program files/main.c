@@ -2,7 +2,6 @@
 #include <math.h>
 #include <stdio.h>
 
-
 #define WWIDTH 1280
 #define WHIGHT 720
 #define PWIDTH 32
@@ -42,16 +41,24 @@ int	handle_keypress(int keysym, t_data *data)
 /**
  * @brief Loads all the seperate images into the tiles struct
  */
-int load_tiles(t_data data, t_tiles *tiles)
+int	load_tiles(t_data data, t_tiles *tiles)
 {
-	tiles->c.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/c.xpm", &tiles->c.width, &tiles->c.hight);
-	tiles->ec.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/ec.xpm", &tiles->ec.width, &tiles->ec.hight);
-	tiles->eo.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/eo.xpm", &tiles->eo.width, &tiles->eo.hight);
-	tiles->pd.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pd.xpm", &tiles->pd.width, &tiles->pd.hight);
-	tiles->pl.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pl.xpm", &tiles->pl.width, &tiles->pl.hight);
-	tiles->pr.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pr.xpm", &tiles->pr.width, &tiles->pr.hight);
-	tiles->pu.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pu.xpm", &tiles->pu.width, &tiles->pu.hight);
-	tiles->thc.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/thc.xpm", &tiles->thc.width, &tiles->thc.hight);
+	tiles->c.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/c.xpm",
+			&tiles->c.width, &tiles->c.hight);
+	tiles->ec.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/ec.xpm",
+			&tiles->ec.width, &tiles->ec.hight);
+	tiles->eo.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/eo.xpm",
+			&tiles->eo.width, &tiles->eo.hight);
+	tiles->pd.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pd.xpm",
+			&tiles->pd.width, &tiles->pd.hight);
+	tiles->pl.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pl.xpm",
+			&tiles->pl.width, &tiles->pl.hight);
+	tiles->pr.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pr.xpm",
+			&tiles->pr.width, &tiles->pr.hight);
+	tiles->pu.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pu.xpm",
+			&tiles->pu.width, &tiles->pu.hight);
+	tiles->thc.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/thc.xpm",
+			&tiles->thc.width, &tiles->thc.hight);
 	if (!tiles->c.img || !tiles->ec.img || !tiles->eo.img)
 		return (0);
 	if (!tiles->pd.img || !tiles->pl.img || !tiles->pr.img || !tiles->pu.img)
@@ -61,11 +68,10 @@ int load_tiles(t_data data, t_tiles *tiles)
 	return (1);
 }
 
-
 int	main(void)
 {
 	t_images image;
-	t_tiles	*tiles;
+	t_tiles *tiles;
 	t_data data;
 	data.close_request = 0;
 
@@ -80,8 +86,6 @@ int	main(void)
 	mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, image.img, 0, 0);
 	mlx_destroy_image(data.mlx_ptr, image.img);
 	*/
-	
-
 
 	// Getting in the map
 	int map_width = 5;
@@ -97,13 +101,9 @@ int	main(void)
 	test_map[2][1] = test_map[1][1] = 'C';
 	test_map[0][2] = test_map[1][2] = test_map[2][2] = test_map[3][2] = test_map[4][2] = '1';
 
-
 	// Make space for the tiles struct and load the images
 	tiles = malloc(sizeof(t_tiles)); // Protect
-	load_tiles(data, tiles); // Protect
-
-
-
+	load_tiles(data, tiles);         // Protect
 
 	// Print current gamestate (aka the map after making adjustments)
 	for (int i = 0; i < map_width; i++)
@@ -111,45 +111,38 @@ int	main(void)
 		for (int j = 0; j < map_hight; j++)
 		{
 			if (test_map[i][j] == 'C')
-				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->c.img, i * tiles->c.width, j * tiles->c.hight);
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
+					tiles->c.img, i * tiles->c.width, j * tiles->c.hight);
 			else if (test_map[i][j] == 'E')
-				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->ec.img, i * tiles->ec.width, j * tiles->ec.hight);
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
+					tiles->ec.img, i * tiles->ec.width, j * tiles->ec.hight);
 			else if (test_map[i][j] == 'e')
-				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->eo.img, i * tiles->eo.width, j * tiles->eo.hight);
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
+					tiles->eo.img, i * tiles->eo.width, j * tiles->eo.hight);
 			else if (test_map[i][j] == 'S')
-				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->pd.img, i * tiles->pd.width, j * tiles->pd.hight);
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
+					tiles->pd.img, i * tiles->pd.width, j * tiles->pd.hight);
 			else if (test_map[i][j] == 'A')
-				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->pl.img, i * tiles->pl.width, j * tiles->pl.hight);
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
+					tiles->pl.img, i * tiles->pl.width, j * tiles->pl.hight);
 			else if (test_map[i][j] == 'P')
-				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->pr.img, i * tiles->pr.width, j * tiles->pr.hight);
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
+					tiles->pr.img, i * tiles->pr.width, j * tiles->pr.hight);
 			else if (test_map[i][j] == 'W')
-				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->pu.img, i * tiles->pu.width, j * tiles->pu.hight);
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
+					tiles->pu.img, i * tiles->pu.width, j * tiles->pu.hight);
 			else if (test_map[i][j] == '1')
-				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->thc.img, i * tiles->thc.width, j * tiles->thc.hight);
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
+					tiles->thc.img, i * tiles->thc.width, j * tiles->thc.hight);
 		}
 	}
-
-
-
-
-
-
 
 	// Setting up hooks
 	mlx_hook(data.win_ptr, 17, 0, &set_close_request, &data);
 	mlx_loop_hook(data.mlx_ptr, &handle_close_request, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
 
-
-
-
-
 	mlx_loop(data.mlx_ptr);
-
-
-
-
-
 
 	// Make function to free this crap
 	mlx_destroy_image(data.mlx_ptr, tiles->c.img);

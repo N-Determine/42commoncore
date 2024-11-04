@@ -47,6 +47,36 @@
 		*/
 
 
+		/*
+		// Dajan's super cool washed out pride flag
+		int x_offset = 5;
+		int y_offset = 5;
+		int x_size = 255;
+		int y_size = 255;
+		unsigned char r = 255;
+		unsigned char g = 0;
+		unsigned char b = 0;
+		char green_sign = 1;
+		int step = 255 / 4;
+		for (int i = 0; i < x_size; i++)
+		{
+			r = (int)(255.0 * cos(((double)i * 1.57) / 255));
+			// r -= 1;
+			// b += 1;
+			b = (int)(255.0 * sin(((double)i * 1.57) / 255));
+			g = 127 - (int)(127.0 * cos(((double)i * 3.14 * 2) / 255));
+			printf("%d\n", g);
+			// g += green_sign;
+
+			for (int j = 0; j < y_size; j++)
+			{
+				ft_mlx_pixel_put(&image, x_offset + i, y_offset + j, get_rgb(r, g, b));
+			}
+		}
+		*/
+
+
+
 
 
 		/*

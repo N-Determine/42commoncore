@@ -6,15 +6,15 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 10:19:36 by adeters           #+#    #+#              #
-#    Updated: 2024/11/03 20:17:16 by adeters          ###   ########.fr        #
+#    Updated: 2024/11/04 19:22:19 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = long
 COMP = cc
 FLAGS = -Wall -Werror -Wextra
-XFLAGS = -lmlx -lXext -lX11 -g
-SRCS =	main.c
+XFLAGS = -lmlx -lXext -lX11 -g -lm
+SRCS =	$(wildcard *.c)
 OBJS = $(SRCS:.c=.o)
 
 $(NAME): $(OBJS)

@@ -1,7 +1,12 @@
 #include "so_long.h"
+#include <math.h>
+#include <stdio.h>
+
 
 #define WWIDTH 1280
 #define WHIGHT 720
+#define PWIDTH 32
+#define PHIGHT 32
 #define WINDOW_NAME "new window"
 
 int	set_close_request(t_data *data)
@@ -38,6 +43,7 @@ int	handle_keypress(int keysym, t_data *data)
 int	main(void)
 {
 	t_images image;
+	t_tiles	*tiles;
 	t_data data;
 	data.close_request = 0;
 
@@ -52,11 +58,42 @@ int	main(void)
 	mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, image.img, 0, 0);
 	mlx_destroy_image(data.mlx_ptr, image.img);
 	*/
+	
 
 
 	// Getting in the map
+	int test_map[5][3];
+	test_map[0][0] = test_map[1][0] = test_map[2][0] = test_map[3][0] = test_map[4][0] = '1';
+	test_map[0][1] = test_map[4][1] = '1';
+	test_map[2][1] = test_map[1][1] = 'C';
+	test_map[0][2] = test_map[1][2] = test_map[2][2] = test_map[3][2] = test_map[4][2] = '1';
 
 
+
+
+	// Loading the images in the tiles struct
+	tiles = malloc(sizeof(t_tiles));
+	tiles->c.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/collectable.xpm", &tiles->c.width, &tiles->c.hight);
+	tiles->thc.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/tile_hard_contrast.xpm", &tiles->thc.width, &tiles->thc.hight);
+
+
+
+	// Printing the map itself
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (test_map[i][j] == 'C')
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->c.img, i * tiles->c.width, j * tiles->c.hight);
+			else if (test_map[i][j] == '1')
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->thc.img, i * tiles->thc.width, j * tiles->thc.hight);
+		}
+	}
+
+	// Make function to free this crap
+	mlx_destroy_image(data.mlx_ptr, tiles->c.img);
+	mlx_destroy_image(data.mlx_ptr, tiles->thc.img);
+	free(tiles);
 
 
 
@@ -66,8 +103,6 @@ int	main(void)
 	mlx_hook(data.win_ptr, 17, 0, &set_close_request, &data);
 	mlx_loop_hook(data.mlx_ptr, &handle_close_request, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
-
-
 
 
 

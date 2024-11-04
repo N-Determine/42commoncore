@@ -39,6 +39,28 @@ int	handle_keypress(int keysym, t_data *data)
 	return (0);
 }
 
+/**
+ * @brief Loads all the seperate images into the tiles struct
+ */
+int load_tiles(t_data data, t_tiles *tiles)
+{
+	tiles->c.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/c.xpm", &tiles->c.width, &tiles->c.hight);
+	tiles->ec.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/ec.xpm", &tiles->ec.width, &tiles->ec.hight);
+	tiles->eo.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/eo.xpm", &tiles->eo.width, &tiles->eo.hight);
+	tiles->pd.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pd.xpm", &tiles->pd.width, &tiles->pd.hight);
+	tiles->pl.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pl.xpm", &tiles->pl.width, &tiles->pl.hight);
+	tiles->pr.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pr.xpm", &tiles->pr.width, &tiles->pr.hight);
+	tiles->pu.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pu.xpm", &tiles->pu.width, &tiles->pu.hight);
+	tiles->thc.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/thc.xpm", &tiles->thc.width, &tiles->thc.hight);
+	if (!tiles->c.img || !tiles->ec.img || !tiles->eo.img)
+		return (0);
+	if (!tiles->pd.img || !tiles->pl.img || !tiles->pr.img || !tiles->pu.img)
+		return (0);
+	if (!tiles->thc.img) // Don't forget the ghosts
+		return (0);
+	return (1);
+}
+
 
 int	main(void)
 {
@@ -62,38 +84,52 @@ int	main(void)
 
 
 	// Getting in the map
-	int test_map[5][3];
-	test_map[0][0] = test_map[1][0] = test_map[2][0] = test_map[3][0] = test_map[4][0] = '1';
-	test_map[0][1] = test_map[4][1] = '1';
+	int map_width = 5;
+	int map_hight = 3;
+	int test_map[map_width][map_hight];
+	test_map[0][0] = 'E';
+	test_map[1][0] = 'e';
+	test_map[2][0] = 'W';
+	test_map[3][0] = 'A';
+	test_map[4][0] = 'S';
+	test_map[0][1] = 'D';
+	test_map[4][1] = '1';
 	test_map[2][1] = test_map[1][1] = 'C';
 	test_map[0][2] = test_map[1][2] = test_map[2][2] = test_map[3][2] = test_map[4][2] = '1';
 
 
-
-
-	// Loading the images in the tiles struct
-	tiles = malloc(sizeof(t_tiles));
-	tiles->c.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/collectable.xpm", &tiles->c.width, &tiles->c.hight);
-	tiles->thc.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/tile_hard_contrast.xpm", &tiles->thc.width, &tiles->thc.hight);
+	// Make space for the tiles struct and load the images
+	tiles = malloc(sizeof(t_tiles)); // Protect
+	load_tiles(data, tiles); // Protect
 
 
 
-	// Printing the map itself
-	for (int i = 0; i < 5; i++)
+
+	// Print current gamestate (aka the map after making adjustments)
+	for (int i = 0; i < map_width; i++)
 	{
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < map_hight; j++)
 		{
 			if (test_map[i][j] == 'C')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->c.img, i * tiles->c.width, j * tiles->c.hight);
+			else if (test_map[i][j] == 'E')
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->ec.img, i * tiles->ec.width, j * tiles->ec.hight);
+			else if (test_map[i][j] == 'e')
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->eo.img, i * tiles->eo.width, j * tiles->eo.hight);
+			else if (test_map[i][j] == 'S')
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->pd.img, i * tiles->pd.width, j * tiles->pd.hight);
+			else if (test_map[i][j] == 'A')
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->pl.img, i * tiles->pl.width, j * tiles->pl.hight);
+			else if (test_map[i][j] == 'P')
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->pr.img, i * tiles->pr.width, j * tiles->pr.hight);
+			else if (test_map[i][j] == 'W')
+				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->pu.img, i * tiles->pu.width, j * tiles->pu.hight);
 			else if (test_map[i][j] == '1')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, tiles->thc.img, i * tiles->thc.width, j * tiles->thc.hight);
 		}
 	}
 
-	// Make function to free this crap
-	mlx_destroy_image(data.mlx_ptr, tiles->c.img);
-	mlx_destroy_image(data.mlx_ptr, tiles->thc.img);
-	free(tiles);
+
 
 
 
@@ -114,6 +150,17 @@ int	main(void)
 
 
 
+
+	// Make function to free this crap
+	mlx_destroy_image(data.mlx_ptr, tiles->c.img);
+	mlx_destroy_image(data.mlx_ptr, tiles->ec.img);
+	mlx_destroy_image(data.mlx_ptr, tiles->eo.img);
+	mlx_destroy_image(data.mlx_ptr, tiles->pd.img);
+	mlx_destroy_image(data.mlx_ptr, tiles->pl.img);
+	mlx_destroy_image(data.mlx_ptr, tiles->pr.img);
+	mlx_destroy_image(data.mlx_ptr, tiles->pu.img);
+	mlx_destroy_image(data.mlx_ptr, tiles->thc.img); // Don't forget the ghosts
+	free(tiles);
 
 	// Getting rid of stuff
 	mlx_destroy_display(data.mlx_ptr);

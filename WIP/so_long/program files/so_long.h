@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/04 21:16:47 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/04 21:45:40 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ typedef struct s_images
 /**
  * @brief Struct that holds all of the images needed to print the map
  * 
- * @param c "Collectable"
- * @param ec "Exit Closed"
- * @param eo "Exit Opened"
- * @param pd "Player Down"
- * @param pl "Player Left"
- * @param pr "Player Right"
- * @param pu "Player Up"
- * @param thc "Tile Hard Contrast"
+ * @param c Collectable -			Code: `C`
+ * @param ec Exit Closed -			Code: `E`
+ * @param eo Exit Opened -			Code: `e`
+ * @param pd Player Down -			Code: `S`
+ * @param pl Player Left -			Code: `A`
+ * @param pr Player Right -			Code: `P`
+ * @param pu Player Up -			Code: `W`
+ * @param thc Tile Hard Contrast -	Code: `1`
  */
 typedef struct s_tiles
 {

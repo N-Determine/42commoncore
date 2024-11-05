@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/04 21:45:40 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/05 17:33:09 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
 # include <fcntl.h>
 # include <mlx.h>
 # include <stdlib.h>
+# include <math.h>
+
+#include "libft.h"
+#include "get_next_line.h"
+
+
+# define WWIDTH 1280
+# define WHIGHT 720
+# define PWIDTH 32
+# define PHIGHT 32
+# define WINDOW_NAME "new window"
+# define MAP_ADRESS "../maps/map-test.ber"
 
 
 typedef struct s_images
@@ -65,5 +77,6 @@ typedef struct s_data
 
 unsigned int	get_rgb(unsigned char red, unsigned char green,
 					unsigned char blue);
+char	**load_map(char *map_adress, int *width, int *hight);
 
 #endif

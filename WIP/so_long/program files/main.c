@@ -2,11 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 
-#define WWIDTH 1280
-#define WHIGHT 720
-#define PWIDTH 32
-#define PHIGHT 32
-#define WINDOW_NAME "new window"
+
 
 int	set_close_request(t_data *data)
 {
@@ -87,6 +83,10 @@ int	main(void)
 	mlx_destroy_image(data.mlx_ptr, image.img);
 	*/
 
+
+
+
+	/*
 	// Getting in the map
 	int map_width = 5;
 	int map_hight = 3;
@@ -96,44 +96,72 @@ int	main(void)
 	test_map[2][0] = 'W';
 	test_map[3][0] = 'A';
 	test_map[4][0] = 'S';
-	test_map[0][1] = 'D';
+	test_map[0][1] = 'P';
 	test_map[4][1] = '1';
 	test_map[2][1] = test_map[1][1] = 'C';
 	test_map[0][2] = test_map[1][2] = test_map[2][2] = test_map[3][2] = test_map[4][2] = '1';
+	int width = map_width;
+	int hight = map_hight;
+	*/
+
+
+
+	int width; 
+	int hight;
+	char **test_map = load_map(MAP_ADRESS, &width, &hight);
+	if (!test_map)
+		return (1);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	// Make space for the tiles struct and load the images
 	tiles = malloc(sizeof(t_tiles)); // Protect
 	load_tiles(data, tiles);         // Protect
 
+
+
+	
+
 	// Print current gamestate (aka the map after making adjustments)
-	for (int i = 0; i < map_width; i++)
+	for (int i = 0; i < hight; i++)
 	{
-		for (int j = 0; j < map_hight; j++)
+		for (int j = 0; j < width; j++)
 		{
 			if (test_map[i][j] == 'C')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->c.img, i * tiles->c.width, j * tiles->c.hight);
+					tiles->c.img, j * tiles->c.width, i * tiles->c.hight);
 			else if (test_map[i][j] == 'E')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->ec.img, i * tiles->ec.width, j * tiles->ec.hight);
+					tiles->ec.img, j * tiles->ec.width, i * tiles->ec.hight);
 			else if (test_map[i][j] == 'e')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->eo.img, i * tiles->eo.width, j * tiles->eo.hight);
+					tiles->eo.img, j * tiles->eo.width, i * tiles->eo.hight);
 			else if (test_map[i][j] == 'S')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->pd.img, i * tiles->pd.width, j * tiles->pd.hight);
+					tiles->pd.img, j * tiles->pd.width, i * tiles->pd.hight);
 			else if (test_map[i][j] == 'A')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->pl.img, i * tiles->pl.width, j * tiles->pl.hight);
+					tiles->pl.img, j * tiles->pl.width, i * tiles->pl.hight);
 			else if (test_map[i][j] == 'P')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->pr.img, i * tiles->pr.width, j * tiles->pr.hight);
+					tiles->pr.img, j * tiles->pr.width, i * tiles->pr.hight);
 			else if (test_map[i][j] == 'W')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->pu.img, i * tiles->pu.width, j * tiles->pu.hight);
+					tiles->pu.img, j * tiles->pu.width, i * tiles->pu.hight);
 			else if (test_map[i][j] == '1')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->thc.img, i * tiles->thc.width, j * tiles->thc.hight);
+					tiles->thc.img, j * tiles->thc.width, i * tiles->thc.hight);
 		}
 	}
 

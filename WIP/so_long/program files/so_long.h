@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/07 16:15:08 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/07 20:13:08 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_data
 	void		*win_ptr;
 	int			close_request;
 	t_map_data	map;
-	t_tiles		*tiles;
+	t_tiles		tiles;
 }				t_data;
 
 unsigned int	get_rgb(unsigned char red, unsigned char green,

@@ -27,33 +27,49 @@ void	print_gamestate(t_data *data)
 		{
 			if (data->map.map[i][j] == 'C')
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->tiles->c.img, j * data->tiles->c.width, i * data->tiles->c.hight);
+					data->tiles.c.img, j * data->tiles.c.width, i * data->tiles.c.hight);
 			else if (data->map.map[i][j] == 'E')
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->tiles->ec.img, j * data->tiles->ec.width, i * data->tiles->ec.hight);
+					data->tiles.ec.img, j * data->tiles.ec.width, i * data->tiles.ec.hight);
 			else if (data->map.map[i][j] == 'e')
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->tiles->eo.img, j * data->tiles->eo.width, i * data->tiles->eo.hight);
+					data->tiles.eo.img, j * data->tiles.eo.width, i * data->tiles.eo.hight);
 			else if (data->map.map[i][j] == 'S')
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->tiles->pd.img, j * data->tiles->pd.width, i * data->tiles->pd.hight);
+					data->tiles.pd.img, j * data->tiles.pd.width, i * data->tiles.pd.hight);
 			else if (data->map.map[i][j] == 'A')
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->tiles->pl.img, j * data->tiles->pl.width, i * data->tiles->pl.hight);
+					data->tiles.pl.img, j * data->tiles.pl.width, i * data->tiles.pl.hight);
 			else if (data->map.map[i][j] == 'P')
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->tiles->pr.img, j * data->tiles->pr.width, i * data->tiles->pr.hight);
+					data->tiles.pr.img, j * data->tiles.pr.width, i * data->tiles.pr.hight);
 			else if (data->map.map[i][j] == 'W')
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->tiles->pu.img, j * data->tiles->pu.width, i * data->tiles->pu.hight);
+					data->tiles.pu.img, j * data->tiles.pu.width, i * data->tiles.pu.hight);
 			else if (data->map.map[i][j] == '1')
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->tiles->thc.img, j * data->tiles->thc.width, i * data->tiles->thc.hight);
+					data->tiles.thc.img, j * data->tiles.thc.width, i * data->tiles.thc.hight);
 			else if (data->map.map[i][j] == '0')
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->tiles->zero.img, j * data->tiles->zero.width, i * data->tiles->zero.hight);
+					data->tiles.zero.img, j * data->tiles.zero.width, i * data->tiles.zero.hight);
 		}
 	}
+}
+
+void destroy_everything(t_data *data)
+{
+	mlx_destroy_image(data->mlx_ptr, data->tiles.c.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.ec.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.eo.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.pd.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.pl.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.pr.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.pu.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.thc.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.zero.img); // Don't forget the ghosts
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	mlx_destroy_display(data->mlx_ptr);
+	free(data->mlx_ptr);
 }
 
 
@@ -153,31 +169,31 @@ int	handle_keypress(int keysym, t_data *data, t_map_data *map)
 /**
  * @brief Loads all the seperate images into the tiles struct
  */
-int	load_tiles(t_data data, t_tiles *tiles)
+int	load_tiles(t_data *data, t_tiles tiles)
 {
-	tiles->c.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/c.xpm",
-			&tiles->c.width, &tiles->c.hight);
-	tiles->ec.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/ec.xpm",
-			&tiles->ec.width, &tiles->ec.hight);
-	tiles->eo.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/eo.xpm",
-			&tiles->eo.width, &tiles->eo.hight);
-	tiles->pd.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pd.xpm",
-			&tiles->pd.width, &tiles->pd.hight);
-	tiles->pl.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pl.xpm",
-			&tiles->pl.width, &tiles->pl.hight);
-	tiles->pr.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pr.xpm",
-			&tiles->pr.width, &tiles->pr.hight);
-	tiles->pu.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/pu.xpm",
-			&tiles->pu.width, &tiles->pu.hight);
-	tiles->thc.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/thc.xpm",
-			&tiles->thc.width, &tiles->thc.hight);
-	tiles->zero.img = mlx_xpm_file_to_image(data.mlx_ptr, "../images/0.xpm",
-			&tiles->zero.width, &tiles->zero.hight);
-	if (!tiles->c.img || !tiles->ec.img || !tiles->eo.img)
+	data->tiles.c.img = mlx_xpm_file_to_image(data->mlx_ptr, "../images/c.xpm",
+			&data->tiles.c.width, &data->tiles.c.hight);
+	data->tiles.ec.img = mlx_xpm_file_to_image(data->mlx_ptr, "../images/ec.xpm",
+			&data->tiles.ec.width, &data->tiles.ec.hight);
+	data->tiles.eo.img = mlx_xpm_file_to_image(data->mlx_ptr, "../images/eo.xpm",
+			&data->tiles.eo.width, &data->tiles.eo.hight);
+	data->tiles.pd.img = mlx_xpm_file_to_image(data->mlx_ptr, "../images/pd.xpm",
+			&data->tiles.pd.width, &data->tiles.pd.hight);
+	data->tiles.pl.img = mlx_xpm_file_to_image(data->mlx_ptr, "../images/pl.xpm",
+			&data->tiles.pl.width, &data->tiles.pl.hight);
+	data->tiles.pr.img = mlx_xpm_file_to_image(data->mlx_ptr, "../images/pr.xpm",
+			&data->tiles.pr.width, &data->tiles.pr.hight);
+	data->tiles.pu.img = mlx_xpm_file_to_image(data->mlx_ptr, "../images/pu.xpm",
+			&data->tiles.pu.width, &data->tiles.pu.hight);
+	data->tiles.thc.img = mlx_xpm_file_to_image(data->mlx_ptr, "../images/thc.xpm",
+			&data->tiles.thc.width, &data->tiles.thc.hight);
+	data->tiles.zero.img = mlx_xpm_file_to_image(data->mlx_ptr, "../images/0.xpm",
+			&data->tiles.zero.width, &data->tiles.zero.hight);
+	if (!data->tiles.c.img || !data->tiles.ec.img || !data->tiles.eo.img)
 		return (0);
-	if (!tiles->pd.img || !tiles->pl.img || !tiles->pr.img || !tiles->pu.img)
+	if (!data->tiles.pd.img || !data->tiles.pl.img || !data->tiles.pr.img || !data->tiles.pu.img)
 		return (0);
-	if (!tiles->thc.img) // Don't forget the ghosts
+	if (!data->tiles.thc.img) // Don't forget the ghosts
 		return (0);
 	return (1);
 }
@@ -241,10 +257,9 @@ int locate_exit(t_map_data map, int *e_pos_x, int *e_pos_y)
 	return (1);
 }
 
-
 int	main(void)
 {
-	t_images image;
+	//t_images image;
 	t_data data;
 
 	data.close_request = 0;
@@ -262,9 +277,7 @@ int	main(void)
 	data.mlx_ptr = mlx_init();
 	data.win_ptr = mlx_new_window(data.mlx_ptr, WWIDTH, WHIGHT, WINDOW_NAME);
 
-	// Make space for the tiles struct and load the images
-	data.tiles = malloc(sizeof(t_tiles)); // Protect
-	load_tiles(data, data.tiles);         // Protect
+	load_tiles(&data, data.tiles);         // Protect
 
 	//Printing initial map
 	print_gamestate(&data);
@@ -276,20 +289,7 @@ int	main(void)
 
 	mlx_loop(data.mlx_ptr);
 
-	// Make function to free this crap
-	mlx_destroy_image(data.mlx_ptr, data.tiles->c.img);
-	mlx_destroy_image(data.mlx_ptr, data.tiles->ec.img);
-	mlx_destroy_image(data.mlx_ptr, data.tiles->eo.img);
-	mlx_destroy_image(data.mlx_ptr, data.tiles->pd.img);
-	mlx_destroy_image(data.mlx_ptr, data.tiles->pl.img);
-	mlx_destroy_image(data.mlx_ptr, data.tiles->pr.img);
-	mlx_destroy_image(data.mlx_ptr, data.tiles->pu.img);
-	mlx_destroy_image(data.mlx_ptr, data.tiles->thc.img);
-	mlx_destroy_image(data.mlx_ptr, data.tiles->zero.img); // Don't forget the ghosts
-	free(data.tiles);
-
 	// Getting rid of stuff
-	mlx_destroy_display(data.mlx_ptr);
-	free(data.mlx_ptr);
+	destroy_everything(&data);
 	return (0);
 }

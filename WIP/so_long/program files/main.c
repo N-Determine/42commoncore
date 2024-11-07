@@ -4,22 +4,7 @@
 
 #define COL_NB 95
 
-void destroy_everything(t_data *data)
-{
-	mlx_destroy_image(data->mlx_ptr, data->tiles.c.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.ec.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.eo.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.pd.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.pl.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.pr.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.pu.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.thc.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.zero.img); // Don't forget the ghosts
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
-	free_all(data->map.map, data->map.hight);
-	free(data->mlx_ptr);
-}
+
 
 int	set_close_request(t_data *data)
 {
@@ -307,9 +292,9 @@ int	main(void)
 	data.close_request = 0;
 
 	data.mlx_ptr = mlx_init();
-	data.win_ptr = mlx_new_window(data.mlx_ptr, WWIDTH, WHIGHT, WINDOW_NAME);
-
 	load_tiles(&data, data.tiles);         // Protect
+	data.win_ptr = mlx_new_window(data.mlx_ptr, data.map.width * data.tiles.c.width, data.map.hight * data.tiles.c.hight, WINDOW_NAME);
+
 
 	//Printing initial map
 	print_gamestate(&data);

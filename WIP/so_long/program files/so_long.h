@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/07 22:32:36 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/07 23:01:06 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ typedef struct s_data
 unsigned int	get_rgb(unsigned char red, unsigned char green,
 					unsigned char blue);
 char	**load_map(char *map_adress, int *width, int *hight);
+
+// destroy.c
 void	free_all(char **arr, int index);
+void	destroy_everything(t_data *data);
 
 #endif

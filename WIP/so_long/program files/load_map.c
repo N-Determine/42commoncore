@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:45:58 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/07 16:18:43 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/07 22:58:58 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,25 +93,6 @@ int	check_map_dimensions(char *map_adress, int *width, int *hight)
 	close(fd);
 	free(line);
 	return (1);
-}
-
-void	free_all(char **arr, int index)
-{
-	if (index != 0)
-	{
-		index = index - 1;
-		while (index >= 0)
-		{
-			free(arr[index]);
-			index--;
-		}
-		free(arr);
-	}
-	else
-	{
-		free(arr[0]);
-		free(arr);
-	}
 }
 
 char **allocate_map(width, hight)

@@ -185,7 +185,7 @@ int	load_tiles(t_data data, t_tiles *tiles)
 
 
 
-// Refactor so that locate_start and locat_exit are the same function
+// Refactor so that locate_start and locat_exit are the same function, also use it to find amount of collectables
 int locate_start(t_map_data map, int *pos_x, int *pos_y)
 {
 	int i;
@@ -249,8 +249,7 @@ int	main(void)
 	t_data data;
 
 	data.close_request = 0;
-	data.mlx_ptr = mlx_init();
-	data.win_ptr = mlx_new_window(data.mlx_ptr, WWIDTH, WHIGHT, WINDOW_NAME);
+
 
 	/*
 	// Image Creation
@@ -277,6 +276,12 @@ int	main(void)
 
 
 
+	data.mlx_ptr = mlx_init();
+	data.win_ptr = mlx_new_window(data.mlx_ptr, WWIDTH, WHIGHT, WINDOW_NAME);
+
+
+
+
 
 
 
@@ -285,6 +290,10 @@ int	main(void)
 	data.tiles = malloc(sizeof(t_tiles)); // Protect
 	load_tiles(data, data.tiles);         // Protect
 	
+
+
+
+
 
 	print_gamestate(&data);
 

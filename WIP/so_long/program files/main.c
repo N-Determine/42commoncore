@@ -17,22 +17,34 @@ int	handle_close_request(t_data *data)
 	return (0);
 }
 
-int	handle_keypress(int keysym, t_data *data)
+int handle_right(t_map_data *map)
+{
+	if (map->map[map->pos_y][map->pos_x + 1] != '1')
+	{
+		map->map[map->pos_y][map->pos_x] = '0';
+		map->pos_x++;
+	}
+	return (map->pos_x);
+}
+
+int	handle_keypress(int keysym, t_data *data, t_map_data *map)
 {
 	if (keysym == XK_Escape)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	if (keysym == XK_a || keysym == XK_A || keysym == XK_Left)
+		handle_right(&data->map);
 	/*
 	// Make the functions work with all playable varieties
-	if (keysym == XK_a || keysym == XK_A || keysym == XK_Left)
-		update_game_state(a);
 	if (keysym == XK_d || keysym == XK_D || keysym == XK_Right)
-		update_game_state(d);
+		handle_right(map);
 	if (keysym == XK_w || keysym == XK_W || keysym == XK_Up)
 		update_game_state(w);
 	if (keysym == XK_s || keysym == XK_S || keysym == XK_Down)
 		update_game_state(s);*/
 	return (0);
 }
+
+
 
 /**
  * @brief Loads all the seperate images into the tiles struct
@@ -64,13 +76,46 @@ int	load_tiles(t_data data, t_tiles *tiles)
 	return (1);
 }
 
+int locate_start(t_map_data map, int *pos_x, int *pos_y)
+{
+	int i;
+	int j;
+	int p_count;
+
+	i = 0;
+	p_count = 0;
+	while (i < map.hight)
+	{
+		j = 0;
+		while (j < map.width)
+		{
+			if (map.map[i][j] == 'P')
+			{
+				*pos_x = j;
+				*pos_y = i;
+				p_count++;
+			}
+			if (p_count > 1)
+				return (-1);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+void	print_gamestate(t_data *data)
+{
+
+}
+
 int	main(void)
 {
 	t_images image;
-	t_tiles *tiles;
+	//t_tiles *tiles;
 	t_data data;
-	data.close_request = 0;
 
+	data.close_request = 0;
 	data.mlx_ptr = mlx_init();
 	data.win_ptr = mlx_new_window(data.mlx_ptr, WWIDTH, WHIGHT, WINDOW_NAME);
 
@@ -83,34 +128,11 @@ int	main(void)
 	mlx_destroy_image(data.mlx_ptr, image.img);
 	*/
 
-
-
-
-	/*
-	// Getting in the map
-	int map_width = 5;
-	int map_hight = 3;
-	int test_map[map_width][map_hight];
-	test_map[0][0] = 'E';
-	test_map[1][0] = 'e';
-	test_map[2][0] = 'W';
-	test_map[3][0] = 'A';
-	test_map[4][0] = 'S';
-	test_map[0][1] = 'P';
-	test_map[4][1] = '1';
-	test_map[2][1] = test_map[1][1] = 'C';
-	test_map[0][2] = test_map[1][2] = test_map[2][2] = test_map[3][2] = test_map[4][2] = '1';
-	int width = map_width;
-	int hight = map_hight;
-	*/
-
-
-
-	int width; 
-	int hight;
-	char **test_map = load_map(MAP_ADRESS, &width, &hight);
-	if (!test_map)
+	data.map.map = load_map(MAP_ADRESS, &data.map.width, &data.map.hight);
+	if (!data.map.map)
 		return (1);
+	if (locate_start(data.map, &data.map.pos_x, &data.map.pos_y) == -1)
+		return (1); // aka to many players
 
 
 
@@ -126,42 +148,39 @@ int	main(void)
 
 
 	// Make space for the tiles struct and load the images
-	tiles = malloc(sizeof(t_tiles)); // Protect
-	load_tiles(data, tiles);         // Protect
-
-
-
+	data.tiles = malloc(sizeof(t_tiles)); // Protect
+	load_tiles(data, data.tiles);         // Protect
 	
 
 	// Print current gamestate (aka the map after making adjustments)
-	for (int i = 0; i < hight; i++)
+	for (int i = 0; i < data.map.hight; i++) // Dont forget for loop
 	{
-		for (int j = 0; j < width; j++)
+		for (int j = 0; j < data.map.width; j++) // Dont forget for loop
 		{
-			if (test_map[i][j] == 'C')
+			if (data.map.map[i][j] == 'C')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->c.img, j * tiles->c.width, i * tiles->c.hight);
-			else if (test_map[i][j] == 'E')
+					data.tiles->c.img, j * data.tiles->c.width, i * data.tiles->c.hight);
+			else if (data.map.map[i][j] == 'E')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->ec.img, j * tiles->ec.width, i * tiles->ec.hight);
-			else if (test_map[i][j] == 'e')
+					data.tiles->ec.img, j * data.tiles->ec.width, i * data.tiles->ec.hight);
+			else if (data.map.map[i][j] == 'e')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->eo.img, j * tiles->eo.width, i * tiles->eo.hight);
-			else if (test_map[i][j] == 'S')
+					data.tiles->eo.img, j * data.tiles->eo.width, i * data.tiles->eo.hight);
+			else if (data.map.map[i][j] == 'S')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->pd.img, j * tiles->pd.width, i * tiles->pd.hight);
-			else if (test_map[i][j] == 'A')
+					data.tiles->pd.img, j * data.tiles->pd.width, i * data.tiles->pd.hight);
+			else if (data.map.map[i][j] == 'A')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->pl.img, j * tiles->pl.width, i * tiles->pl.hight);
-			else if (test_map[i][j] == 'P')
+					data.tiles->pl.img, j * data.tiles->pl.width, i * data.tiles->pl.hight);
+			else if (data.map.map[i][j] == 'P')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->pr.img, j * tiles->pr.width, i * tiles->pr.hight);
-			else if (test_map[i][j] == 'W')
+					data.tiles->pr.img, j * data.tiles->pr.width, i * data.tiles->pr.hight);
+			else if (data.map.map[i][j] == 'W')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->pu.img, j * tiles->pu.width, i * tiles->pu.hight);
-			else if (test_map[i][j] == '1')
+					data.tiles->pu.img, j * data.tiles->pu.width, i * data.tiles->pu.hight);
+			else if (data.map.map[i][j] == '1')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr,
-					tiles->thc.img, j * tiles->thc.width, i * tiles->thc.hight);
+					data.tiles->thc.img, j * data.tiles->thc.width, i * data.tiles->thc.hight);
 		}
 	}
 
@@ -173,15 +192,15 @@ int	main(void)
 	mlx_loop(data.mlx_ptr);
 
 	// Make function to free this crap
-	mlx_destroy_image(data.mlx_ptr, tiles->c.img);
-	mlx_destroy_image(data.mlx_ptr, tiles->ec.img);
-	mlx_destroy_image(data.mlx_ptr, tiles->eo.img);
-	mlx_destroy_image(data.mlx_ptr, tiles->pd.img);
-	mlx_destroy_image(data.mlx_ptr, tiles->pl.img);
-	mlx_destroy_image(data.mlx_ptr, tiles->pr.img);
-	mlx_destroy_image(data.mlx_ptr, tiles->pu.img);
-	mlx_destroy_image(data.mlx_ptr, tiles->thc.img); // Don't forget the ghosts
-	free(tiles);
+	mlx_destroy_image(data.mlx_ptr, data.tiles->c.img);
+	mlx_destroy_image(data.mlx_ptr, data.tiles->ec.img);
+	mlx_destroy_image(data.mlx_ptr, data.tiles->eo.img);
+	mlx_destroy_image(data.mlx_ptr, data.tiles->pd.img);
+	mlx_destroy_image(data.mlx_ptr, data.tiles->pl.img);
+	mlx_destroy_image(data.mlx_ptr, data.tiles->pr.img);
+	mlx_destroy_image(data.mlx_ptr, data.tiles->pu.img);
+	mlx_destroy_image(data.mlx_ptr, data.tiles->thc.img); // Don't forget the ghosts
+	free(data.tiles);
 
 	// Getting rid of stuff
 	mlx_destroy_display(data.mlx_ptr);

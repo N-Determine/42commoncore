@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/05 17:33:09 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/07 15:11:41 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # define PHIGHT 32
 # define WINDOW_NAME "new window"
 # define MAP_ADRESS "../maps/map-test.ber"
-
 
 typedef struct s_images
 {
@@ -68,11 +67,22 @@ typedef struct s_tiles
 	t_images	thc;
 }	t_tiles;
 
+typedef struct	s_map_data
+{
+	int hight;
+	int width;
+	int pos_x;
+	int pos_y;
+	char **map;
+}				t_map_data;
+
 typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	int			close_request;
+	t_map_data	map;
+	t_tiles		*tiles;
 }				t_data;
 
 unsigned int	get_rgb(unsigned char red, unsigned char green,

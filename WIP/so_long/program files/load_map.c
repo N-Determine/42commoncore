@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:45:58 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/05 17:18:27 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/07 15:02:16 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ char **fill_array(char **arr, char *map_adress, int width, int hight)
 	int		j;
 	char	*line;
 
-	printf("width: %i, hight: %i\n", width, hight);
 	fd = open(MAP_ADRESS, O_RDONLY);
 	j = 0;
 	i = 0;

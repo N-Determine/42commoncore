@@ -21,7 +21,6 @@ int	handle_close_request(t_data *data)
 
 void	print_gamestate(t_data *data)
 {
-	// Print current gamestate (aka the map after making adjustments)
 	for (int i = 0; i < data->map.hight; i++) // Dont forget for loop
 	{
 		for (int j = 0; j < data->map.width; j++) // Dont forget for loop
@@ -68,7 +67,7 @@ int handle_right(t_map_data *map, t_data *data)
 		if (map->map[map->pos_y][map->pos_x + 1] == 'e')
 		{
 			printf("Congratulations, you have one t h e  g a m e\n"); // don't forget printf
-			exit(0);
+			exit(0); // free shit
 		}
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y][map->pos_x + 1] = 'P';
@@ -86,7 +85,7 @@ int handle_left(t_map_data *map, t_data *data)
 		if (map->map[map->pos_y][map->pos_x - 1] == 'e')
 		{
 			printf("Congratulations, you have one t h e  g a m e\n"); // don't forget printf
-			exit(0);
+			exit(0); // free shit
 		}
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y][map->pos_x - 1] = 'A';
@@ -104,7 +103,7 @@ int handle_up(t_map_data *map, t_data *data)
 		if (map->map[map->pos_y - 1][map->pos_x] == 'e')
 		{
 			printf("Congratulations, you have one t h e  g a m e\n"); // don't forget printf
-			exit(0);
+			exit(0); // free shit
 		}
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y - 1][map->pos_x] = 'W';
@@ -122,7 +121,7 @@ int handle_down(t_map_data *map, t_data *data)
 		if (map->map[map->pos_y + 1][map->pos_x] == 'e')
 		{
 			printf("Congratulations, you have one t h e  g a m e\n"); // don't forget printf
-			exit(0);
+			exit(0); // free shit
 		}
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y + 1][map->pos_x] = 'S';

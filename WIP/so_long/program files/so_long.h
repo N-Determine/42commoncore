@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/07 15:32:09 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/07 15:45:15 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct	s_map_data
 	int width;
 	int pos_x;
 	int pos_y;
+	int collectables;
 	char **map;
 }				t_map_data;
 

@@ -57,7 +57,7 @@ void	print_gamestate(t_data *data)
 
 int handle_right(t_map_data *map, t_data *data)
 {
-	if (map->map[map->pos_y][map->pos_x + 1] != '1')
+	if (map->map[map->pos_y][map->pos_x + 1] != '1' && map->map[map->pos_y][map->pos_x + 1] != 'E')
 	{
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y][map->pos_x + 1] = 'P';
@@ -69,7 +69,7 @@ int handle_right(t_map_data *map, t_data *data)
 
 int handle_left(t_map_data *map, t_data *data)
 {
-	if (map->map[map->pos_y][map->pos_x - 1] != '1')
+	if (map->map[map->pos_y][map->pos_x - 1] != '1' && map->map[map->pos_y][map->pos_x - 1] != 'E')
 	{
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y][map->pos_x - 1] = 'A';
@@ -81,7 +81,7 @@ int handle_left(t_map_data *map, t_data *data)
 
 int handle_up(t_map_data *map, t_data *data)
 {
-	if (map->map[map->pos_y - 1][map->pos_x] != '1')
+	if (map->map[map->pos_y - 1][map->pos_x] != '1' && map->map[map->pos_y - 1][map->pos_x] != 'E')
 	{
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y - 1][map->pos_x] = 'W';
@@ -93,7 +93,7 @@ int handle_up(t_map_data *map, t_data *data)
 
 int handle_down(t_map_data *map, t_data *data)
 {
-	if (map->map[map->pos_y + 1][map->pos_x] != '1')
+	if (map->map[map->pos_y + 1][map->pos_x] != '1' && map->map[map->pos_y + 1][map->pos_x] != 'E')
 	{
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y + 1][map->pos_x] = 'S';

@@ -2,6 +2,8 @@
 #include <math.h>
 #include <stdio.h>
 
+#define COL_NB 95
+
 
 
 int	set_close_request(t_data *data)
@@ -55,17 +57,23 @@ void	print_gamestate(t_data *data)
 	}
 }
 
+
+// Refactor to be only one function maybe?
 int handle_right(t_map_data *map, t_data *data)
 {
 	if (map->map[map->pos_y][map->pos_x + 1] != '1' && map->map[map->pos_y][map->pos_x + 1] != 'E')
 	{
 		if (map->map[map->pos_y][map->pos_x + 1] == 'C')
 			data->map.colls_found += 1;
+		if (map->map[map->pos_y][map->pos_x + 1] == 'e')
+		{
+			printf("Congratulations, you have one t h e  g a m e\n"); // don't forget printf
+			exit(0);
+		}
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y][map->pos_x + 1] = 'P';
 		map->pos_x++;
 	}
-	print_gamestate(data);
 	return (map->pos_x);
 }
 
@@ -75,11 +83,15 @@ int handle_left(t_map_data *map, t_data *data)
 	{
 		if (map->map[map->pos_y][map->pos_x - 1] == 'C')
 			data->map.colls_found += 1;
+		if (map->map[map->pos_y][map->pos_x - 1] == 'e')
+		{
+			printf("Congratulations, you have one t h e  g a m e\n"); // don't forget printf
+			exit(0);
+		}
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y][map->pos_x - 1] = 'A';
 		map->pos_x--;
 	}
-	print_gamestate(data);
 	return (map->pos_x);
 }
 
@@ -89,11 +101,15 @@ int handle_up(t_map_data *map, t_data *data)
 	{
 		if (map->map[map->pos_y - 1][map->pos_x] == 'C')
 			data->map.colls_found += 1;
+		if (map->map[map->pos_y - 1][map->pos_x] == 'e')
+		{
+			printf("Congratulations, you have one t h e  g a m e\n"); // don't forget printf
+			exit(0);
+		}
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y - 1][map->pos_x] = 'W';
 		map->pos_y--;
 	}
-	print_gamestate(data);
 	return (map->pos_y);
 }
 
@@ -103,11 +119,15 @@ int handle_down(t_map_data *map, t_data *data)
 	{
 		if (map->map[map->pos_y + 1][map->pos_x] == 'C')
 			data->map.colls_found += 1;
+		if (map->map[map->pos_y + 1][map->pos_x] == 'e')
+		{
+			printf("Congratulations, you have one t h e  g a m e\n"); // don't forget printf
+			exit(0);
+		}
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y + 1][map->pos_x] = 'S';
 		map->pos_y++;
 	}
-	print_gamestate(data);
 	return (map->pos_y);
 }
 
@@ -123,6 +143,9 @@ int	handle_keypress(int keysym, t_data *data, t_map_data *map)
 		handle_up(&data->map, data);
 	if (keysym == XK_s || keysym == XK_S || keysym == XK_Down)
 		handle_down(&data->map, data);
+	if (data->map.colls_found == COL_NB)
+		data->map.map[data->map.e_pos_y][data->map.e_pos_x] = 'e';
+	print_gamestate(data);
 	return (0);
 }
 
@@ -160,6 +183,9 @@ int	load_tiles(t_data data, t_tiles *tiles)
 	return (1);
 }
 
+
+
+// Refactor so that locate_start and locat_exit are the same function
 int locate_start(t_map_data map, int *pos_x, int *pos_y)
 {
 	int i;
@@ -188,6 +214,35 @@ int locate_start(t_map_data map, int *pos_x, int *pos_y)
 	return (1);
 }
 
+int locate_exit(t_map_data map, int *e_pos_x, int *e_pos_y)
+{
+	int i;
+	int j;
+	int e_count;
+
+	i = 0;
+	e_count = 0;
+	while (i < map.hight)
+	{
+		j = 0;
+		while (j < map.width)
+		{
+			if (map.map[i][j] == 'E')
+			{
+				*e_pos_x = j;
+				*e_pos_y = i;
+				e_count++;
+			}
+			if (e_count > 1)
+				return (-1);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+
 int	main(void)
 {
 	t_images image;
@@ -211,6 +266,8 @@ int	main(void)
 		return (1);
 	if (locate_start(data.map, &data.map.pos_x, &data.map.pos_y) == -1)
 		return (1); // aka to many players
+	if (locate_exit(data.map, &data.map.e_pos_x, &data.map.e_pos_y) == -1)
+		return (1); // aka to many exits
 	data.map.colls_found = 0;
 
 

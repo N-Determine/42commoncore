@@ -59,6 +59,8 @@ int handle_right(t_map_data *map, t_data *data)
 {
 	if (map->map[map->pos_y][map->pos_x + 1] != '1' && map->map[map->pos_y][map->pos_x + 1] != 'E')
 	{
+		if (map->map[map->pos_y][map->pos_x + 1] == 'C')
+			data->map.colls_found += 1;
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y][map->pos_x + 1] = 'P';
 		map->pos_x++;
@@ -71,6 +73,8 @@ int handle_left(t_map_data *map, t_data *data)
 {
 	if (map->map[map->pos_y][map->pos_x - 1] != '1' && map->map[map->pos_y][map->pos_x - 1] != 'E')
 	{
+		if (map->map[map->pos_y][map->pos_x - 1] == 'C')
+			data->map.colls_found += 1;
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y][map->pos_x - 1] = 'A';
 		map->pos_x--;
@@ -83,6 +87,8 @@ int handle_up(t_map_data *map, t_data *data)
 {
 	if (map->map[map->pos_y - 1][map->pos_x] != '1' && map->map[map->pos_y - 1][map->pos_x] != 'E')
 	{
+		if (map->map[map->pos_y - 1][map->pos_x] == 'C')
+			data->map.colls_found += 1;
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y - 1][map->pos_x] = 'W';
 		map->pos_y--;
@@ -95,6 +101,8 @@ int handle_down(t_map_data *map, t_data *data)
 {
 	if (map->map[map->pos_y + 1][map->pos_x] != '1' && map->map[map->pos_y + 1][map->pos_x] != 'E')
 	{
+		if (map->map[map->pos_y + 1][map->pos_x] == 'C')
+			data->map.colls_found += 1;
 		map->map[map->pos_y][map->pos_x] = '0';
 		map->map[map->pos_y + 1][map->pos_x] = 'S';
 		map->pos_y++;
@@ -183,7 +191,6 @@ int locate_start(t_map_data map, int *pos_x, int *pos_y)
 int	main(void)
 {
 	t_images image;
-	//t_tiles *tiles;
 	t_data data;
 
 	data.close_request = 0;
@@ -204,6 +211,7 @@ int	main(void)
 		return (1);
 	if (locate_start(data.map, &data.map.pos_x, &data.map.pos_y) == -1)
 		return (1); // aka to many players
+	data.map.colls_found = 0;
 
 
 

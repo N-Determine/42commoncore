@@ -272,12 +272,12 @@ int locate_exit(t_map_data map, int *e_pos_x, int *e_pos_y)
 
 int	main(void)
 {
-	//t_images image;
 	t_data data;
-
+	// make some kind of init function for data
 	data.close_request = 0;
-
-
+	data.map.colls_found = 0;
+	data.map.step_count = 0;
+	data.close_request = 0;
 	data.map.map = load_map(MAP_ADRESS, &data.map.width, &data.map.hight);
 	if (!data.map.map)
 		return (1);
@@ -285,26 +285,14 @@ int	main(void)
 		return (1); // aka to many players
 	if (locate_exit(data.map, &data.map.e_pos_x, &data.map.e_pos_y) == -1)
 		return (1); // aka to many exits
-	data.map.colls_found = 0;
-	data.map.step_count = 0;
-	data.close_request = 0;
-
 	data.mlx_ptr = mlx_init();
 	load_tiles(&data, data.tiles);         // Protect
 	data.win_ptr = mlx_new_window(data.mlx_ptr, data.map.width * data.tiles.c.width, data.map.hight * data.tiles.c.hight, WINDOW_NAME);
-
-
-	//Printing initial map
 	print_gamestate(&data);
-
-	// Setting up hooks
 	mlx_hook(data.win_ptr, 17, 0, &set_close_request, &data);
 	mlx_loop_hook(data.mlx_ptr, &handle_close_request, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
-
 	mlx_loop(data.mlx_ptr);
-
-	// Getting rid of stuff
 	destroy_everything(&data);
 	return (0);
 }

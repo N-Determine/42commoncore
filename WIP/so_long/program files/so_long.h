@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/07 23:01:06 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/07 23:07:52 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@
 #include "libft.h"
 #include "get_next_line.h"
 
-
-# define WWIDTH 1280
-# define WHIGHT 720
 # define PWIDTH 32
 # define PHIGHT 32
 # define WINDOW_NAME "new window"

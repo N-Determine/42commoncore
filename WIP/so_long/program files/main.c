@@ -179,8 +179,6 @@ int	handle_keypress(int keysym, t_data *data, t_map_data *map)
 	return (0);
 }
 
-
-
 /**
  * @brief Loads all the seperate images into the tiles struct
  */

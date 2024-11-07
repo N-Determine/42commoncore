@@ -40,9 +40,14 @@ int	handle_close_request(t_data *data)
 
 void	print_gamestate(t_data *data)
 {
-	for (int i = 0; i < data->map.hight; i++) // Dont forget for loop
+	int i;
+	int j;
+
+	i = 0;
+	while(i < data->map.hight)
 	{
-		for (int j = 0; j < data->map.width; j++) // Dont forget for loop
+		j = 0;
+		while(j < data->map.width)
 		{
 			if (data->map.map[i][j] == 'C')
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
@@ -71,7 +76,9 @@ void	print_gamestate(t_data *data)
 			else if (data->map.map[i][j] == '0')
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 					data->tiles.zero.img, j * data->tiles.zero.width, i * data->tiles.zero.hight);
+			j++;
 		}
+		i++;
 	}
 }
 

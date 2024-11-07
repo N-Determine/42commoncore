@@ -4,7 +4,22 @@
 
 #define COL_NB 95
 
-
+void destroy_everything(t_data *data)
+{
+	mlx_destroy_image(data->mlx_ptr, data->tiles.c.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.ec.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.eo.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.pd.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.pl.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.pr.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.pu.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.thc.img);
+	mlx_destroy_image(data->mlx_ptr, data->tiles.zero.img); // Don't forget the ghosts
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	mlx_destroy_display(data->mlx_ptr);
+	free_all(data->map.map, data->map.hight);
+	free(data->mlx_ptr);
+}
 
 int	set_close_request(t_data *data)
 {
@@ -15,7 +30,11 @@ int	set_close_request(t_data *data)
 int	handle_close_request(t_data *data)
 {
 	if (data->close_request == 1)
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	{
+		destroy_everything(data);
+		printf("Bye bye!\n"); // Don't forget printf
+		exit(0);
+	}
 	return (0);
 }
 
@@ -56,37 +75,20 @@ void	print_gamestate(t_data *data)
 	}
 }
 
-void destroy_everything(t_data *data)
-{
-	mlx_destroy_image(data->mlx_ptr, data->tiles.c.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.ec.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.eo.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.pd.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.pl.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.pr.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.pu.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.thc.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.zero.img); // Don't forget the ghosts
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
-	free_all(data->map.map, data->map.hight);
-	free(data->mlx_ptr);
-}
-
-
 // Refactor to be only one function maybe?
 int handle_right(t_map_data *map, t_data *data)
 {
-	mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	data->map.step_count++;
-	printf("Step %i\n", data->map.step_count);
+	mlx_clear_window(data->mlx_ptr, data->win_ptr); // Protect
+	
 	if (map->map[map->pos_y][map->pos_x + 1] != '1' && map->map[map->pos_y][map->pos_x + 1] != 'E')
 	{
+		data->map.step_count++;
+		printf("Step %i\n", data->map.step_count);
 		if (map->map[map->pos_y][map->pos_x + 1] == 'C')
 			data->map.colls_found += 1;
 		if (map->map[map->pos_y][map->pos_x + 1] == 'e')
 		{
-			printf("Congratulations, you have one t h e  g a m e\n"); // don't forget printf
+			printf("You won. Congratulations!\n"); // don't forget printf
 			destroy_everything(data);
 			exit(0); // free shit
 		}
@@ -99,14 +101,16 @@ int handle_right(t_map_data *map, t_data *data)
 
 int handle_left(t_map_data *map, t_data *data)
 {
-	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	mlx_clear_window(data->mlx_ptr, data->win_ptr); // Protect
 	if (map->map[map->pos_y][map->pos_x - 1] != '1' && map->map[map->pos_y][map->pos_x - 1] != 'E')
 	{
+		data->map.step_count++;
+		printf("Step %i\n", data->map.step_count);
 		if (map->map[map->pos_y][map->pos_x - 1] == 'C')
 			data->map.colls_found += 1;
 		if (map->map[map->pos_y][map->pos_x - 1] == 'e')
 		{
-			printf("Congratulations, you have one t h e  g a m e\n"); // don't forget printf
+			printf("You won. Congratulations!\n"); // don't forget printf
 			destroy_everything(data);
 			exit(0); // free shit
 		}
@@ -119,14 +123,16 @@ int handle_left(t_map_data *map, t_data *data)
 
 int handle_up(t_map_data *map, t_data *data)
 {
-	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	mlx_clear_window(data->mlx_ptr, data->win_ptr); // Protect
 	if (map->map[map->pos_y - 1][map->pos_x] != '1' && map->map[map->pos_y - 1][map->pos_x] != 'E')
 	{
+		data->map.step_count++;
+		printf("Step %i\n", data->map.step_count);
 		if (map->map[map->pos_y - 1][map->pos_x] == 'C')
 			data->map.colls_found += 1;
 		if (map->map[map->pos_y - 1][map->pos_x] == 'e')
 		{
-			printf("Congratulations, you have one t h e  g a m e\n"); // don't forget printf
+			printf("You won. Congratulations!\n"); // don't forget printf
 			destroy_everything(data);
 			exit(0); // free shit
 		}
@@ -139,14 +145,16 @@ int handle_up(t_map_data *map, t_data *data)
 
 int handle_down(t_map_data *map, t_data *data)
 {
-	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	mlx_clear_window(data->mlx_ptr, data->win_ptr); // Protect
 	if (map->map[map->pos_y + 1][map->pos_x] != '1' && map->map[map->pos_y + 1][map->pos_x] != 'E')
 	{
+		data->map.step_count++;
+		printf("Step %i\n", data->map.step_count);
 		if (map->map[map->pos_y + 1][map->pos_x] == 'C')
 			data->map.colls_found += 1;
 		if (map->map[map->pos_y + 1][map->pos_x] == 'e')
 		{
-			printf("Congratulations, you have one t h e  g a m e\n"); // don't forget printf
+			printf("You won. Congratulations!\n"); // don't forget printf
 			destroy_everything(data);
 			exit(0); // free shit
 		}
@@ -162,8 +170,8 @@ int	handle_keypress(int keysym, t_data *data, t_map_data *map)
 	if (keysym == XK_Escape)
 	{
 		destroy_everything(data);
+		printf("Bye bye!\n"); // don't forget printf
 		exit(0);
-		//mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	}
 	if (keysym == XK_d || keysym == XK_D || keysym == XK_Right)
 		handle_right(&data->map, data);
@@ -289,6 +297,7 @@ int	main(void)
 		return (1); // aka to many exits
 	data.map.colls_found = 0;
 	data.map.step_count = 0;
+	data.close_request = 0;
 
 	data.mlx_ptr = mlx_init();
 	data.win_ptr = mlx_new_window(data.mlx_ptr, WWIDTH, WHIGHT, WINDOW_NAME);

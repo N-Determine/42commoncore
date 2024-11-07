@@ -1,4 +1,14 @@
 /*
+
+		// Image Creation
+		image.img = mlx_new_image(data.mlx_ptr, WWIDTH, WHIGHT);
+		image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel,
+				&image.line_length, &image.endian);
+		mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, image.img, 0, 0);
+		mlx_destroy_image(data.mlx_ptr, image.img);
+
+		
+		
 		// Making a single colored square
 		int x_offset = 5;
 		int y_offset = 5;

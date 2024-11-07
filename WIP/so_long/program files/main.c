@@ -251,15 +251,6 @@ int	main(void)
 	data.close_request = 0;
 
 
-	/*
-	// Image Creation
-	image.img = mlx_new_image(data.mlx_ptr, WWIDTH, WHIGHT);
-	image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel,
-			&image.line_length, &image.endian);
-	mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, image.img, 0, 0);
-	mlx_destroy_image(data.mlx_ptr, image.img);
-	*/
-
 	data.map.map = load_map(MAP_ADRESS, &data.map.width, &data.map.hight);
 	if (!data.map.map)
 		return (1);
@@ -269,35 +260,15 @@ int	main(void)
 		return (1); // aka to many exits
 	data.map.colls_found = 0;
 
-
-
-
-
-
-
-
 	data.mlx_ptr = mlx_init();
 	data.win_ptr = mlx_new_window(data.mlx_ptr, WWIDTH, WHIGHT, WINDOW_NAME);
-
-
-
-
-
-
-
 
 	// Make space for the tiles struct and load the images
 	data.tiles = malloc(sizeof(t_tiles)); // Protect
 	load_tiles(data, data.tiles);         // Protect
-	
 
-
-
-
-
+	//Printing initial map
 	print_gamestate(&data);
-
-
 
 	// Setting up hooks
 	mlx_hook(data.win_ptr, 17, 0, &set_close_request, &data);

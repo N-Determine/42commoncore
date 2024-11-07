@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/07 15:11:41 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/07 15:32:09 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_images
  * @param pr Player Right -			Code: `P`
  * @param pu Player Up -			Code: `W`
  * @param thc Tile Hard Contrast -	Code: `1`
+ * @param zero Nothing - Code `0`
  */
 typedef struct s_tiles
 {
@@ -65,6 +66,7 @@ typedef struct s_tiles
 	t_images	pr;
 	t_images	pu;
 	t_images	thc;
+	t_images	zero;
 }	t_tiles;
 
 typedef struct	s_map_data

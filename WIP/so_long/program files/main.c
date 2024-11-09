@@ -28,6 +28,7 @@ int handle_right(t_map_data *map, t_data *data)
 	
 	if (map->map[map->pos_y][map->pos_x + 1] != '1' && map->map[map->pos_y][map->pos_x + 1] != 'E')
 	{
+
 		data->map.step_count++;
 		printf("Step %i\n", data->map.step_count);
 		if (map->map[map->pos_y][map->pos_x + 1] == 'C')
@@ -137,13 +138,13 @@ int	main(void)
 {
 	t_data data;
 
-	if (data_init(&data) < 0)
-		return (1);
+	if (data_init(&data) != 0)
+		return (1); // Free map
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
-		return (1);
+		return (1); // Free map
 	if (load_tiles(&data, data.tiles) < 0)
-		return (1);
+		return (1); // Free
 	data.win_ptr = mlx_new_window(data.mlx_ptr, data.map.width * data.tiles.c.width, data.map.hight * data.tiles.c.hight, WINDOW_NAME);
 	if (!data.win_ptr)
 		return (1);

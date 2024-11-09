@@ -6,13 +6,13 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 21:24:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/09 21:30:01 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/09 21:31:40 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	printer_a(t_data *data, int i, int j)
+static void	printer_a(t_data *data, int i, int j)
 {
 	if (data->map.map[i][j] == 'C')
 		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->tiles.c.img,
@@ -35,7 +35,7 @@ void	printer_a(t_data *data, int i, int j)
 			* data->tiles.pl.hight);
 }
 
-void	printer_b(t_data *data, int i, int j)
+static void	printer_b(t_data *data, int i, int j)
 {
 	if (data->map.map[i][j] == 'P')
 		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,

@@ -6,11 +6,12 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 22:59:15 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/09 21:21:12 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/09 22:23:08 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <stdio.h>
 
 // Initializing
 /**
@@ -26,10 +27,10 @@ int	data_init(t_data *data)
 	data->close_request = 0;
 	data->map.map = load_map(MAP_ADRESS, &data->map.width, &data->map.hight);
 	if (!data->map.map)
-		return (-1);
-	if (locate_pois(data) == -1)
-		return (-2);
-	return (1);
+		return (1); // Free stuff before
+	if (locate_pois(data) != 0)
+		return (1); // Free stuff before
+	return (0);
 }
 
 /**

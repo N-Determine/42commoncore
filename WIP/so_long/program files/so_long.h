@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/09 21:25:36 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/09 22:07:37 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,12 @@ typedef struct s_data
 	t_tiles		tiles;
 }				t_data;
 
+// error_printer.c
+/**
+ * @brief Prints an error message to stderr using the 
+ * ft_putstr_fd function
+ */
+void error_printer(int code);
 
 // load_map.c
 char	**load_map(char *map_adress, int *width, int *hight);

@@ -6,18 +6,18 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:45:58 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/07 22:58:58 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/09 22:14:13 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "libft.h"
 #include "get_next_line.h"
-
 #include <stdio.h>
 
 char *map_adress = MAP_ADRESS;
 
+/*
 int is_valid_char(char c)
 {
 	int valid; 
@@ -43,6 +43,7 @@ int is_valid_str(char *str)
 	}
 	return (1);
 }
+*/
 
 /**
  * @brief Removes the newline character (`\n`) from the end of a string, if present.
@@ -69,6 +70,16 @@ char	*rid_of_nl(char *str)
 	return (str);
 }
 
+/**
+ * @brief Checks the dimensions of the map and if the map is rectangular
+ * 
+ * @return
+ * `0` - if the operation was succesful
+ * 
+ * `1`- if the get_next_line function failes (e.g. failed read function)
+ * 
+ * `2`- if the map is not rectangular
+ */
 int	check_map_dimensions(char *map_adress, int *width, int *hight)
 {
 	char *line;
@@ -76,7 +87,7 @@ int	check_map_dimensions(char *map_adress, int *width, int *hight)
 	fd = open(MAP_ADRESS, O_RDONLY);
 	line = rid_of_nl(get_next_line(fd));
 	if (!line)
-		return (-1);
+		return (1);
 	int last = ft_strlen(line);
 	*width = last;
 	*hight = 1;
@@ -86,18 +97,17 @@ int	check_map_dimensions(char *map_adress, int *width, int *hight)
 		line = rid_of_nl(get_next_line(fd));
 		if (!line)
 			break;
-		if (last != ft_strlen(line) || !is_valid_str(line))
-			return (-1);
+		if (last != ft_strlen(line))
+			return (2);
 		*hight += 1;
 	}
 	close(fd);
 	free(line);
-	return (1);
+	return (0);
 }
 
 char **allocate_map(width, hight)
 {
-	// Allocate the space
 	char **arr = malloc(sizeof(char *) * hight);
 	if (!arr)
 		return (NULL);
@@ -106,7 +116,7 @@ char **allocate_map(width, hight)
 	{
 		arr[i] = malloc(sizeof(char) * width);
 		if (!arr[i])
-			return (free_all(arr, i), NULL); // Add function that frees previous allocations
+			return (free_all(arr, i), NULL);
 		i++;
 	}
 	return (arr);
@@ -128,7 +138,7 @@ char **fill_array(char **arr, char *map_adress, int width, int hight)
 			free(line);
 		line = rid_of_nl(get_next_line(fd));
 		if (!line)
-			return (NULL);
+			return (get_next_line(-1), close(fd), NULL);
 		j = 0;
 		while (j < width)
 		{
@@ -147,12 +157,16 @@ char **fill_array(char **arr, char *map_adress, int width, int hight)
 char	**load_map(char *map_adress, int *width, int *hight)
 {
 	char	**arr;
+	int		code;
 
-	if(check_map_dimensions(map_adress, width, hight) == -1)
-		return (NULL);
+	code = check_map_dimensions(map_adress, width, hight);
+	if(code != 0)
+		return (error_printer(code), NULL);
 	arr = allocate_map(*width, *hight);
 	if (!arr)
-		return (NULL);
+		return (error_printer(3), NULL);
 	arr = fill_array(arr, map_adress, *width, *hight);
+	if (!arr)
+		return (error_printer(4), NULL);
 	return (arr);
 }

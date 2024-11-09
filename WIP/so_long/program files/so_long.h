@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/09 21:13:06 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/09 21:25:36 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,22 @@ typedef struct s_data
 }				t_data;
 
 
-
+// load_map.c
 char	**load_map(char *map_adress, int *width, int *hight);
 
-// destroy.c
+// init_and_destroy.c
+int		data_init(t_data *data);
+int		load_tiles(t_data *data, t_tiles tiles);
 void	free_all(char **arr, int index);
 void	destroy_everything(t_data *data);
+
+// print_gamestate.c
+/**
+ * @brief Prints the gamestate by going through the 2D Array of the 
+ * map at the current gamestate and defining which tiles to print 
+ * on which position.
+ */
+void	print_gamestate(t_data *data);
 
 // locate_pois.c
 /**

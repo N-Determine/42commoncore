@@ -39,7 +39,6 @@ int locate_pois(t_data *data)
 	i = 0;
 	p_count = 0;
 	e_count = 0;
-	data->map.colls = 0;
 	while (i < data->map.hight)
 	{
 		j = 0;

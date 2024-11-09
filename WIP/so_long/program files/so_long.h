@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/09 22:07:37 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/09 22:28:49 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define PWIDTH 32
 # define PHIGHT 32
 # define WINDOW_NAME "new window"
-# define MAP_ADRESS "../maps/map-test.ber"
+# define MAP_ADRESS "../maps/minimal.ber"
 
 // Structs
 typedef struct s_images

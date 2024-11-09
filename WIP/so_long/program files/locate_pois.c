@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   locate_pois.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/09 22:35:31 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/09 22:36:57 by adeters          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 /**
- * @brief sets the coordinates for the player and increases the player count by one. 
- */
-static void place_player(int *counts, t_data *data, int i, int j)
+ * @brief sets the coordinates for the player and 
+ * increases the player count by one.
+*/
+static void	place_player(int *counts, t_data *data, int i, int j)
 {
 	data->map.pos_x = j;
 	data->map.pos_y = i;
@@ -11,9 +24,9 @@ static void place_player(int *counts, t_data *data, int i, int j)
 }
 
 /**
- * @brief sets the coordinates for the exit and increases the exit count by one. 
+ * @brief sets the coordinates for the exit and increases the exit count by one.
  */
-static void place_exit(int *counts, t_data *data, int i, int j)
+static void	place_exit(int *counts, t_data *data, int i, int j)
 {
 	data->map.e_pos_x = j;
 	data->map.e_pos_y = i;
@@ -22,12 +35,12 @@ static void place_exit(int *counts, t_data *data, int i, int j)
 
 /**
  * @brief Checks if there are too many player or exit characters in the map
- * 
- * @return 
+ *
+ * @return
  * `0` - if there are not too many player or exit characters in the map
  * `1` - if there are too many player or exit characters in the map
  */
-static int player_exit_error(int p_count, int e_count)
+static int	player_exit_error(int p_count, int e_count)
 {
 	if (p_count > 1)
 	{
@@ -43,20 +56,20 @@ static int player_exit_error(int p_count, int e_count)
 }
 
 /**
- * @brief Locates points of interest by setting the coordinates of 
- * the player and the exit. At the same time the amount of 
+ * @brief Locates points of interest by setting the coordinates of
+ * the player and the exit. At the same time the amount of
  * collectables is counted.
- * 
+ *
  * @return `1` - if multiple players or exits have been spotted
- * 
+ *
  * `0`- if the location process was successful
  */
-int locate_pois(t_data *data)
+int	locate_pois(t_data *data)
 {
-	int i;
-	int j;
-	int p_count;
-	int e_count;
+	int	i;
+	int	j;
+	int	p_count;
+	int	e_count;
 
 	i = 0;
 	p_count = 0;
@@ -76,7 +89,5 @@ int locate_pois(t_data *data)
 		}
 		i++;
 	}
-	if (p_count > 1 || e_count > 1)
-		return (player_exit_error(p_count, e_count));
-	return (0);
+	return (player_exit_error(p_count, e_count));
 }

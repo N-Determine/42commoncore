@@ -6,28 +6,30 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/07 23:07:52 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/09 21:13:06 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+// Libraries
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <fcntl.h>
 # include <mlx.h>
 # include <stdlib.h>
 # include <math.h>
+# include "libft.h"
+# include "get_next_line.h"
 
-#include "libft.h"
-#include "get_next_line.h"
 
 # define PWIDTH 32
 # define PHIGHT 32
 # define WINDOW_NAME "new window"
 # define MAP_ADRESS "../maps/map-test.ber"
 
+// Structs
 typedef struct s_images
 {
 	void		*img;
@@ -38,7 +40,6 @@ typedef struct s_images
 	int			width;
 	int			hight;
 } 				t_images; // Check norm for name
-
 
 /**
  * @brief Struct that holds all of the images needed to print the map
@@ -89,12 +90,24 @@ typedef struct s_data
 	t_tiles		tiles;
 }				t_data;
 
-unsigned int	get_rgb(unsigned char red, unsigned char green,
-					unsigned char blue);
+
+
 char	**load_map(char *map_adress, int *width, int *hight);
 
 // destroy.c
 void	free_all(char **arr, int index);
 void	destroy_everything(t_data *data);
+
+// locate_pois.c
+/**
+ * @brief Locates points of interest by setting the coordinates of 
+ * the player and the exit. At the same time the amount of 
+ * collectables is counted.
+ * 
+ * @return `-1` - if multiple players or exits have been spotted
+ * 
+ * `0`- if the location process was successful
+ */
+int locate_pois(t_data *data);
 
 #endif

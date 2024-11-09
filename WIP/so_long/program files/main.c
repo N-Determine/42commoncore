@@ -2,10 +2,6 @@
 #include <math.h>
 #include <stdio.h>
 
-#define COL_NB 95
-
-
-
 int	set_close_request(t_data *data)
 {
 	data->close_request = 1;
@@ -173,7 +169,7 @@ int	handle_keypress(int keysym, t_data *data, t_map_data *map)
 		handle_up(&data->map, data);
 	if (keysym == XK_s || keysym == XK_S || keysym == XK_Down)
 		handle_down(&data->map, data);
-	if (data->map.colls_found == COL_NB)
+	if (data->map.colls_found == data->map.colls)
 		data->map.map[data->map.e_pos_y][data->map.e_pos_x] = 'e';
 	print_gamestate(data);
 	return (0);
@@ -203,91 +199,43 @@ int	load_tiles(t_data *data, t_tiles tiles)
 	data->tiles.zero.img = mlx_xpm_file_to_image(data->mlx_ptr, "../images/0.xpm",
 			&data->tiles.zero.width, &data->tiles.zero.hight);
 	if (!data->tiles.c.img || !data->tiles.ec.img || !data->tiles.eo.img)
-		return (0);
+		return (-1);
 	if (!data->tiles.pd.img || !data->tiles.pl.img || !data->tiles.pr.img || !data->tiles.pu.img)
-		return (0);
+		return (-1);
 	if (!data->tiles.thc.img) // Don't forget the ghosts
-		return (0);
+		return (-1);
 	return (1);
 }
 
-
-
-// Refactor so that locate_start and locat_exit are the same function, also use it to find amount of collectables
-int locate_start(t_map_data map, int *pos_x, int *pos_y)
+int	data_init(t_data *data)
 {
-	int i;
-	int j;
-	int p_count;
-
-	i = 0;
-	p_count = 0;
-	while (i < map.hight)
-	{
-		j = 0;
-		while (j < map.width)
-		{
-			if (map.map[i][j] == 'P')
-			{
-				*pos_x = j;
-				*pos_y = i;
-				p_count++;
-			}
-			if (p_count > 1)
-				return (-1);
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-int locate_exit(t_map_data map, int *e_pos_x, int *e_pos_y)
-{
-	int i;
-	int j;
-	int e_count;
-
-	i = 0;
-	e_count = 0;
-	while (i < map.hight)
-	{
-		j = 0;
-		while (j < map.width)
-		{
-			if (map.map[i][j] == 'E')
-			{
-				*e_pos_x = j;
-				*e_pos_y = i;
-				e_count++;
-			}
-			if (e_count > 1)
-				return (-1);
-			j++;
-		}
-		i++;
-	}
+	// make some kind of init function for data
+	data->close_request = 0;
+	data->map.colls_found = 0;
+	data->map.step_count = 0;
+	data->close_request = 0;
+	data->map.map = load_map(MAP_ADRESS, &data->map.width, &data->map.hight);
+	if (!data->map.map)
+		return (-1);
+	if (locate_pois(data) == -1)
+		return (-2);
 	return (1);
 }
 
 int	main(void)
 {
 	t_data data;
-	// make some kind of init function for data
-	data.close_request = 0;
-	data.map.colls_found = 0;
-	data.map.step_count = 0;
-	data.close_request = 0;
-	data.map.map = load_map(MAP_ADRESS, &data.map.width, &data.map.hight);
-	if (!data.map.map)
+
+	if (data_init(&data) < 0)
 		return (1);
-	if (locate_start(data.map, &data.map.pos_x, &data.map.pos_y) == -1)
-		return (1); // aka to many players
-	if (locate_exit(data.map, &data.map.e_pos_x, &data.map.e_pos_y) == -1)
-		return (1); // aka to many exits
 	data.mlx_ptr = mlx_init();
-	load_tiles(&data, data.tiles);         // Protect
+	if (!data.mlx_ptr)
+		return (1);
+	if (load_tiles(&data, data.tiles) < 0)
+		return (1);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, data.map.width * data.tiles.c.width, data.map.hight * data.tiles.c.hight, WINDOW_NAME);
+	if (!data.win_ptr)
+		return (1);
 	print_gamestate(&data);
 	mlx_hook(data.win_ptr, 17, 0, &set_close_request, &data);
 	mlx_loop_hook(data.mlx_ptr, &handle_close_request, &data);

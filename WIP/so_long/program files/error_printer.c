@@ -20,9 +20,15 @@ void	error_printer(int code)
 	ft_putstr_fd("The get_next_line function failed while filling the 2D Array!\n",
 		2);
 	if (code == 5)
-	ft_putstr_fd("Too many player characters (P) in the map!\n",
+	ft_putstr_fd("Player character (P) missing in the map!\n",
 		2);
 	if (code == 6)
+	ft_putstr_fd("Too many player characters (P) in the map!\n",
+		2);
+	if (code == 7)
+	ft_putstr_fd("Exit character (E) missing in the map!\n",
+		2);
+	if (code == 8)
 	ft_putstr_fd("Too many exit characters (E) in the map!\n",
 		2);
 }

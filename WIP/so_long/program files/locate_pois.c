@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 22:35:31 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/09 22:36:57 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/09 22:45:24 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,24 @@ static void	place_exit(int *counts, t_data *data, int i, int j)
  */
 static int	player_exit_error(int p_count, int e_count)
 {
-	if (p_count > 1)
+	if (p_count == 0)
 	{
 		error_printer(5);
 		return (1);
 	}
-	if (e_count > 1)
+	if (p_count > 1)
 	{
 		error_printer(6);
+		return (1);
+	}
+	if (e_count == 0)
+	{
+		error_printer(7);
+		return (1);
+	}
+	if (e_count > 1)
+	{
+		error_printer(8);
 		return (1);
 	}
 	return (0);

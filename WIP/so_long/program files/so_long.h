@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/09 22:28:49 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/10 19:32:51 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,71 @@ void	print_gamestate(t_data *data);
  * `0`- if the location process was successful
  */
 int locate_pois(t_data *data);
+
+//movement.c
+/**
+ * @brief Executes player movement in the specified direction.
+ * 
+ * This function handles player movement on a 2D map based on the input 
+ * direction. It first determines the movement offset with set_direction, 
+ * then calculates the new position. If the new position is reachable, 
+ * it updates the player’s position on the map, increments the step count, 
+ * and checks for collectible items ('C') or the exit ('e'). If the exit is 
+ * reached, the game ends.
+ *
+ * @param data Pointer to the game data structure.
+ * @param dir Character indicating the movement direction ('P', 'A', 'W', 'S').
+ */
+void	handle_movement(t_data *data, char dir);
+
+// handle_events.c
+/**
+ * @brief Sets a close request flag for the application.
+ * 
+ * This function sets a flag within the game data structure to indicate that 
+ * the application should close when the `handle_close_request` function 
+ * is called. This approach allows for a clean and controlled shutdown, 
+ * ensuring that all resources are properly freed before exiting.
+ *
+ * @param data Pointer to the game data structure containing application state.
+ * 
+ * @return 0 Always returns 0 after setting the close request flag.
+ */
+int	set_close_request(t_data *data);
+/**
+ * @brief Handles the application's close request by freeing resources.
+ * 
+ * This function checks if a close request has been set by `set_close_request`. 
+ * If so, it calls `destroy_everything` to release all allocated resources, 
+ * prints a goodbye message, and then exits the application. This ensures 
+ * a proper cleanup and prevents memory leaks or other issues.
+ *
+ * @param data Pointer to the game data structure containing application state.
+ * 
+ * @return 0 Always returns 0 after handling the close request.
+ */
+int	handle_close_request(t_data *data);
+/**
+ * @brief Handles keyboard input for game controls.
+ * 
+ * This function manages all keyboard input to control the game. It:
+ * 
+ * - Closes the game if the Escape key is pressed, ensuring all resources 
+ *   are freed by calling `destroy_everything`.
+ * 
+ * - Calls `handle_movement` to update the player's position when any of 
+ *   the direction keys (W, A, S, D or arrow keys) are pressed.
+ * 
+ * - Opens the exit (changing 'E' to 'e') when all collectibles have been found.
+ * 
+ * After processing the key press, the function calls `print_gamestate` to 
+ * refresh the game display with the updated state.
+ *
+ * @param keysym Integer representing the key symbol of the pressed key.
+ * @param data Pointer to the game data structure containing application state.
+ * 
+ * @return 0 Always returns 0 after handling the key press.
+ */
+int	handle_keypress(int keysym, t_data *data);
 
 #endif

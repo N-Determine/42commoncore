@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 20:00:26 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/10 20:22:27 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct s_data
 void			error_printer(int code);
 
 // load_map.c
-char			**load_map(char *map_adress, int *width, int *hight);
+char			**load_map(char *map_adress, t_data *data);
 
 // init_and_destroy.c
 int				data_init(t_data *data, char *map_adress);

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:45:58 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 20:09:16 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/10 20:24:30 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,19 +154,39 @@ char **fill_array(char **arr, char *map_adress, int width, int hight)
 	
 }
 
-char	**load_map(char *map_adress, int *width, int *hight)
+/*
+static int	check_border(char **arr, t_data *data)
+{
+	int i = 0;
+	int j = 0;
+	while (i < data->map.hight)
+	{
+		while (j < data->map.width)
+		{
+			if ((i == 0 || i == data->map.hight - 1) && arr[i][j] != '1')
+				return (1);
+
+			j++;
+		}
+		i++;
+	}
+}*/
+
+char	**load_map(char *map_adress, t_data *data)
 {
 	char	**arr;
 	int		code;
 
-	code = check_map_dimensions(map_adress, width, hight);
+	code = check_map_dimensions(map_adress, &data->map.width, &data->map.hight);
 	if(code != 0)
 		return (error_printer(code), NULL);
-	arr = allocate_map(*width, *hight);
+	arr = allocate_map(data->map.width, data->map.hight);
 	if (!arr)
 		return (error_printer(3), NULL);
-	arr = fill_array(arr, map_adress, *width, *hight);
+	arr = fill_array(arr, map_adress, data->map.width, data->map.hight);
 	if (!arr)
 		return (error_printer(4), NULL);
+	//if (check_border(arr, data) != 0)
+	//	return (11);
 	return (arr);
 }

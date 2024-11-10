@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 22:59:15 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 20:00:00 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/10 20:22:23 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	data_init(t_data *data, char *map_adress)
 	data->map.colls = 0;
 	data->map.step_count = 0;
 	data->close_request = 0;
-	data->map.map = load_map(map_adress, &data->map.width, &data->map.hight);
+	data->map.map = load_map(map_adress, data);
 	if (!data->map.map)
 		return (1); // Free stuff before
 	if (locate_pois(data) != 0)

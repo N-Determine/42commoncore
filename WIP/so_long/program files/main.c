@@ -11,7 +11,7 @@ int	main(void)
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
 		return (1); // Free map
-	if (load_tiles(&data, data.tiles) < 0)
+	if (load_tiles(&data) < 0)
 		return (1); // Free
 	data.win_ptr = mlx_new_window(data.mlx_ptr, data.map.width * data.tiles.c.width, data.map.hight * data.tiles.c.hight, WINDOW_NAME);
 	if (!data.win_ptr)

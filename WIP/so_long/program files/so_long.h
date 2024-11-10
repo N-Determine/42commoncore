@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 19:36:45 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/10 19:42:29 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # include <mlx.h>
 # include <stdlib.h>
 
-# define PWIDTH 32
-# define PHIGHT 32
 # define WINDOW_NAME "new window"
+# define WIN_MSG "You won. Congratulations!\n"
+# define BYE_MSG "Bye bye!\n"
 # define MAP_ADRESS "../maps/minimal.ber"
 
 // Structs
@@ -101,7 +101,7 @@ char			**load_map(char *map_adress, int *width, int *hight);
 
 // init_and_destroy.c
 int				data_init(t_data *data);
-int				load_tiles(t_data *data, t_tiles tiles);
+int				load_tiles(t_data *data);
 void			free_all(char **arr, int index);
 void			destroy_everything(t_data *data);
 

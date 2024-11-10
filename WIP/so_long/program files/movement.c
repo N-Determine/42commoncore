@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:07:09 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 19:22:57 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/10 19:42:08 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	handle_movement(t_data *data, char dir)
 			data->map.colls_found += 1;
 		if (data->map.map[new_y][new_x] == 'e')
 		{
-			ft_putstr_fd("You won. Congratulations!\n", 1);
+			ft_putstr_fd(WIN_MSG, 1);
 			destroy_everything(data);
 			exit(0);
 		}

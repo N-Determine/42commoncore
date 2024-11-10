@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 22:59:15 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/09 22:23:08 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/10 19:38:54 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	data_init(t_data *data)
 /**
  * @brief Loads all the seperate images into the tiles struct
  */
-int	load_tiles(t_data *data, t_tiles tiles)
+int	load_tiles(t_data *data)
 {
 	data->tiles.c.img = mlx_xpm_file_to_image(data->mlx_ptr, "../img/c.xpm",
 			&data->tiles.c.width, &data->tiles.c.hight);

@@ -11,7 +11,7 @@ int	handle_close_request(t_data *data)
 	if (data->close_request == 1)
 	{
 		destroy_everything(data);
-		ft_putstr_fd("Bye bye!\n", 1);
+		ft_putstr_fd(BYE_MSG, 1);
 		exit(0);
 	}
 	return (0);
@@ -22,7 +22,7 @@ int	handle_keypress(int keysym, t_data *data)
 	if (keysym == XK_Escape)
 	{
 		destroy_everything(data);
-		ft_putstr_fd("Bye bye!\n", 1);
+		ft_putstr_fd(BYE_MSG, 1);
 		exit(0);
 	}
 	if (keysym == XK_d || keysym == XK_D || keysym == XK_Right)

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:43:55 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 19:44:54 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/10 20:09:53 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	error_printer(int code)
 {
 	ft_putstr_fd("Error\n", 2);
 	if (code == 1)
-		ft_putstr_fd("GNL function failed while loading the map!\n",
+		ft_putstr_fd("Could not load map!\n",
 			2);
 	if (code == 2)
 		ft_putstr_fd("The map is not rectangular!\n", 2);
@@ -37,4 +37,8 @@ void	error_printer(int code)
 		ft_putstr_fd("Exit character (E) missing in the map!\n", 2);
 	if (code == 8)
 		ft_putstr_fd("Too many exit characters (E) in the map!\n", 2);
+	if (code == 9)
+		ft_putstr_fd("Usage: ./long ../maps/map.ber\n", 2);
+	if (code == 10)
+		ft_putstr_fd("Not a valid map adress!\n", 2);
 }

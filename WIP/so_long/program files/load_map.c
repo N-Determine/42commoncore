@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:45:58 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/09 22:14:13 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/10 20:09:16 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "libft.h"
 #include "get_next_line.h"
 #include <stdio.h>
-
-char *map_adress = MAP_ADRESS;
 
 /*
 int is_valid_char(char c)
@@ -84,7 +82,9 @@ int	check_map_dimensions(char *map_adress, int *width, int *hight)
 {
 	char *line;
 	int fd;
-	fd = open(MAP_ADRESS, O_RDONLY);
+	fd = open(map_adress, O_RDONLY);
+	if (fd < 0)
+		return (10);
 	line = rid_of_nl(get_next_line(fd));
 	if (!line)
 		return (1);
@@ -129,7 +129,7 @@ char **fill_array(char **arr, char *map_adress, int width, int hight)
 	int		j;
 	char	*line;
 
-	fd = open(MAP_ADRESS, O_RDONLY);
+	fd = open(map_adress, O_RDONLY);
 	j = 0;
 	i = 0;
 	while (i < hight)

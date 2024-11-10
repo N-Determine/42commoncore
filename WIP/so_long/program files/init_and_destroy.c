@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 22:59:15 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 19:38:54 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/10 20:00:00 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
  * @brief initialises the big data struct to set certain values to 0,
  * load the map and locate points of interest within the map
  */
-int	data_init(t_data *data)
+int	data_init(t_data *data, char *map_adress)
 {
 	data->close_request = 0;
 	data->map.colls_found = 0;
 	data->map.colls = 0;
 	data->map.step_count = 0;
 	data->close_request = 0;
-	data->map.map = load_map(MAP_ADRESS, &data->map.width, &data->map.hight);
+	data->map.map = load_map(map_adress, &data->map.width, &data->map.hight);
 	if (!data->map.map)
 		return (1); // Free stuff before
 	if (locate_pois(data) != 0)

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 19:56:18 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/10 20:00:26 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void			error_printer(int code);
 char			**load_map(char *map_adress, int *width, int *hight);
 
 // init_and_destroy.c
-int				data_init(t_data *data);
+int				data_init(t_data *data, char *map_adress);
 int				load_tiles(t_data *data);
 void			free_all(char **arr, int index);
 void			destroy_everything(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:45:58 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 20:46:51 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/10 21:15:31 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-/*
+
 int is_valid_char(char c)
 {
 	int valid; 
@@ -27,21 +27,6 @@ int is_valid_char(char c)
 		valid = 1;
 	return (valid);
 }
-
-int is_valid_str(char *str)
-{
-	int i;
-
-	i = 0;
-	while(str[i])
-	{
-		if (!is_valid_char(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-*/
 
 /**
  * @brief Removes the newline character (`\n`) from the end of a string, if present.
@@ -172,6 +157,10 @@ int	check_border(char **arr, t_data *data)
 				return (1);
 			if (j == data->map.width - 1 && arr[i][j] != '1')
 				return (1);
+			if (arr[i][j] == '0')
+				data->map.free_flag = 1;
+			if (!is_valid_char(arr[i][j]))
+				data->map.invalid_chars += 1;
 			j++;
 		}
 		i++;

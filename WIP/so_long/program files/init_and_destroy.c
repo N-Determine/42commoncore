@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 22:59:15 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 20:51:32 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/10 21:18:59 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	data_init(t_data *data, char *map_adress)
 {
 	data->close_request = 0;
 	data->map.colls_found = 0;
+	data->map.free_flag = 0;
+	data->map.invalid_chars = 0;
 	data->map.colls = 0;
 	data->map.step_count = 0;
 	data->close_request = 0;
@@ -30,6 +32,21 @@ int	data_init(t_data *data, char *map_adress)
 		return (1);
 	if (locate_pois(data) != 0)
 		return (free_all(data->map.map, data->map.hight), 1);
+	if (data->map.colls == 0)
+	{
+		error_printer(12);
+		return (free_all(data->map.map, data->map.hight), 1);
+	}
+	if (data->map.free_flag == 0)
+	{
+		error_printer(13);
+		return (free_all(data->map.map, data->map.hight), 1);
+	}
+	if (data->map.invalid_chars != 0)
+	{
+		error_printer(14);
+		return (free_all(data->map.map, data->map.hight), 1);
+	}
 	return (0);
 }
 

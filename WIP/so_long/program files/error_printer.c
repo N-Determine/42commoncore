@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:43:55 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 20:27:24 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/10 21:17:07 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,11 @@ void	error_printer(int code)
 		ft_putstr_fd("Not a valid map adress!\n", 2);
 	if (code == 11)
 		ft_putstr_fd("Map not surrounded with walls!\n", 2);
+	if (code == 12)
+		ft_putstr_fd("Map does not contain at least 1 collectible!\n", 2);
+	if (code == 13)
+		ft_putstr_fd("Map does not contain at least 1 free space!\n", 2);
+	// Could include a counter quite easily
+	if (code == 14)
+		ft_putstr_fd("Map contains invalid characters!\n", 2);
 }

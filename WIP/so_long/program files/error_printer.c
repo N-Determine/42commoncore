@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_printer.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/10 19:43:55 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/10 19:44:54 by adeters          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 /**
@@ -8,27 +20,21 @@ void	error_printer(int code)
 {
 	ft_putstr_fd("Error\n", 2);
 	if (code == 1)
-		ft_putstr_fd("The get_next_line function failed while loading the map!\n",
+		ft_putstr_fd("GNL function failed while loading the map!\n",
 			2);
 	if (code == 2)
-	ft_putstr_fd("The map is not rectangular!\n",
-		2);
+		ft_putstr_fd("The map is not rectangular!\n", 2);
 	if (code == 3)
-	ft_putstr_fd("Space for map could not be allocated!\n",
-		2);
+		ft_putstr_fd("Space for map could not be allocated!\n", 2);
 	if (code == 4)
-	ft_putstr_fd("The get_next_line function failed while filling the 2D Array!\n",
-		2);
+		ft_putstr_fd("GNL function failed while filling the 2D Array!\n",
+			2);
 	if (code == 5)
-	ft_putstr_fd("Player character (P) missing in the map!\n",
-		2);
+		ft_putstr_fd("Player character (P) missing in the map!\n", 2);
 	if (code == 6)
-	ft_putstr_fd("Too many player characters (P) in the map!\n",
-		2);
+		ft_putstr_fd("Too many player characters (P) in the map!\n", 2);
 	if (code == 7)
-	ft_putstr_fd("Exit character (E) missing in the map!\n",
-		2);
+		ft_putstr_fd("Exit character (E) missing in the map!\n", 2);
 	if (code == 8)
-	ft_putstr_fd("Too many exit characters (E) in the map!\n",
-		2);
+		ft_putstr_fd("Too many exit characters (E) in the map!\n", 2);
 }

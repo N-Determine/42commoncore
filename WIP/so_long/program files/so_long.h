@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 19:42:29 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/10 19:56:18 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,18 +128,20 @@ int				locate_pois(t_data *data);
 // movement.c
 /**
  * @brief Executes player movement in the specified direction.
- *
- * This function handles player movement on a 2D map based on the input
- * direction. It first determines the movement offset with set_direction,
- * then calculates the new position. If the new position is reachable,
- * it updates the player’s position on the map, increments the step count,
- * and checks for collectible items ('C') or the exit ('e'). If the exit is
- * reached, the game ends.
+ * 
+ * This function moves the player on a 2D map based on the provided 
+ * movement direction and offset values. It calculates the new position 
+ * using the current position plus `move_x` and `move_y`. If the target 
+ * position is reachable, it updates the player’s position on the map, 
+ * increments the step count, and checks for collectibles ('C') or the exit ('e').
+ * If the exit is reached, the game ends. 
  *
  * @param data Pointer to the game data structure.
- * @param dir Character indicating the movement direction ('P', 'A', 'W', 'S').
+ * @param dir Character representing the movement direction ('P', 'A', 'W', 'S').
+ * @param move_x Integer indicating the movement offset in the x direction.
+ * @param move_y Integer indicating the movement offset in the y direction.
  */
-void			handle_movement(t_data *data, char dir);
+void	handle_movement(t_data *data, char dir, int move_x, int move_y);
 
 // handle_events.c
 /**

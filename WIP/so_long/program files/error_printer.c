@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:43:55 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 21:22:17 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 18:36:39 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * @brief Prints an error message to stderr using the
  * ft_putstr_fd function
  */
-void	error_printer(int code)
+void	error_printer(int code, t_data *data)
 {
 	ft_putstr_fd("Error\n", 2);
 	if (code == 1)
@@ -50,4 +50,14 @@ void	error_printer(int code)
 	// Could include a counter quite easily
 	if (code == 14)
 		ft_putstr_fd("Map contains invalid characters!\n", 2);
+	if (code == 15)
+		ft_putstr_fd("Exit is not reachable!\n", 2);
+	if (code == 16)
+	{
+		ft_putnbr_fd(data->map.colls_unreachable, 2);
+		if (data->map.colls_unreachable == 1)
+			ft_putstr_fd(" collectible unreachable!\n", 2);
+		else
+			ft_putstr_fd(" collectibles unreachable!\n", 2);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:07:09 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 19:56:23 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 18:46:16 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static int	is_reachable(t_data *data, int new_x, int new_y)
 {
 	if (data->map.map[new_y][new_x] == '1')
 		return (0);
-	if (data->map.map[new_y][new_x] == 'E')
-		return (0);
 	return (1);
 }
 
@@ -53,7 +51,10 @@ void	handle_movement(t_data *data, char dir, int move_x, int move_y)
 			destroy_everything(data);
 			exit(0);
 		}
-		data->map.map[data->map.pos_y][data->map.pos_x] = '0';
+		if (data->map.pos_y == data->map.e_pos_y && data->map.pos_x == data->map.e_pos_x)
+			data->map.map[data->map.pos_y][data->map.pos_x] = 'E';
+		else
+			data->map.map[data->map.pos_y][data->map.pos_x] = '0';
 		data->map.map[new_y][new_x] = dir;
 		data->map.pos_x += move_x;
 		data->map.pos_y += move_y;

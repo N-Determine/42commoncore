@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:45:58 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 21:15:31 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 18:34:52 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,14 +175,14 @@ char	**load_map(char *map_adress, t_data *data)
 
 	code = check_map_dimensions(map_adress, &data->map.width, &data->map.hight);
 	if(code != 0)
-		return (error_printer(code), NULL);
+		return (error_printer(code, 0), NULL);
 	arr = allocate_map(data->map.width, data->map.hight);
 	if (!arr)
-		return (error_printer(3), NULL);
+		return (error_printer(3, 0), NULL);
 	arr = fill_array(arr, map_adress, data->map.width, data->map.hight);
 	if (!arr)
-		return (free_all(arr, data->map.hight), error_printer(4), NULL);
+		return (free_all(arr, data->map.hight), error_printer(4, 0), NULL);
 	if (check_border(arr, data) != 0)
-		return (free_all(arr, data->map.hight), error_printer(11), NULL);
+		return (free_all(arr, data->map.hight), error_printer(11, 0), NULL);
 	return (arr);
 }

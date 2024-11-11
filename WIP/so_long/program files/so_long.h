@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/10 21:15:38 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 18:43:26 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <mlx.h>
 # include <stdlib.h>
 
-# define WINDOW_NAME "new window"
+# define WINDOW_NAME "so_long"
 # define WIN_MSG "You won. Congratulations!\n"
 # define BYE_MSG "Bye bye!\n"
 # define MAP_ADRESS "../maps/minimal.ber"
@@ -74,9 +74,12 @@ typedef struct s_map_data
 	int			pos_y;
 	int			colls;
 	int			colls_found;
+	int			colls_reached;
+	int			colls_unreachable;
 	int			step_count;
 	int			free_flag;
 	int			invalid_chars;
+	int			exit_reached;
 	int			e_pos_x;
 	int			e_pos_y;
 	char		**map;
@@ -96,7 +99,7 @@ typedef struct s_data
  * @brief Prints an error message to stderr using the
  * ft_putstr_fd function
  */
-void			error_printer(int code);
+void			error_printer(int code, t_data *data);
 
 // load_map.c
 char			**load_map(char *map_adress, t_data *data);
@@ -144,6 +147,10 @@ int				locate_pois(t_data *data);
  * @param move_y Integer indicating the movement offset in the y direction.
  */
 void	handle_movement(t_data *data, char dir, int move_x, int move_y);
+
+// reachability.c
+int		check_reachability(t_data *data, char *map_adress);
+
 
 // handle_events.c
 /**

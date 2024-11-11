@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:43:55 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 19:02:32 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 19:59:23 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,30 @@
  * @brief Prints an error message to stderr using the
  * ft_putstr_fd function
  */
-void	error_printer(int code, t_data *data)
+void	err_pr(int code, t_data *data)
+{
+	ft_putstr_fd("Error\n", 2);
+	if (code == 12)
+		ft_putstr_fd("Map does not contain at least 1 collectible!\n", 2);
+	if (code == 14)
+	{
+		ft_putstr_fd("Map contains ", 2);
+		ft_putnbr_fd(data->map.invalid_chars, 2);
+		ft_putstr_fd(" invalid characters!\n", 2);
+	}
+	if (code == 15)
+		ft_putstr_fd("Exit is not reachable!\n", 2);
+	if (code == 16)
+	{
+		ft_putnbr_fd(data->map.colls_unreachable, 2);
+		if (data->map.colls_unreachable == 1)
+			ft_putstr_fd(" collectible unreachable!\n", 2);
+		else
+			ft_putstr_fd(" collectibles unreachable!\n", 2);
+	}
+}
+
+void	err_pr2(int code)
 {
 	ft_putstr_fd("Error\n", 2);
 	if (code == 1)
@@ -44,22 +67,4 @@ void	error_printer(int code, t_data *data)
 		ft_putstr_fd("Not a valid map adress!\n", 2);
 	if (code == 11)
 		ft_putstr_fd("Map not surrounded with walls!\n", 2);
-	if (code == 12)
-		ft_putstr_fd("Map does not contain at least 1 collectible!\n", 2);
-	if (code == 14)
-	{
-		ft_putstr_fd("Map contains ", 2);
-		ft_putnbr_fd(data->map.invalid_chars, 2);
-		ft_putstr_fd(" invalid characters!\n", 2);
-	}
-	if (code == 15)
-		ft_putstr_fd("Exit is not reachable!\n", 2);
-	if (code == 16)
-	{
-		ft_putnbr_fd(data->map.colls_unreachable, 2);
-		if (data->map.colls_unreachable == 1)
-			ft_putstr_fd(" collectible unreachable!\n", 2);
-		else
-			ft_putstr_fd(" collectibles unreachable!\n", 2);
-	}
 }

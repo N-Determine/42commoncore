@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 22:59:15 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 19:03:05 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 19:51:10 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,15 @@ int	data_init(t_data *data, char *map_adress)
 	if (locate_pois(data) != 0)
 		return (free_all(data->map.map, data->map.hight), 1);
 	if (data->map.colls == 0)
-	{
-		error_printer(12, 0);
-		return (free_all(data->map.map, data->map.hight), 1);
-	}
+		return (err_pr(12, 0), free_all(data->map.map, data->map.hight), 1);
 	if (data->map.invalid_chars != 0)
-	{
-		error_printer(14, data);
-		return (free_all(data->map.map, data->map.hight), 1);
-	}
+		return (err_pr(14, data), free_all(data->map.map, data->map.hight), 1);
 	if (check_reachability(data, map_adress) != 0)
 	{
 		if (data->map.exit_reached == 0)
-			error_printer(15, 0);
+			err_pr(15, 0);
 		if (data->map.colls_reached != data->map.colls)
-			error_printer(16, data);
+			err_pr(16, data);
 		return (free_all(data->map.map, data->map.hight), 1);
 	}
 	return (0);

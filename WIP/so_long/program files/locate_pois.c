@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 22:35:31 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 18:35:09 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 19:58:21 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,22 @@ static int	player_exit_error(int p_count, int e_count)
 {
 	if (p_count == 0)
 	{
-		error_printer(5, 0);
+		err_pr2(5);
 		return (1);
 	}
 	if (p_count > 1)
 	{
-		error_printer(6, 0);
+		err_pr2(6);
 		return (1);
 	}
 	if (e_count == 0)
 	{
-		error_printer(7, 0);
+		err_pr2(7);
 		return (1);
 	}
 	if (e_count > 1)
 	{
-		error_printer(8, 0);
+		err_pr2(8);
 		return (1);
 	}
 	return (0);

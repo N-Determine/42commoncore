@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:45:58 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 19:38:25 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 19:57:59 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,9 @@ char	**fill_array(char **arr, char *map_adress, int width, int hight)
 		line = rid_of_nl(get_next_line(fd));
 		if (!line)
 			return (get_next_line(-1), close(fd), NULL);
-		j = 0;
-		while (j < width)
-		{
+		j = -1;
+		while (++j < width)
 			arr[i][j] = line[j];
-			j++;
-		}
 		i++;
 	}
 	get_next_line(-1);
@@ -98,14 +95,14 @@ char	**load_map(char *map_adress, t_data *data)
 
 	code = check_map_dimensions(map_adress, &data->map.width, &data->map.hight);
 	if (code != 0)
-		return (error_printer(code, 0), NULL);
+		return (err_pr2(code), NULL);
 	arr = allocate_map(data->map.width, data->map.hight);
 	if (!arr)
-		return (error_printer(3, 0), NULL);
+		return (err_pr2(3), NULL);
 	arr = fill_array(arr, map_adress, data->map.width, data->map.hight);
 	if (!arr)
-		return (free_all(arr, data->map.hight), error_printer(4, 0), NULL);
+		return (free_all(arr, data->map.hight), err_pr2(4), NULL);
 	if (check_border(arr, data) != 0)
-		return (free_all(arr, data->map.hight), error_printer(11, 0), NULL);
+		return (free_all(arr, data->map.hight), err_pr2(11), NULL);
 	return (arr);
 }

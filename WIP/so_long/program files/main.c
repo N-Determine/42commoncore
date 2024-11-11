@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:10:34 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 19:40:36 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 19:57:09 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int ac, char *av[])
 	t_data	data;
 
 	if (ac != 2)
-		return (error_printer(9, 0), 1);
+		return (err_pr2(9), 1);
 	if (data_init(&data, av[1]) != 0)
 		return (1);
 	data.mlx_ptr = mlx_init();

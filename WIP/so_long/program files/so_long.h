@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 19:41:35 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 19:56:45 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,12 @@ typedef struct s_data
  * @brief Prints an error message to stderr using the
  * ft_putstr_fd function
  */
-void			error_printer(int code, t_data *data);
+void			err_pr(int code, t_data *data);
+void			err_pr2(int code);
 
 // load_map.c
 char			**load_map(char *map_adress, t_data *data);
+char			*rid_of_nl(char *str);
 
 // init_and_destroy.c
 int				data_init(t_data *data, char *map_adress);

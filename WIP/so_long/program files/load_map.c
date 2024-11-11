@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:45:58 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 18:34:52 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 19:03:11 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,8 +157,6 @@ int	check_border(char **arr, t_data *data)
 				return (1);
 			if (j == data->map.width - 1 && arr[i][j] != '1')
 				return (1);
-			if (arr[i][j] == '0')
-				data->map.free_flag = 1;
 			if (!is_valid_char(arr[i][j]))
 				data->map.invalid_chars += 1;
 			j++;

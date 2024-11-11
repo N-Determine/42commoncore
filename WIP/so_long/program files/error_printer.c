@@ -6,11 +6,12 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:43:55 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 18:36:39 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 19:02:32 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <stdio.h>
 
 /**
  * @brief Prints an error message to stderr using the
@@ -45,11 +46,12 @@ void	error_printer(int code, t_data *data)
 		ft_putstr_fd("Map not surrounded with walls!\n", 2);
 	if (code == 12)
 		ft_putstr_fd("Map does not contain at least 1 collectible!\n", 2);
-	if (code == 13)
-		ft_putstr_fd("Map does not contain at least 1 free space!\n", 2);
-	// Could include a counter quite easily
 	if (code == 14)
-		ft_putstr_fd("Map contains invalid characters!\n", 2);
+	{
+		ft_putstr_fd("Map contains ", 2);
+		ft_putnbr_fd(data->map.invalid_chars, 2);
+		ft_putstr_fd(" invalid characters!\n", 2);
+	}
 	if (code == 15)
 		ft_putstr_fd("Exit is not reachable!\n", 2);
 	if (code == 16)

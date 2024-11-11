@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 18:43:26 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 19:02:44 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ typedef struct s_map_data
 	int			colls_reached;
 	int			colls_unreachable;
 	int			step_count;
-	int			free_flag;
 	int			invalid_chars;
 	int			exit_reached;
 	int			e_pos_x;

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:07:09 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 18:46:16 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 19:40:18 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 
 /**
  * @brief Checks if the new coordinates are reachable.
- * 
- * This function checks if the target position on the map is accessible 
+ *
+ * This function checks if the target position on the map is accessible
  * by verifying that it is neither a wall ('1') nor an exit ('E').
  *
  * @param data Pointer to the game data structure containing the map.
  * @param new_x Target x-coordinate for the movement.
  * @param new_y Target y-coordinate for the movement.
- * 
- * @return 1 if the position is reachable, 
+ *
+ * @return 1 if the position is reachable,
  * 0 if it's blocked by a wall or (closed) exit.
  */
 static int	is_reachable(t_data *data, int new_x, int new_y)
@@ -51,7 +51,8 @@ void	handle_movement(t_data *data, char dir, int move_x, int move_y)
 			destroy_everything(data);
 			exit(0);
 		}
-		if (data->map.pos_y == data->map.e_pos_y && data->map.pos_x == data->map.e_pos_x)
+		if (data->map.pos_y == data->map.e_pos_y
+			&& data->map.pos_x == data->map.e_pos_x)
 			data->map.map[data->map.pos_y][data->map.pos_x] = 'E';
 		else
 			data->map.map[data->map.pos_y][data->map.pos_x] = '0';

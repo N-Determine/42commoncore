@@ -6,40 +6,28 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:45:58 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 19:03:11 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 19:38:25 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "libft.h"
-#include "get_next_line.h"
-#include <stdio.h>
-
-
-int is_valid_char(char c)
-{
-	int valid; 
-
-	valid = 0;
-	if (c == 'C' || c == 'E' || c == 'P')
-		valid = 1;
-	if (c == '1' || c == '0')
-		valid = 1;
-	return (valid);
-}
 
 /**
- * @brief Removes the newline character (`\n`) from the end of a string, if present.
- *        This allows `count_lines` to function correctly regardless of whether the
+ * @brief Removes the newline character (`\n`) from the end of a string,
+ * if present.
+ *        This allows `count_lines` to function
+ * correctly regardless of whether the
  *        map file ends with a newline character.
  *
- * @param str The string from which to remove the newline character.
- * 
- * @return A pointer to the modified string with any trailing newline replaced by `\0`.
+ * @param str The string from which to remove
+ * the newline character.
+ *
+ * @return A pointer to the modified string with any
+ * trailing newline replaced by `\0`.
  */
 char	*rid_of_nl(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str)
@@ -53,50 +41,15 @@ char	*rid_of_nl(char *str)
 	return (str);
 }
 
-/**
- * @brief Checks the dimensions of the map and if the map is rectangular
- * 
- * @return
- * `0` - if the operation was succesful
- * 
- * `1`- if the get_next_line function failes (e.g. failed read function)
- * 
- * `2`- if the map is not rectangular
- */
-int	check_map_dimensions(char *map_adress, int *width, int *hight)
+char	**allocate_map(width, hight)
 {
-	char *line;
-	int fd;
-	fd = open(map_adress, O_RDONLY);
-	if (fd < 0)
-		return (10);
-	line = rid_of_nl(get_next_line(fd));
-	if (!line)
-		return (1);
-	int last = ft_strlen(line);
-	*width = last;
-	*hight = 1;
-	while (line)
-	{
-		free(line);
-		line = rid_of_nl(get_next_line(fd));
-		if (!line)
-			break;
-		if (last != ft_strlen(line))
-			return (2);
-		*hight += 1;
-	}
-	close(fd);
-	free(line);
-	return (0);
-}
+	char	**arr;
+	int		i;
 
-char **allocate_map(width, hight)
-{
-	char **arr = malloc(sizeof(char *) * hight);
+	arr = malloc(sizeof(char *) * hight);
 	if (!arr)
 		return (NULL);
-	int i = 0;
+	i = 0;
 	while (i < hight)
 	{
 		arr[i] = malloc(sizeof(char) * width);
@@ -107,7 +60,7 @@ char **allocate_map(width, hight)
 	return (arr);
 }
 
-char **fill_array(char **arr, char *map_adress, int width, int hight)
+char	**fill_array(char **arr, char *map_adress, int width, int hight)
 {
 	int		fd;
 	int		i;
@@ -136,34 +89,6 @@ char **fill_array(char **arr, char *map_adress, int width, int hight)
 	free(line);
 	close(fd);
 	return (arr);
-	
-}
-
-
-int	check_border(char **arr, t_data *data)
-{
-	int i = 0;
-	int j = 0;
-	while (i < data->map.hight)
-	{
-		j = 0;
-		while (j < data->map.width)
-		{
-			if (i == 0 && arr[i][j] != '1')
-				return (1);
-			if (i == data->map.hight - 1 && arr[i][j] != '1')
-				return (1);
-			if (j == 0 && arr[i][j] != '1')
-				return (1);
-			if (j == data->map.width - 1 && arr[i][j] != '1')
-				return (1);
-			if (!is_valid_char(arr[i][j]))
-				data->map.invalid_chars += 1;
-			j++;
-		}
-		i++;
-	}
-	return (0);
 }
 
 char	**load_map(char *map_adress, t_data *data)
@@ -172,7 +97,7 @@ char	**load_map(char *map_adress, t_data *data)
 	int		code;
 
 	code = check_map_dimensions(map_adress, &data->map.width, &data->map.hight);
-	if(code != 0)
+	if (code != 0)
 		return (error_printer(code, 0), NULL);
 	arr = allocate_map(data->map.width, data->map.hight);
 	if (!arr)

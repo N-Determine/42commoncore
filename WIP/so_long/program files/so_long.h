@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 19:02:44 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/11 19:41:35 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,21 @@ int				load_tiles(t_data *data);
 void			free_all(char **arr, int index);
 void			destroy_everything(t_data *data);
 
+// checker.c
+int				is_valid_char(char c);
+/**
+ * @brief Checks the dimensions of the map and if the map is rectangular
+ *
+ * @return
+ * `0` - if the operation was succesful
+ *
+ * `1`- if the get_next_line function failes (e.g. failed read function)
+ *
+ * `2`- if the map is not rectangular
+ */
+int				check_map_dimensions(char *map_adress, int *width, int *hight);
+int				check_border(char **arr, t_data *data);
+
 // print_gamestate.c
 /**
  * @brief Prints the gamestate by going through the 2D Array of the
@@ -132,24 +147,25 @@ int				locate_pois(t_data *data);
 // movement.c
 /**
  * @brief Executes player movement in the specified direction.
- * 
- * This function moves the player on a 2D map based on the provided 
- * movement direction and offset values. It calculates the new position 
- * using the current position plus `move_x` and `move_y`. If the target 
- * position is reachable, it updates the player’s position on the map, 
- * increments the step count, and checks for collectibles ('C') or the exit ('e').
- * If the exit is reached, the game ends. 
+ *
+ * This function moves the player on a 2D map based on the provided
+ * movement direction and offset values. It calculates the new position
+ * using the current position plus `move_x` and `move_y`. If the target
+ * position is reachable, it updates the player’s position on the map,
+ * increments the step count,
+	and checks for collectibles ('C') or the exit ('e').
+ * If the exit is reached, the game ends.
  *
  * @param data Pointer to the game data structure.
- * @param dir Character representing the movement direction ('P', 'A', 'W', 'S').
+ * @param dir Character representing the movement direction ('P', 'A', 'W',
+	'S').
  * @param move_x Integer indicating the movement offset in the x direction.
  * @param move_y Integer indicating the movement offset in the y direction.
  */
-void	handle_movement(t_data *data, char dir, int move_x, int move_y);
+void			handle_movement(t_data *data, char dir, int move_x, int move_y);
 
 // reachability.c
-int		check_reachability(t_data *data, char *map_adress);
-
+int				check_reachability(t_data *data, char *map_adress);
 
 // handle_events.c
 /**

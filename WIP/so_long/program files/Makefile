@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 10:19:36 by adeters           #+#    #+#              #
-#    Updated: 2024/11/05 16:31:51 by adeters          ###   ########.fr        #
+#    Updated: 2024/11/11 19:33:17 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,27 +15,30 @@ COMP = cc
 FLAGS = -Wall -Werror -Wextra
 XFLAGS = -lmlx -lXext -lX11 -g -lm
 SRCS =	$(wildcard *.c)
+ARCH = libft.a
 OBJS = $(SRCS:.c=.o)
 
 $(NAME): $(OBJS)
-	cc $(OBJS) -o $(NAME) $(XFLAGS)
+	make multi -C ./libft
+	cp ./libft/libft.a ./libft.a
+	cc $(OBJS) -o $(NAME) $(ARCH) $(XFLAGS)
 
 all: $(NAME)
-	cc $(OBJS) -o $(NAME) $(XFLAGS)
+	cc $(OBJS) -o $(NAME) $(ARCH) $(XFLAGS)
 
 clean:
-	rm -rf $(OBJS)
+	rm -rf $(OBJS) $(ARCH)
+	make clean -C ./libft
 
 fclean: clean
 	rm -rf $(NAME)
+	make fclean -C ./libft
 
 re: fclean all
 
-tidy: all clean
+tidy: multi clean
 
-multire: fclean quick
-	
 multi:
 	make --jobs=16
 
-.PHONY: all clean fclean re bonus multi multire tidy
+.PHONY: all clean fclean re bonus multi tidy

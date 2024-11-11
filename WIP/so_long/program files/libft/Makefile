@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/08 16:34:00 by adeters           #+#    #+#              #
-#    Updated: 2024/10/28 10:34:56 by adeters          ###   ########.fr        #
+#    Updated: 2024/11/11 19:22:13 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ fclean: clean
 
 re: fclean all
 
-quick: 
+multi: 
 	make --jobs=16
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re bonus multi

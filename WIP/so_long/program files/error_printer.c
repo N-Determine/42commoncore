@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:43:55 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 19:59:23 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:46:25 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,21 @@ void	err_pr(int code, t_data *data)
 		else
 			ft_putstr_fd(" collectibles unreachable!\n", 2);
 	}
+	if (code == 17)
+		ft_putstr_fd("Failes duplicating map (check_reachability)!\n", 2);
 }
 
 void	err_pr2(int code)
 {
 	ft_putstr_fd("Error\n", 2);
 	if (code == 1)
-		ft_putstr_fd("Could not load map!\n",
-			2);
+		ft_putstr_fd("Could not load map!\n", 2);
 	if (code == 2)
 		ft_putstr_fd("The map is not rectangular!\n", 2);
 	if (code == 3)
 		ft_putstr_fd("Space for map could not be allocated!\n", 2);
 	if (code == 4)
-		ft_putstr_fd("GNL function failed while filling the 2D Array!\n",
-			2);
+		ft_putstr_fd("GNL function failed while filling the 2D Array!\n", 2);
 	if (code == 5)
 		ft_putstr_fd("Player character (P) missing in the map!\n", 2);
 	if (code == 6)

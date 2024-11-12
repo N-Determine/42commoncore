@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 19:40:47 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 15:24:34 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:46:28 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_reachability(char *map_adress, t_data *data)
 		return (1);
 	map_dup = fill_array(map_dup, map_adress, data->map.width, data->map.hight);
 	if (!map_dup)
-		return (free_all(map_dup, data->map.hight), err_pr2(4), 1);
+		return (free_all(map_dup, data->map.hight), err_pr(17, 0), 1);
 	data->map.exit_reached = 0;
 	data->map.colls_reached = 0;
 	flood_fill(data->map.pos_y, data->map.pos_x, map_dup, data);

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:07:09 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 19:40:18 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:30:48 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ static int	is_reachable(t_data *data, int new_x, int new_y)
 	return (1);
 }
 
+void	print_steps(t_data *data)
+{
+	ft_putstr_fd("Step ", 1);
+	ft_putnbr_fd(++data->map.step_count, 1);
+	ft_putstr_fd("\n", 1);
+}
+
 void	handle_movement(t_data *data, char dir, int move_x, int move_y)
 {
 	int	new_x;
@@ -42,7 +49,7 @@ void	handle_movement(t_data *data, char dir, int move_x, int move_y)
 	new_y = move_y + data->map.pos_y;
 	if (is_reachable(data, new_x, new_y))
 	{
-		printf("Step %i\n", ++data->map.step_count);
+		print_steps(data);
 		if (data->map.map[new_y][new_x] == 'C')
 			data->map.colls_found += 1;
 		if (data->map.map[new_y][new_x] == 'e')

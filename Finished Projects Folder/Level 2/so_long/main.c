@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:10:34 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 19:57:09 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 19:29:48 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ int	main(int ac, char *av[])
 		return (1);
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
-		return (1);
+		return (free_all(data.map.map, data.map.hight), 1);
 	if (load_tiles(&data) < 0)
-		return (1);
+		return (destroy_everything(&data), 1);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, data.map.width
 			* data.tiles.c.width, data.map.hight * data.tiles.c.hight,
 			WINDOW_NAME);
 	if (!data.win_ptr)
-		return (1);
+		return (destroy_everything(&data), 1);
 	print_gamestate(&data);
 	mlx_hook(data.win_ptr, 17, 0, &set_close_request, &data);
 	mlx_loop_hook(data.mlx_ptr, &handle_close_request, &data);

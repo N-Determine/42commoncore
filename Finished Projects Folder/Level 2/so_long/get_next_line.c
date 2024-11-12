@@ -6,12 +6,10 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:12:06 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 15:28:22 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 19:22:42 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include "libft.h"
 #include "so_long.h"
 
 static int	ft_check_nl(char *str);

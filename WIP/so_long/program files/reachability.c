@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 19:40:47 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 19:41:15 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:24:34 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	flood_fill(int i, int j, char **map, t_data *data)
 {
+	char	*tmp;
+
 	if (map[i][j] == '1' || map[i][j] == '2')
 		return (1);
 	if (map[i][j] == 'C')
@@ -28,18 +30,21 @@ static int	flood_fill(int i, int j, char **map, t_data *data)
 	return (1);
 }
 
-int	check_reachability(t_data *data, char *map_adress)
+int	check_reachability(char *map_adress, t_data *data)
 {
 	char	**map_dup;
 
-	data->map.exit_reached = 0;
-	data->map.colls_reached = 0;
-	map_dup = load_map(map_adress, data);
+	map_dup = allocate_map(data->map.width, data->map.hight);
 	if (!map_dup)
 		return (1);
+	map_dup = fill_array(map_dup, map_adress, data->map.width, data->map.hight);
+	if (!map_dup)
+		return (free_all(map_dup, data->map.hight), err_pr2(4), 1);
+	data->map.exit_reached = 0;
+	data->map.colls_reached = 0;
 	flood_fill(data->map.pos_y, data->map.pos_x, map_dup, data);
-	free_all(map_dup, data->map.hight);
 	data->map.colls_unreachable = data->map.colls - data->map.colls_reached;
+	free_all(map_dup, data->map.hight);
 	if (data->map.colls == data->map.colls_reached
 		&& data->map.exit_reached == 1)
 		return (0);

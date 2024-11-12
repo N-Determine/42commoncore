@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 22:59:15 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 19:51:10 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:03:28 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	data_init(t_data *data, char *map_adress)
 		return (err_pr(12, 0), free_all(data->map.map, data->map.hight), 1);
 	if (data->map.invalid_chars != 0)
 		return (err_pr(14, data), free_all(data->map.map, data->map.hight), 1);
-	if (check_reachability(data, map_adress) != 0)
+	if (check_reachability(map_adress, data) != 0)
 	{
 		if (data->map.exit_reached == 0)
 			err_pr(15, 0);
@@ -79,8 +79,10 @@ int	load_tiles(t_data *data)
 }
 
 // Destroying
-void	free_all(char **arr, int index)
+int	free_all(char **arr, int index)
 {
+	if (!arr)
+		return (0);
 	if (index != 0)
 	{
 		index = index - 1;
@@ -96,6 +98,7 @@ void	free_all(char **arr, int index)
 		free(arr[0]);
 		free(arr);
 	}
+	return (1);
 }
 
 void	destroy_everything(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:45:58 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 19:57:59 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:20:02 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*rid_of_nl(char *str)
 	return (str);
 }
 
-char	**allocate_map(width, hight)
+char	**allocate_map(int width, int hight)
 {
 	char	**arr;
 	int		i;

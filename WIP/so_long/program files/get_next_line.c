@@ -6,13 +6,13 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:12:06 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/05 16:18:52 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 14:38:21 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "so_long.h"
 #include "libft.h"
+#include "so_long.h"
 
 static int	ft_check_nl(char *str);
 static char	*free_foo(char **buffer, char *line);
@@ -105,6 +105,8 @@ static char	*make_line(char **buffer, char *line, int code)
 	if (code == 1)
 	{
 		line = ft_calloc(1, (ft_strchr(*buffer, '\n') + 1 - *buffer) + 1);
+		if (!line)
+			return (free_foo(buffer, line));
 		ft_strlcpy(line, *buffer, (ft_strchr(*buffer, '\n') + 1 - *buffer) + 1);
 		*buffer = ft_update(*buffer);
 		if (!*buffer || !line)
@@ -112,6 +114,8 @@ static char	*make_line(char **buffer, char *line, int code)
 		return (line);
 	}
 	line = ft_calloc(1, ft_strlen(*buffer) + 1);
+	if (!line)
+		return (free_foo(buffer, line));
 	ft_strlcpy(line, *buffer, ft_strlen(*buffer) + 1);
 	*buffer = ft_update(*buffer);
 	if (!*buffer || !line)
@@ -120,29 +124,34 @@ static char	*make_line(char **buffer, char *line, int code)
 }
 
 /* #include "get_next_line.h"
+#include <fcntl.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <fcntl.h>
-#include <stdio.h>
 
-int		decode_file(int *lpf, int *f, int *fr, char *str);
-int		error_handler(int code);
-ssize_t	frame_proc_duration(clock_t start, clock_t end);
+int			decode_file(int *lpf, int *f, int *fr, char *str);
+int			error_handler(int code);
+ssize_t		frame_proc_duration(clock_t start, clock_t end);
 
 int	main(int argc, char **argv)
 {
+	char	*str;
+	ssize_t	duration;
+	int		fd;
+	int		frame_line;
+	int		index;
+
 	int 	lines_per_frame; int frames; int frame_rate;
 	ssize_t	proc_time; ssize_t delay_time;
 	clock_t	start, end;
-	char	*str = NULL;
-
+	str = NULL;
 	if (argc != 3)
 		return (error_handler(1));
-	ssize_t duration = atoi(argv[2]) * 1000000;
+	duration = atoi(argv[2]) * 1000000;
 	if (duration <= 0)
 		return (error_handler(2));
-	int fd = open(argv[1], O_RDWR);
+	fd = open(argv[1], O_RDWR);
 	if (fd < 0)
 		return (error_handler(3));
 	str = get_next_line(fd);
@@ -151,8 +160,8 @@ int	main(int argc, char **argv)
 	delay_time = 1000000 / frame_rate;
 	// Play movie for chosen duration
 	do {
-		int frame_line = 0;
-		int index = 0;
+		frame_line = 0;
+		index = 0;
 		// Print a single frame
 		while (index < frames && duration > 0)
 		{
@@ -186,9 +195,8 @@ int	main(int argc, char **argv)
 	free(str);
 }
 
-int decode_file(int *lpf, int *f, int *fr, char *str)
+int	decode_file(int *lpf, int *f, int *fr, char *str)
 {
-
 	*lpf = atoi(str);
 	*f = atoi(strchr(str, '-') + 1);
 	*fr = atoi(strchr(strchr(str, '-') + 1, '-') + 1);
@@ -222,7 +230,7 @@ int	error_handler(int code)
 	return (0);
 }
 
-ssize_t frame_proc_duration(clock_t start, clock_t end)
+ssize_t	frame_proc_duration(clock_t start, clock_t end)
 {
 	return ((ssize_t)((double)(end - start) / CLOCKS_PER_SEC * 1000000));
 } */

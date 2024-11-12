@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 19:56:45 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:24:50 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,14 @@ void			err_pr2(int code);
 // load_map.c
 char			**load_map(char *map_adress, t_data *data);
 char			*rid_of_nl(char *str);
+char			**allocate_map(int width, int hight);
+char			**fill_array(char **arr, char *map_adress, int width,
+					int hight);
 
 // init_and_destroy.c
 int				data_init(t_data *data, char *map_adress);
 int				load_tiles(t_data *data);
-void			free_all(char **arr, int index);
+int				free_all(char **arr, int index);
 void			destroy_everything(t_data *data);
 
 // checker.c
@@ -167,7 +170,7 @@ int				locate_pois(t_data *data);
 void			handle_movement(t_data *data, char dir, int move_x, int move_y);
 
 // reachability.c
-int				check_reachability(t_data *data, char *map_adress);
+int				check_reachability(char *map_adress, t_data *data);
 
 // handle_events.c
 /**

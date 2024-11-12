@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 15:24:50 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 16:49:57 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # define WINDOW_NAME "so_long"
 # define WIN_MSG "You won. Congratulations!\n"
 # define BYE_MSG "Bye bye!\n"
-# define MAP_ADRESS "../maps/minimal.ber"
 
 // Structs
 typedef struct s_images

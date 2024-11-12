@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 22:59:15 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 15:03:28 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 16:45:09 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,23 @@ int	data_init(t_data *data, char *map_adress)
  */
 int	load_tiles(t_data *data)
 {
-	data->tiles.c.img = mlx_xpm_file_to_image(data->mlx_ptr, "../img/c.xpm",
+	data->tiles.c.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/c.xpm",
 			&data->tiles.c.width, &data->tiles.c.hight);
-	data->tiles.ec.img = mlx_xpm_file_to_image(data->mlx_ptr, "../img/ec.xpm",
+	data->tiles.ec.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/ec.xpm",
 			&data->tiles.ec.width, &data->tiles.ec.hight);
-	data->tiles.eo.img = mlx_xpm_file_to_image(data->mlx_ptr, "../img/eo.xpm",
+	data->tiles.eo.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/eo.xpm",
 			&data->tiles.eo.width, &data->tiles.eo.hight);
-	data->tiles.pd.img = mlx_xpm_file_to_image(data->mlx_ptr, "../img/pd.xpm",
+	data->tiles.pd.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/pd.xpm",
 			&data->tiles.pd.width, &data->tiles.pd.hight);
-	data->tiles.pl.img = mlx_xpm_file_to_image(data->mlx_ptr, "../img/pl.xpm",
+	data->tiles.pl.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/pl.xpm",
 			&data->tiles.pl.width, &data->tiles.pl.hight);
-	data->tiles.pr.img = mlx_xpm_file_to_image(data->mlx_ptr, "../img/pr.xpm",
+	data->tiles.pr.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/pr.xpm",
 			&data->tiles.pr.width, &data->tiles.pr.hight);
-	data->tiles.pu.img = mlx_xpm_file_to_image(data->mlx_ptr, "../img/pu.xpm",
+	data->tiles.pu.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/pu.xpm",
 			&data->tiles.pu.width, &data->tiles.pu.hight);
-	data->tiles.thc.img = mlx_xpm_file_to_image(data->mlx_ptr, "../img/thc.xpm",
+	data->tiles.thc.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/thc.xpm",
 			&data->tiles.thc.width, &data->tiles.thc.hight);
-	data->tiles.zero.img = mlx_xpm_file_to_image(data->mlx_ptr, "../img/0.xpm",
+	data->tiles.zero.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/0.xpm",
 			&data->tiles.zero.width, &data->tiles.zero.hight);
 	if (!data->tiles.c.img || !data->tiles.ec.img || !data->tiles.eo.img)
 		return (-1);

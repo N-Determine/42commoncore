@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:43:55 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 15:46:25 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 16:43:20 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	err_pr2(int code)
 	if (code == 8)
 		ft_putstr_fd("Too many exit characters (E) in the map!\n", 2);
 	if (code == 9)
-		ft_putstr_fd("Usage: ./so_long ../maps/map.ber\n", 2);
+		ft_putstr_fd("Usage: ./so_long ./maps/map.ber\n", 2);
 	if (code == 10)
 		ft_putstr_fd("Not a valid map adress!\n", 2);
 	if (code == 11)

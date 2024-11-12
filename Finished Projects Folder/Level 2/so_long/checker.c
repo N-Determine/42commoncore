@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 19:39:26 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/11 19:48:02 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 16:02:32 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ int	check_map_dimensions(char *map_adress, int *width, int *hight)
 		if (!line)
 			break ;
 		if (last != ft_strlen(line))
-			return (2);
+			return (get_next_line(-1), free(line), 2);
 		*hight += 1;
 	}
-	return (close(fd), free(line), 0);
+	return (get_next_line(-1), close(fd), free(line), 0);
 }
 
 int	check_border(char **arr, t_data *data)

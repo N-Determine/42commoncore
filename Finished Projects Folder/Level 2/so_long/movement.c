@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:07:09 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 15:30:48 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 19:41:06 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	handle_movement(t_data *data, char dir, int move_x, int move_y)
 		if (data->map.map[new_y][new_x] == 'e')
 		{
 			ft_putstr_fd(WIN_MSG, 1);
-			destroy_everything(data);
+			destroy_everything(data, TILES);
 			exit(0);
 		}
 		if (data->map.pos_y == data->map.e_pos_y

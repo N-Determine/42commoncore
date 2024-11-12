@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 16:49:57 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 19:49:52 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define WINDOW_NAME "so_long"
 # define WIN_MSG "You won. Congratulations!\n"
 # define BYE_MSG "Bye bye!\n"
+# define TILES 9
+# define TILES_A 4
 
 // Structs
 typedef struct s_images
@@ -111,7 +113,7 @@ char			**fill_array(char **arr, char *map_adress, int width,
 int				data_init(t_data *data, char *map_adress);
 int				load_tiles(t_data *data);
 int				free_all(char **arr, int index);
-void			destroy_everything(t_data *data);
+void			destroy_everything(t_data *data, int loaded);
 
 // checker.c
 int				is_valid_char(char c);

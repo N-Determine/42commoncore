@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_and_destroy.c                                 :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/07 22:59:15 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 19:26:45 by adeters          ###   ########.fr       */
+/*   Created: 2024/11/12 19:57:17 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/12 19:57:31 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdio.h>
 
 // Initializing
 /**
@@ -46,74 +45,64 @@ int	data_init(t_data *data, char *map_adress)
 	return (0);
 }
 
+int	load_tiles_a(t_data *data)
+{
+	data->tiles.c.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/c.xpm",
+			&data->tiles.c.width, &data->tiles.c.hight);
+	if (!data->tiles.c.img)
+		return (0);
+	data->tiles.ec.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/ec.xpm",
+			&data->tiles.ec.width, &data->tiles.ec.hight);
+	if (!data->tiles.ec.img)
+		return (1);
+	data->tiles.eo.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/eo.xpm",
+			&data->tiles.eo.width, &data->tiles.eo.hight);
+	if (!data->tiles.eo.img)
+		return (2);
+	data->tiles.pd.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/pd.xpm",
+			&data->tiles.pd.width, &data->tiles.pd.hight);
+	if (!data->tiles.pd.img)
+		return (3);
+	data->tiles.pl.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/pl.xpm",
+			&data->tiles.pl.width, &data->tiles.pl.hight);
+	if (!data->tiles.pl.img)
+		return (4);
+	return (-1);
+}
+
+int	load_tiles_b(t_data *data)
+{
+	data->tiles.pr.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/pr.xpm",
+			&data->tiles.pr.width, &data->tiles.pr.hight);
+	if (!data->tiles.pr.img)
+		return (5);
+	data->tiles.pu.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/pu.xpm",
+			&data->tiles.pu.width, &data->tiles.pu.hight);
+	if (!data->tiles.pu.img)
+		return (6);
+	data->tiles.thc.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/thc.xpm",
+			&data->tiles.thc.width, &data->tiles.thc.hight);
+	if (!data->tiles.thc.img)
+		return (7);
+	data->tiles.zero.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/0.xpm",
+			&data->tiles.zero.width, &data->tiles.zero.hight);
+	if (!data->tiles.zero.img)
+		return (8);
+	return (TILES);
+}
+
 /**
  * @brief Loads all the seperate images into the tiles struct
  */
 int	load_tiles(t_data *data)
 {
-	data->tiles.c.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/c.xpm",
-			&data->tiles.c.width, &data->tiles.c.hight);
-	data->tiles.ec.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/ec.xpm",
-			&data->tiles.ec.width, &data->tiles.ec.hight);
-	data->tiles.eo.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/eo.xpm",
-			&data->tiles.eo.width, &data->tiles.eo.hight);
-	data->tiles.pd.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/pd.xpm",
-			&data->tiles.pd.width, &data->tiles.pd.hight);
-	data->tiles.pl.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/pl.xpm",
-			&data->tiles.pl.width, &data->tiles.pl.hight);
-	data->tiles.pr.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/pr.xpm",
-			&data->tiles.pr.width, &data->tiles.pr.hight);
-	data->tiles.pu.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/pu.xpm",
-			&data->tiles.pu.width, &data->tiles.pu.hight);
-	data->tiles.thc.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/thc.xpm",
-			&data->tiles.thc.width, &data->tiles.thc.hight);
-	data->tiles.zero.img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/0.xpm",
-			&data->tiles.zero.width, &data->tiles.zero.hight);
-	if (!data->tiles.c.img || !data->tiles.ec.img || !data->tiles.eo.img)
-		return (-1);
-	if (!data->tiles.pd.img || !data->tiles.pl.img || !data->tiles.pr.img)
-		return (-1);
-	if (!data->tiles.thc.img || !data->tiles.pu.img)
-		return (-1);
-	return (1);
-}
+	int	checker;
 
-// Destroying
-int	free_all(char **arr, int index)
-{
-	if (!arr)
-		return (0);
-	if (index != 0)
-	{
-		index = index - 1;
-		while (index >= 0)
-		{
-			free(arr[index]);
-			index--;
-		}
-		free(arr);
-	}
-	else
-	{
-		free(arr[0]);
-		free(arr);
-	}
-	return (1);
-}
-
-void	destroy_everything(t_data *data)
-{
-	mlx_destroy_image(data->mlx_ptr, data->tiles.c.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.ec.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.eo.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.pd.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.pl.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.pr.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.pu.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.thc.img);
-	mlx_destroy_image(data->mlx_ptr, data->tiles.zero.img);
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
-	free_all(data->map.map, data->map.hight);
-	free(data->mlx_ptr);
+	checker = load_tiles_a(data);
+	if (checker != -1)
+		return (checker);
+	checker = load_tiles_b(data);
+	if (checker != TILES)
+		return (checker);
+	return (TILES);
 }

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:45:06 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 14:24:14 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 19:35:46 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	handle_close_request(t_data *data)
 {
 	if (data->close_request == 1)
 	{
-		destroy_everything(data);
+		destroy_everything(data, 9);
 		ft_putstr_fd(BYE_MSG, 1);
 		exit(0);
 	}
@@ -33,7 +33,7 @@ int	handle_keypress(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape || keysym == XK_Q || keysym == XK_q)
 	{
-		destroy_everything(data);
+		destroy_everything(data, 9);
 		ft_putstr_fd(BYE_MSG, 1);
 		exit(0);
 	}

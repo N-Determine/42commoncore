@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 10:19:36 by adeters           #+#    #+#              #
-#    Updated: 2024/11/12 14:30:41 by adeters          ###   ########.fr        #
+#    Updated: 2024/11/12 19:56:54 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ COMP = cc
 FLAGS = -Wall -Werror -Wextra
 XFLAGS = -lmlx -lXext -lX11 -g -lm
 SRCS =	checker.c error_printer.c get_next_line.c handle_events.c\
-init_and_destroy.c load_map.c locate_pois.c main.c movement.c\
+init.c destroy.c load_map.c locate_pois.c main.c movement.c\
 print_gamestate.c reachability.c
 ARCH = libft.a
 OBJS = $(SRCS:.c=.o)

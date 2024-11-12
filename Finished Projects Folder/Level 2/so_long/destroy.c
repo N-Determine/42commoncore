@@ -6,13 +6,12 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 19:57:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 19:57:39 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 20:00:13 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// Destroying
 int	free_all(char **arr, int index)
 {
 	if (!arr)

@@ -6,12 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:07:09 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 19:41:06 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 19:59:59 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdio.h>
 
 /**
  * @brief Checks if the new coordinates are reachable.

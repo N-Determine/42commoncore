@@ -6,14 +6,12 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:10:34 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 19:53:29 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 20:00:39 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdio.h>
 
-// Don't forget to free everything
 int	main(int ac, char *av[])
 {
 	t_data	data;

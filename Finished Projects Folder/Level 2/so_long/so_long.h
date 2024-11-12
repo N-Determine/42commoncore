@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:29:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 19:49:52 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 19:58:37 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <fcntl.h>
-# include <math.h>
 # include <mlx.h>
 # include <stdlib.h>
 

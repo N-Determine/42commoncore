@@ -6,13 +6,12 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 19:57:17 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 19:57:31 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/12 20:00:18 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// Initializing
 /**
  * @brief initialises the big data struct to set certain values to 0,
  * load the map and locate points of interest within the map

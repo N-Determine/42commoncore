@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:10:34 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 20:00:39 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/13 15:26:48 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int ac, char *av[])
 		return (free_all(data.map.map, data.map.hight), 1);
 	checker = load_tiles(&data);
 	if (checker != TILES)
-		return (destroy_everything(&data, checker), 1);
+		return (err_pr(18, 0), destroy_everything(&data, checker), 1);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, data.map.width
 			* data.tiles.c.width, data.map.hight * data.tiles.c.hight,
 			WINDOW_NAME);

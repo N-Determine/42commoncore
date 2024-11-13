@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:43:55 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 19:22:34 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/13 15:26:01 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	err_pr(int code, t_data *data)
 	}
 	if (code == 17)
 		ft_putstr_fd("Failes duplicating map (check_reachability)!\n", 2);
+	if (code == 18)
+		ft_putstr_fd("Could not load tiles!\n", 2);
 }
 
 void	err_pr2(int code)

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:33:41 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/14 22:12:01 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 22:23:36 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -437,6 +437,40 @@ void				ft_putstr_fd(char *s, int fd);
  * 
  */
 char				**ft_split(char const *s, char c);
+/**
+ * @brief Converts all uppercase letters in a string 
+ * to their lowercase equivalent. If a character in the 
+ * string is not an uppercase letter, it remains unchanged.
+ * 
+ * @param str The string to convert to lowercase.
+ * @return The original string with all uppercase 
+ * letters converted to lowercase.
+ * 
+ * @note The original string will be changed directly and no new
+ * space is allocated. So it does not work on read-only strings.
+ * 
+ * Example:
+ * 
+ * `char *result = ft_str_tolower("Hello World!");` -> result = "hello world!"
+ */
+char				*ft_str_tolower(char *str);
+/**
+ * @brief Converts all lowercase letters in a string 
+ * to their uppercase equivalent. If a character in the 
+ * string is not a lowercase letter, it remains unchanged.
+ * 
+ * @param str The string to convert to uppercase.
+ * @return The original string with all lowercase 
+ * letters converted to uppercase.
+ * 
+ * @note The original string will be changed directly and no new
+ * space is allocated. So it does not work on read-only strings.
+ * 
+ * Example:
+ * 
+ * `char *result = ft_str_toupper("Hello World!");` -> result = "HELLO WORLD!"
+ */
+char				*ft_str_toupper(char *str);
 /**
  * @brief Locates the first occurrence of a character in a string.
  *

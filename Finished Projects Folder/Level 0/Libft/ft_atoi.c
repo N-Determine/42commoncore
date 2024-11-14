@@ -6,9 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:10:49 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/14 18:53:59 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 20:31:36 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_atoi(const char *nptr)
 {

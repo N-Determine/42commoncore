@@ -6,14 +6,18 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:10:57 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/05 12:11:37 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 20:29:47 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {
 	int	i;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	c = c % 256;
 	while (s[i])

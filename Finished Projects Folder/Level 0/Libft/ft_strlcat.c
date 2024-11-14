@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:10:41 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:30:13 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 20:53:39 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	int		src_len;
 	size_t	k;
 
+	if (!dst || !src)
+		return (-1);
 	i = 0;
 	src_len = 0;
 	k = 0;

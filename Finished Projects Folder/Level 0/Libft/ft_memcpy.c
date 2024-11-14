@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:03:43 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:27:48 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 19:56:54 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	unsigned char	*src_ptr;
 	size_t			i;
 
-	if (dest == (void *)0 && src == (void *)0)
-		return (dest);
+	if (!dest || !src)
+		return (NULL);
 	dest_ptr = (unsigned char *)dest;
 	src_ptr = (unsigned char *)src;
 	i = 0;

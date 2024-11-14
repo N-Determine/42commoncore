@@ -6,9 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:11:03 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/05 12:12:28 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 20:33:01 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {

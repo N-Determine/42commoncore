@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:12:53 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:28:14 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 20:05:35 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	size_t			i;
 
 	i = 0;
+	if (!dest || !src)
+		return (NULL);
 	dest_ptr = (unsigned char *)dest;
 	src_ptr = (unsigned char *)src;
 	if (dest > src)

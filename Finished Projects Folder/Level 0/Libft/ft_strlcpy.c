@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 17:01:56 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:30:18 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 21:14:45 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 	size_t	i;
 	size_t	y;
 
+	if (!dest || !src)
+		return (-1);
 	i = 0;
 	y = 0;
 	while (src[y])

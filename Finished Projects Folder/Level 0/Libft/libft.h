@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:33:41 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/14 19:55:00 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 21:20:42 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,10 +197,6 @@ int					ft_lstsize(t_list *lst);
 /**
  * @brief Locates the first occurrence of a character in memory.
  *
-
-/**
- * @brief Locates the first occurrence of a character in memory.
- *
  * This function searches for the first occurrence of the byte 
  * @p c in the memory block pointed to by @p s, examining up to @p n bytes.
  * It returns a pointer to the matching byte or `NULL` if the character 
@@ -260,19 +256,356 @@ void				*ft_memchr(const void *s, int c, size_t n);
  * 
  */
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
+/**
+ * @brief *UNSAFE* - Use ft_memmove instead! 
+ * 
+ * Copies memory from one block to another.
+ *
+ * This function copies @p n bytes from the memory area pointed to by 
+ * @p src to the memory area pointed to by @p dest.
+ *
+ * @param dest Pointer to the destination memory 
+ * block where the content will be copied.
+ * @param src Pointer to the source memory 
+ * block from which the content will be copied.
+ * @param n The number of bytes to copy from `src` to `dest`.
+ * @return A pointer to the destination memory block @p dest, 
+ * or `NULL` if either @p dest or @p src is `NULL`.
+ *
+ * @note The memory areas must not overlap.  Use ft_memmove 
+ * if the memory areas do overlap.
+ *
+ * Example:
+ * 
+ * `ft_memcpy(buffer1, buffer2, 10);` -> copies the first 
+ * 10 bytes from `buffer2` to `buffer1`.
+ * 
+ * `ft_memcpy(buffer1, NULL, 10);` -> returns `NULL` 
+ * because the source pointer is `NULL`.
+ */
 void				*ft_memcpy(void *dest, const void *src, size_t n);
+/**
+ * @brief Copies memory from one block to another, 
+ * handling overlapping memory regions.
+ *
+ * This function copies @p n bytes from the memory area 
+ * pointed to by @p src to the memory area pointed to by @p dest. 
+ * If the memory areas overlap, the function ensures that the copy 
+ * is done correctly by copying the data in reverse order when the 
+ * destination is located before the source.
+ *
+ * @param dest Pointer to the destination memory 
+ * block where the content will be copied.
+ * @param src Pointer to the source memory 
+ * block from which the content will be copied.
+ * @param n The number of bytes to copy from @p src to @p dest.
+ * @return A pointer to the destination memory block @p dest, 
+ * or `NULL` if either @p dest or @p src is `NULL`.
+ *
+ * Example:
+ * 
+ * `ft_memmove(buffer1, buffer2, 10);` -> 
+ * copies first 10 bytes from `buffer2` to `buffer1`.
+ * 
+ * `ft_memmove(buffer1, NULL, 10);` -> 
+ * returns `NULL` because the source pointer is `NULL`.
+ * 
+ * `ft_memmove(buffer1, buffer1 + 5, 5);` -> 
+ * successfully handles overlapping memory (by copying data in reverse order).
+ */
 void				*ft_memmove(void *dest, const void *src, size_t n);
+/**
+ * @brief Sets the first @p n bytes of the memory area pointed to 
+ * by @p s to the specified value.
+ *
+ * @param s Pointer to the memory block that will be set.
+ * @param c The value to set. The value is passed as an `int`, 
+ * but it is internally converted to an `unsigned char`.
+ * @param n The number of bytes to set in the memory block.
+ * @return A pointer to the memory block @p s, or `NULL` if @p s is `NULL`.
+ *
+ * Example:
+ * 
+ * `ft_memset(buffer, 65, 10);` -> sets the first 
+ * 10 bytes of `buffer` to the value `65` (ASCII 'A').
+ * 
+ * `ft_memset(NULL, 65, 10);` -> returns `NULL` 
+ * because the pointer is `NULL`.
+ */
 void				*ft_memset(void *s, int c, size_t n);
+/**
+ * @brief Writes the character @p c to the file descriptor @p fd.
+ * It uses the `write` system call to perform the operation. 
+ * If @p fd is invalid or the character cannot be written, 
+ * the behavior is undefined.
+ *
+ * @param c The character to be written to the file descriptor.
+ * @param fd The file descriptor where the character will be written. 
+ * It can represent standard output, standard error, or any other open file.
+ *
+ * Example:
+ * 
+ * `ft_putchar_fd('A', 1);` -> writes the character 'A' 
+ * to the standard output (file descriptor 1).
+ * 
+ * `ft_putchar_fd('B', 2);` -> writes the character 'B' 
+ * to the standard error (file descriptor 2).
+ */
 void				ft_putchar_fd(char c, int fd);
+/**
+ * @brief Writes a string followed by a newline to a file descriptor.
+ *
+ * This function writes the string @p s to the file descriptor @p fd, 
+ * followed by a newline character. It uses the `write` system call 
+ * to perform the operation. If @p s is `NULL`, nothing is written, 
+ * but the newline character will still be written to the file descriptor.
+ *
+ * @param s The string to be written to the file descriptor. 
+ * It must be null-terminated.
+ * @param fd The file descriptor where the string and newline will be written.
+ * It can represent standard output, standard error, or any other open file.
+ *
+ * Example:
+ * 
+ * `ft_putendl_fd("Hello, world!", 1);` -> writes "Hello, world!" 
+ * followed by a newline to the standard output.
+ * 
+ * `ft_putendl_fd(NULL, 1);` -> writes only a newline to the standard output.
+ */
 void				ft_putendl_fd(char *s, int fd);
+/**
+ * @brief Writes an integer to a file descriptor.
+ *
+ * This function writes the integer @p n to the file descriptor @p fd. 
+ * It handles both positive and negative integers, 
+ * writing a minus sign before a negative number.
+ *
+ * @param n The integer to be written to the file descriptor.
+ * @param fd The file descriptor where the integer will be written. 
+ * It can represent standard output, standard error, or any other open file.
+ *
+ * Example:
+ * 
+ * `ft_putnbr_fd(42, 1);` -> writes the integer 42 to the standard output.
+ * 
+ * `ft_putnbr_fd(-42, 2);` -> writes the integer -42 to the standard error.
+ */
 void				ft_putnbr_fd(int n, int fd);
+/**
+ * @brief Writes a string to a file descriptor.
+ *
+ * This function writes the string @p s to the file descriptor @p fd. 
+ * It uses the `write` system call to perform the operation. 
+ * If @p s is `NULL`, nothing is written.
+ *
+ * @param s The string to be written to the file descriptor. 
+ * It must be null-terminated.
+ * @param fd The file descriptor where the string will be written.
+ * It can represent standard output, standard error, or any other open file.
+ *
+ * Example:
+ * 
+ * `ft_putstr_fd("Hello, world!", 1);` -> writes "Hello, world!" 
+ * followed by a newline to the standard output.
+ * 
+ */
 void				ft_putstr_fd(char *s, int fd);
+/**
+ * @brief Splits a string into an array of strings based on a delimiter.
+ *
+ * This function splits the given string @p s into an array of substrings, 
+ * where each substring is delimited by the character @p c. 
+ * The resulting array of strings is dynamically allocated, 
+ * and the function returns a pointer to this array. 
+ * The array will be terminated by a NULL pointer.
+ *
+ * @param s The string to be split.
+ * @param c The delimiter character used to split the string.
+ *
+ * @return A pointer to an array of strings, or NULL if memory 
+ * allocation fails or if the input string is empty.
+ * 
+ * @note The 2D Array must be properly freed using free() 
+ * on every arr[n] (in a loop with the condition arr[n] != NULL) 
+ * and the array arr itself.
+ *
+ * Example:
+ * 
+ * `char **result = ft_split("hello world", ' ');`
+ * The result will be an array containing the strings 
+ * "hello" and "world", terminated by NULL.
+ * 
+ */
 char				**ft_split(char const *s, char c);
+/**
+ * @brief Locates the first occurrence of a character in a string.
+ *
+ * This function searches for the first occurrence 
+ * of the character @p c in the string @p s.
+ * If the character is found, it returns a pointer 
+ * to the first occurrence of the character.
+ * If the character is not found, it returns NULL.
+ *
+ * @param s The string to be searched.
+ * @param c The character to search for in the string.
+ *
+ * @return A pointer to the first occurrence of the character 
+ * in the string, or NULL if the character is not found.
+ *
+ * Example:
+ * 
+ * `char *result = ft_strchr("hello world", 'o');` ->
+ * The result will point to the first occurrence of 'o' in "hello world".
+ */
 char				*ft_strchr(const char *s, int c);
+/**
+ * @brief Duplicates a string by allocating memory and copying its content.
+ *
+ * This function allocates memory for a new string 
+ * and copies the content of the string @p s into it.
+ * The new string is null-terminated. 
+ * If memory allocation fails, the function returns NULL.
+ * If @p s is NULL, the function will also return NULL.
+ *
+ * @param s The string to duplicate.
+ *
+ * @return A pointer to the newly allocated string that 
+ * contains a duplicate of @p s, or NULL if memory allocation fails 
+ * or if @p s is NULL.
+ * 
+ * @note The string duplicate has to be freed using free().
+ *
+ * Example:
+ * 
+ * `char *duplicate = ft_strdup("hello");` ->
+ * The result will be a new string `duplicate` containing "hello".
+ */
 char				*ft_strdup(const char *s);
+/**
+ * @brief Applies a function to each character of a string.
+ *
+ * This function iterates over each character in the string @p s 
+ * and applies the function @p f to each character. 
+ * The function @p f is called with two arguments:
+ * 
+ * - the index of the character (starting from 0)
+ * 
+ * - a pointer to the character. 
+ * 
+ * If @p s is NULL, the function does nothing.
+ *
+ * @param s The string to iterate over.
+ * @param f The function to apply to each character of the string. 
+ * The function should take two parameters: an unsigned int (the index) 
+ * and a pointer to the character.
+ *
+ *
+ * Example:
+ * 
+ * `char str[] = "hello";` 
+ * 
+ * `ft_striteri(str, to_uppercase);` 
+ * -> After this, str will be "HELLO"
+ */
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
+/**
+ * @brief Concatenates two strings into a newly allocated string.
+ *
+ * This function allocates memory for a new string that is 
+ * the concatenation of @p s1 and @p s2. 
+ * If @p s1 is NULL, the function returns NULL. 
+ * If @p s2 is NULL, the function returns a copy of @p s1. 
+ * After concatenation, the newly allocated string is returned.
+ *
+ * @param s1 The first string to concatenate. 
+ * If NULL, the function returns NULL.
+ * @param s2 The second string to concatenate. 
+ * If NULL, a copy of @p s1 is returned.
+ *
+ * @return A new string that is the concatenation 
+ * of @p s1 and @p s2, or NULL if allocation fails.
+ *
+ * @note The caller is responsible for 
+ * freeing the returned string using `free()`.
+ *
+ * Example:
+ * 
+ * `char *result = ft_strjoin("Hello, ", "world!");`
+ *  -> result contains "Hello, world!"
+ */
 char				*ft_strjoin(char const *s1, char const *s2);
+/**
+ * @brief Appends the source string to the destination 
+ * string up to a given buffer size.
+ *
+ * This function appends the string @p src to the end of @p dst. 
+ * It appends at most `size - strlen(dst) - 1` characters and 
+ * ensures the result is null-terminated. The function returns the 
+ * initial length of @p dst plus the length of @p src.
+ *
+ * If the buffer size `size` is less than or equal to the length of @p dst, 
+ * the function returns the length of @p src 
+ * plus `size` without appending any characters.
+ *
+ * @param dst The destination string buffer. 
+ * It should be large enough to hold the concatenated 
+ * result up to the specified @p size.
+ * @param src The source string to append to @p dst.
+ * @param size The full size of the buffer that @p dst can use, 
+ * including the null-terminator.
+ *
+ * @return The total length of the string that would have been created, that is, 
+ * the initial length of @p dst plus the length of @p src. 
+ * 
+ * If @p dst or @p src are `ǸULL` the function returns `-1`
+ *
+ * @note If the function returns a value greater 
+ * than or equal to @p size, truncation occurred.
+ *
+ * Example:
+ * 
+ * `char buffer[20] = "Hello, ";`
+ * 
+ * `size_t result = ft_strlcat(buffer, "world!", sizeof(buffer));` 
+ * 
+ * -> buffer now contains "Hello, world!" 
+ * 
+ * -> result is the total length of "Hello, world!" 
+ * if it had fit without truncation
+ */
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
+/**
+ * @brief Copies up to @p size - 1 characters from 
+ * the string @p src to @p dest, ensuring null-termination of the result.
+ *
+ * This function copies characters from the source string @p src to the 
+ * destination buffer @p dest, up to a maximum of `size - 1` characters, 
+ * and appends a null-terminator at the end of the copied string. 
+ * It returns the length of @p src, regardless of the 
+ * number of characters copied.
+ *
+ * If @p size is 0, @p dest is not modified, 
+ * and the function simply returns the length of @p src.
+ *
+ * @param dest The destination buffer where @p src will be copied.
+ * @param src The source string to copy from.
+ * @param size The size of the destination buffer, 
+ * including space for the null-terminator.
+ *
+ * @return The length of @p src (aka size - 1), indicating the total length of the 
+ * string that would have been created if there were enough space in 
+ * @p dest. If @p dest or @p src are `NULL`the function 
+ * returns `-1` as error indicator.
+ *
+ * Example:
+ * 
+ * `char buffer[10];`
+ * `size_t result = ft_strlcpy(buffer, "Hello, world!", sizeof(buffer))`
+ * 
+ *  -> buffer contains "Hello, wo" with null-termination 
+ * 
+ * -> result is the length of "Hello, world!", which is 13
+ */
 size_t				ft_strlcpy(char *dest, const char *src, size_t size);
 int					ft_strlen(const char *str);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));

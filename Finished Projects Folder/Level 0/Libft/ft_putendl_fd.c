@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 12:23:37 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:29:15 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 20:15:13 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,13 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
+	if (s)
+		write(fd, s, ft_strlen(s));
 	write(fd, "\n", 1);
 }
 /*
 int	main(void)
 {
-	char *str = "Hey du gfrast!";
+	char	*str = "Hey du gfrast!";
 	ft_putendl_fd(str, 1);
 }*/

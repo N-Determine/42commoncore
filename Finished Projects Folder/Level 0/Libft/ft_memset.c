@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:58:28 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:28:36 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 20:03:14 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	*ft_memset(void *s, int c, size_t n)
 	size_t			i;
 	unsigned char	*ptr;
 
+	if (!s)
+		return (NULL);
 	ptr = (unsigned char *)s;
 	i = 0;
 	while (i < n)

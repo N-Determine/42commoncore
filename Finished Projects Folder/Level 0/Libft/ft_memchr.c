@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 12:54:07 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:27:30 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 19:39:34 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	unsigned char	*ptr;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	ptr = (unsigned char *)s;
 	while (i < n)
 	{

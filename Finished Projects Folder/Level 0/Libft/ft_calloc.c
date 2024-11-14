@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 14:49:09 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 19:38:55 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 19:06:42 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	if (size != 0 && nmemb > SIZE_MAX / size)
 		return (0);
 	ptr = malloc(nmemb * size);
-	if (ptr == 0)
-		return (0);
+	if (!ptr)
+		return (NULL);
 	ft_bzero(ptr, nmemb * size);
 	return (ptr);
 }

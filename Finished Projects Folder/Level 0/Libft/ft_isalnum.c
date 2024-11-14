@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adeters <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:22:39 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/02 16:22:45 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 19:21:04 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,5 @@ int	main(void)
 	printf("%i\n", isalnum(c4));
 	printf("%i\n", isalnum(c5));
 	printf("%i\n", isalnum(c6));
-}*/
+}
+*/

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:55:16 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/09 19:55:18 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 22:06:08 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	i;
 	char	*ptr;
 
+	if (!s)
+		return (NULL);
 	sub_len = 0;
 	i = 0;
 	s_len = ft_strlen(s);

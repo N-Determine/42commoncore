@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:07:46 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:30:35 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 21:53:27 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	size_t	i;
 	int		j;
 
+	if (!big || !little)
+		return (NULL);
 	i = 0;
 	if (little[i] == '\0')
 		return ((char *)&big[i]);

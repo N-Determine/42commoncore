@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:25:48 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/09 20:16:53 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 22:02:08 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	int		i;
 	char	*ptr;
 
+	if (!s1 || !set)
+		return (NULL);
 	start = 0;
 	i = 0;
 	while (ft_checkset(s1[start], set))

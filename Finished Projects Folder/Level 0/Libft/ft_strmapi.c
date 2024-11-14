@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:08:58 by adeters           #+#    #+#             */
-/*   Updated: 2024/09/08 16:30:25 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/14 21:38:17 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	int			i;
 	int			len;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	len = ft_strlen((char *)s);
 	ptr = malloc(len + 1);

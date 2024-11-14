@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/08 16:34:00 by adeters           #+#    #+#              #
-#    Updated: 2024/11/11 19:22:13 by adeters          ###   ########.fr        #
+#    Updated: 2024/11/14 18:48:14 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ BONUS = ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c ft_ls
 		ft_lstiter_bonus.c ft_lstlast_bonus.c ft_lstmap_bonus.c ft_lstnew_bonus.c ft_lstsize_bonus.c
 OBJS_BONUS = $(BONUS:.c=.o)
 OBJS = $(SRCS:.c=.o)
+
+MAKEFLAGS = --jobs
 
 %.o: %.c
 	$(COMP) $(FLAGS) -c $< -o $@

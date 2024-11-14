@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 10:19:36 by adeters           #+#    #+#              #
-#    Updated: 2024/11/13 15:29:51 by adeters          ###   ########.fr        #
+#    Updated: 2024/11/14 18:47:22 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,10 @@ print_gamestate.c reachability.c
 ARCH = libft.a
 OBJS = $(SRCS:.c=.o)
 
+MAKEFLAGS = --jobs
+
 $(NAME): $(OBJS)
-	make multi -C ./libft
+	make -C ./libft
 	cp ./libft/libft.a ./libft.a
 	cc $(OBJS) -o $(NAME) $(ARCH) $(XFLAGS)
 

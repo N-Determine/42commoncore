@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/15 21:02:38 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/15 21:04:30 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,14 @@ enum e_operations
 
 enum e_errors
 {
-	INT_OVERFLOW
+	/**
+	 * Error that occured because of an overflowing integer
+	 */
+	INT_OVERFLOW,
+	/**
+	 * Error that occured because of an underflowing integer
+	 */
+	INT_UNDERFLOW
 };
 
 /**

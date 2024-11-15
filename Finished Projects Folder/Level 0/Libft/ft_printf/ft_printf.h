@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 19:03:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/15 19:28:33 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/15 19:43:07 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	ft_puthexas_fd(char code, va_list list, int fd);
 int	ft_putchars_fd(char code, va_list list, int fd);
 int	ft_putnumbers_fd(char code, va_list list, int fd);
 int	ft_puthexaident_fd(char code, int fd);
-int	ft_printf(const char *str, ...);
+//int	ft_printf(const char *str, ...);
+//int	ft_fprintf(int fd, const char *str, ...);
 
 #endif

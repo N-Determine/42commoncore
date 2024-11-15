@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:33:41 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/15 19:31:49 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/15 19:41:54 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1017,5 +1017,6 @@ int					ft_tolower(int c);
 int					ft_toupper(int c);
 char				*get_next_line(int fd);
 int					ft_printf(const char *str, ...);
+int					ft_fprintf(int fd, const char *str, ...);
 
 #endif

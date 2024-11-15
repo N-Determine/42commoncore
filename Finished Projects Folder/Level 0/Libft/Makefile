@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/08 16:34:00 by adeters           #+#    #+#              #
-#    Updated: 2024/11/15 19:35:18 by adeters          ###   ########.fr        #
+#    Updated: 2024/11/15 19:37:11 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS =	ft_atoi.c ft_itoa.c\
 PRINTF = ft_printf/ft_count_bytes.c ft_printf/ft_printf.c ft_printf/ft_putchars_fd.c\
 		ft_printf/ft_puthexas_fd.c ft_printf/ft_puthexaident_fd.c\
 		ft_printf/ft_putnbr_base_fd.c ft_printf/ft_putnumbers_fd.c\
-		ft_printf/ft_putstr_fd_retbytes.c ft_printf/ft_putunbr_fd.c
+		ft_printf/ft_putstr_fd_retbytes.c ft_printf/ft_putunbr_fd.c ft_printf/ft_fprintf.c
 GNL	=	get_next_line/get_next_line.c
 OBJS = $(SRCS:.c=.o) $(PRINTF:.c=.o) $(GNL:.c=.o)
 

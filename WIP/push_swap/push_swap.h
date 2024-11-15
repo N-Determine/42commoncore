@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/15 20:47:30 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/15 20:57:08 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,16 @@ enum e_operations
 {
 	/**
 	 * `swap a`
+	 * 
+	 * Swap the first 2 elements at the top of stack a.
+	 * Do nothing if there is only one or no elements
 	 */
 	SA,
 	/**
 	 * `swap b`
+	 * 
+	 * Swap the first 2 elements at the top of stack b. 
+	 * Do nothing if there is only one or no elements.
 	 */
 	SB,
 	/**
@@ -35,18 +41,30 @@ enum e_operations
 	SS,
 	/**
 	 * `push a`
+	 * 
+	 *  Take the first element at the top of b and put it at the top of a.
+	 * 	Do nothing if b is empty
 	 */
 	PA,
 	/**
-	 * `push n`
+	 * `push b`
+	 * 
+	 * Take the first element at the top of a and put it at the top of b. 
+	 * Do nothing if a is empty.
 	 */
 	PB,
 	/**
 	 * `rotate a`
+	 * 
+	 * Shift up all elements of stack a by 1. 
+	 * The first element becomes the last one.
 	 */
 	RA,
 	/**
 	 * `rotate b`
+	 * 
+	 * Shift up all elements of stack b by 1. 
+	 * The first element becomes the last one.
 	 */
 	RB,
 	/**
@@ -55,10 +73,16 @@ enum e_operations
 	RR,
 	/**
 	 * `reverse rotate a`
+	 * 
+	 *  Shift down all elements of stack a by 1. 
+	 *  The last element becomes the first one.
 	 */
 	RRA,
 	/**
 	 * `reverse rotate b`
+	 * 
+	 * Shift down all elements of stack b by 1. 
+	 * The last element becomes the first one.
 	 */
 	RRB,
 	/**
@@ -66,5 +90,10 @@ enum e_operations
 	 */
 	RRR,
 };
+
+/**
+ * @brief Prints an operation to the stdout
+ */
+void	print_ops(int operation);
 
 #endif

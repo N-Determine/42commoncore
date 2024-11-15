@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/15 20:32:04 by adeters           #+#    #+#              #
-#    Updated: 2024/11/15 20:38:38 by adeters          ###   ########.fr        #
+#    Updated: 2024/11/15 20:48:46 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ COMP = cc
 
 FLAGS = -Wall -Werror -Wextra
 
-SRCS =	push_swap.c
+SRCS =	push_swap.c print_ops.c
 
 ARCH = libft.a
 

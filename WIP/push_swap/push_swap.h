@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/15 20:57:08 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/15 21:02:38 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,18 @@ enum e_operations
 	RRR,
 };
 
+enum e_errors
+{
+	INT_OVERFLOW
+};
+
 /**
  * @brief Prints an operation to the stdout
  */
 void	print_ops(int operation);
+/**
+ * @brief Prints errors to the stderr
+ */
+void	print_errors(int code);
 
 #endif

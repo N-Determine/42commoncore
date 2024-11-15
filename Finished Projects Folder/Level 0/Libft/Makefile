@@ -6,13 +6,16 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/08 16:34:00 by adeters           #+#    #+#              #
-#    Updated: 2024/11/15 19:57:04 by adeters          ###   ########.fr        #
+#    Updated: 2024/11/15 19:59:33 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
+
 COMP = cc
+
 FLAGS = -Wall -Werror -Wextra
+
 SRCS_LIBFT =	libft/ft_atoi.c libft/ft_itoa.c libft/ft_bzero.c libft/ft_calloc.c\
 				libft/ft_isalnum.c libft/ft_isalpha.c libft/ft_isascii.c\
 				libft/ft_isdigit.c libft/ft_isprint.c libft/ft_memchr.c\
@@ -33,6 +36,7 @@ SRCS_PRINTF =	ft_printf/ft_count_bytes.c ft_printf/ft_printf.c ft_printf/ft_putc
 				ft_printf/ft_putnbr_base_fd.c ft_printf/ft_putnumbers_fd.c\
 				ft_printf/ft_putstr_fd_retbytes.c ft_printf/ft_putunbr_fd.c ft_printf/ft_fprintf.c
 SRCS_GNL	=	get_next_line/get_next_line.c
+
 OBJS = $(SRCS_LIBFT:.c=.o) $(SRCS_PRINTF:.c=.o) $(SRCS_GNL:.c=.o)
 
 MAKEFLAGS = --jobs

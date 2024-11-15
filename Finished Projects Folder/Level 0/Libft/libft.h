@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:33:41 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/15 19:41:54 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/15 20:17:16 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1015,8 +1015,152 @@ int					ft_tolower(int c);
  * `int result = ft_toupper('a');` -> result = 'A'
  */
 int					ft_toupper(int c);
+/**
+ * @brief Reads a line from a file descriptor.
+ * 
+ * The `get_next_line` function reads a line from the file descriptor `fd` and
+ * returns it as a newly allocated string, including the newline character. The
+ * function maintains an internal static buffer to store the remaining content
+ * from previous calls, enabling it to continue reading the file from where the
+ * last call ended.
+ * 
+ * @param fd The file descriptor from which to read. This can refer to any
+ *           open file or standard input (e.g., `0` for stdin).
+ * 
+ * @return A pointer to a null-terminated string containing the next line read
+ *         from the file descriptor. If there is no more content to read, it
+ *         returns `NULL`. If an error occurs, it also returns `NULL`.
+ * 
+ * @warning 
+ * - The function only frees the memory properly when 
+ * the entire file has been read.
+ * 
+ * - To ensure proper memory management, you can call `get_next_line` with a 
+ *   `fd` of `-1` to free the internal buffer.
+ * 
+ * @note 
+ * - Each call to `get_next_line` returns a newly allocated string containing
+ *   the next line, or `NULL` if the end of the 
+ * file has been reached or an error occurs.
+ * 
+ * - The function manages the static buffer between calls, 
+ * which may store content that hasn't yet been returned as part of a line.
+ * 
+ * - Memory for the returned string must be freed manually by 
+ * the caller using the free() function
+ * 
+ */
 char				*get_next_line(int fd);
+/**
+ * @brief Prints formatted output to the standard output.
+ * 
+ * The `ft_printf` function produces output according to a format string,
+ * which can contain ordinary characters and conversion specifiers. 
+ * It supports a subset of the standard `printf` functionality, 
+ * such as printing integers, strings, characters, and pointers.
+ * 
+ * @param format A null-terminated string that specifies how the subsequent 
+ *               arguments are to be formatted and displayed. It may 
+ * include conversion specifiers, which are placeholders for the arguments.
+ * 
+ * @return The total number of characters written to the standard 
+ * output (excluding the null byte), or -1 if an error occurs.
+ * 
+ * @warning 
+ * - The function does not handle floating-point numbers (`%f` is unsupported).
+ * 
+ * - The function does not handle wide characters or locales.
+ * 
+ * @note 
+ * The format string is interpreted as follows:
+ * 
+ *     - `%d` or `%i`: Prints an integer in decimal format.
+ * 
+ *     - `%s`: Prints a string.
+ * 
+ *     - `%c`: Prints a single character.
+ * 
+ *     - `%p`: Prints a pointer address.
+ * 
+ *     - `%x` or `%X`: Prints an integer in hexadecimal format 
+ * (lowercase or uppercase).
+ * 
+ *     - `%u`: Prints an unsigned integer.
+ * 
+ *     - `%%`: Prints a literal `%`.
+ * 
+ * Conversion specifiers are preceded by `%` in the format string.
+ * 
+ * If the conversion specifier does not match the argument type, 
+ * the behavior is undefined.
+ * 
+ * Example:
+ * 
+ * `ft_printf("Integer: %d\n", 42);` -> Output: Integer: 42
+ * 
+ * `ft_printf("String: %s\n", "henlo");` -> Output: String: henlo
+ * 
+ * 
+ */
 int					ft_printf(const char *str, ...);
+/**
+ * @brief Prints formatted output to a specified file descriptor.
+ * 
+ * The `ft_fprintf` function produces output according to a format string,
+ * which can contain ordinary characters and conversion specifiers. 
+ * It supports a subset of the standard `printf` functionality, 
+ * such as printing integers, strings, characters, and pointers, but outputs
+ * the result to a given file descriptor instead of the standard output.
+ * 
+ * @param fd The file descriptor to which the formatted output will be written.
+ *           It can refer to files or standard streams (e.g., `1` for stdout,
+ *           `2` for stderr, or any valid file descriptor obtained by `open`).
+ * 
+ * @param format A null-terminated string that specifies how the subsequent 
+ *               arguments are to be formatted and displayed. It may 
+ *               include conversion specifiers, which are placeholders 
+ * for the arguments.
+ * 
+ * @return The total number of characters written to the file descriptor 
+ * (excluding the null byte), or -1 if an error occurs.
+ * 
+ * @warning 
+ * - The function does not handle floating-point numbers (`%f` is unsupported).
+ * 
+ * - The function does not handle wide characters or locales.
+ * 
+ * @note 
+ * The format string is interpreted as follows:
+ * 
+ *     - `%d` or `%i`: Prints an integer in decimal format.
+ * 
+ *     - `%s`: Prints a string.
+ * 
+ *     - `%c`: Prints a single character.
+ * 
+ *     - `%p`: Prints a pointer address.
+ * 
+ *     - `%x` or `%X`: Prints an integer in hexadecimal format 
+ * (lowercase or uppercase).
+ * 
+ *     - `%u`: Prints an unsigned integer.
+ * 
+ *     - `%%`: Prints a literal `%`.
+ * 
+ * Conversion specifiers are preceded by `%` in the format string.
+ * 
+ * If the conversion specifier does not match the argument type, 
+ * the behavior is undefined.
+ * 
+ * Example:
+ * 
+ * `ft_fprintf(1, "Integer: %d\n",42);` 
+ * -> Output to stdout: Integer: 42
+ * 
+ * `ft_fprintf(2, "%s\n", "whoopsie");` 
+ * -> Output to stderr: String: whoopsie
+ * 
+ */
 int					ft_fprintf(int fd, const char *str, ...);
 
 #endif

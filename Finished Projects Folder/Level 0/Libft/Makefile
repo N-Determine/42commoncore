@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/08 16:34:00 by adeters           #+#    #+#              #
-#    Updated: 2024/11/14 22:24:59 by adeters          ###   ########.fr        #
+#    Updated: 2024/11/15 18:08:27 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,9 @@ SRCS =	ft_atoi.c ft_itoa.c\
 		ft_split.c ft_substr.c\
 		ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c\
 		ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c\
-		ft_tolower.c ft_toupper.c ft_str_tolower.c ft_str_toupper.c
-BONUS = ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c ft_lstdelone_bonus.c\
-		ft_lstiter_bonus.c ft_lstlast_bonus.c ft_lstmap_bonus.c ft_lstnew_bonus.c ft_lstsize_bonus.c
-OBJS_BONUS = $(BONUS:.c=.o)
+		ft_tolower.c ft_toupper.c ft_str_tolower.c ft_str_toupper.c ft_lstadd_back.c\
+		ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c\
+		ft_lstmap.c ft_lstnew.c ft_lstsize.c
 OBJS = $(SRCS:.c=.o)
 
 MAKEFLAGS = --jobs
@@ -37,9 +36,6 @@ $(NAME): $(OBJS)
 
 all: $(NAME)
 
-bonus: $(OBJS_BONUS)
-	ar rc $(NAME) $(OBJS_BONUS)
-
 clean:
 	rm -rf $(OBJS) $(OBJS_BONUS)
 
@@ -48,7 +44,4 @@ fclean: clean
 
 re: fclean all
 
-quick: 
-	make --jobs=16
-
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

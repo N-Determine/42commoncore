@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:33:41 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/14 22:23:36 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/15 18:36:51 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,30 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+/**
+ * @brief A node in a singly linked list.
+ * 
+ * This structure represents a single node in a singly linked list, where each
+ * node contains some data (`content`) and 
+ * a pointer to the next node in the list.
+ */
 typedef struct s_list
 {
+	/** 
+	 * @brief Pointer to the content of the node.
+	 * 
+	 * This can point to any type of data, allowing the linked list to store
+	 * generic data.
+	 */
 	void			*content;
+	/** 
+	 * @brief Pointer to the next node in the list.
+	 * 
+	 * This points to the next `t_list` node in the linked list, or `NULL` if
+	 * this is the last node.
+	 */
 	struct s_list	*next;
 }					t_list;
-
 /**
  * @brief Converts a string to an integer.
  *
@@ -181,19 +199,181 @@ int					ft_isprint(int c);
  *
  * `ft_itoa(0);` -> returns "0"
  */
-// PUT THIS IN THE NORMAL MAKEFILE
 char				*ft_itoa(int n);
+/**
+ * @brief Adds a new node to the end of a linked list.
+ * 
+ * This function appends the `new` node to the end of the linked list pointed
+ * to by `lst`. If the list is initially empty (`*lst` is `NULL`), the `new` 
+ * node becomes the first and only node in the list.
+ * 
+ * @param lst A pointer to the pointer of the first node of the list.
+ *            If the list is empty, `*lst` is set to point to the `new` node.
+ * @param new A pointer to the new node to add to the list. This node must
+ *  be properly allocated and initialized before calling this function.
+ * 
+ * @note The `new` node is not copied; the function simply adjusts pointers
+ *       to include it in the list.
+ */
 void				ft_lstadd_back(t_list **lst, t_list *new);
+/**
+ * @brief Adds a new node to the beginning of a linked list.
+ * 
+ * This function prepends the `new` node to the beginning of the linked list 
+ * pointed to by `lst`. After the operation, `*lst` will point to the `new` 
+ * node, which will become the new head of the list.
+ * 
+ * @param lst A pointer to the pointer of the first node of the list.
+ *            If the list is empty, `*lst` is set to point to the `new` node.
+ * @param new A pointer to the new node to add to the list. This node must be 
+ * properly allocated and initialized before calling this function.
+ * 
+ * @note The `new` node is not copied; the function simply adjusts pointers 
+ *       to include it at the front of the list.
+ * 
+ */
 void				ft_lstadd_front(t_list **lst, t_list *new);
+/**
+ * @brief Deletes and frees all nodes of a linked list.
+ * 
+ * This function deletes every node in the linked list pointed to by `lst` by 
+ * applying the `del` function to each node's content and then freeing 
+ * the node itself. After the operation, the pointer to 
+ * the list (`*lst`) is set to `NULL`.
+ * 
+ * @param lst A pointer to the pointer of the first node of the list.
+ *            After the function completes, `*lst` will be set to `NULL`.
+ * @param del A function pointer used to delete the content of a node.
+ *            The function should handle the deallocation or cleanup of the 
+ *            content stored in each node.
+ * 
+ * @note 
+ * - The `del` function is called for each node's content 
+ * before the node is freed.
+ * 
+ * - Ensure that `del` correctly handles the content type to avoid memory leaks.
+ * 
+ * @warning 
+ * - The `lst` pointer must be valid, and `*lst` must 
+ * point to the head of the list.
+ * 
+ * - Undefined behavior occurs if `del` is `NULL` or if it does not properly 
+ *   handle the content of a node.
+ */
 void				ft_lstclear(t_list **lst, void (*del)(void *));
+/**
+ * @brief Deletes and frees a single node from a linked list.
+ * 
+ * This function deletes a single node from a linked list by applying the 
+ * `del` function to the node's content and then freeing the node itself. 
+ * The `next` pointer of the node is not affected, as only the given node 
+ * is deleted.
+ * 
+ * @param lst A pointer to the node to delete. 
+ *            This node must be valid and properly allocated.
+ * @param del A function pointer used to delete the content of the node.
+ *            The function should handle the deallocation or cleanup of the 
+ *            content stored in the node.
+ * 
+ * @note 
+ * - The `lst` pointer itself is freed, but its `next` pointer 
+ * is not modified.
+ * 
+ * - Ensure that `del` correctly handles the content type to 
+ * avoid memory leaks.
+ * 
+ * @warning 
+ * - Undefined behavior occurs if `del` is `NULL` or if it 
+ * does not properly handle the content of the node.
+ */
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
+/**
+ * @brief Iterates over a linked list and applies 
+ * a function to each node's content.
+ * 
+ * This function traverses the linked list starting from `lst` 
+ * and applies the given function `f` to the content of each node. 
+ * The list itself remains unchanged, 
+ * as only the content of each node is processed.
+ * 
+ * @param lst A pointer to the first node of the list. If the 
+ * list is empty (`lst` is `NULL`), the function does nothing.
+ * @param f A function pointer that takes a `void *` as an 
+ * argument. This function is applied to the content of each node in the list.
+ * 
+ * @note 
+ * - This function does not modify the structure of the linked list itself.
+ * 
+ * - Ensure that `f` performs appropriate operations for the type of content 
+ *   stored in the list.
+ * 
+ */
 void				ft_lstiter(t_list *lst, void (*f)(void *));
+/**
+ * @brief Retrieves the last node of a linked list.
+ * 
+ * This function traverses the linked list starting from the node `lst` and 
+ * returns a pointer to the last node in the list. If the list is empty 
+ * (`lst` is `NULL`), the function returns `NULL`.
+ * 
+ * @param lst A pointer to the first node of the list.
+ * 
+ * @return A pointer to the last node of the list, 
+ * or `NULL` if the list is empty.
+ * 
+ * @note The function does not modify the list or its nodes.
+ * 
+ */
 t_list				*ft_lstlast(t_list *lst);
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
+/**
+ * @brief Creates a new node for a linked list.
+ * 
+ * This function allocates memory for a new node, initializes its `content` 
+ * field with the given `content` pointer, 
+ * and sets its `next` pointer to `NULL`. 
+ * The newly created node is ready to be used in a linked list.
+ * 
+ * @param content A pointer to the data to store in the new node's `content` 
+ * field. This can be any data type, as it is stored as a `void *`.
+ * 
+ * @return A pointer to the newly created node, or `NULL` if the memory 
+ *         allocation fails.
+ * 
+ * @note 
+ * - The function does not copy the `content`. It only stores the pointer.
+ * 
+ * - The caller is responsible for managing the allocated memory for the node 
+ * aka freeing it when it is no longer needed using free().
+ * 
+ * @warning 
+ * - The function returns `NULL` if `malloc` fails. Check the return value to 
+ *   avoid dereferencing a `NULL` pointer.
+ * 
+ */
 t_list				*ft_lstnew(void *content);
+/**
+ * @brief Counts the number of nodes in a linked list.
+ * 
+ * This function traverses the linked list starting from the node 
+ * pointed to by `lst` and counts the total number of nodes. 
+ * If the list is empty (`lst` is `NULL`), the function returns 0.
+ * 
+ * @param lst A pointer to the first node of the list.
+ *            If the list is empty, pass `NULL`.
+ * 
+ * @return The total number of nodes in the list as an integer.
+ *         Returns 0 if the list is empty.
+ * 
+ * @note 
+ * - The function assumes that the linked list is properly terminated (i.e.,
+ *   the `next` pointer of the last node is `NULL`).
+ * 
+ * - The function does not modify the list; it only counts the nodes.
+ * 
+ */
 int					ft_lstsize(t_list *lst);
-// ENDBONUS
 /**
  * @brief Locates the first occurrence of a character in memory.
  *

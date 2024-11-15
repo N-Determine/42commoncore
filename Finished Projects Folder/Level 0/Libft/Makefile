@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/08 16:34:00 by adeters           #+#    #+#              #
-#    Updated: 2024/11/15 18:08:27 by adeters          ###   ########.fr        #
+#    Updated: 2024/11/15 19:23:39 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,9 @@ SRCS =	ft_atoi.c ft_itoa.c\
 		ft_tolower.c ft_toupper.c ft_str_tolower.c ft_str_toupper.c ft_lstadd_back.c\
 		ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c\
 		ft_lstmap.c ft_lstnew.c ft_lstsize.c
-OBJS = $(SRCS:.c=.o)
+PRINTF = 
+GNL	=	get_next_line/get_next_line.c
+OBJS = $(SRCS:.c=.o) $(PRINTF:.c=.o) $(GNL:.c=.o)
 
 MAKEFLAGS = --jobs
 

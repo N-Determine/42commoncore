@@ -16,6 +16,11 @@
 # include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
 
 /**
  * @brief A node in a singly linked list.
@@ -1010,5 +1015,6 @@ int					ft_tolower(int c);
  * `int result = ft_toupper('a');` -> result = 'A'
  */
 int					ft_toupper(int c);
+char				*get_next_line(int fd);
 
 #endif

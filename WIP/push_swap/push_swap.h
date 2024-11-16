@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/16 19:34:29 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/16 19:45:46 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_stacks
 {
 	t_dlist *stack_a;
 	t_dlist *stack_b;
+	t_dlist *pre_sort;
 }	t_stacks;
 
 /**

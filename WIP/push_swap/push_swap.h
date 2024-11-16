@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/16 18:16:58 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/16 18:51:42 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 
 typedef struct s_fails
 {
-	size_t	underflows;
-	size_t	overflows;
-	size_t	formats;
-	size_t	duplicates;
-}				t_fails;
+	size_t			underflows;
+	size_t			overflows;
+	size_t			formats;
+	size_t			duplicates;
+}					t_fails;
 
 /**
  * @brief A node in a doubly linked list.
@@ -143,9 +143,10 @@ enum				e_errors
 		*/
 	INT_UNDERFLOW,
 	/**
-	 * Invalid amount of command-line arguments
-	 */
+		* Invalid amount of command-line arguments
+		*/
 	ARGS,
+	USAGE,
 };
 // print_ops.c
 /**
@@ -159,38 +160,70 @@ void				print_ops(int operation);
 void				print_errors(int code);
 // check_overflow.c
 /**
- * @brief Determines if a string representation of a number 
+ * @brief Determines if a string representation of a number
  * will overflow or underflow a 32-bit signed integer.
  *
- * This function evaluates whether converting a numeric string 
- * to an integer using `ft_atoi()` would cause an overflow or 
- * underflow of a 32-bit signed integer. It considers the maximum 
+ * This function evaluates whether converting a numeric string
+ * to an integer using `ft_atoi()` would cause an overflow or
+ * underflow of a 32-bit signed integer. It considers the maximum
  * and minimum values of `INT_MAX` (2147483647) and `INT_MIN` (-2147483648).
  *
- * The function accepts strings with optional `+` or `-` signs and ignores 
- * leading zeros before the number. If the string is invalid (e.g., contains 
- * no digits after the optional sign or zeros), 
+ * The function accepts strings with optional `+` or `-` signs and ignores
+ * leading zeros before the number. If the string is invalid (e.g., contains
+ * no digits after the optional sign or zeros),
  * the function returns an error code.
  *
- * @param str The string containing the number to evaluate. 
+ * @param str The string containing the number to evaluate.
  * The string must be null-terminated and may include:
- * 
+ *
  *            - An optional `+` or `-` as the first character.
- * 
+ *
  *            - Leading zeros, which are ignored during evaluation.
  *
  * @return
  * - `0` if the number fits within the range of a 32-bit signed integer.
- * 
+ *
  * - `-1` if the number would cause an underflow (less than `INT_MIN`).
- * 
+ *
  * - `1` if the number would cause an overflow (greater than `INT_MAX`).
- * 
- * - `-2` if the string is invalid (e.g., contains non-numeric 
+ *
+ * - `-2` if the string is invalid (e.g., contains non-numeric
  * characters, or no digits after `+` or `-`).
  */
 int					check_overflow(char *str);
 // init.c
 void				init_fails(t_fails *fails);
+// check_args.c
+/**
+ * @brief Validates command line arguments as integers and tracks errors.
+ *
+ * This function iterates through the provided command line arguments 
+ * to ensure each is a valid integer. 
+ * During validation, it identifies and counts specific types of errors, 
+ * including:
+ * - Overflow or underflow errors for integers outside the 
+ * range of a 32-bit signed integer.
+ * 
+ * - Duplicate integers among the arguments.
+ * 
+ * - Incorrectly formatted inputs (e.g., non-numeric characters 
+ * or empty strings).
+ *
+ * The error counts are stored in a `t_fails` structure, allowing detailed 
+ * diagnostics for pinpointing issues in the input.
+ *
+ * @param ac The argument count, including the program name.
+ * @param av The argument vector, an array of strings representing 
+ * the command line arguments.
+ * @param fails A pointer to a `t_fails` structure used to 
+ * record and track error types.
+ *
+ * @return 
+ * - `0` if all arguments are valid integers.
+ * 
+ * - `1` if one or more arguments are invalid.
+ * 
+ */
+int					check_args(int ac, char **av, t_fails *fails);
 
 #endif

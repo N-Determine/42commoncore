@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/16 19:14:20 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/16 19:20:58 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,17 +135,12 @@ enum				e_operations
 enum				e_errors
 {
 	/**
-		* Error that occured because of an overflowing integer
-		*/
-	INT_OVERFLOW,
-	/**
-		* Error that occured because of an underflowing integer
-		*/
-	INT_UNDERFLOW,
-	/**
-		* Invalid amount of command-line arguments
-		*/
+	 *  Any kind of error within the command-line arguments
+	 */
 	ARGS,
+	/**
+	 * Wrong usage of the push_swap program
+	 */
 	USAGE,
 };
 // print_ops.c
@@ -201,6 +196,7 @@ void				init_fails(t_fails *fails);
  * to ensure each is a valid integer. 
  * During validation, it identifies and counts specific types of errors, 
  * including:
+ * 
  * - Overflow or underflow errors for integers outside the 
  * range of a 32-bit signed integer.
  * 

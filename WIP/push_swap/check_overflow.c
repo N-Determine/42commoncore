@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 17:16:45 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/16 18:10:38 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/16 18:37:23 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,9 @@ char	*ignore_sign(char *str, int *sign)
 	int i;
 
 	i = 0;
+	*sign = 1;
 	if (str[0] == '+')
-	{
-		*sign = 1;
 		i++;
-	}
 	else if (str[0] == '-')
 	{
 		*sign = -1;
@@ -84,6 +82,20 @@ char	*ignore_sign(char *str, int *sign)
 	return (&str[i]);
 }
 
+int is_digit_str(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (-2);
+		i++;
+	}
+	return (0);
+}
+
 int	check_overflow(char *str)
 {
 	int		len;
@@ -91,7 +103,7 @@ int	check_overflow(char *str)
 	char	*new;
 
 	new = ignore_sign(str, &sign);
-	if (!new)
+	if (!new || is_digit_str(new) == -2)
 		return (-2);
 	len = ft_strlen(new);
 	if (len > 10 && sign == -1)
@@ -111,13 +123,13 @@ int	check_overflow(char *str)
 
 int	main(int ac, char **av)
 {
+	char *str4 = "15546546546465456546";
 	char *str3 = "2147483648"; // Should overflow
-	char *str4 = "--0";
 	char *str1 = "-0000000002147483648"; // Should fit
 	char *str2 = "-000000000000000000000002149483647"; // Should underflow
 	char *str = "2147483647"; // Should fit
-	printf("Over/underflow for %s? -> %i\n", str3, check_overflow(str3)); fflush(stdout);
 	printf("Over/underflow for %s? -> %i\n", str4, check_overflow(str4)); fflush(stdout);
+	printf("Over/underflow for %s? -> %i\n", str3, check_overflow(str3)); fflush(stdout);
 	printf("Over/underflow for %s? -> %i\n", str1, check_overflow(str1)); fflush(stdout);
 	printf("Over/underflow for %s? -> %i\n", str2, check_overflow(str2)); fflush(stdout);
 	printf("Over/underflow for %s? -> %i\n", str, check_overflow(str)); fflush(stdout);

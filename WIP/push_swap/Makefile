@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/15 20:32:04 by adeters           #+#    #+#              #
-#    Updated: 2024/11/16 18:20:54 by adeters          ###   ########.fr        #
+#    Updated: 2024/11/16 18:32:55 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,15 +14,13 @@ NAME = push_swap
 
 COMP = cc
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 
 SRCS =	push_swap.c print_ops.c print_errors.c check_overflow.c init.c
 
 ARCH = libft.a
 
 OBJS = $(SRCS:.c=.o)
-
-MAKEFLAGS = --jobs
 
 $(NAME): $(OBJS)
 	make -C ./libft
@@ -42,4 +40,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+tidy: all clean
+
+.PHONY: all clean fclean re tidy

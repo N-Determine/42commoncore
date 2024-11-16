@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/16 18:51:42 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/16 19:14:20 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void				print_ops(int operation);
 /**
  * @brief Prints errors to the stderr
  */
-void				print_errors(int code);
+void				print_errors_args(int code, t_fails *fails);
 // check_overflow.c
 /**
  * @brief Determines if a string representation of a number

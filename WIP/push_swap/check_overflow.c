@@ -6,13 +6,13 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 17:16:45 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/16 17:32:37 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/16 18:10:38 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	overflow_digits(char *str)
+int	overflow_digits(char *str)
 {
 	if (str[0] > 2 + '0')
 		return (1);
@@ -37,48 +37,73 @@ static int	overflow_digits(char *str)
 	return (0);
 }
 
-static int	underflow_digits(char *str)
+int	underflow_digits(char *str)
 {
-	if (str[1] > 2 + '0')
+	if (str[0] > 2 + '0')
 		return (-1);
-	if (str[2] > 1 + '0')
+	if (str[1] > 1 + '0')
 		return (-1);
-	if (str[3] > 4 + '0')
+	if (str[2] > 4 + '0')
 		return (-1);
-	if (str[4] > 7 + '0')
+	if (str[3] > 7 + '0')
 		return (-1);
-	if (str[5] > 4 + '0')
+	if (str[4] > 4 + '0')
 		return (-1);
-	if (str[6] > 8 + '0')
+	if (str[5] > 8 + '0')
 		return (-1);
-	if (str[7] > 3 + '0')
+	if (str[6] > 3 + '0')
 		return (-1);
-	if (str[8] > 6 + '0')
+	if (str[7] > 6 + '0')
 		return (-1);
-	if (str[9] > 4 + '0')
+	if (str[8] > 4 + '0')
 		return (-1);
-	if (str[10] > 8 + '0')
+	if (str[9] > 8 + '0')
 		return (-1);
 	return (0);
 }
 
+char	*ignore_sign(char *str, int *sign)
+{
+	int i;
+
+	i = 0;
+	if (str[0] == '+')
+	{
+		*sign = 1;
+		i++;
+	}
+	else if (str[0] == '-')
+	{
+		*sign = -1;
+		i++;
+	}
+	if (!ft_isdigit(str[i]))
+		return (NULL);
+	while (str[i] && str[i] == '0')
+		i++;
+	return (&str[i]);
+}
+
 int	check_overflow(char *str)
 {
-	int	len;
+	int		len;
+	int		sign;
+	char	*new;
 
-	len = ft_strlen(str);
-	if (len < 11 && str[0] == '-')
-		return (0);
-	if (len < 10)
-		return (0);
-	if (len > 11 && str[0] == '-')
+	new = ignore_sign(str, &sign);
+	if (!new)
+		return (-2);
+	len = ft_strlen(new);
+	if (len > 10 && sign == -1)
 		return (-1);
-	else if (len > 10 && str[0] != '-')
+	if (len > 10 && sign == 1)
 		return (1);
-	if (len == 11 && str[0] == '-')
-		return (underflow_digits(str));
-	if (len == 10 && str[0] != '-')
-		return (overflow_digits(str));
+	if (len < 9)
+		return (0);
+	if (len == 10 && sign == -1)
+		return (underflow_digits(new));
+	else if (len == 10)
+		return (overflow_digits(new));
 	return (0);
 }
 /*
@@ -86,15 +111,15 @@ int	check_overflow(char *str)
 
 int	main(int ac, char **av)
 {
-	char *str2 = "-2149483647"; // Should underflow
 	char *str3 = "2147483648"; // Should overflow
+	char *str4 = "--0";
+	char *str1 = "-0000000002147483648"; // Should fit
+	char *str2 = "-000000000000000000000002149483647"; // Should underflow
 	char *str = "2147483647"; // Should fit
-	char *str1 = "-2147483648"; // Should fit
-	char *str4 = "0";
-	printf("Over/underflow for %s? -> %i\n", str2, check_overflow(str2));
-	printf("Over/underflow for %s? -> %i\n", str3, check_overflow(str3));
-	printf("Over/underflow for %s? -> %i\n", str, check_overflow(str));
-	printf("Over/underflow for %s? -> %i\n", str1, check_overflow(str1));
-	printf("Over/underflow for %s? -> %i\n", str4, check_overflow(str4));
+	printf("Over/underflow for %s? -> %i\n", str3, check_overflow(str3)); fflush(stdout);
+	printf("Over/underflow for %s? -> %i\n", str4, check_overflow(str4)); fflush(stdout);
+	printf("Over/underflow for %s? -> %i\n", str1, check_overflow(str1)); fflush(stdout);
+	printf("Over/underflow for %s? -> %i\n", str2, check_overflow(str2)); fflush(stdout);
+	printf("Over/underflow for %s? -> %i\n", str, check_overflow(str)); fflush(stdout);
 }
 */

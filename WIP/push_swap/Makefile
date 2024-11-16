@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/15 20:32:04 by adeters           #+#    #+#              #
-#    Updated: 2024/11/16 17:02:44 by adeters          ###   ########.fr        #
+#    Updated: 2024/11/16 18:20:54 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ COMP = cc
 
 FLAGS = -Wall -Werror -Wextra
 
-SRCS =	push_swap.c print_ops.c print_errors.c check_overflow.c
+SRCS =	push_swap.c print_ops.c print_errors.c check_overflow.c init.c
 
 ARCH = libft.a
 
@@ -33,15 +33,13 @@ all: $(NAME)
 	cc $(OBJS) -o $(NAME) $(ARCH)
 
 clean:
-	rm -rf $(OBJS) $(ARCH)
 	make clean -C ./libft
+	rm -rf $(OBJS) $(ARCH)
 
 fclean: clean
-	rm -rf $(NAME)
 	make fclean -C ./libft
+	rm -rf $(NAME)
 
 re: fclean all
 
-tidy: multi clean
-
-.PHONY: all clean fclean re tidy
+.PHONY: all clean fclean re

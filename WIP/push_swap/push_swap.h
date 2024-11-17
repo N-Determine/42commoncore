@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/16 19:45:46 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/17 15:01:10 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ typedef struct s_dlist
 
 typedef struct s_stacks
 {
-	t_dlist *stack_a;
-	t_dlist *stack_b;
-	t_dlist *pre_sort;
+	t_dlist	*stack_a;
+	t_dlist	*stack_b;
+	int		*sorted;
+	int		len;
 }	t_stacks;
 
 /**
@@ -149,6 +150,10 @@ enum				e_errors
 	 * Wrong usage of the push_swap program
 	 */
 	USAGE,
+	/**
+	 * Error that has been caused by a failed malloc
+	 */
+	MAL_SORTED,
 };
 // print_ops.c
 /**
@@ -160,6 +165,7 @@ void				print_ops(int operation);
  * @brief Prints errors to the stderr
  */
 void				print_errors_args(int code, t_fails *fails);
+void				print_errors(int code);
 // check_overflow.c
 /**
  * @brief Determines if a string representation of a number

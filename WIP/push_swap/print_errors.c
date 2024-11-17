@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 21:02:23 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/16 19:15:26 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/17 15:01:42 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ void	print_errors_args(int code, t_fails *fails)
 	if (code == ARGS)
 	{
 		if (fails->overflows > 1)
-			ft_fprintf(2, "%i inputs overflowing an integer\n", fails->overflows);
+			ft_fprintf(2, "%i inputs overflowing an integer\n",
+				fails->overflows);
 		else if (fails->overflows > 0)
 			ft_fprintf(2, "1 input overflowing an integer\n");
 		if (fails->underflows > 1)
-			ft_fprintf(2, "%i inputs underflowing an integer\n", fails->underflows);
+			ft_fprintf(2, "%i inputs underflowing an integer\n",
+				fails->underflows);
 		else if (fails->underflows > 0)
 			ft_fprintf(2, "1 input underflowing an integer\n");
 		if (fails->formats > 1)
@@ -36,4 +38,11 @@ void	print_errors_args(int code, t_fails *fails)
 		else if (fails->duplicates > 0)
 			ft_fprintf(2, "1 duplicate input\n");
 	}
+}
+
+void	print_errors(int code)
+{
+	ft_fprintf(2, "Error\n");
+	if (code == MAL_SORTED)
+		ft_fprintf(2, "Malloc failed allocating the \"sorted\" array\n");
 }

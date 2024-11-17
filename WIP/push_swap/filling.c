@@ -6,12 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 15:04:21 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/17 15:55:07 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/17 15:57:05 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
 
 void	clear_stack_a(t_stacks *stacks)
 {
@@ -25,11 +24,10 @@ void	clear_stack_a(t_stacks *stacks)
 		free(stacks->stack_a);
 		stacks->stack_a = tmp;
 		i++;
-	}	
+	}
 }
 
-
-int		create_stack(t_stacks *stacks)
+int	create_stack(t_stacks *stacks)
 {
 	int		i;
 	t_dlist	*start;
@@ -57,7 +55,7 @@ int		create_stack(t_stacks *stacks)
 	return (0);
 }
 
-int		fill_stacks(int ac, char **av, t_stacks *stacks)
+int	fill_stacks(int ac, char **av, t_stacks *stacks)
 {
 	int	i;
 

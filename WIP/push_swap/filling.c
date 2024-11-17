@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 15:04:21 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/17 16:10:00 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/17 16:50:26 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	create_stack(t_stacks *stacks)
 	if (!stacks->stack_a)
 		return (1);
 	stacks->nodes_stack_a = 1;
+	stacks->nodes_stack_b = 0;
 	stacks->stack_a->pre = NULL;
 	stacks->stack_a->nb = stacks->sorted[0];
 	start = stacks->stack_a;

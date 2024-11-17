@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_ops.c                                         :+:      :+:    :+:   */
+/*   ops_swap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 16:31:04 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/17 16:42:11 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/17 16:51:10 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	swap_a(t_stacks *stacks)
 {
-	int tmp;
+	int	tmp;
+
 	if (stacks->nodes_stack_a > 1)
 	{
 		tmp = stacks->stack_a->nb;
@@ -26,7 +27,8 @@ void	swap_a(t_stacks *stacks)
 
 void	swap_b(t_stacks *stacks)
 {
-	int tmp;
+	int	tmp;
+
 	if (stacks->nodes_stack_b > 1)
 	{
 		tmp = stacks->stack_b->nb;

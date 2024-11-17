@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/17 15:01:10 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/17 15:14:10 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_dlist
 		*
 		* This can point only to integers
 		*/
-	int				*nb;
+	int				nb;
 	/**
 		* @brief Pointer to the next node in the list.
 		*
@@ -45,7 +45,7 @@ typedef struct s_dlist
 			or `NULL` if
 		* this is the last node.
 		*/
-	struct s_list	*next;
+	struct s_dlist	*next;
 	/**
 		* @brief Pointer to the previous node in the list.
 		*
@@ -53,7 +53,7 @@ typedef struct s_dlist
 			or `NULL` if
 		* this is the first node.
 		*/
-	struct s_list	*pre;
+	struct s_dlist	*pre;
 }					t_dlist;
 
 typedef struct s_stacks
@@ -234,5 +234,7 @@ void				init_fails(t_fails *fails);
  * 
  */
 int					check_args(int ac, char **av, t_fails *fails);
+// filling.c
+int					fill_stacks(int ac, char **av, t_stacks *stacks);
 
 #endif

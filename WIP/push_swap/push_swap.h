@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/17 15:53:41 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/17 16:43:19 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 
 # include "libft/libft.h"
+# include <stdio.h>
 
 typedef struct s_fails
 {
@@ -63,6 +64,7 @@ typedef struct s_stacks
 	int		*sorted;
 	int		len;
 	int		nodes_stack_a;
+	int		nodes_stack_b;
 }	t_stacks;
 
 /**
@@ -238,5 +240,9 @@ int					check_args(int ac, char **av, t_fails *fails);
 // filling.c
 int					fill_stacks(int ac, char **av, t_stacks *stacks);
 void				clear_stack_a(t_stacks *stacks);
+// swap_ops.c
+void				swap_a(t_stacks *stacks);
+void				swap_b(t_stacks *stacks);
+void				swap_s(t_stacks *stacks);
 
 #endif

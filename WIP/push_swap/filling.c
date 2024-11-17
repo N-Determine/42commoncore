@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 15:04:21 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/17 15:23:59 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/17 15:25:40 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	create_stack(t_stacks *stacks)
 	stacks->stack_a = malloc(sizeof(t_stacks));
 	if (!stacks->stack_a)
 		return (1);
+	stacks->nodes_alloced = 1;
 	stacks->stack_a->pre = NULL;
 	stacks->stack_a->nb = stacks->sorted[0];
 	start = stacks->stack_a;
@@ -30,6 +31,7 @@ int	create_stack(t_stacks *stacks)
 		// In case of a fuck up we are going to need to clear the whole list!
 		if (!start->next)
 			return (1);
+		stacks->nodes_alloced++;
 		start->next->nb = stacks->sorted[i];
 		start->next->pre = start;
 		start = start->next;

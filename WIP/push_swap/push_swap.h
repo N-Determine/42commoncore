@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/17 15:25:10 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/17 15:53:41 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_stacks
 	t_dlist	*stack_b;
 	int		*sorted;
 	int		len;
-	int		nodes_alloced;
+	int		nodes_stack_a;
 }	t_stacks;
 
 /**
@@ -237,5 +237,6 @@ void				init_fails(t_fails *fails);
 int					check_args(int ac, char **av, t_fails *fails);
 // filling.c
 int					fill_stacks(int ac, char **av, t_stacks *stacks);
+void				clear_stack_a(t_stacks *stacks);
 
 #endif

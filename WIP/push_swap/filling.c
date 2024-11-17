@@ -6,13 +6,30 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 15:04:21 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/17 15:25:40 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/17 15:55:07 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	create_stack(t_stacks *stacks)
+
+void	clear_stack_a(t_stacks *stacks)
+{
+	t_dlist	*tmp;
+	int		i;
+
+	i = 0;
+	while (i < stacks->nodes_stack_a)
+	{
+		tmp = stacks->stack_a->next;
+		free(stacks->stack_a);
+		stacks->stack_a = tmp;
+		i++;
+	}	
+}
+
+
+int		create_stack(t_stacks *stacks)
 {
 	int		i;
 	t_dlist	*start;
@@ -20,7 +37,7 @@ int	create_stack(t_stacks *stacks)
 	stacks->stack_a = malloc(sizeof(t_stacks));
 	if (!stacks->stack_a)
 		return (1);
-	stacks->nodes_alloced = 1;
+	stacks->nodes_stack_a = 1;
 	stacks->stack_a->pre = NULL;
 	stacks->stack_a->nb = stacks->sorted[0];
 	start = stacks->stack_a;
@@ -28,10 +45,9 @@ int	create_stack(t_stacks *stacks)
 	while (i < stacks->len)
 	{
 		start->next = malloc(sizeof(t_stacks));
-		// In case of a fuck up we are going to need to clear the whole list!
 		if (!start->next)
-			return (1);
-		stacks->nodes_alloced++;
+			return (clear_stack_a(stacks), 1);
+		stacks->nodes_stack_a++;
 		start->next->nb = stacks->sorted[i];
 		start->next->pre = start;
 		start = start->next;
@@ -41,7 +57,7 @@ int	create_stack(t_stacks *stacks)
 	return (0);
 }
 
-int	fill_stacks(int ac, char **av, t_stacks *stacks)
+int		fill_stacks(int ac, char **av, t_stacks *stacks)
 {
 	int	i;
 

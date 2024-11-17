@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 15:04:21 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/17 16:02:34 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/17 16:10:00 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,21 @@ void	clear_stack_a(t_stacks *stacks)
 {
 	t_dlist	*tmp;
 	int		i;
+	int		allocs;
 
 	i = 0;
-	while (i < stacks->nodes_stack_a)
+	allocs = stacks->nodes_stack_a;
+	while (i < allocs)
 	{
 		tmp = stacks->stack_a->next;
 		free(stacks->stack_a);
+		stacks->nodes_stack_a--;
 		stacks->stack_a = tmp;
 		i++;
 	}
 }
 
+// Make this a quick sort algorithm for improved performance
 int	create_stack(t_stacks *stacks)
 {
 	int		i;

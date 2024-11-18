@@ -6,29 +6,38 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 16:45:05 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 17:37:02 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_list(t_dlist *stack)
+int	push_swap(t_stacks *stacks)
 {
 	int	i;
+	int	steps;
 
 	i = 0;
-	if (stack)
+	steps = 0;
+	while (i < stacks->len)
 	{
-		while (stack->next)
+		while (stacks->stack_a->nb != stacks->sorted[i])
 		{
-			ft_printf("Pos: %i - Number: %i\n", i, stack->nb);
-			stack = stack->next;
-			i++;
+			rotate_a(stacks, 1);
+			steps++;
 		}
-		ft_printf("Pos: %i - Number: %i\n", i, stack->nb);
+		push_b(stacks);
+		steps++;
+		i++;
 	}
-	else
-		ft_printf("This stack is empty\n");
+	i = 0;
+	while (i < stacks->len)
+	{
+		push_a(stacks);
+		steps++;
+		i++;
+	}
+	return (steps);
 }
 
 int	main(int ac, char **av)
@@ -45,31 +54,7 @@ int	main(int ac, char **av)
 	if (is_sorted(stacks.stack_a))
 		return (free(stacks.sorted), clear_stack_a(&stacks), 0);
 	stacks.stack_b = NULL;
-
-	int steps = 0;
-	int i = 0;
-	while (i < stacks.len)
-	{
-		while (stacks.stack_a->nb != stacks.sorted[i])
-		{
-			rotate_a(&stacks, 1);
-			steps++;
-		}
-		push_b(&stacks);
-		steps++;
-		i++;
-	}
-	i = 0;
-	while (i < stacks.len)
-	{
-		push_a(&stacks);
-		steps++;
-		i++;
-	}
-	print_list(stacks.stack_a);
-	printf("Steps: %i\n", steps);
-
-	
+	test_push_swap(&stacks);
 	clear_stack_a(&stacks);
 	free(stacks.sorted);
 }

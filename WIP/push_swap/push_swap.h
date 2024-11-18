@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 16:37:35 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 17:40:00 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -381,5 +381,19 @@ t_dlist				*last_node(t_dlist *head);
  * - `1` if the list is sorted or if the list is equal to `NULL`
  */
 int					is_sorted(t_dlist *head);
+// testing.c
+/**
+ * @brief Prints a whole `t_dlist` showing the "index" followed by 
+ * it's value. It is great for testing the current state of a stack.
+ */
+void				print_list(t_dlist *stack);
+/**
+ * @brief It uses the push_swap function and prints the whole list after
+ * sorting aswell as the number of inputs and operations to sort them.
+ * 
+ * It is designed to be easily replaced with the push_swap function
+ * within the main function.
+ */
+void				test_push_swap(t_stacks *stacks);
 
 #endif

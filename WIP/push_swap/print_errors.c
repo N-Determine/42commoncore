@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 21:02:23 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/17 15:01:42 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 16:19:03 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void	print_errors_args(int code, t_fails *fails)
 {
 	ft_fprintf(2, "Error\n");
-	if (code == USAGE)
-		ft_fprintf(2, "Usage: ./push_swap [int-0] [int-1] ... [int-n] \n");
 	if (code == ARGS)
 	{
 		if (fails->overflows > 1)
@@ -33,10 +31,8 @@ void	print_errors_args(int code, t_fails *fails)
 			ft_fprintf(2, "%i inputs with formatting error\n", fails->formats);
 		else if (fails->formats > 0)
 			ft_fprintf(2, "1 input with formatting error\n");
-		if (fails->duplicates > 1)
-			ft_fprintf(2, "%i duplicate inputs\n", fails->duplicates);
-		else if (fails->duplicates > 0)
-			ft_fprintf(2, "1 duplicate input\n");
+		if (fails->duplicates > 0)
+			ft_fprintf(2, "Input containts duplicates\n");
 	}
 }
 

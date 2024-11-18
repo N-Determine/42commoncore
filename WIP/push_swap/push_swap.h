@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 15:26:00 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 16:05:37 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,10 +149,6 @@ enum				e_errors
 	 *  Any kind of error within the command-line arguments
 	 */
 	ARGS,
-	/**
-	 * Wrong usage of the push_swap program
-	 */
-	USAGE,
 	/**
 	 * Error that has been caused by a failed malloc
 	 */

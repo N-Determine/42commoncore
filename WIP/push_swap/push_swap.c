@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 16:27:38 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 16:45:05 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,31 @@ int	main(int ac, char **av)
 	if (is_sorted(stacks.stack_a))
 		return (free(stacks.sorted), clear_stack_a(&stacks), 0);
 	stacks.stack_b = NULL;
+
+	int steps = 0;
+	int i = 0;
+	while (i < stacks.len)
+	{
+		while (stacks.stack_a->nb != stacks.sorted[i])
+		{
+			rotate_a(&stacks, 1);
+			steps++;
+		}
+		push_b(&stacks);
+		steps++;
+		i++;
+	}
+	i = 0;
+	while (i < stacks.len)
+	{
+		push_a(&stacks);
+		steps++;
+		i++;
+	}
+	print_list(stacks.stack_a);
+	printf("Steps: %i\n", steps);
+
+	
 	clear_stack_a(&stacks);
 	free(stacks.sorted);
 }

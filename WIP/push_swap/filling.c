@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 15:04:21 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 16:34:09 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 16:37:55 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	sort_arr(t_stacks *stacks)
 
 int	count_duplicates(t_stacks *stacks, t_fails *fails)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < stacks->len - 1)
@@ -115,6 +115,7 @@ int	fill_stacks(int ac, char **av, t_stacks *stacks, t_fails *fails)
 		return (free(stacks->sorted), 1);
 	sort_arr(stacks);
 	if (count_duplicates(stacks, fails))
-		return (print_errors_args(ARGS, fails), clear_stack_a(stacks), free(stacks->sorted), 1);
+		return (print_errors_args(ARGS, fails), clear_stack_a(stacks),
+			free(stacks->sorted), 1);
 	return (0);
 }

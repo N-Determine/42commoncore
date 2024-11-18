@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 16:29:17 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 16:37:35 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ typedef struct s_dlist
 
 typedef struct s_stacks
 {
-	t_dlist	*stack_a;
-	t_dlist	*stack_b;
-	int		*sorted;
-	int		len;
-	int		nodes_stack_a;
-	int		nodes_stack_b;
-}	t_stacks;
+	t_dlist			*stack_a;
+	t_dlist			*stack_b;
+	int				*sorted;
+	int				len;
+	int				nodes_stack_a;
+	int				nodes_stack_b;
+}					t_stacks;
 
 /**
  * @brief Enumeration of all the operations within
@@ -146,12 +146,12 @@ enum				e_operations
 enum				e_errors
 {
 	/**
-	 *  Any kind of error within the command-line arguments
-	 */
+		*  Any kind of error within the command-line arguments
+		*/
 	ARGS,
 	/**
-	 * Error that has been caused by a failed malloc
-	 */
+		* Error that has been caused by a failed malloc
+		*/
 	MAL_SORTED,
 };
 // print_ops.c
@@ -205,7 +205,7 @@ void				print_errors(int code);
 int					check_overflow(char *str);
 // init.c
 /**
- * @brief Initializes the t_fails struct so that functions that count 
+ * @brief Initializes the t_fails struct so that functions that count
  * the amount of errors work properly (by setting errors counts to 0)
  */
 void				init_fails(t_fails *fails);
@@ -213,41 +213,42 @@ void				init_fails(t_fails *fails);
 /**
  * @brief Validates command line arguments as integers and tracks errors.
  *
- * This function iterates through the provided command line arguments 
- * to ensure each is a valid integer. 
- * During validation, it identifies and counts specific types of errors, 
+ * This function iterates through the provided command line arguments
+ * to ensure each is a valid integer.
+ * During validation, it identifies and counts specific types of errors,
  * including:
- * 
- * - Overflow or underflow errors for integers outside the 
+ *
+ * - Overflow or underflow errors for integers outside the
  * range of a 32-bit signed integer.
- * 
+ *
  * - Duplicate integers among the arguments.
- * 
- * - Incorrectly formatted inputs (e.g., non-numeric characters 
+ *
+ * - Incorrectly formatted inputs (e.g., non-numeric characters
  * or empty strings).
  *
- * The error counts are stored in a `t_fails` structure, allowing detailed 
+ * The error counts are stored in a `t_fails` structure, allowing detailed
  * diagnostics for pinpointing issues in the input.
  *
  * @param ac The argument count, including the program name.
- * @param av The argument vector, an array of strings representing 
+ * @param av The argument vector, an array of strings representing
  * the command line arguments.
- * @param fails A pointer to a `t_fails` structure used to 
+ * @param fails A pointer to a `t_fails` structure used to
  * record and track error types.
  *
- * @return 
+ * @return
  * - `0` if all arguments are valid integers.
- * 
+ *
  * - `1` if one or more arguments are invalid.
- * 
+ *
  */
 int					check_args(int ac, char **av, t_fails *fails);
 // filling.c
 /**
  * Allocates space for an array and a t_dlist struct to be filled
- * with every command-line argument as integers. 
+ * with every command-line argument as integers.
  */
-int					fill_stacks(int ac, char **av, t_stacks *stacks, t_fails *fails);
+int					fill_stacks(int ac, char **av, t_stacks *stacks,
+						t_fails *fails);
 /**
  * @brief Cleanly frees every node within stack_a. It depends on the
  * nodes_stack_a counter in the t_stacks struct.
@@ -255,111 +256,111 @@ int					fill_stacks(int ac, char **av, t_stacks *stacks, t_fails *fails);
 void				clear_stack_a(t_stacks *stacks);
 // ops_push.c
 /**
- * @brief	Takes the first element at the top of `stack_b` and puts 
- * it at the top of `stack_a`. 
- * 
+ * @brief	Takes the first element at the top of `stack_b` and puts
+ * it at the top of `stack_a`.
+ *
  * Does nothing if `stack_b` is empty.
  */
 void				push_a(t_stacks *stacks);
 /**
- * @brief	Takes the first element at the top of `stack_a` and puts 
+ * @brief	Takes the first element at the top of `stack_a` and puts
  * it at the top of `stack_b`.
- * 
+ *
  * Does nothing if `stack_a` is empty.
  */
 void				push_b(t_stacks *stacks);
 // ops_rotate.c
 /**
- * @brief 	Shifts up all elements of `stack_a` by 1. 
+ * @brief 	Shifts up all elements of `stack_a` by 1.
  * 			The first element becomes the last one.
- * 
- * @param code Takes a code to indicate if the operation should be 
+ *
+ * @param code Takes a code to indicate if the operation should be
  * printed to the stdout:
- * 
+ *
  * - `1` if it should
- * 
+ *
  * - `0`(or every other code) if it shouldn't
  */
 void				rotate_a(t_stacks *stacks, int code);
 /**
- * @brief	Shifts up all elements of `stack_b` by 1. 
+ * @brief	Shifts up all elements of `stack_b` by 1.
  *			The first element becomes the last one.
- * 
- * @param code Takes a code to indicate if the operation should be 
+ *
+ * @param code Takes a code to indicate if the operation should be
  * printed to the stdout:
- * 
+ *
  * - `1` if it should
- * 
+ *
  * - `0`(or every other code) if it shouldn't
  */
 void				rotate_b(t_stacks *stacks, int code);
 /**
  * @brief `rotate_a` and `rotate_b` at the same time.
- * 
+ *
  * @note Always prints the operation to the stdout.
  */
 void				rotate_r(t_stacks *stacks);
 // ops_rrotate.c
 /**
- * @brief	Shifts down all elements of `stack_a` by 1. 
+ * @brief	Shifts down all elements of `stack_a` by 1.
  * 			The last element becomes the first one.
- * 
- * @param code Takes a code to indicate if the operation should be 
+ *
+ * @param code Takes a code to indicate if the operation should be
  * printed to the stdout:
- * 
+ *
  * - `1` if it should
- * 
+ *
  * - `0`(or every other code) if it shouldn't
  */
 void				rrotate_a(t_stacks *stacks, int code);
 /**
  * @brief	Shifts down all elements of `stack_b` by 1.
  * 			The last element becomes the first one.
- * 
- * @param code Takes a code to indicate if the operation should be 
+ *
+ * @param code Takes a code to indicate if the operation should be
  * printed to the stdout:
- * 
+ *
  * - `1` if it should
- * 
+ *
  * - `0`(or every other code) if it shouldn't
  */
 void				rrotate_b(t_stacks *stacks, int code);
 /**
  * @brief `rrotate_a` and `rrotate_b` at the same time.
- * 
+ *
  * @note Always prints the operation to the stdout.
  */
 void				rrotate_r(t_stacks *stacks);
 // ops_swap.c
 /**
  * @brief Swaps the first 2 elements at the top of `stack_a`
- * 
+ *
  * Does nothing if there is only one or no elements.
- * 
- * @param code Takes a code to indicate if the operation should be 
+ *
+ * @param code Takes a code to indicate if the operation should be
  * printed to the stdout:
- * 
+ *
  * - `1` if it should
- * 
+ *
  * - `0`(or every other code) if it shouldn't
  */
 void				swap_a(t_stacks *stacks, int code);
 /**
  * @brief  Swaps the first 2 elements at the top of `stack_b`
- * 
+ *
  * Does nothing if there is only one or no elements.
- * 
- * @param code Takes a code to indicate if the operation should be 
+ *
+ * @param code Takes a code to indicate if the operation should be
  * printed to the stdout:
- * 
+ *
  * - `1` if it should
- * 
+ *
  * - `0`(or every other code) if it shouldn't
  */
 void				swap_b(t_stacks *stacks, int code);
 /**
  * @brief `swap_a` and `swap_b` at the same time.
- * 
+ *
  * @note Always prints the operation to the stdout.
  */
 void				swap_s(t_stacks *stacks);
@@ -370,13 +371,13 @@ void				swap_s(t_stacks *stacks);
  */
 t_dlist				*last_node(t_dlist *head);
 /**
- * @brief Checks if a `t_dlist` is sorted in non-descending 
+ * @brief Checks if a `t_dlist` is sorted in non-descending
  * order
- * 
+ *
  * @return The function returns:
- * 
+ *
  * - `0` if the list is not sorted
- * 
+ *
  * - `1` if the list is sorted or if the list is equal to `NULL`
  */
 int					is_sorted(t_dlist *head);

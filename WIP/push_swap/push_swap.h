@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 17:40:00 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 17:45:35 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,5 +395,7 @@ void				print_list(t_dlist *stack);
  * within the main function.
  */
 void				test_push_swap(t_stacks *stacks);
+// main.c
+int					push_swap(t_stacks *stacks);
 
 #endif

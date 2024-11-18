@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 17:16:45 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/16 18:40:20 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 18:20:06 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@ int	overflow_digits(char *str)
 {
 	if (str[0] > 2 + '0')
 		return (1);
-	if (str[1] > 1 + '0')
+	if (str[1] > 1 + '0' && ft_strncmp(str, "2147483647", 1) == 0)
 		return (1);
-	if (str[2] > 4 + '0')
+	if (str[2] > 4 + '0' && ft_strncmp(str, "2147483647", 2) == 0)
 		return (1);
-	if (str[3] > 7 + '0')
+	if (str[3] > 7 + '0' && ft_strncmp(str, "2147483647", 3) == 0)
 		return (1);
-	if (str[4] > 4 + '0')
+	if (str[4] > 4 + '0' && ft_strncmp(str, "2147483647", 4) == 0)
 		return (1);
-	if (str[5] > 8 + '0')
+	if (str[5] > 8 + '0' && ft_strncmp(str, "2147483647", 5) == 0)
 		return (1);
-	if (str[6] > 3 + '0')
+	if (str[6] > 3 + '0' && ft_strncmp(str, "2147483647", 6) == 0)
 		return (1);
-	if (str[7] > 6 + '0')
+	if (str[7] > 6 + '0' && ft_strncmp(str, "2147483647", 7) == 0)
 		return (1);
-	if (str[8] > 4 + '0')
+	if (str[8] > 4 + '0' && ft_strncmp(str, "2147483647", 8) == 0)
 		return (1);
-	if (str[9] > 7 + '0')
+	if (str[9] > 7 + '0' && ft_strncmp(str, "2147483647", 9) == 0)
 		return (1);
 	return (0);
 }
@@ -41,23 +41,23 @@ int	underflow_digits(char *str)
 {
 	if (str[0] > 2 + '0')
 		return (-1);
-	if (str[1] > 1 + '0')
+	if (str[1] > 1 + '0' && ft_strncmp(str, "2147483648", 1) == 0)
 		return (-1);
-	if (str[2] > 4 + '0')
+	if (str[2] > 4 + '0' && ft_strncmp(str, "2147483648", 2) == 0)
 		return (-1);
-	if (str[3] > 7 + '0')
+	if (str[3] > 7 + '0' && ft_strncmp(str, "2147483648", 3) == 0)
 		return (-1);
-	if (str[4] > 4 + '0')
+	if (str[4] > 4 + '0' && ft_strncmp(str, "2147483648", 4) == 0)
 		return (-1);
-	if (str[5] > 8 + '0')
+	if (str[5] > 8 + '0' && ft_strncmp(str, "2147483648", 5) == 0)
 		return (-1);
-	if (str[6] > 3 + '0')
+	if (str[6] > 3 + '0' && ft_strncmp(str, "2147483648", 6) == 0)
 		return (-1);
-	if (str[7] > 6 + '0')
+	if (str[7] > 6 + '0' && ft_strncmp(str, "2147483648", 7) == 0)
 		return (-1);
-	if (str[8] > 4 + '0')
+	if (str[8] > 4 + '0' && ft_strncmp(str, "2147483648", 8) == 0)
 		return (-1);
-	if (str[9] > 8 + '0')
+	if (str[9] > 8 + '0' && ft_strncmp(str, "2147483648", 9) == 0)
 		return (-1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 13:15:56 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 13:54:59 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,9 +165,14 @@ enum				e_errors
 void				print_ops(int operation);
 // print_errors.c
 /**
- * @brief Prints errors to the stderr
+ * @brief Prints errors to the stderr. It also takes the t_fails
+ * struct as an imput what allows it to print values in combination with
+ * the errors (e.g. Amount of integer overflows etc.)
  */
 void				print_errors_args(int code, t_fails *fails);
+/**
+ * @brief Prints errors to the stderr
+ */
 void				print_errors(int code);
 // check_overflow.c
 /**
@@ -203,6 +208,10 @@ void				print_errors(int code);
  */
 int					check_overflow(char *str);
 // init.c
+/**
+ * @brief Initializes the t_fails struct so that functions that count 
+ * the amount of errors work properly (by setting errors counts to 0)
+ */
 void				init_fails(t_fails *fails);
 // check_args.c
 /**
@@ -238,24 +247,131 @@ void				init_fails(t_fails *fails);
  */
 int					check_args(int ac, char **av, t_fails *fails);
 // filling.c
+/**
+ * Allocates space for an array and a t_dlist struct to be filled
+ * with every command-line argument as integers. 
+ */
 int					fill_stacks(int ac, char **av, t_stacks *stacks);
+/**
+ * @brief Cleanly frees every node within stack_a. It depends on the
+ * nodes_stack_a counter in the t_stacks struct.
+ */
 void				clear_stack_a(t_stacks *stacks);
 // ops_push.c
+/**
+ * @brief	Takes the first element at the top of `stack_b` and puts 
+ * it at the top of `stack_a`. 
+ * 
+ * Does nothing if `stack_b` is empty.
+ */
 void				push_a(t_stacks *stacks);
+/**
+ * @brief	Takes the first element at the top of `stack_a` and puts 
+ * it at the top of `stack_b`.
+ * 
+ * Does nothing if `stack_a` is empty.
+ */
 void				push_b(t_stacks *stacks);
 // ops_rotate.c
+/**
+ * @brief 	Shifts up all elements of `stack_a` by 1. 
+ * 			The first element becomes the last one.
+ * 
+ * @param code Takes a code to indicate if the operation should be 
+ * printed to the stdout:
+ * 
+ * - `1` if it should
+ * 
+ * - `0`(or every other code) if it shouldn't
+ */
 void				rotate_a(t_stacks *stacks, int code);
+/**
+ * @brief	Shifts up all elements of `stack_b` by 1. 
+ *			The first element becomes the last one.
+ * 
+ * @param code Takes a code to indicate if the operation should be 
+ * printed to the stdout:
+ * 
+ * - `1` if it should
+ * 
+ * - `0`(or every other code) if it shouldn't
+ */
 void				rotate_b(t_stacks *stacks, int code);
+/**
+ * @brief `rotate_a` and `rotate_b` at the same time.
+ * 
+ * @note Always prints the operation to the stdout.
+ */
 void				rotate_r(t_stacks *stacks);
 // ops_rrotate.c
+/**
+ * @brief	Shifts down all elements of `stack_a` by 1. 
+ * 			The last element becomes the first one.
+ * 
+ * @param code Takes a code to indicate if the operation should be 
+ * printed to the stdout:
+ * 
+ * - `1` if it should
+ * 
+ * - `0`(or every other code) if it shouldn't
+ */
 void				rrotate_a(t_stacks *stacks, int code);
+/**
+ * @brief	Shifts down all elements of `stack_b` by 1.
+ * 			The last element becomes the first one.
+ * 
+ * @param code Takes a code to indicate if the operation should be 
+ * printed to the stdout:
+ * 
+ * - `1` if it should
+ * 
+ * - `0`(or every other code) if it shouldn't
+ */
 void				rrotate_b(t_stacks *stacks, int code);
+/**
+ * @brief `rrotate_a` and `rrotate_b` at the same time.
+ * 
+ * @note Always prints the operation to the stdout.
+ */
 void				rrotate_r(t_stacks *stacks);
 // ops_swap.c
+/**
+ * @brief Swaps the first 2 elements at the top of `stack_a`
+ * 
+ * Does nothing if there is only one or no elements.
+ * 
+ * @param code Takes a code to indicate if the operation should be 
+ * printed to the stdout:
+ * 
+ * - `1` if it should
+ * 
+ * - `0`(or every other code) if it shouldn't
+ */
 void				swap_a(t_stacks *stacks, int code);
+/**
+ * @brief  Swaps the first 2 elements at the top of `stack_b`
+ * 
+ * Does nothing if there is only one or no elements.
+ * 
+ * @param code Takes a code to indicate if the operation should be 
+ * printed to the stdout:
+ * 
+ * - `1` if it should
+ * 
+ * - `0`(or every other code) if it shouldn't
+ */
 void				swap_b(t_stacks *stacks, int code);
+/**
+ * @brief `swap_a` and `swap_b` at the same time.
+ * 
+ * @note Always prints the operation to the stdout.
+ */
 void				swap_s(t_stacks *stacks);
 // dlist.c
+/**
+ * @brief Iterates through a `t_dlist` and returns the last
+ * node.
+ */
 t_dlist				*last_node(t_dlist *head);
 
 #endif

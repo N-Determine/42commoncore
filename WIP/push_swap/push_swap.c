@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 13:32:01 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 13:38:18 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_list(t_dlist *stack)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (stack)
@@ -42,6 +42,6 @@ int	main(int ac, char **av)
 		return (print_errors_args(ARGS, &fails), 1);
 	if (fill_stacks(ac, av, &stacks))
 		return (1);
-	stacks.stack_b = NULL; // Put this in some function
+	stacks.stack_b = NULL;
 	free(stacks.sorted);
 }

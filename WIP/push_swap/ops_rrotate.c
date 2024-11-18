@@ -6,13 +6,13 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 16:56:41 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 13:31:27 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 13:38:34 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void				rrotate_a(t_stacks *stacks, int code)
+void	rrotate_a(t_stacks *stacks, int code)
 {
 	t_dlist	*last;
 
@@ -29,7 +29,7 @@ void				rrotate_a(t_stacks *stacks, int code)
 		print_ops(RRA);
 }
 
-void				rrotate_b(t_stacks *stacks, int code)
+void	rrotate_b(t_stacks *stacks, int code)
 {
 	t_dlist	*last;
 
@@ -46,7 +46,7 @@ void				rrotate_b(t_stacks *stacks, int code)
 		print_ops(RRB);
 }
 
-void				rrotate_r(t_stacks *stacks)
+void	rrotate_r(t_stacks *stacks)
 {
 	rrotate_a(stacks, 0);
 	rrotate_b(stacks, 0);

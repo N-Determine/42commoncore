@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:42:44 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 16:21:43 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 16:24:35 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
+/*
 int	check_duplicates(int ac, char **av, t_fails *fails)
 {
 	int	i;
@@ -55,6 +56,7 @@ int	check_duplicates(int ac, char **av, t_fails *fails)
 		return (1);
 	return (0);
 }
+*/
 
 int	check_args(int ac, char **av, t_fails *fails)
 {
@@ -74,8 +76,8 @@ int	check_args(int ac, char **av, t_fails *fails)
 			fails->formats++;
 		i++;
 	}
-	if (check_duplicates(ac, av, fails))
-		return (1);
+	//if (check_duplicates(ac, av, fails))
+	//	return (1);
 	if (fails->overflows > 0 || fails->underflows > 0)
 		return (1);
 	if (fails->formats > 0)

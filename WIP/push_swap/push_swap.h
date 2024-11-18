@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 16:05:37 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 16:29:17 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ int					check_args(int ac, char **av, t_fails *fails);
  * Allocates space for an array and a t_dlist struct to be filled
  * with every command-line argument as integers. 
  */
-int					fill_stacks(int ac, char **av, t_stacks *stacks);
+int					fill_stacks(int ac, char **av, t_stacks *stacks, t_fails *fails);
 /**
  * @brief Cleanly frees every node within stack_a. It depends on the
  * nodes_stack_a counter in the t_stacks struct.

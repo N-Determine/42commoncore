@@ -2,9 +2,8 @@ import random
 import subprocess
 import sys
 
-
-print ('argument list', sys.argv)
 if len(sys.argv) != 2:
+	print("Insert the amount of numbers as command-line argument")
 	exit(1)
 numbers = int(sys.argv[1])
 
@@ -21,6 +20,6 @@ command = [program_path] + random_numbers_str
 # Execute the program with the random numbers as arguments
 try:
     result = subprocess.run(command, capture_output=True, text=True, check=True)
-    print(result.stdout)
+    print(result.stdout, end="")
 except subprocess.CalledProcessError as e:
     print("Error:", e.stderr)

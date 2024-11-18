@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 21:02:23 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 16:19:03 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 16:22:05 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_errors_args(int code, t_fails *fails)
 		else if (fails->formats > 0)
 			ft_fprintf(2, "1 input with formatting error\n");
 		if (fails->duplicates > 0)
-			ft_fprintf(2, "Input containts duplicates\n");
+			ft_fprintf(2, "Input contains at least one duplicate\n");
 	}
 }
 

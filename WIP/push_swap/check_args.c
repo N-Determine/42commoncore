@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:42:44 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 16:19:46 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 16:21:43 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,13 @@ int	check_duplicates(int ac, char **av, t_fails *fails)
 		while (j < ac)
 		{
 			if (ft_strcmp(av[i], av[j]) == 0)
-				return (fails->duplicates = 1, 1);
+				fails->duplicates = 1;
 			j++;
 		}
 		i++;
 	}
+	if (fails->duplicates > 0)
+		return (1);
 	return (0);
 }
 

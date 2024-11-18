@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:35:28 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 17:45:00 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 18:31:40 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	print_list(t_dlist *stack)
 	{
 		while (stack->next)
 		{
-			ft_printf("[%i]:\t%i\n", i, stack->nb);
+			ft_printf("[%i]:\t%i\n", i + 1, stack->nb);
 			stack = stack->next;
 			i++;
 		}
-		ft_printf("[%i]:\t%i\n", i, stack->nb);
+		ft_printf("[%i]:\t%i\n", i + 1, stack->nb);
 	}
 	else
 		ft_printf("This stack is empty\n");

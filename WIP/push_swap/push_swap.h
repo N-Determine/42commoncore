@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 13:54:59 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 15:26:00 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -373,5 +373,16 @@ void				swap_s(t_stacks *stacks);
  * node.
  */
 t_dlist				*last_node(t_dlist *head);
+/**
+ * @brief Checks if a `t_dlist` is sorted in non-descending 
+ * order
+ * 
+ * @return The function returns:
+ * 
+ * - `0` if the list is not sorted
+ * 
+ * - `1` if the list is sorted or if the list is equal to `NULL`
+ */
+int					is_sorted(t_dlist *head);
 
 #endif

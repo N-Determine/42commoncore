@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:05:44 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 13:09:56 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 15:25:02 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,17 @@ t_dlist	*last_node(t_dlist *head)
 		head = head->next;
 	}
 	return (head);
+}
+
+int is_sorted(t_dlist *head)
+{
+	if (!head)
+		return (1);
+	while (head->next)
+	{
+		if (head->nb > head->next->nb)
+			return (0);
+		head = head->next;
+	}
+	return (1);
 }

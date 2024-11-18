@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/17 16:43:19 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 13:15:56 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,9 +240,22 @@ int					check_args(int ac, char **av, t_fails *fails);
 // filling.c
 int					fill_stacks(int ac, char **av, t_stacks *stacks);
 void				clear_stack_a(t_stacks *stacks);
-// swap_ops.c
-void				swap_a(t_stacks *stacks);
-void				swap_b(t_stacks *stacks);
+// ops_push.c
+void				push_a(t_stacks *stacks);
+void				push_b(t_stacks *stacks);
+// ops_rotate.c
+void				rotate_a(t_stacks *stacks, int code);
+void				rotate_b(t_stacks *stacks, int code);
+void				rotate_r(t_stacks *stacks);
+// ops_rrotate.c
+void				rrotate_a(t_stacks *stacks, int code);
+void				rrotate_b(t_stacks *stacks, int code);
+void				rrotate_r(t_stacks *stacks);
+// ops_swap.c
+void				swap_a(t_stacks *stacks, int code);
+void				swap_b(t_stacks *stacks, int code);
 void				swap_s(t_stacks *stacks);
+// dlist.c
+t_dlist				*last_node(t_dlist *head);
 
 #endif

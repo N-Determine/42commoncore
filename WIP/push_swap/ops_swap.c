@@ -6,13 +6,13 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 16:31:04 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/17 16:51:10 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 13:14:28 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	swap_a(t_stacks *stacks)
+void	swap_a(t_stacks *stacks, int code)
 {
 	int	tmp;
 
@@ -22,10 +22,11 @@ void	swap_a(t_stacks *stacks)
 		stacks->stack_a->nb = stacks->stack_a->next->nb;
 		stacks->stack_a->next->nb = tmp;
 	}
-	print_ops(SA);
+	if (code == 1)
+		print_ops(SA);
 }
 
-void	swap_b(t_stacks *stacks)
+void	swap_b(t_stacks *stacks, int code)
 {
 	int	tmp;
 
@@ -35,12 +36,13 @@ void	swap_b(t_stacks *stacks)
 		stacks->stack_b->nb = stacks->stack_b->next->nb;
 		stacks->stack_b->next->nb = tmp;
 	}
-	print_ops(SB);
+	if (code == 1)
+		print_ops(SB);
 }
 
 void	swap_s(t_stacks *stacks)
 {
-	swap_a(stacks);
-	swap_b(stacks);
+	swap_a(stacks, 0);
+	swap_b(stacks, 0);
 	print_ops(SS);
 }

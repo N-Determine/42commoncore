@@ -6,11 +6,30 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/17 16:45:33 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/18 13:32:01 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	print_list(t_dlist *stack)
+{
+	int i;
+
+	i = 0;
+	if (stack)
+	{
+		while (stack->next)
+		{
+			ft_printf("Position: %i - Number: %i\n", i, stack->nb);
+			stack = stack->next;
+			i++;
+		}
+		ft_printf("Position: %i - Number: %i\n", i, stack->nb);
+	}
+	else
+		ft_printf("This stack is empty\n");
+}
 
 int	main(int ac, char **av)
 {
@@ -23,6 +42,6 @@ int	main(int ac, char **av)
 		return (print_errors_args(ARGS, &fails), 1);
 	if (fill_stacks(ac, av, &stacks))
 		return (1);
-	clear_stack_a(&stacks);
+	stacks.stack_b = NULL; // Put this in some function
 	free(stacks.sorted);
 }

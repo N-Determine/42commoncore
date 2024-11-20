@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 17:37:02 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/20 19:36:33 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int	push_swap(t_stacks *stacks)
 	{
 		while (stacks->stack_a->nb != stacks->sorted[i])
 		{
-			rotate_a(stacks, 1);
+			if (nb_pos_down(stacks->stack_a, stacks->sorted[i]) < nb_pos_up(stacks->stack_a, stacks->sorted[i]))
+				rotate_a(stacks, 1);
+			else
+				rrotate_a(stacks, 1);
 			steps++;
 		}
 		push_b(stacks);

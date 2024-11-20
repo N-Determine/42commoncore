@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/18 17:45:35 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/20 19:34:14 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -397,5 +397,8 @@ void				print_list(t_dlist *stack);
 void				test_push_swap(t_stacks *stacks);
 // main.c
 int					push_swap(t_stacks *stacks);
+// direction.c
+int					nb_pos_down(t_dlist *head, int n);
+int					nb_pos_up(t_dlist *head, int n);
 
 #endif

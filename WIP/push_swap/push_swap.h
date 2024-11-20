@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/20 19:34:14 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/20 20:16:25 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -381,6 +381,11 @@ t_dlist				*last_node(t_dlist *head);
  * - `1` if the list is sorted or if the list is equal to `NULL`
  */
 int					is_sorted(t_dlist *head);
+// direction.c
+int					nb_pos_down(t_dlist *head, int n);
+int					nb_pos_up(t_dlist *head, int n);
+
+// TO DELETE AFTERWARDS +++ ALSO FROM THE MAKEFILE
 // testing.c
 /**
  * @brief Prints a whole `t_dlist` showing the "index" followed by 
@@ -395,10 +400,10 @@ void				print_list(t_dlist *stack);
  * within the main function.
  */
 void				test_push_swap(t_stacks *stacks);
-// main.c
-int					push_swap(t_stacks *stacks);
-// direction.c
-int					nb_pos_down(t_dlist *head, int n);
-int					nb_pos_up(t_dlist *head, int n);
+// algorithms.c
+int					push_swap1(t_stacks *stacks);
+int					push_swap2(t_stacks *stacks);
+int					push_swap3(t_stacks *stacks);
+
 
 #endif

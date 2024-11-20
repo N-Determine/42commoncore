@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:35:28 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/20 19:16:55 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/20 20:04:32 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	test_push_swap(t_stacks *stacks)
 
 	steps = 0;
 	ft_printf("operations:\n");
-	steps = push_swap(stacks);
+	steps = push_swap3(stacks);
 	ft_printf("-----------\n");
 	ft_printf("stack_a post-sorting:\n");
 	print_list(stacks->stack_a);

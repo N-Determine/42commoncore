@@ -6,42 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/20 19:36:33 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/20 19:59:40 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	push_swap(t_stacks *stacks)
-{
-	int	i;
-	int	steps;
-
-	i = 0;
-	steps = 0;
-	while (i < stacks->len)
-	{
-		while (stacks->stack_a->nb != stacks->sorted[i])
-		{
-			if (nb_pos_down(stacks->stack_a, stacks->sorted[i]) < nb_pos_up(stacks->stack_a, stacks->sorted[i]))
-				rotate_a(stacks, 1);
-			else
-				rrotate_a(stacks, 1);
-			steps++;
-		}
-		push_b(stacks);
-		steps++;
-		i++;
-	}
-	i = 0;
-	while (i < stacks->len)
-	{
-		push_a(stacks);
-		steps++;
-		i++;
-	}
-	return (steps);
-}
 
 int	main(int ac, char **av)
 {

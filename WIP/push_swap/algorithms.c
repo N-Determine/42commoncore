@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:56:22 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/27 19:23:34 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/27 19:32:33 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,11 @@ int	push_swap(t_stacks *stacks)
 		return (0);
 	if (stacks->len >= 500)
 		return (block_sort(stacks, 14));
-	if (stacks->len >= 100)
+	else if (stacks->len >= 100)
 		return (block_sort(stacks, 6));
-	if (stacks->len > 10)
+	else if (stacks->len > 10)
 		return (block_sort(stacks, 4));
-	return (0);
+	if (stacks->len == 2)
+		rotate_a(stacks, 1);
+	return (1);
 }

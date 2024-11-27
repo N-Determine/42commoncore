@@ -6,13 +6,13 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:28:01 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/27 17:19:00 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/27 19:00:52 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	in_range(int nb, int start, int end)
+int	in_ran(int nb, int start, int end)
 {
 	if (nb >= start && nb <= end)
 		return (1);
@@ -62,7 +62,7 @@ int	nb_pos_down_range(t_dlist *head, int start, int end)
 	tmp = head;
 	while (tmp)
 	{
-		if (in_range(tmp->nb, start, end))
+		if (in_ran(tmp->nb, start, end))
 			break ;
 		steps++;
 		tmp = tmp->next;
@@ -79,7 +79,7 @@ int	nb_pos_up_range(t_dlist *head, int start, int end)
 	tmp = last_node(head);
 	while (tmp)
 	{
-		if (in_range(tmp->nb, start, end))
+		if (in_ran(tmp->nb, start, end))
 			break ;
 		steps++;
 		tmp = tmp->pre;

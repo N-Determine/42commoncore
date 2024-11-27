@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/27 17:14:58 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/27 19:01:15 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,7 +386,7 @@ int					is_sorted(t_dlist *head);
  * @brief Checks if a number nb is within the range of int start 
  * and int end (inklusive)
  */
-int					in_range(int nb, int start, int end);
+int					in_ran(int nb, int start, int end);
 int					nb_pos_down(t_dlist *head, int n);
 int					nb_pos_up(t_dlist *head, int n);
 int					nb_pos_down_range(t_dlist *head, int start, int end);
@@ -408,8 +408,6 @@ void				print_list(t_dlist *stack);
  */
 void				test_push_swap(t_stacks *stacks);
 // algorithms.c
-int					push_swap1(t_stacks *stacks);
-int					push_swap2(t_stacks *stacks);
-int					push_swap3(t_stacks *stacks);
+int					push_swap(t_stacks *stacks);
 
 #endif

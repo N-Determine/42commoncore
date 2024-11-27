@@ -6,82 +6,17 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:56:22 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/27 18:33:19 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/27 19:06:26 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// Absolute brute-force method
-int	push_swap1(t_stacks *stacks)
-{
-	int	i;
-	int	steps;
-
-	i = 0;
-	steps = 0;
-	while (i < stacks->len)
-	{
-		while (stacks->stack_a->nb != stacks->sorted[i])
-		{
-			rotate_a(stacks, 1);
-			steps++;
-		}
-		push_b(stacks);
-		steps++;
-		i++;
-	}
-	i = 0;
-	while (i < stacks->len)
-	{
-		push_a(stacks);
-		steps++;
-		i++;
-	}
-	return (steps);
-}
-
-// Shortened rotation movement brute-force
-int	push_swap2(t_stacks *stacks)
-{
-	int	i;
-	int	steps;
-
-	i = 0;
-	steps = 0;
-	while (i < stacks->len)
-	{
-		while (stacks->stack_a->nb != stacks->sorted[i])
-		{
-			if (is_sorted(stacks->stack_a) && stacks->stack_b == NULL)
-				return (steps);
-			if (nb_pos_down(stacks->stack_a,
-					stacks->sorted[i]) < nb_pos_up(stacks->stack_a,
-					stacks->sorted[i]))
-				rotate_a(stacks, 1);
-			else
-				rrotate_a(stacks, 1);
-			steps++;
-		}
-		push_b(stacks);
-		steps++;
-		i++;
-	}
-	i = 0;
-	while (i < stacks->len)
-	{
-		push_a(stacks);
-		steps++;
-		i++;
-	}
-	return (steps);
-}
-
 /**
- * @brief Puts everything from stack_b to stack_a in ascending order 
+ * @brief Puts everything from stack_b to stack_a in ascending order
  * (from bottom to top). It takes into account if it is faster to do
  * a rotate or a rrotate.
- * 
+ *
  * It means "directed brute-force sort to stack_a"
  */
 int	dir_bf_sort_to_a(t_stacks *stacks)
@@ -110,89 +45,59 @@ int	dir_bf_sort_to_a(t_stacks *stacks)
 	return (steps + 1);
 }
 
-// Ugly version of what could be
-int	push_swap3(t_stacks *stacks)
+int	check_direction(int start, int end, t_stacks *stacks)
 {
-	int steps;
-	int i;
+	if (nb_pos_down_range(stacks->stack_a, stacks->sorted[start],
+			stacks->sorted[end]) < nb_pos_up_range(stacks->stack_a,
+			stacks->sorted[start], stacks->sorted[end]))
+		return (1);
+	return (0);
+}
+
+int	block_pre_sort_to_b(t_stacks *stacks, int turn, int divider)
+{
+	int	i;
+	int	steps;
+	int	s;
+	int	e;
+	int	range;
+
+	steps = 0;
+	i = 0;
+	range = stacks->len / divider;
+	s = (turn - 1) * range;
+	e = s + range - 1;
+	while (i < range)
+	{
+		if (in_ran(stacks->stack_a->nb, stacks->sorted[s], stacks->sorted[e]))
+		{
+			push_b(stacks);
+			i++;
+		}
+		else if (check_direction(s, e, stacks))
+			rotate_a(stacks, 1);
+		else
+			rrotate_a(stacks, 1);
+		steps++;
+	}
+	return (steps);
+}
+
+int	push_swap(t_stacks *stacks)
+{
+	int	steps;
+	int	i;
+	int	divider;
 
 	if (is_sorted(stacks->stack_a))
 		return (0);
 	steps = 0;
+	divider = 6;
 	i = 0;
-	// Do until everything is in stack b
-	while (i < stacks->len / 4)
+	while (i < divider)
 	{
-		if (in_range(stacks->stack_a->nb, stacks->sorted[0],
-				stacks->sorted[stacks->len / 4 - 1]))
-		{
-			push_b(stacks);
-			i++;
-			steps++;
-		}
-		else if (nb_pos_down_range(stacks->stack_a, stacks->sorted[0],
-				stacks->sorted[stacks->len / 4
-				- 1]) < nb_pos_up_range(stacks->stack_a, stacks->sorted[0],
-				stacks->sorted[stacks->len / 4 - 1]))
-		{
-			rotate_a(stacks, 1);
-			steps++;
-		}
-		else
-		{
-			rrotate_a(stacks, 1);
-			steps++;
-		}
-	}
-	i = 0;
-	while (i < stacks->len / 4)
-	{
-		if (in_range(stacks->stack_a->nb, stacks->sorted[stacks->len / 4],
-				stacks->sorted[stacks->len / 2 - 1]))
-		{
-			push_b(stacks);
-			i++;
-			steps++;
-		}
-		else if (nb_pos_down_range(stacks->stack_a, stacks->sorted[stacks->len
-				/ 4], stacks->sorted[stacks->len / 2
-				- 1]) < nb_pos_up_range(stacks->stack_a,
-				stacks->sorted[stacks->len / 4], stacks->sorted[stacks->len / 2
-				- 1]))
-		{
-			rotate_a(stacks, 1);
-			steps++;
-		}
-		else
-		{
-			rrotate_a(stacks, 1);
-			steps++;
-		}
-	}
-	i = 0;
-	while (i < stacks->len / 4)
-	{
-		if (in_range(stacks->stack_a->nb, stacks->sorted[stacks->len / 2 - 1],
-				stacks->sorted[stacks->len / 2 + stacks->len / 4 - 1]))
-		{
-			push_b(stacks);
-			i++;
-			steps++;
-		}
-		else if (nb_pos_down_range(stacks->stack_a, stacks->sorted[stacks->len
-				/ 2 - 1], stacks->sorted[stacks->len / 2 + stacks->len / 4
-				- 1]) < nb_pos_up_range(stacks->stack_a,
-				stacks->sorted[stacks->len / 2 - 1], stacks->sorted[stacks->len
-				/ 2 + stacks->len / 4 - 1]))
-		{
-			rotate_a(stacks, 1);
-			steps++;
-		}
-		else
-		{
-			rrotate_a(stacks, 1);
-			steps++;
-		}
+		steps += block_pre_sort_to_b(stacks, i + 1, divider);
+		i++;
 	}
 	while (stacks->nodes_stack_a > 0)
 		push_b(stacks);

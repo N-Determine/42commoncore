@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/20 20:16:25 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/27 17:14:58 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -382,8 +382,15 @@ t_dlist				*last_node(t_dlist *head);
  */
 int					is_sorted(t_dlist *head);
 // direction.c
+/**
+ * @brief Checks if a number nb is within the range of int start 
+ * and int end (inklusive)
+ */
+int					in_range(int nb, int start, int end);
 int					nb_pos_down(t_dlist *head, int n);
 int					nb_pos_up(t_dlist *head, int n);
+int					nb_pos_down_range(t_dlist *head, int start, int end);
+int					nb_pos_up_range(t_dlist *head, int start, int end);
 
 // TO DELETE AFTERWARDS +++ ALSO FROM THE MAKEFILE
 // testing.c
@@ -404,6 +411,5 @@ void				test_push_swap(t_stacks *stacks);
 int					push_swap1(t_stacks *stacks);
 int					push_swap2(t_stacks *stacks);
 int					push_swap3(t_stacks *stacks);
-
 
 #endif

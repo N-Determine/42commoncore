@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 15:04:21 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/27 20:30:36 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/27 20:49:58 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	fill_stacks(int ac, char **av, t_stacks *stacks, t_fails *fails, int str_in)
 {
 	int	i;
 
-	stacks->len = ac - 1;
+	stacks->len = ac - 1 + str_in;
 	stacks->sorted = malloc(stacks->len * sizeof(int));
 	if (!stacks->sorted)
 		return (print_errors(MAL_SORTED), 1);

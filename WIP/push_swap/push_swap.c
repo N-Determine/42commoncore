@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/27 20:54:59 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/27 21:00:55 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,25 @@ int	main(int ac, char **av)
 		return (0);
 	if (ac == 2 && !ft_isdigit_str(av[1])) // Technically must not overflow int
 		return (0);
+	if (ac > 2 && ft_isdigit_str(av[1]))
+		return (1); // Add error message
 	else if (ac == 2 && str_splitable(av[1]))
-		return (1);
+		return (1); // Add error message
 	else if (ac == 2)
 	{
-		av = ft_split(av[1], ' '); // Needs freeing!
+		av = ft_split(av[1], ' ');
 		ac = new_count(av);
 		str_in = 1;
 	}
 	if (check_args(ac, av, &fails))
-		return (print_errors_args(ARGS, &fails), 1);
+		return (print_errors_args(ARGS, &fails), 1); // free av
 	if (fill_stacks(ac, av, &stacks, &fails, str_in))
-		return (1);
+		return (1); // free av and add error message
 	if (is_sorted(stacks.stack_a))
-		return (free(stacks.sorted), clear_stack_a(&stacks), 0);
+		return (free(stacks.sorted), clear_stack_a(&stacks), 0); // free av
 	stacks.stack_b = NULL;
 	push_swap(&stacks);
 	clear_stack_a(&stacks);
 	free(stacks.sorted);
+	// free av
 }

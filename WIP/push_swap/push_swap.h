@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/27 19:01:15 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/27 20:29:21 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,7 +248,7 @@ int					check_args(int ac, char **av, t_fails *fails);
  * with every command-line argument as integers.
  */
 int					fill_stacks(int ac, char **av, t_stacks *stacks,
-						t_fails *fails);
+						t_fails *fails, int str_in);
 /**
  * @brief Cleanly frees every node within stack_a. It depends on the
  * nodes_stack_a counter in the t_stacks struct.

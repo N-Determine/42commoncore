@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:56:22 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/27 19:06:26 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/27 19:23:34 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,12 @@ int	block_pre_sort_to_b(t_stacks *stacks, int turn, int divider)
 	return (steps);
 }
 
-int	push_swap(t_stacks *stacks)
+int	block_sort(t_stacks *stacks, int divider)
 {
 	int	steps;
 	int	i;
-	int	divider;
 
-	if (is_sorted(stacks->stack_a))
-		return (0);
 	steps = 0;
-	divider = 6;
 	i = 0;
 	while (i < divider)
 	{
@@ -100,7 +96,25 @@ int	push_swap(t_stacks *stacks)
 		i++;
 	}
 	while (stacks->nodes_stack_a > 0)
+	{
 		push_b(stacks);
+		steps++;
+	}
 	steps += dir_bf_sort_to_a(stacks);
 	return (steps);
+}
+
+int	push_swap(t_stacks *stacks)
+{
+	int	i;
+
+	if (is_sorted(stacks->stack_a))
+		return (0);
+	if (stacks->len >= 500)
+		return (block_sort(stacks, 14));
+	if (stacks->len >= 100)
+		return (block_sort(stacks, 6));
+	if (stacks->len > 10)
+		return (block_sort(stacks, 4));
+	return (0);
 }

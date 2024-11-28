@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:56:22 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 13:36:52 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 15:25:05 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int	push_swap(t_stacks *stacks)
 {
 	int	i;
 
+	stacks->stack_b = NULL;
 	if (is_sorted(stacks->stack_a))
 		return (0);
 	if (stacks->len >= 500)

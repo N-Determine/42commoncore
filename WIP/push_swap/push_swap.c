@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 15:19:02 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 15:33:23 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int	ft_isdigit_str(char *str)
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]) && str[i] != '-' && str[i] != '+')
-			return (1);
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int	new_count(char **arr)
@@ -75,6 +75,18 @@ int	check_single_str(int ac, char **av, t_fails *fails)
 		return (0);
 }
 
+char	**new_av_maker(char *input, int *ac, int *str_in)
+{
+	char	**new_av;
+
+	new_av = ft_split(input, ' ');
+	if (!new_av)
+		return (print_errors(MAL), NULL);
+	*ac = new_count(new_av);
+	*str_in = 1;
+	return (new_av);
+}
+
 int	main(int ac, char **av)
 {
 	t_fails		fails;
@@ -83,20 +95,16 @@ int	main(int ac, char **av)
 	stacks.str_in = 0;
 	if (ac < 2)
 		return (0);
-	if (ac == 2 && !ft_isdigit_str(av[1]))
-		return (check_single_str(ac, av, &fails));
-	if (ac > 2 && ft_isdigit_str(av[1]))
+	if (ac > 2 && !ft_isdigit_str(av[1]))
 		return (print_errors(USAGE), 1);
+	if (ac == 2 && ft_isdigit_str(av[1]))
+		return (check_single_str(ac, av, &fails));
 	else if (ac == 2 && str_splitable(av[1]))
 		return (print_errors(SPLIT), 1);
 	else if (ac == 2)
-	{
-		av = ft_split(av[1], ' ');
-		if (!av)
-			return (print_errors(MAL), 1);
-		ac = new_count(av);
-		stacks.str_in = 1;
-	}
+		av = new_av_maker(av[1], &ac, &stacks.str_in);
+	if (!av)
+		return (1);
 	if (check_args(ac, av, &fails))
 		return (ft_free_all(av, &stacks), print_errors_args(ARGS, &fails), 1);
 	if (fill_stacks(ac, av, &stacks, &fails))
@@ -104,7 +112,6 @@ int	main(int ac, char **av)
 	if (is_sorted(stacks.stack_a))
 		return (ft_free_all(av, &stacks), free(stacks.sorted),
 			clear_stack_a(&stacks), 0);
-	stacks.stack_b = NULL;
 	push_swap(&stacks);
 	clear_stack_a(&stacks);
 	return (free(stacks.sorted), ft_free_all(av, &stacks), 0);

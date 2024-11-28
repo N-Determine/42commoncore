@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 15:17:28 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 15:50:35 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -418,5 +418,11 @@ void				print_list(t_dlist *stack);
 void				test_push_swap(t_stacks *stacks);
 // algorithms.c
 int					push_swap(t_stacks *stacks);
+// main_helpers.c
+int					ft_isdigit_str(char *str);
+int					new_count(char **arr);
+void				ft_free_all(char **arr, t_stacks *stacks);
+int					check_single_str(int ac, char **av, t_fails *fails);
+char				**new_av_maker(char *input, int *ac, t_stacks *stacks);
 
 #endif

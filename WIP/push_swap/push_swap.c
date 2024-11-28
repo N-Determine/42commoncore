@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 15:01:00 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 15:19:02 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,38 +51,40 @@ int	new_count(char **arr)
 	return (i);
 }
 
-void	ft_free_all(char **arr, t_stacks *stacks, int str_in)
+void	ft_free_all(char **arr, t_stacks *stacks)
 {
-	int index;
+	int	index;
 
 	index = stacks->len;
-	if (str_in && index)
+	if (stacks->str_in && index)
 	{
 		while (index >= 0)
 		{
 			free(arr[index]);
 			index--;
 		}
-	free(arr);
+		free(arr);
 	}
+}
+
+int	check_single_str(int ac, char **av, t_fails *fails)
+{
+	if (check_args(ac, av, fails))
+		return (print_errors_args(ARGS, fails), 1);
+	else
+		return (0);
 }
 
 int	main(int ac, char **av)
 {
 	t_fails		fails;
 	t_stacks	stacks;
-	int			str_in;
 
-	str_in = 0;
+	stacks.str_in = 0;
 	if (ac < 2)
 		return (0);
 	if (ac == 2 && !ft_isdigit_str(av[1]))
-	{
-		if (check_args(ac, av, &fails))
-			return (print_errors_args(ARGS, &fails), 1);
-		else
-			return (0);
-	}
+		return (check_single_str(ac, av, &fails));
 	if (ac > 2 && ft_isdigit_str(av[1]))
 		return (print_errors(USAGE), 1);
 	else if (ac == 2 && str_splitable(av[1]))
@@ -91,19 +93,19 @@ int	main(int ac, char **av)
 	{
 		av = ft_split(av[1], ' ');
 		if (!av)
-			return(print_errors(MAL), 1);
+			return (print_errors(MAL), 1);
 		ac = new_count(av);
-		str_in = 1;
+		stacks.str_in = 1;
 	}
 	if (check_args(ac, av, &fails))
-		return (ft_free_all(av, &stacks, str_in), print_errors_args(ARGS, &fails), 1);
-	if (fill_stacks(ac, av, &stacks, &fails, str_in))
-		return (ft_free_all(av, &stacks, str_in), 1);
+		return (ft_free_all(av, &stacks), print_errors_args(ARGS, &fails), 1);
+	if (fill_stacks(ac, av, &stacks, &fails))
+		return (ft_free_all(av, &stacks), 1);
 	if (is_sorted(stacks.stack_a))
-		return (ft_free_all(av, &stacks, str_in), free(stacks.sorted), clear_stack_a(&stacks), 0);
+		return (ft_free_all(av, &stacks), free(stacks.sorted),
+			clear_stack_a(&stacks), 0);
 	stacks.stack_b = NULL;
 	push_swap(&stacks);
 	clear_stack_a(&stacks);
-	free(stacks.sorted);
-	ft_free_all(av, &stacks, str_in);
+	return (free(stacks.sorted), ft_free_all(av, &stacks), 0);
 }

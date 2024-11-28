@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 15:04:21 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 14:42:11 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 15:16:52 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,17 @@ int	count_duplicates(t_stacks *stacks, t_fails *fails)
 	return (0);
 }
 
-int	fill_stacks(int ac, char **av, t_stacks *stacks, t_fails *fails, int str_in)
+int	fill_stacks(int ac, char **av, t_stacks *stacks, t_fails *fails)
 {
 	int	i;
 
-	stacks->len = ac - 1 + str_in;
+	stacks->len = ac - 1 + stacks->str_in;
 	stacks->sorted = malloc(stacks->len * sizeof(int));
 	if (!stacks->sorted)
 		return (print_errors(MAL), 1);
 	i = -1;
 	while (++i < stacks->len)
-		stacks->sorted[i] = ft_atoi(av[i + 1 - str_in]);
+		stacks->sorted[i] = ft_atoi(av[i + 1 - stacks->str_in]);
 	if (create_stack(stacks))
 		return (print_errors(MAL), free(stacks->sorted), 1);
 	sort_arr(stacks);

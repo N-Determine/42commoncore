@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 14:41:50 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 15:17:28 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_stacks
 	t_dlist			*stack_b;
 	int				*sorted;
 	int				len;
+	int				str_in;
 	int				nodes_stack_a;
 	int				nodes_stack_b;
 }					t_stacks;
@@ -154,12 +155,12 @@ enum				e_errors
 		*/
 	MAL,
 	/**
-	 * If the program was not correctly executed
-	 */
+		* If the program was not correctly executed
+		*/
 	USAGE,
 	/**
-	 * The input string is not splittable
-	 */
+		* The input string is not splittable
+		*/
 	SPLIT,
 };
 // print_ops.c
@@ -256,7 +257,7 @@ int					check_args(int ac, char **av, t_fails *fails);
  * with every command-line argument as integers.
  */
 int					fill_stacks(int ac, char **av, t_stacks *stacks,
-						t_fails *fails, int str_in);
+						t_fails *fails);
 /**
  * @brief Cleanly frees every node within stack_a. It depends on the
  * nodes_stack_a counter in the t_stacks struct.
@@ -391,7 +392,7 @@ t_dlist				*last_node(t_dlist *head);
 int					is_sorted(t_dlist *head);
 // direction.c
 /**
- * @brief Checks if a number nb is within the range of int start 
+ * @brief Checks if a number nb is within the range of int start
  * and int end (inklusive)
  */
 int					in_ran(int nb, int start, int end);
@@ -403,14 +404,14 @@ int					nb_pos_up_range(t_dlist *head, int start, int end);
 // TO DELETE AFTERWARDS +++ ALSO FROM THE MAKEFILE
 // testing.c
 /**
- * @brief Prints a whole `t_dlist` showing the "index" followed by 
+ * @brief Prints a whole `t_dlist` showing the "index" followed by
  * it's value. It is great for testing the current state of a stack.
  */
 void				print_list(t_dlist *stack);
 /**
  * @brief It uses the push_swap function and prints the whole list after
  * sorting aswell as the number of inputs and operations to sort them.
- * 
+ *
  * It is designed to be easily replaced with the push_swap function
  * within the main function.
  */

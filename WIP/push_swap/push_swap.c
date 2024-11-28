@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 15:57:49 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 17:10:38 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int	main(int ac, char **av)
 	if (is_sorted(stacks.stack_a))
 		return (ft_free_all(av, &stacks), free(stacks.sorted),
 			clear_stack_a(&stacks), 0);
-	return (push_swap(&stacks), clear_stack_a(&stacks), free(stacks.sorted),
+	return (test_push_swap(&stacks), clear_stack_a(&stacks), free(stacks.sorted),
 		ft_free_all(av, &stacks), 0);
 }

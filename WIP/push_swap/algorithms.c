@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:56:22 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 16:48:51 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 17:14:22 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,28 +104,58 @@ int	block_sort(t_stacks *stacks, int divider)
 	return (steps);
 }
 
+void	init_sort_three(int *steps, int *len, t_dlist **last, t_stacks *stacks)
+{
+	*steps = 1;
+	*len = stacks->len - 1;
+	*last = last_node(stacks->stack_a);
+}
+
 int	sort_three(t_stacks *stacks)
 {
-	int	steps;
+	int		steps;
+	int		len;
+	t_dlist	*last;
 
-	steps = 1;
-	if (stacks->sorted[2] == stacks->stack_a->next->next->nb)
+	init_sort_three(&steps, &len, &last, stacks);
+	if (stacks->sorted[len] == last->nb)
 		swap_a(stacks, 1);
 	else if (is_sorted(stacks->stack_a->next)
-		&& stacks->sorted[2] == stacks->stack_a->nb)
+		&& stacks->sorted[len] == stacks->stack_a->nb)
 		rotate_a(stacks, 1);
-	else if (stacks->sorted[2] == stacks->stack_a->nb)
+	else if (stacks->sorted[len] == stacks->stack_a->nb)
 	{
 		swap_a(stacks, 1);
 		rrotate_a(stacks, 1);
 		steps++;
 	}
-	else if (stacks->sorted[0] == stacks->stack_a->next->next->nb)
+	else if (stacks->sorted[0] == last->nb)
 		rrotate_a(stacks, 1);
 	else
 	{
 		rrotate_a(stacks, 1);
 		swap_a(stacks, 1);
+		steps++;
+	}
+	return (steps);
+}
+
+int	sort_smol(t_stacks *stacks)
+{
+	int	steps;
+
+	steps = 0;
+	while (stacks->nodes_stack_a > 3)
+	{
+		push_b(stacks);
+		steps++;
+	}
+	print_list(stacks->stack_a);
+	print_list(stacks->stack_b);
+	sort_three(stacks);
+	while (stacks->stack_b)
+	{
+		push_a(stacks);
 		steps++;
 	}
 	return (steps);
@@ -144,6 +174,8 @@ int	push_swap(t_stacks *stacks)
 		return (block_sort(stacks, 6));
 	else if (stacks->len > 10)
 		return (block_sort(stacks, 4));
+	else if (stacks->len > 3)
+		return (sort_smol(stacks));
 	else if (stacks->len == 3)
 		return (sort_three(stacks));
 	else if (stacks->len == 2)

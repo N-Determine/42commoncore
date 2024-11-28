@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 15:50:35 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 17:38:32 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,6 +379,8 @@ void				swap_s(t_stacks *stacks);
  * node.
  */
 t_dlist				*last_node(t_dlist *head);
+int					find_biggest(t_dlist *head);
+int					find_smallest(t_dlist *head);
 /**
  * @brief Checks if a `t_dlist` is sorted in non-descending
  * order
@@ -424,5 +426,7 @@ int					new_count(char **arr);
 void				ft_free_all(char **arr, t_stacks *stacks);
 int					check_single_str(int ac, char **av, t_fails *fails);
 char				**new_av_maker(char *input, int *ac, t_stacks *stacks);
+// block_sort.c
+int					block_sort(t_stacks *stacks, int divider);
 
 #endif

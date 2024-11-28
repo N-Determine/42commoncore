@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/27 21:00:55 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 14:29:38 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int ac, char **av)
 	str_in = 0;
 	if (ac < 2)
 		return (0);
-	if (ac == 2 && !ft_isdigit_str(av[1])) // Technically must not overflow int
+	if (ac == 2 && !ft_isdigit_str(av[1]))
 		return (0);
 	if (ac > 2 && ft_isdigit_str(av[1]))
 		return (1); // Add error message

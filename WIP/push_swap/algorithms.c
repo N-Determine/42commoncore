@@ -6,26 +6,26 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:56:22 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 17:44:10 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 17:48:35 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	init_sort_three(t_stacks *stacks, int *big, int *small, int *steps)
+void	init_sort_three_a(t_stacks *stacks, int *big, int *small, int *steps)
 {
 	*steps = 1;
 	*big = find_biggest(stacks->stack_a);
 	*small = find_smallest(stacks->stack_a);
 }
 
-int	sort_three(t_stacks *stacks)
+int	sort_three_a(t_stacks *stacks)
 {
 	int		steps;
 	int		big;
 	int		small;
 
-	init_sort_three(stacks, &big, &small, &steps);
+	init_sort_three_a(stacks, &big, &small, &steps);
 	if (big == last_node(stacks->stack_a)->nb)
 		swap_a(stacks, 1);
 	else if (is_sorted(stacks->stack_a->next) && big == stacks->stack_a->nb)
@@ -57,9 +57,7 @@ int	sort_smol(t_stacks *stacks)
 		push_b(stacks);
 		steps++;
 	}
-	print_list(stacks->stack_a);
-	print_list(stacks->stack_b);
-	sort_three(stacks);
+	sort_three_a(stacks);
 	while (stacks->stack_b)
 	{
 		push_a(stacks);
@@ -84,7 +82,7 @@ int	push_swap(t_stacks *stacks)
 	else if (stacks->len > 3)
 		return (sort_smol(stacks));
 	else if (stacks->len == 3)
-		return (sort_three(stacks));
+		return (sort_three_a(stacks));
 	else if (stacks->len == 2)
 		rotate_a(stacks, 1);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:35:28 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/27 18:55:26 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 17:49:16 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	test_push_swap(t_stacks *stacks)
 	if (stacks->len <= 100 && steps >= 1500)
 		ft_printf("Inputs:\t\t%i\nOperations:\t\x1B[31m%i\n", stacks->len,
 			steps);
-	else if (stacks->len <= 10 && steps >= 12)
+	else if (stacks->len <= 5 && steps >= 12)
 		ft_printf("Inputs:\t\t%i\nOperations:\t\x1B[31m%i\n", stacks->len,
 			steps);
 	else if (stacks->len <= 500 && steps >= 11500)

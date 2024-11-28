@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:56:22 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 17:14:22 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 17:31:21 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,32 +104,71 @@ int	block_sort(t_stacks *stacks, int divider)
 	return (steps);
 }
 
-void	init_sort_three(int *steps, int *len, t_dlist **last, t_stacks *stacks)
+int		find_biggest(t_dlist *head)
 {
-	*steps = 1;
-	*len = stacks->len - 1;
-	*last = last_node(stacks->stack_a);
+	int biggest;
+	
+	if (head)
+	{
+		biggest = head->nb;
+		while (head->next)
+		{
+			if (head->nb > biggest)
+				biggest = head->nb;
+			head = head->next;
+		}
+		if (head->nb > biggest)
+			biggest = head->nb;
+		return (biggest);
+	}
+	return (0);
 }
+
+int		find_smallest(t_dlist *head)
+{
+	int smallest;
+	
+	if (head)
+	{
+		smallest = head->nb;
+		while (head->next)
+		{
+			if (head->nb < smallest)
+				smallest = head->nb;
+			head = head->next;
+		}
+		if (head->nb < smallest)
+			smallest = head->nb;
+		return (smallest);
+	}
+	return (0);
+}
+
 
 int	sort_three(t_stacks *stacks)
 {
 	int		steps;
-	int		len;
 	t_dlist	*last;
+	int		big;
+	int		small;
 
-	init_sort_three(&steps, &len, &last, stacks);
-	if (stacks->sorted[len] == last->nb)
+	steps = 1;
+	last = last_node(stacks->stack_a);
+	big = find_biggest(stacks->stack_a);
+	small = find_smallest(stacks->stack_a);
+
+	if (big == last->nb)
 		swap_a(stacks, 1);
 	else if (is_sorted(stacks->stack_a->next)
-		&& stacks->sorted[len] == stacks->stack_a->nb)
+		&& big == stacks->stack_a->nb)
 		rotate_a(stacks, 1);
-	else if (stacks->sorted[len] == stacks->stack_a->nb)
+	else if (big == stacks->stack_a->nb)
 	{
 		swap_a(stacks, 1);
 		rrotate_a(stacks, 1);
 		steps++;
 	}
-	else if (stacks->sorted[0] == last->nb)
+	else if (small == last->nb)
 		rrotate_a(stacks, 1);
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 21:02:23 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 14:34:47 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 14:39:30 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,6 @@ void	print_errors(int code)
 		ft_fprintf(2, "OR\n");
 		ft_fprintf(2, "Usage: ./push_swap \"arg1 arg2 arg3 ... argn\"\n");
 	}
+	if (code == SPLIT)
+		ft_fprintf(2, "Argument string not formatted correctly\n");
 }

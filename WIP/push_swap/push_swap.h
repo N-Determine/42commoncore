@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 14:32:25 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 14:36:46 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,13 @@ enum				e_errors
 		*/
 	MAL_SORTED,
 	/**
-	 * @brief If the program was not correctly executed
+	 * If the program was not correctly executed
 	 */
 	USAGE,
+	/**
+	 * The input string is not splittable
+	 */
+	SPLIT,
 };
 // print_ops.c
 /**

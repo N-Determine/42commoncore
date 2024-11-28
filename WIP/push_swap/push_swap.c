@@ -6,20 +6,21 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 14:34:14 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 14:38:46 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int str_splitable(char *str)
+int	str_splitable(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]) && str[i] != ' ')
+		if (!ft_isdigit(str[i]) && str[i] != ' ' && str[i] != '-'
+			&& str[i] != '+')
 			return (1);
 		i++;
 	}
@@ -62,9 +63,9 @@ int	main(int ac, char **av)
 	if (ac == 2 && !ft_isdigit_str(av[1]))
 		return (0);
 	if (ac > 2 && ft_isdigit_str(av[1]))
-		return (print_errors(USAGE), 1); // Add error message
+		return (print_errors(USAGE), 1);
 	else if (ac == 2 && str_splitable(av[1]))
-		return (1); // Add error message
+		return (print_errors(SPLIT), 1);
 	else if (ac == 2)
 	{
 		av = ft_split(av[1], ' ');

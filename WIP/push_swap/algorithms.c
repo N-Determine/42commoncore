@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:56:22 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 15:25:05 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 16:48:51 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,33 @@ int	block_sort(t_stacks *stacks, int divider)
 	return (steps);
 }
 
+int	sort_three(t_stacks *stacks)
+{
+	int	steps;
+
+	steps = 1;
+	if (stacks->sorted[2] == stacks->stack_a->next->next->nb)
+		swap_a(stacks, 1);
+	else if (is_sorted(stacks->stack_a->next)
+		&& stacks->sorted[2] == stacks->stack_a->nb)
+		rotate_a(stacks, 1);
+	else if (stacks->sorted[2] == stacks->stack_a->nb)
+	{
+		swap_a(stacks, 1);
+		rrotate_a(stacks, 1);
+		steps++;
+	}
+	else if (stacks->sorted[0] == stacks->stack_a->next->next->nb)
+		rrotate_a(stacks, 1);
+	else
+	{
+		rrotate_a(stacks, 1);
+		swap_a(stacks, 1);
+		steps++;
+	}
+	return (steps);
+}
+
 int	push_swap(t_stacks *stacks)
 {
 	int	i;
@@ -117,7 +144,9 @@ int	push_swap(t_stacks *stacks)
 		return (block_sort(stacks, 6));
 	else if (stacks->len > 10)
 		return (block_sort(stacks, 4));
-	if (stacks->len == 2)
+	else if (stacks->len == 3)
+		return (sort_three(stacks));
+	else if (stacks->len == 2)
 		rotate_a(stacks, 1);
 	return (1);
 }

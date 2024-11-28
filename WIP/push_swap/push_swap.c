@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 15:51:30 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 15:53:26 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ int	main(int ac, char **av)
 	if (!av)
 		return (1);
 	if (check_args(ac, av, &fails))
-	{
-		printf("check");
 		return (ft_free_all(av, &stacks), print_errors_args(ARGS, &fails), 1);
-	}
 	if (fill_stacks(ac, av, &stacks, &fails))
 		return (ft_free_all(av, &stacks), 1);
 	if (is_sorted(stacks.stack_a))

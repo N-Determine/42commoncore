@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/27 20:29:21 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 14:32:25 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,10 @@ enum				e_errors
 		* Error that has been caused by a failed malloc
 		*/
 	MAL_SORTED,
+	/**
+	 * @brief If the program was not correctly executed
+	 */
+	USAGE,
 };
 // print_ops.c
 /**

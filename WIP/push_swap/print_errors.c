@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 21:02:23 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 14:39:30 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 14:41:45 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	print_errors_args(int code, t_fails *fails)
 void	print_errors(int code)
 {
 	ft_fprintf(2, "Error\n");
-	if (code == MAL_SORTED)
-		ft_fprintf(2, "Malloc failed allocating the \"sorted\" array\n");
+	if (code == MAL)
+		ft_fprintf(2, "Malloc fail\n");
 	if (code == USAGE)
 	{
 		ft_fprintf(2, "Usage: ./push_swap arg1 arg2 arg3 ... argn\n");

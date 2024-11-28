@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 14:38:46 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/28 14:42:30 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	main(int ac, char **av)
 	if (check_args(ac, av, &fails))
 		return (print_errors_args(ARGS, &fails), 1); // free av
 	if (fill_stacks(ac, av, &stacks, &fails, str_in))
-		return (1); // free av and add error message
+		return (1); // free av
 	if (is_sorted(stacks.stack_a))
 		return (free(stacks.sorted), clear_stack_a(&stacks), 0); // free av
 	stacks.stack_b = NULL;

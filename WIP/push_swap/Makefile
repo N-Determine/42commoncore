@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/15 20:32:04 by adeters           #+#    #+#              #
-#    Updated: 2024/11/29 16:40:18 by adeters          ###   ########.fr        #
+#    Updated: 2024/11/29 16:45:20 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,10 +27,10 @@ OBJS = $(SRCS:.c=.o)
 $(NAME): $(OBJS)
 	make -C ./libft
 	cp ./libft/libft.a ./libft.a
-	cc $(OBJS) -o $(NAME) $(ARCH)
+	$(COMP) $(FLAGS) $(OBJS) -o $(NAME) $(ARCH)
 
 all: $(NAME)
-	cc $(OBJS) -o $(NAME) $(ARCH)
+	$(COMP) $(FLAGS) $(OBJS) -o $(NAME) $(ARCH)
 
 clean:
 	make clean -C ./libft

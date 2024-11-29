@@ -1,57 +1,140 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   algorithms.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 17:39:30 by adeters          ###   ########.fr       */
+/*   Created: 2024/11/20 19:56:22 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/29 16:30:43 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	str_splitable(char *str)
+void	init_sort_three_a(t_stacks *stacks, int *big, int *small, int *steps)
+{
+	*steps = 1;
+	*big = find_biggest(stacks->stack_a);
+	*small = find_smallest(stacks->stack_a);
+}
+
+/**
+ * @brief Sorts three numbers as efficiently as possible by covering every
+ * possible case.
+ */
+int	sort_three_a(t_stacks *stacks)
+{
+	int	steps;
+	int	big;
+	int	small;
+
+	init_sort_three_a(stacks, &big, &small, &steps);
+	if (big == last_node(stacks->stack_a)->nb)
+		swap_a(stacks, 1);
+	else if (is_sorted(stacks->stack_a->next) && big == stacks->stack_a->nb)
+		rotate_a(stacks, 1);
+	else if (big == stacks->stack_a->nb)
+	{
+		swap_a(stacks, 1);
+		rrotate_a(stacks, 1);
+		steps++;
+	}
+	else if (small == last_node(stacks->stack_a)->nb)
+		rrotate_a(stacks, 1);
+	else
+	{
+		rrotate_a(stacks, 1);
+		swap_a(stacks, 1);
+		steps++;
+	}
+	return (steps);
+}
+
+/**
+ * @brief Sorts four numbers by outsourcing the smallest number
+ * to the `stack_b`, sorting `stack_a` using the `sort_three_a`
+ * algorithm and the pushing the smallest number back to `stack_a`
+ */
+int	sort_four_a(t_stacks *stacks)
+{
+	int	steps;
+	int	smallest;
+	int	direction;
+
+	steps = 0;
+	smallest = find_smallest(stacks->stack_a);
+	direction = 0;
+	if (nb_pos_down(stacks->stack_a, smallest) < nb_pos_up(stacks->stack_a,
+			smallest))
+		direction = 1;
+	while (stacks->stack_a->nb != smallest)
+	{
+		if (direction == 0)
+			rrotate_a(stacks, 1);
+		else
+			rotate_a(stacks, 1);
+		steps++;
+	}
+	push_b(stacks);
+	if (!is_sorted(stacks->stack_a))
+		steps += sort_three_a(stacks);
+	push_a(stacks);
+	return (steps + 2);
+}
+
+/**
+ * @brief Sorting five numbers using the `sort_four_a` function
+ * after outsourcing the smallest number to `stack_b` and then
+ * pushing it back.
+ */
+int	sort_five_a(t_stacks *stacks)
+{
+	int	steps;
+	int	smallest;
+	int	direction;
+
+	steps = 0;
+	smallest = find_smallest(stacks->stack_a);
+	direction = 0;
+	if (nb_pos_down(stacks->stack_a, smallest) < nb_pos_up(stacks->stack_a,
+			smallest))
+		direction = 1;
+	while (stacks->stack_a->nb != smallest)
+	{
+		if (direction == 0)
+			rrotate_a(stacks, 1);
+		else
+			rotate_a(stacks, 1);
+		steps++;
+	}
+	push_b(stacks);
+	if (!is_sorted(stacks->stack_a))
+		steps += sort_four_a(stacks);
+	push_a(stacks);
+	return (steps + 2);
+}
+
+int	push_swap(t_stacks *stacks)
 {
 	int	i;
 
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]) && str[i] != ' ' && str[i] != '-'
-			&& str[i] != '+')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	main(int ac, char **av)
-{
-	t_fails		fails;
-	t_stacks	stacks;
-
-	stacks.str_in = 0;
-	if (ac < 2)
+	stacks->stack_b = NULL;
+	if (is_sorted(stacks->stack_a))
 		return (0);
-	if (ac > 2 && !ft_isdigit_str(av[1]))
-		return (print_errors(USAGE), 1);
-	if (ac == 2 && ft_isdigit_str(av[1]))
-		return (check_single_str(ac, av, &fails));
-	else if (ac == 2 && str_splitable(av[1]))
-		return (print_errors(SPLIT), 1);
-	else if (ac == 2)
-		av = new_av_maker(av[1], &ac, &stacks);
-	if (!av)
-		return (1);
-	if (check_args(ac, av, &fails))
-		return (ft_free_all(av, &stacks), print_errors_args(ARGS, &fails), 1);
-	if (fill_stacks(ac, av, &stacks, &fails))
-		return (ft_free_all(av, &stacks), 1);
-	if (is_sorted(stacks.stack_a))
-		return (ft_free_all(av, &stacks), free(stacks.sorted),
-			clear_stack_a(&stacks), 0);
-	return (test_push_swap(&stacks), clear_stack_a(&stacks), free(stacks.sorted),
-		ft_free_all(av, &stacks), 0);
+	if (stacks->len >= 500)
+		return (block_sort(stacks, 14));
+	else if (stacks->len >= 100)
+		return (block_sort(stacks, 6));
+	else if (stacks->len > 5)
+		return (block_sort(stacks, 4));
+	else if (stacks->len > 4)
+		return (sort_five_a(stacks));
+	else if (stacks->len > 3)
+		return (sort_four_a(stacks));
+	else if (stacks->len == 3)
+		return (sort_three_a(stacks));
+	else if (stacks->len == 2)
+		rotate_a(stacks, 1);
+	return (1);
 }

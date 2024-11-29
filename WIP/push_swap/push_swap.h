@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 17:38:32 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/29 16:40:28 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,58 +16,7 @@
 # include "libft/libft.h"
 # include <stdio.h>
 
-typedef struct s_fails
-{
-	size_t			underflows;
-	size_t			overflows;
-	size_t			formats;
-	size_t			duplicates;
-}					t_fails;
-
-/**
- * @brief A node in a doubly linked list.
- *
- * This structure represents a single node in a doubly linked list, where each
- * node contains some integer data (`content`),
- * a pointer to the previous and one to the next node in the list.
- */
-typedef struct s_dlist
-{
-	/**
-		* @brief Pointer to the content of the node.
-		*
-		* This can point only to integers
-		*/
-	int				nb;
-	/**
-		* @brief Pointer to the next node in the list.
-		*
-		* This points to the next `t_dlist` node in the linked list,
-			or `NULL` if
-		* this is the last node.
-		*/
-	struct s_dlist	*next;
-	/**
-		* @brief Pointer to the previous node in the list.
-		*
-		* This points to the next `t_dlist` node in the linked list,
-			or `NULL` if
-		* this is the first node.
-		*/
-	struct s_dlist	*pre;
-}					t_dlist;
-
-typedef struct s_stacks
-{
-	t_dlist			*stack_a;
-	t_dlist			*stack_b;
-	int				*sorted;
-	int				len;
-	int				str_in;
-	int				nodes_stack_a;
-	int				nodes_stack_b;
-}					t_stacks;
-
+// ENUMS
 /**
  * @brief Enumeration of all the operations within
  * push_swap
@@ -163,61 +112,69 @@ enum				e_errors
 		*/
 	SPLIT,
 };
-// print_ops.c
+
+// Structs
 /**
- * @brief Prints an operation to the stdout
+ * @brief A node in a doubly linked list.
+ *
+ * This structure represents a single node in a doubly linked list, where each
+ * node contains some integer data (`content`),
+ * a pointer to the previous and one to the next node in the list.
  */
-void				print_ops(int operation);
-// print_errors.c
+typedef struct s_dlist
+{
+	/**
+		* @brief Pointer to the content of the node.
+		*
+		* This can point only to integers
+		*/
+	int				nb;
+	/**
+		* @brief Pointer to the next node in the list.
+		*
+		* This points to the next `t_dlist` node in the linked list,
+			or `NULL` if
+		* this is the last node.
+		*/
+	struct s_dlist	*next;
+	/**
+		* @brief Pointer to the previous node in the list.
+		*
+		* This points to the next `t_dlist` node in the linked list,
+			or `NULL` if
+		* this is the first node.
+		*/
+	struct s_dlist	*pre;
+}					t_dlist;
+
+typedef struct s_fails
+{
+	size_t			underflows;
+	size_t			overflows;
+	size_t			formats;
+	size_t			duplicates;
+}					t_fails;
+
+typedef struct s_stacks
+{
+	t_dlist			*stack_a;
+	t_dlist			*stack_b;
+	int				*sorted;
+	int				len;
+	int				str_in;
+	int				nodes_stack_a;
+	int				nodes_stack_b;
+}					t_stacks;
+
+// FUNCTIONS
+// push_swap.c
 /**
- * @brief Prints errors to the stderr. It also takes the t_fails
- * struct as an imput what allows it to print values in combination with
- * the errors (e.g. Amount of integer overflows etc.)
+ * @brief Chooses the right algorithm based on the amount of numbers
+ * that need to be sorted
  */
-void				print_errors_args(int code, t_fails *fails);
-/**
- * @brief Prints errors to the stderr
- */
-void				print_errors(int code);
-// check_overflow.c
-/**
- * @brief Determines if a string representation of a number
- * will overflow or underflow a 32-bit signed integer.
- *
- * This function evaluates whether converting a numeric string
- * to an integer using `ft_atoi()` would cause an overflow or
- * underflow of a 32-bit signed integer. It considers the maximum
- * and minimum values of `INT_MAX` (2147483647) and `INT_MIN` (-2147483648).
- *
- * The function accepts strings with optional `+` or `-` signs and ignores
- * leading zeros before the number. If the string is invalid (e.g., contains
- * no digits after the optional sign or zeros),
- * the function returns an error code.
- *
- * @param str The string containing the number to evaluate.
- * The string must be null-terminated and may include:
- *
- *            - An optional `+` or `-` as the first character.
- *
- *            - Leading zeros, which are ignored during evaluation.
- *
- * @return
- * - `0` if the number fits within the range of a 32-bit signed integer.
- *
- * - `-1` if the number would cause an underflow (less than `INT_MIN`).
- *
- * - `1` if the number would cause an overflow (greater than `INT_MAX`).
- *
- * - `-2` if the string is invalid (e.g., contains non-numeric
- * characters, or no digits after `+` or `-`).
- */
-int					check_overflow(char *str);
-// init.c
-/**
- * @brief Initializes the t_fails struct so that functions that count
- * the amount of errors work properly (by setting errors counts to 0)
- */
-void				init_fails(t_fails *fails);
+int					push_swap(t_stacks *stacks);
+// block_sort.c
+int					block_sort(t_stacks *stacks, int divider);
 // check_args.c
 /**
  * @brief Validates command line arguments as integers and tracks errors.
@@ -251,6 +208,61 @@ void				init_fails(t_fails *fails);
  *
  */
 int					check_args(int ac, char **av, t_fails *fails);
+// check_overflow.c
+/**
+ * @brief Determines if a string representation of a number
+ * will overflow or underflow a 32-bit signed integer.
+ *
+ * This function evaluates whether converting a numeric string
+ * to an integer using `ft_atoi()` would cause an overflow or
+ * underflow of a 32-bit signed integer. It considers the maximum
+ * and minimum values of `INT_MAX` (2147483647) and `INT_MIN` (-2147483648).
+ *
+ * The function accepts strings with optional `+` or `-` signs and ignores
+ * leading zeros before the number. If the string is invalid (e.g., contains
+ * no digits after the optional sign or zeros),
+ * the function returns an error code.
+ *
+ * @param str The string containing the number to evaluate.
+ * The string must be null-terminated and may include:
+ *
+ *            - An optional `+` or `-` as the first character.
+ *
+ *            - Leading zeros, which are ignored during evaluation.
+ *
+ * @return
+ * - `0` if the number fits within the range of a 32-bit signed integer.
+ *
+ * - `-1` if the number would cause an underflow (less than `INT_MIN`).
+ *
+ * - `1` if the number would cause an overflow (greater than `INT_MAX`).
+ *
+ * - `-2` if the string is invalid (e.g., contains non-numeric
+ * characters, or no digits after `+` or `-`).
+ */
+int					check_overflow(char *str);
+// print_ops.c
+/**
+ * @brief Prints an operation to the stdout
+ */
+void				print_ops(int operation);
+// print_errors.c
+/**
+ * @brief Prints errors to the stderr. It also takes the t_fails
+ * struct as an imput what allows it to print values in combination with
+ * the errors (e.g. Amount of integer overflows etc.)
+ */
+void				print_errors_args(int code, t_fails *fails);
+/**
+ * @brief Prints errors to the stderr
+ */
+void				print_errors(int code);
+// init.c
+/**
+ * @brief Initializes the t_fails struct so that functions that count
+ * the amount of errors work properly (by setting errors counts to 0)
+ */
+void				init_fails(t_fails *fails);
 // filling.c
 /**
  * Allocates space for an array and a t_dlist struct to be filled
@@ -402,31 +414,11 @@ int					nb_pos_down(t_dlist *head, int n);
 int					nb_pos_up(t_dlist *head, int n);
 int					nb_pos_down_range(t_dlist *head, int start, int end);
 int					nb_pos_up_range(t_dlist *head, int start, int end);
-
-// TO DELETE AFTERWARDS +++ ALSO FROM THE MAKEFILE
-// testing.c
-/**
- * @brief Prints a whole `t_dlist` showing the "index" followed by
- * it's value. It is great for testing the current state of a stack.
- */
-void				print_list(t_dlist *stack);
-/**
- * @brief It uses the push_swap function and prints the whole list after
- * sorting aswell as the number of inputs and operations to sort them.
- *
- * It is designed to be easily replaced with the push_swap function
- * within the main function.
- */
-void				test_push_swap(t_stacks *stacks);
-// algorithms.c
-int					push_swap(t_stacks *stacks);
 // main_helpers.c
 int					ft_isdigit_str(char *str);
 int					new_count(char **arr);
 void				ft_free_all(char **arr, t_stacks *stacks);
 int					check_single_str(int ac, char **av, t_fails *fails);
 char				**new_av_maker(char *input, int *ac, t_stacks *stacks);
-// block_sort.c
-int					block_sort(t_stacks *stacks, int divider);
 
 #endif

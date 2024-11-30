@@ -6,26 +6,13 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/29 16:46:35 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/30 16:46:46 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	str_splitable(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]) && str[i] != ' ' && str[i] != '-'
-			&& str[i] != '+')
-			return (1);
-		i++;
-	}
-	return (0);
-}
+int	str_splitable(char *str);
 
 int	main(int ac, char **av)
 {
@@ -54,4 +41,34 @@ int	main(int ac, char **av)
 			clear_stack_a(&stacks), 0);
 	return (push_swap(&stacks), clear_stack_a(&stacks), free(stacks.sorted),
 		ft_free_all(av, &stacks), 0);
+}
+
+/**
+ * @brief Checks if a string contains only valid characters for splitting.
+ *
+ * This function checks if a given string contains only characters that can 
+ * be part of a valid number (digits, plus (`+`) or minus (`-`) signs,
+ * and spaces). 
+ * If the string contains any other characters, the function returns `1`, 
+ * indicating the string is invalid for splitting. If the string only contains 
+ * valid characters, it returns `0`.
+ *
+ * @param str The string to check.
+ * @return `1` if the string contains invalid characters 
+ * 
+ * `0` if it only contains valid characters.
+ */
+int	str_splitable(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]) && str[i] != ' ' && str[i] != '-'
+			&& str[i] != '+')
+			return (1);
+		i++;
+	}
+	return (0);
 }

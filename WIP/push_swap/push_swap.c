@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorithms.c                                       :+:      :+:    :+:   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:56:22 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/29 16:30:43 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/30 16:51:59 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,6 @@ int	sort_five_a(t_stacks *stacks)
 
 int	push_swap(t_stacks *stacks)
 {
-	int	i;
-
 	stacks->stack_b = NULL;
 	if (is_sorted(stacks->stack_a))
 		return (0);

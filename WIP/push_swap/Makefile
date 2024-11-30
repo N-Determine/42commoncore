@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/15 20:32:04 by adeters           #+#    #+#              #
-#    Updated: 2024/11/29 16:45:20 by adeters          ###   ########.fr        #
+#    Updated: 2024/11/30 16:50:58 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,9 @@ SRCS =	main.c print_ops.c print_errors.c check_overflow.c init.c\
 ARCH = libft.a
 
 OBJS = $(SRCS:.c=.o)
+
+%.o: %.c
+	$(COMP) $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	make -C ./libft

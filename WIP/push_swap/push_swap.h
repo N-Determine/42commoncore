@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/30 16:43:15 by adeters          ###   ########.fr       */
+/*   Updated: 2024/11/30 17:25:40 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,20 +149,59 @@ typedef struct s_dlist
 
 typedef struct s_fails
 {
+	/**
+	 * Keeps track of the amount of integer underflows
+	 */
 	size_t			underflows;
+	/**
+	 * Keeps track of the amount of integer overflows
+	 */
 	size_t			overflows;
+	/**
+	 * Keeps track of the amount of formatting errors
+	 */
 	size_t			formats;
+	/**
+	 * Keeps track of the amount of duplicates
+	 */
 	size_t			duplicates;
 }					t_fails;
 
 typedef struct s_stacks
 {
+	/**
+	 * `stack_a` as a doubly linked list
+	 */
 	t_dlist			*stack_a;
+	/**
+	 * `stack_b` as a doubly linked list
+	 */
 	t_dlist			*stack_b;
+	/**
+	 * Array of all the input values sorted in ascending order
+	 */
 	int				*sorted;
+	/**
+	 * Amount of numbers in the initial `stack_a`
+	 */
 	int				len;
+	/**
+	 * Flag that is `1` if the values have been input
+	 * as a single string and `0` if the values have 
+	 * been input as individual command-line arguments.
+	 * This is mainly needed to check if `av` needs to 
+	 * be freed or not.
+	 */
 	int				str_in;
+	/**
+	 * Keeps track of the amount of nodes currently in
+	 * `stack_a`
+	 */
 	int				nodes_stack_a;
+	/**
+	 * Keeps track of the amount of nodes currently in
+	 * `stack_b`
+	 */
 	int				nodes_stack_b;
 }					t_stacks;
 

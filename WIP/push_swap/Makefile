@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/15 20:32:04 by adeters           #+#    #+#              #
-#    Updated: 2024/11/30 16:50:58 by adeters          ###   ########.fr        #
+#    Updated: 2024/12/01 15:48:21 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,4 +47,28 @@ re: fclean all
 
 tidy: all clean
 
-.PHONY: all clean fclean re tidy
+test3: $(NAME)
+	$(eval ARG = $(shell shuf -i 0-100 -n 3))
+	./push_swap $(ARG) | ./checker_linux $(ARG)
+	@echo -n "Instructions: "
+	@./push_swap $(ARG) | wc -l
+
+test5: $(NAME)
+	$(eval ARG = $(shell shuf -i 0-5000 -n 5))
+	./push_swap $(ARG) | ./checker_linux $(ARG)
+	@echo -n "Instructions: "
+	@./push_swap $(ARG) | wc -l
+
+test100: $(NAME)
+	$(eval ARG = $(shell shuf -i 0-5000 -n 100))
+	./push_swap $(ARG) | ./checker_linux $(ARG)
+	@echo -n "Instructions: "
+	@./push_swap $(ARG) | wc -l
+
+test500: $(NAME)
+	$(eval ARG = $(shell shuf -i 0-5000 -n 500))
+	./push_swap $(ARG) | ./checker_linux $(ARG)
+	@echo -n "Instructions: "
+	@./push_swap $(ARG) | wc -l
+
+.PHONY: all clean fclean re tidy test3 test5 test100 test500

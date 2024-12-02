@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/30 17:25:40 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/02 19:48:08 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,10 @@ enum				e_errors
 		* The input string is not splittable
 		*/
 	SPLIT,
+	/**
+	 * Edge case where the input is a single space
+	 */
+	SPACE
 };
 
 // Structs

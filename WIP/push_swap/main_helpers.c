@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:34:25 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 15:50:53 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/02 19:47:34 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	**new_av_maker(char *input, int *ac, t_stacks *stacks)
 	new_av = ft_split(input, ' ');
 	if (!new_av)
 		return (print_errors(MAL), NULL);
+	if (!new_av[0])
+		return (free(new_av), print_errors(SPACE), NULL);
 	*ac = new_count(new_av);
 	stacks->len = *ac;
 	stacks->str_in = 1;

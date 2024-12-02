@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 21:02:23 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/28 14:41:45 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/02 19:48:33 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,6 @@ void	print_errors(int code)
 	}
 	if (code == SPLIT)
 		ft_fprintf(2, "Argument string not formatted correctly\n");
+	if (code == SPACE)
+		ft_fprintf(2, "Argument cannot be a single space\n");
 }

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:34:25 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/02 19:47:34 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/02 20:47:35 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	ft_free_all(char **arr, t_stacks *stacks)
 	}
 }
 
-int	check_single_str(int ac, char **av, t_fails *fails)
+int	check_single_str(int ac, char **av, t_fails *fails, int str_in)
 {
-	if (check_args(ac, av, fails))
+	if (check_args(ac, av, fails, str_in))
 		return (print_errors_args(ARGS, fails), 1);
 	else
 		return (0);

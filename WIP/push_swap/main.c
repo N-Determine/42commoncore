@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:38:40 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/02 19:47:23 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/02 20:47:43 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int	main(int ac, char **av)
 	if (ac > 2 && !ft_isdigit_str(av[1]))
 		return (print_errors(USAGE), 1);
 	if (ac == 2 && ft_isdigit_str(av[1]))
-		return (check_single_str(ac, av, &fails));
+		return (check_single_str(ac, av, &fails, stacks.str_in));
 	else if (ac == 2 && !str_splitable(av[1]))
 		return (print_errors(SPLIT), 1);
 	else if (ac == 2)
 		av = new_av_maker(av[1], &ac, &stacks);
 	if (!av)
 		return (1);
-	if (check_args(ac, av, &fails))
+	if (check_args(ac, av, &fails, stacks.str_in))
 		return (ft_free_all(av, &stacks), print_errors_args(ARGS, &fails), 1);
 	if (fill_stacks(ac, av, &stacks, &fails))
 		return (ft_free_all(av, &stacks), 1);

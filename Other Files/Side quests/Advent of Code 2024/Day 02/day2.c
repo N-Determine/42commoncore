@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define PATH "data.txt"
+#define PATH "test.txt"
 
 void	ft_free_all(char **arr, int len)
 {

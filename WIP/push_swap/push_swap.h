@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:47:24 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/02 19:48:08 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/02 21:08:42 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ enum				e_errors
 		*/
 	SPLIT,
 	/**
-	 * Edge case where the input is a single space
-	 */
+		* Edge case where the input is a single space
+		*/
 	SPACE
 };
 
@@ -154,58 +154,58 @@ typedef struct s_dlist
 typedef struct s_fails
 {
 	/**
-	 * Keeps track of the amount of integer underflows
-	 */
+		* Keeps track of the amount of integer underflows
+		*/
 	size_t			underflows;
 	/**
-	 * Keeps track of the amount of integer overflows
-	 */
+		* Keeps track of the amount of integer overflows
+		*/
 	size_t			overflows;
 	/**
-	 * Keeps track of the amount of formatting errors
-	 */
+		* Keeps track of the amount of formatting errors
+		*/
 	size_t			formats;
 	/**
-	 * Keeps track of the amount of duplicates
-	 */
+		* Keeps track of the amount of duplicates
+		*/
 	size_t			duplicates;
 }					t_fails;
 
 typedef struct s_stacks
 {
 	/**
-	 * `stack_a` as a doubly linked list
-	 */
+		* `stack_a` as a doubly linked list
+		*/
 	t_dlist			*stack_a;
 	/**
-	 * `stack_b` as a doubly linked list
-	 */
+		* `stack_b` as a doubly linked list
+		*/
 	t_dlist			*stack_b;
 	/**
-	 * Array of all the input values sorted in ascending order
-	 */
+		* Array of all the input values sorted in ascending order
+		*/
 	int				*sorted;
 	/**
-	 * Amount of numbers in the initial `stack_a`
-	 */
+		* Amount of numbers in the initial `stack_a`
+		*/
 	int				len;
 	/**
-	 * Flag that is `1` if the values have been input
-	 * as a single string and `0` if the values have 
-	 * been input as individual command-line arguments.
-	 * This is mainly needed to check if `av` needs to 
-	 * be freed or not.
-	 */
+		* Flag that is `1` if the values have been input
+		* as a single string and `0` if the values have
+		* been input as individual command-line arguments.
+		* This is mainly needed to check if `av` needs to
+		* be freed or not.
+		*/
 	int				str_in;
 	/**
-	 * Keeps track of the amount of nodes currently in
-	 * `stack_a`
-	 */
+		* Keeps track of the amount of nodes currently in
+		* `stack_a`
+		*/
 	int				nodes_stack_a;
 	/**
-	 * Keeps track of the amount of nodes currently in
-	 * `stack_b`
-	 */
+		* Keeps track of the amount of nodes currently in
+		* `stack_b`
+		*/
 	int				nodes_stack_b;
 }					t_stacks;
 
@@ -244,7 +244,7 @@ int					block_sort(t_stacks *stacks, int divider);
  * - `1` if one or more arguments are invalid.
  *
  */
-int					check_args(int ac, char **av, t_fails *fails);
+int					check_args(int ac, char **av, t_fails *fails, int str_in);
 // check_overflow.c
 /**
  * @brief Determines if a string representation of a number
@@ -294,45 +294,45 @@ int					in_ran(int nb, int start, int end);
 /**
  * @brief Finds the position of a number in a doubly linked list.
  *
- * This function iterates through a doubly linked list starting from `head` 
- * and counts the number of steps required to find the first occurrence of 
- * the given number `n`. If the number is not found, the total number of 
+ * This function iterates through a doubly linked list starting from `head`
+ * and counts the number of steps required to find the first occurrence of
+ * the given number `n`. If the number is not found, the total number of
  * nodes in the list is returned.
  *
  * @param head A pointer to the head of the doubly linked list.
  * @param n The number to find in the list.
- * @return The number of steps (nodes) to reach the first occurrence of `n`. 
+ * @return The number of steps (nodes) to reach the first occurrence of `n`.
  *         If `n` is not found, the total node count is returned.
  */
 int					nb_pos_down(t_dlist *head, int n);
 /**
- * @brief Finds the position of a number in a doubly linked list, 
+ * @brief Finds the position of a number in a doubly linked list,
  * starting from the tail.
  *
  * This function iterates through a doubly linked list starting from the last
- * node and counts the number of steps required to find the first 
- * occurrence of the given number `n`. If the number is not found, 
+ * node and counts the number of steps required to find the first
+ * occurrence of the given number `n`. If the number is not found,
  * the total number of nodes in the list is returned.
  *
  * @param head A pointer to the head of the doubly linked list.
  * @param n The number to find in the list.
- * @return The number of steps (nodes) to reach the first occurrence of `n`. 
+ * @return The number of steps (nodes) to reach the first occurrence of `n`.
  *         If `n` is not found, the total node count is returned.
  */
 int					nb_pos_up(t_dlist *head, int n);
 /**
  * @brief Finds the position of a number within a range in a doubly linked list.
  *
- * This function iterates through a doubly linked list starting from `head` 
- * and counts the number of steps required to find the first occurrence of 
+ * This function iterates through a doubly linked list starting from `head`
+ * and counts the number of steps required to find the first occurrence of
  * a number within the range `[start, end]`. If no number in the range is found,
  * the total number of nodes in the list is returned.
  *
  * @param head A pointer to the head of the doubly linked list.
  * @param start The start of the range (inclusive).
  * @param end The end of the range (inclusive).
- * @return The number of steps (nodes) to reach the first occurrence of a number 
- *         in the range `[start, end]`. If no number in the range is found, 
+ * @return The number of steps (nodes) to reach the first occurrence of a number
+ *         in the range `[start, end]`. If no number in the range is found,
  *         the total node count is returned.
  */
 int					nb_pos_down_range(t_dlist *head, int start, int end);
@@ -348,8 +348,8 @@ int					nb_pos_down_range(t_dlist *head, int start, int end);
  * @param head A pointer to the head of the doubly linked list.
  * @param start The start of the range (inclusive).
  * @param end The end of the range (inclusive).
- * @return The number of steps (nodes) to reach the first occurrence of a number 
- *         in the range `[start, end]`. If no number in the range is found, 
+ * @return The number of steps (nodes) to reach the first occurrence of a number
+ *         in the range `[start, end]`. If no number in the range is found,
  *         the total node count is returned.
  */
 int					nb_pos_up_range(t_dlist *head, int start, int end);
@@ -357,21 +357,21 @@ int					nb_pos_up_range(t_dlist *head, int start, int end);
 /**
  * @brief Finds the last node in a doubly linked list.
  *
- * This function traverses a doubly linked list starting from `head` 
+ * This function traverses a doubly linked list starting from `head`
  * and returns a pointer to the last node in the list. If the list is empty,
  * the function returns `NULL`.
  *
  * @param head A pointer to the head of the doubly linked list.
- * @return A pointer to the last node in the list. If the list is empty, 
+ * @return A pointer to the last node in the list. If the list is empty,
  * `NULL` is returned.
  */
 t_dlist				*last_node(t_dlist *head);
 /**
  * @brief Checks if a doubly linked list is sorted in ascending order.
  *
- * This function iterates through a doubly linked list starting from `head` 
- * and checks whether all the elements are sorted in ascending order. 
- * If the list is empty or sorted, the function returns `1`. Otherwise, 
+ * This function iterates through a doubly linked list starting from `head`
+ * and checks whether all the elements are sorted in ascending order.
+ * If the list is empty or sorted, the function returns `1`. Otherwise,
  * it returns `0`.
  *
  * @param head A pointer to the head of the doubly linked list.
@@ -381,8 +381,8 @@ int					is_sorted(t_dlist *head);
 /**
  * @brief Finds the largest number in a doubly linked list.
  *
- * This function iterates through a doubly linked list starting from `head` 
- * and finds the largest number among the nodes. If the list is empty, 
+ * This function iterates through a doubly linked list starting from `head`
+ * and finds the largest number among the nodes. If the list is empty,
  * the function returns `0`.
  *
  * @param head A pointer to the head of the doubly linked list.
@@ -392,8 +392,8 @@ int					find_biggest(t_dlist *head);
 /**
  * @brief Finds the smallest number in a doubly linked list.
  *
- * This function iterates through a doubly linked list starting from `head` 
- * and finds the smallest number among the nodes. If the list is empty, 
+ * This function iterates through a doubly linked list starting from `head`
+ * and finds the smallest number among the nodes. If the list is empty,
  * the function returns `0`.
  *
  * @param head A pointer to the head of the doubly linked list.
@@ -423,8 +423,8 @@ void				init_fails(t_fails *fails);
  * @brief Checks if a string represents a valid number.
  *
  * This function iterates through each character of the input string `str`
- * and checks whether each character is a digit, or a plus (`+`) 
- * or minus (`-`) sign. If all characters are valid, it returns `1`. 
+ * and checks whether each character is a digit, or a plus (`+`)
+ * or minus (`-`) sign. If all characters are valid, it returns `1`.
  * If any character is invalid, it returns `0`.
  *
  * @param str A pointer to the string to check.
@@ -433,7 +433,7 @@ void				init_fails(t_fails *fails);
 int					ft_isdigit_str(char *str);
 /**
  * @brief Counts the number of elements in the modified `char **av`
- * from the input. Basically updates `int ac` in case that the 
+ * from the input. Basically updates `int ac` in case that the
  * values were given as a single string instead of individual
  * command-line arguments.
  *
@@ -444,12 +444,12 @@ int					new_count(char **arr);
 /**
  * @brief Frees all dynamically allocated memory for the array and stack.
  *
- * This function frees each string in the array `arr` (up to `stacks->len`), 
- * then frees the array itself. It only performs these actions if the `str_in` 
+ * This function frees each string in the array `arr` (up to `stacks->len`),
+ * then frees the array itself. It only performs these actions if the `str_in`
  * field in `stacks` is not `NULL` and if `stacks->len` is greater than zero.
  *
  * @param arr A pointer to the array of strings to be freed.
- * @param stacks A pointer to the `t_stacks` structure that contains 
+ * @param stacks A pointer to the `t_stacks` structure that contains
  * information about the array length.
  */
 void				ft_free_all(char **arr, t_stacks *stacks);
@@ -457,37 +457,38 @@ void				ft_free_all(char **arr, t_stacks *stacks);
  * @brief Checks if a single command-line argument is a valid number.
  *
  * This function verifies if a single input provided as a command-line argument
- * can be considered a valid number, allowing for optional leading zeros, 
- * and a plus (`+`) or minus (`-`) sign. If the input is invalid, it prints 
- * an appropriate error message. If the input is valid, the function 
+ * can be considered a valid number, allowing for optional leading zeros,
+ * and a plus (`+`) or minus (`-`) sign. If the input is invalid, it prints
+ * an appropriate error message. If the input is valid, the function
  * returns `0`,indicating successful validation and completion.
  *
  * @param ac The argument count passed to the program.
  * @param av The argument vector containing the command-line arguments.
- * @param fails A pointer to the `t_fails` 
+ * @param fails A pointer to the `t_fails`
  * structure that stores error information.
  * @return `1` if the input is invalid
- * 
+ *
  * `0` if the input is valid.
  */
-int					check_single_str(int ac, char **av, t_fails *fails);
-/**
+int					check_single_str(int ac, char **av, t_fails *fails,
+						int str_in);
+/** 
  * @brief Converts a single input string into an array of command-line arguments.
  *
- * This function takes a single string input (e.g., a series of values separated 
- * by spaces) and splits it into an array of strings, mimicking the command-line 
- * argument format. The resulting array is used by the program as if the values 
- * were given as individual command-line arguments. It also updates the argument 
- * count (`ac`) using the `new_count()` fuction and stores relevant information 
- * in the `stacks` structure. If an error occurs during splitting or 
+ * This function takes a single string input (e.g., a series of values separated
+ * by spaces) and splits it into an array of strings, mimicking the command-line
+ * argument format. The resulting array is used by the program as if the values
+ * were given as individual command-line arguments. It also updates the argument
+ * count (`ac`) using the `new_count()` fuction and stores relevant information
+ * in the `stacks` structure. If an error occurs during splitting or
  * memory allocation, an error message is printed.
  *
  * @param input The input string containing values separated by spaces.
- * @param ac A pointer to the argument count, which will be 
+ * @param ac A pointer to the argument count, which will be
  * updated with the number of elements.
- * @param stacks A pointer to the `t_stacks` structure, where the 
+ * @param stacks A pointer to the `t_stacks` structure, where the
  * length of the new array and status are stored.
- * @return A pointer to the newly created array of strings 
+ * @return A pointer to the newly created array of strings
  * (command-line arguments), or `NULL` if an error occurs.
  */
 char				**new_av_maker(char *input, int *ac, t_stacks *stacks);

@@ -6,18 +6,18 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:42:44 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/27 19:48:54 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/02 20:46:35 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_args(int ac, char **av, t_fails *fails)
+int	check_args(int ac, char **av, t_fails *fails, int str_in)
 {
 	int	i;
 	int	current;
 
-	i = 1;
+	i = 1 - str_in;
 	init_fails(fails);
 	while (i < ac)
 	{

@@ -7,38 +7,25 @@ def mid_num(updates: List[str]) -> int:
 
 # Function that checks if the rules are followed
 def check_rules(rules: List[List[str]], updates: List[str]) -> bool:
-    check_f = 0
     for rule in rules:
-        if rule[0] in updates:
-            index0 = 0
+        if rule[0] in updates and rule[1] in updates:
+            if 0 < (updates.index(rule[0]) - updates.index(rule[1])):
+                return False
         else:
             continue
-        if rule[1] in updates:
-            index1 = 1
-        else:
-            continue
-        if (index0 - index1) < (updates.index(rule[0]) - updates.index(rule[1])):
-            check_f = 1
-    if check_f:
-        return False
     return True
 
 # That swaps around values if the rules are not followed
 def fix(rules: List[List[str]], updates: List[str]) -> List[str]:
     check_f = 0
     for rule in rules:
-        if rule[0] in updates:
-            index0 = 0
+        if rule[0] in updates and rule[1] in updates:
+            ind0 = updates.index(rule[0])
+            ind1 = updates.index(rule[1])
+            if 0 < (ind0 - ind1):
+                updates[ind0], updates[ind1] = updates[ind1], updates[ind0]
         else:
             continue
-        if rule[1] in updates:
-            index1 = 1
-        else:
-            continue
-        ind0 = updates.index(rule[0])
-        ind1 = updates.index(rule[1])
-        if (index0 - index1) < (ind0 - ind1):
-            updates[ind0], updates[ind1] = updates[ind1], updates[ind0]
     return (updates)
 
 file = open("data", "r")

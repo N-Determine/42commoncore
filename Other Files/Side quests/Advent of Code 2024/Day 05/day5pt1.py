@@ -2,20 +2,12 @@ from typing import List
 
 # Function that checks if the rules are followed
 def check_rules(rules: List[List[str]], updates: List[str]) -> bool:
-    check_f = 0
     for rule in rules:
-        if rule[0] in updates:
-            index0 = 0
+        if rule[0] in updates and rule[1] in updates:
+            if 0 < (updates.index(rule[0]) - updates.index(rule[1])):
+                return False
         else:
             continue
-        if rule[1] in updates:
-            index1 = 1
-        else:
-            continue
-        if (index0 - index1) < (updates.index(rule[0]) - updates.index(rule[1])):
-            check_f = 1
-    if check_f:
-        return False
     return True
 
 # Function that returns the middle number of the list

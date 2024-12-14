@@ -19,6 +19,8 @@ checker_path = "./checker_linux"
 # Create the full shell command
 command = f"{program_path} {' '.join(random_numbers_str)} | {checker_path} {' '.join(random_numbers_str)}"
 
+print(command + '\n')
+print("Result: ", end="")
 # Execute the program with the random numbers as arguments
 try:
     result = subprocess.run(command, capture_output=True, text=True, check=True, shell=True)

@@ -1,0 +1,17 @@
+write:
+
+ft_printf and any equivalent YOU coded:
+
+signal:
+
+sigemptyset:
+
+sigaddset:
+
+sigaction
+kill
+getpid
+malloc
+free
+pause
+

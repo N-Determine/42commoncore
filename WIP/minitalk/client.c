@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:32:49 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/14 14:38:12 by adeters          ###   ########.fr       */
+/*   Created: 2024/12/14 14:35:32 by adeters           #+#    #+#             */
+/*   Updated: 2024/12/14 14:56:56 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <sys/types.h>
 #include "minitalk.h"
 
-int	main(void)
+int	main(int ac, char** av)
 {
-	pid_t	pid;
-
-	pid = getpid();
-	ft_printf("Server started. PID: %i\n", pid);
+	(void)av;
+	return (ac * 0);
 }

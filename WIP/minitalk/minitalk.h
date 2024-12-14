@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:32:49 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/14 14:38:12 by adeters          ###   ########.fr       */
+/*   Created: 2024/12/14 14:37:05 by adeters           #+#    #+#             */
+/*   Updated: 2024/12/14 14:39:18 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <sys/types.h>
-#include "minitalk.h"
+#ifndef MINITALK_H
+# define MINITALK_H
 
-int	main(void)
+# include "libft.h"
+
+enum	e_errors
 {
-	pid_t	pid;
+	USAGE	
+};
 
-	pid = getpid();
-	ft_printf("Server started. PID: %i\n", pid);
-}
+#endif

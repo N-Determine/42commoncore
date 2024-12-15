@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putstr_fd_retbytes.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:37:05 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/15 16:42:57 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/18 14:02:09 by adeters           #+#    #+#             */
+/*   Updated: 2024/09/18 14:16:35 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "ft_printf.h"
 
-# include "libft.h"
-# include <stdbool.h>
-
-enum	e_errors
+int	ft_putstr_fd_retbytes(char *str, int fd)
 {
-	USAGE	
-};
+	int	i;
 
-#endif
+	i = 0;
+	while (str[i])
+		i++;
+	write(fd, str, i);
+	return (i);
+}

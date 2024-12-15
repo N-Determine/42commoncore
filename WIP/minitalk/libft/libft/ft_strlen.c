@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:37:05 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/15 16:42:57 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/02 16:52:11 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/15 19:51:57 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "../libft.h"
 
-# include "libft.h"
-# include <stdbool.h>
-
-enum	e_errors
+int	ft_strlen(const char *str)
 {
-	USAGE	
-};
+	int	i;
 
-#endif
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+/*
+#include <stdio.h>
+
+int	main(int argc, char *argv[])
+{
+	if (argc != 2)
+	{
+		printf("Usage: ./a.out String\n");
+		return (1);
+	}
+	
+	printf("The string in argv[1] is %i character long\n", ft_strlen(argv[1]));
+}*/

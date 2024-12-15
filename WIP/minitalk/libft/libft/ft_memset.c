@@ -1,24 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:37:05 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/15 16:42:57 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/07 11:58:28 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/15 19:51:06 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "../libft.h"
 
-# include "libft.h"
-# include <stdbool.h>
-
-enum	e_errors
+void	*ft_memset(void *s, int c, size_t n)
 {
-	USAGE	
-};
+	size_t			i;
+	unsigned char	*ptr;
 
-#endif
+	if (!s)
+		return (NULL);
+	ptr = (unsigned char *)s;
+	i = 0;
+	while (i < n)
+	{
+		ptr[i] = c;
+		i++;
+	}
+	return (s);
+}
+/*
+#include <stdio.h>
+#include <string.h>
+
+int	main(void)
+{
+	char ptr[] = "Hello World!";
+	printf("%s\n", (char *)ft_memset(ptr, '!', 11 * sizeof(char)));
+}
+*/

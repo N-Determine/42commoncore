@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putchars_fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:37:05 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/15 16:42:57 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/18 14:30:19 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/15 19:28:48 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "ft_printf.h"
 
-# include "libft.h"
-# include <stdbool.h>
-
-enum	e_errors
+int	ft_putchars_fd(char code, va_list list, int fd)
 {
-	USAGE	
-};
-
-#endif
+	if (code == 'c')
+		ft_putchar_fd((char)va_arg(list, int), fd);
+	else if (code == '%')
+		ft_putchar_fd('%', fd);
+	return (1);
+}

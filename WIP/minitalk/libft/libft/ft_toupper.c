@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:37:05 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/15 16:42:57 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/05 12:10:29 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/15 19:52:24 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "../libft.h"
 
-# include "libft.h"
-# include <stdbool.h>
-
-enum	e_errors
+int	ft_toupper(int c)
 {
-	USAGE	
-};
+	if (c >= 'a' && c <= 'z')
+		return (c - 32);
+	return (c);
+}
+/*
+#include <stdio.h>
 
-#endif
+int	main(void)
+{
+	printf("%c\n", ft_toupper('A'));
+	printf("%c\n", ft_toupper('a'));
+	printf("%c\n", ft_toupper(' '));
+	printf("%c\n", ft_toupper('?'));
+	printf("%c\n", ft_toupper('2'));
+}*/

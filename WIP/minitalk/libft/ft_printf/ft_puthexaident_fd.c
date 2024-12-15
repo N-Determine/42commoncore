@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_puthexaident.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:37:05 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/15 16:42:57 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/18 14:50:56 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/15 19:28:52 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "ft_printf.h"
 
-# include "libft.h"
-# include <stdbool.h>
-
-enum	e_errors
+int	ft_puthexaident_fd(char code, int fd)
 {
-	USAGE	
-};
-
-#endif
+	if (code == 'x')
+		write(fd, "0x", 2);
+	else if (code == 'X')
+		write(fd, "0X", 2);
+	return (2);
+}

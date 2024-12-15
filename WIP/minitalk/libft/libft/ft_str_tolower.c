@@ -1,24 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_str_tolower.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:37:05 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/15 16:42:57 by adeters          ###   ########.fr       */
+/*   Created: 2024/11/14 22:13:20 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/15 19:51:31 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "../libft.h"
 
-# include "libft.h"
-# include <stdbool.h>
-
-enum	e_errors
+char	*ft_str_tolower(char *str)
 {
-	USAGE	
-};
+	int	i;
+	int	len;
 
-#endif
+	if (!str)
+		return (NULL);
+	i = 0;
+	len = ft_strlen(str);
+	while (i <= len)
+	{
+		str[i] = ft_tolower(str[i]);
+		i++;
+	}
+	return (str);
+}
+
+/*
+#include <stdio.h>
+
+int main(void)
+{
+	char str[50] = "HellO WoRld!";
+	printf("%s\n", ft_str_tolower(str));
+}
+*/

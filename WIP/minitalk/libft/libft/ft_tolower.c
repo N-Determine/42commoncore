@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:37:05 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/15 16:42:57 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/05 12:10:24 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/15 19:52:22 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "../libft.h"
 
-# include "libft.h"
-# include <stdbool.h>
-
-enum	e_errors
+int	ft_tolower(int c)
 {
-	USAGE	
-};
+	if (c >= 'A' && c <= 'Z')
+		return (c + 32);
+	return (c);
+}
+/*
+#include <stdio.h>
 
-#endif
+int	main(void)
+{
+	printf("%c\n", ft_tolower('B'));
+	printf("%c\n", ft_tolower('A'));
+	printf("%c\n", ft_tolower('Z'));
+	printf("%c\n", ft_tolower('a'));
+	printf("%c\n", ft_tolower(' '));
+	printf("%c\n", ft_tolower('?'));
+	printf("%c\n", ft_tolower('5'));
+}*/

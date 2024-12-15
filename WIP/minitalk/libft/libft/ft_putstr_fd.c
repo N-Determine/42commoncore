@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:37:05 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/15 16:42:57 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/08 12:18:03 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/15 19:51:24 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "../libft.h"
 
-# include "libft.h"
-# include <stdbool.h>
-
-enum	e_errors
+void	ft_putstr_fd(char *s, int fd)
 {
-	USAGE	
-};
-
-#endif
+	if (s)
+		write (fd, s, ft_strlen(s));
+}
+/*
+int	main(void)
+{
+	char *str = "Hey du gfrast!";
+	ft_putstr_fd(str, 1);
+}*/

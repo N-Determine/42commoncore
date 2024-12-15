@@ -13,10 +13,9 @@ random_numbers = random.sample(range(-2147483648, 2147483647), numbers)
 random_numbers_str = list(map(str, random_numbers))  # Convert numbers to strings
 
 program_path = "./push_swap"
-count = "| wc -l"
 
 # Combine the program path with the arguments
-command = [program_path] + random_numbers_str + [count]
+command = [program_path] + random_numbers_str
 
 # Execute the program with the random numbers as arguments
 try:

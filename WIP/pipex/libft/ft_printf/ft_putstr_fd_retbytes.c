@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_putstr_fd_retbytes.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:32:49 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/15 17:43:51 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/18 14:02:09 by adeters           #+#    #+#             */
+/*   Updated: 2024/09/18 14:16:35 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <sys/types.h>
-#include "minitalk.h"
+#include "ft_printf.h"
 
-int	main(void)
+int	ft_putstr_fd_retbytes(char *str, int fd)
 {
-	pid_t	pid;
+	int	i;
 
-	pid = getpid();
-	ft_printf("Server started. PID: %i\n", pid);
-	while(true)
-	{
-		pause();
-	}
+	i = 0;
+	while (str[i])
+		i++;
+	write(fd, str, i);
+	return (i);
 }

@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:32:49 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/15 17:43:51 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/05 12:10:29 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/15 19:52:24 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <sys/types.h>
-#include "minitalk.h"
+#include "../libft.h"
+
+int	ft_toupper(int c)
+{
+	if (c >= 'a' && c <= 'z')
+		return (c - 32);
+	return (c);
+}
+/*
+#include <stdio.h>
 
 int	main(void)
 {
-	pid_t	pid;
-
-	pid = getpid();
-	ft_printf("Server started. PID: %i\n", pid);
-	while(true)
-	{
-		pause();
-	}
-}
+	printf("%c\n", ft_toupper('A'));
+	printf("%c\n", ft_toupper('a'));
+	printf("%c\n", ft_toupper(' '));
+	printf("%c\n", ft_toupper('?'));
+	printf("%c\n", ft_toupper('2'));
+}*/

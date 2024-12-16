@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_count_bytes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:32:49 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/15 17:43:51 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/18 14:02:18 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/15 19:27:23 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <sys/types.h>
-#include "minitalk.h"
+#include "ft_printf.h"
 
-int	main(void)
+int	ft_count_bytes(int nbr)
 {
-	pid_t	pid;
+	int	chars;
 
-	pid = getpid();
-	ft_printf("Server started. PID: %i\n", pid);
-	while(true)
+	chars = 0;
+	if (nbr <= 0)
+		chars = 1;
+	while (nbr)
 	{
-		pause();
+		nbr = nbr / 10;
+		chars++;
 	}
+	return (chars);
 }

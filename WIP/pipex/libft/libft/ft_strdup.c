@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:32:49 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/15 17:43:51 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/06 20:08:13 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/15 19:51:41 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <sys/types.h>
-#include "minitalk.h"
+#include "../libft.h"
+
+char	*ft_strdup(const char *s)
+{
+	char	*ptr;
+	int		i;
+
+	if (!s)
+		return (NULL);
+	i = 0;
+	ptr = (char *)malloc((ft_strlen((char *)s) + 1) * sizeof(char));
+	if (ptr == 0)
+		return (0);
+	while (i < ft_strlen((char *)s))
+	{
+		ptr[i] = s[i];
+		i++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
+}
+/*
+#include <stdio.h>
 
 int	main(void)
 {
-	pid_t	pid;
-
-	pid = getpid();
-	ft_printf("Server started. PID: %i\n", pid);
-	while(true)
-	{
-		pause();
-	}
-}
+	char *str = "Hello World!";
+	printf("%s\n", ft_strdup(str));
+}*/

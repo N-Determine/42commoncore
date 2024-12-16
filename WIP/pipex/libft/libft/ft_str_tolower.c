@@ -1,27 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_str_tolower.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:32:49 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/15 17:43:51 by adeters          ###   ########.fr       */
+/*   Created: 2024/11/14 22:13:20 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/15 19:51:31 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <sys/types.h>
-#include "minitalk.h"
+#include "../libft.h"
 
-int	main(void)
+char	*ft_str_tolower(char *str)
 {
-	pid_t	pid;
+	int	i;
+	int	len;
 
-	pid = getpid();
-	ft_printf("Server started. PID: %i\n", pid);
-	while(true)
+	if (!str)
+		return (NULL);
+	i = 0;
+	len = ft_strlen(str);
+	while (i <= len)
 	{
-		pause();
+		str[i] = ft_tolower(str[i]);
+		i++;
 	}
+	return (str);
 }
+
+/*
+#include <stdio.h>
+
+int main(void)
+{
+	char str[50] = "HellO WoRld!";
+	printf("%s\n", ft_str_tolower(str));
+}
+*/

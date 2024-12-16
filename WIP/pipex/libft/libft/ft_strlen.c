@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:32:49 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/15 17:43:51 by adeters          ###   ########.fr       */
+/*   Created: 2024/09/02 16:52:11 by adeters           #+#    #+#             */
+/*   Updated: 2024/11/15 19:51:57 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <sys/types.h>
-#include "minitalk.h"
+#include "../libft.h"
 
-int	main(void)
+int	ft_strlen(const char *str)
 {
-	pid_t	pid;
+	int	i;
 
-	pid = getpid();
-	ft_printf("Server started. PID: %i\n", pid);
-	while(true)
-	{
-		pause();
-	}
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
+/*
+#include <stdio.h>
+
+int	main(int argc, char *argv[])
+{
+	if (argc != 2)
+	{
+		printf("Usage: ./a.out String\n");
+		return (1);
+	}
+	
+	printf("The string in argv[1] is %i character long\n", ft_strlen(argv[1]));
+}*/

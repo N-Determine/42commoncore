@@ -1,9 +1,9 @@
 NAME = pipex
 
 COMP = cc
-FLAGS = -Wall -Werror -Wextra -g
+# FLAGS = -Wall -Werror -Wextra -g
 
-SRCS = main.c
+SRCS = main.c free.c
 OBJS = $(SRCS:.c=.o)
 ARCH = libft.a
 

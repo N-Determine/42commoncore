@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/16 16:09:37 by adeters          ###   ########.fr       */
+/*   Created: 2024/12/16 16:09:05 by adeters           #+#    #+#             */
+/*   Updated: 2024/12/16 16:10:03 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "pipex.h"
 
-# include "libft.h"
-# include <unistd.h>
-# include <stdlib.h>
+void	ft_free_list(char **arr)
+{
+	int	i;
 
-// free.c
-void	ft_free_list(char **arr);
-
-#endif
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}

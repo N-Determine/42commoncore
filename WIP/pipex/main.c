@@ -6,13 +6,13 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/17 16:47:11 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/17 17:21:26 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-#define ARG "opo -w"
+#define ARG "ls"
 
 // Pass the error as int * to controll the output
 char	**execve_arr_maker(char **paths, char *arg, int *error)
@@ -28,7 +28,7 @@ char	**execve_arr_maker(char **paths, char *arg, int *error)
 	if (index < 0)
 	{
 		ft_fprintf(2, "%s: %s\n", strerror(errno), arr[0]);
-		return (free(arr), NULL);
+		return (*error = ACCESS, free(arr), NULL);
 	}
 	tmp = allo_trip_strcat(paths[index], "/", arr[0]);
 	if (!tmp)
@@ -43,15 +43,31 @@ int	main(int ac, const char **av, const char **env)
 {
 	char	**paths;
 	char	**exe;
+	pid_t	p;
 	int		error;
 
 	paths = get_paths(env);
 	if (!paths)
 		return (print_errors(PATHS));
-	exe = execve_arr_maker(paths, ARG, &error);
-	if (!exe)
-		return (print_errors(error));
-	execve(exe[0], exe, NULL);
-	ft_free_list(exe);
-	ft_free_list(paths);
+	p = fork();
+	if (p == 0)
+	{
+		exe = execve_arr_maker(paths, av[2], &error);
+		if (!exe)
+			return (ft_free_list(paths), print_errors(error));
+		ft_free_list(paths);
+		if (execve(exe[0], exe, NULL) == -1)
+		{
+			ft_free_list(exe);
+			exit (1);
+		}
+	}
+	else if (p >= 1)
+	{	
+		ft_free_list(paths);
+	}
+	else
+	{
+		ft_free_list(paths);
+	}
 }

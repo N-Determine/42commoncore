@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/17 15:33:20 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/17 16:09:38 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ enum e_errors
 	 * required paths, such as environment variables or configuration data.
 	 */
 	PATHS = 2,
+	/**
+	 * @brief Indicates that the programm could not be accessed.
+	 *
+	 */
+	ACCESS = 3,
+	SPLIT = 4,
+	MALLOC = 5,
 };
 
 // FUNCTIONS
@@ -80,32 +87,29 @@ void	ft_free_list(char **arr);
  */
 char	**get_paths(const char **env);
 /**
- * @brief Checks if the given program is accessible in any of the provided
- * paths.
+ * @brief Checks if the given program is accessible in any of the provided 
+ * paths, with specified access mode.
  *
- * This function iterates through an array of paths, appending the program
- * name to each path with a '/' separator, and checks if the resulting file
- * is executable. It uses the `access` system call to determine if the program
- * can be executed from a particular path.
+ * This function iterates through an array of paths, appending the program 
+ * name to each path with a '/' separator, and checks if the resulting file 
+ * satisfies the specified access mode. It uses the `access` system call to
+ * perform the check.
  *
  * @param paths A null-terminated array of strings representing directories
  * to search.
- * @param prog  The program name to check 
- * for accessibility.
+ * @param prog  The program name to check for accessibility.
+ * @param mode  The access mode to check for. Check the manual for the 
+ * `access` system call to see valid options.
  *
  * @return 
- * - `1` if the program is found and executable in one of the paths.
+ * - The `index` of the path in the `paths` array where the program is 
+ * accessible with the given mode.
  * 
- * - `0` if the program is not found or executable in any of the paths.
- * 
- * - `-1` if a memory allocation error occurs while constructing the path or 
- * if paths and/or prog is equal to `NULL`
+ * - `-1` if the program is not found in any of the paths, if the 
+ * inputs are invalid, or if a memory allocation error occurs.
  *
- * @note This function dynamically allocates memory for each path-program
- * combination using `allo_trip_strcat`. All allocated memory is freed before
- * returning.
  */
-int		check_access(char **paths, char *prog);
+int		check_access(char **paths, char *prog, int mode);
 /**
  * @brief Concatenates two strings into a newly allocated string.
  *

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/17 16:09:38 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/17 16:47:01 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "libft.h"
 # include <unistd.h>
 # include <stdlib.h>
+# include <string.h>
+# include <errno.h>
 
 // ENUMS
 /**
@@ -52,6 +54,10 @@ enum e_errors
 	ACCESS = 3,
 	SPLIT = 4,
 	MALLOC = 5,
+	/**
+	 * command not found
+	 */
+	NFOUND = 6,
 };
 
 // FUNCTIONS

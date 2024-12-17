@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:58:36 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/17 15:02:26 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/17 15:06:35 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 int	print_errors(int code)
 {
 	if (code == PATHS)
-		ft_fprintf(2, "Could not load the paths array\n");
-	return (1);
+		ft_fprintf(2, "PATH could not be loaded\n");
+	return (code);
 }

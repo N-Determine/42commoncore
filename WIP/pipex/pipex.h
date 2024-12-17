@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/17 15:01:38 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/17 15:12:20 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,33 @@
 # include <stdlib.h>
 
 // ENUMS
+/**
+ * @brief Enumerates error codes for use with the print_errors function.
+ *
+ * This enum provides meaningful identifiers for error conditions in the
+ * program. The codes are 1-indexed to allow them to be used as return 
+ * values in the `main` function.
+ *
+ * @note The 1-indexing ensures compatibility with standard conventions 
+ * for error codes in command-line programs, where a `0` return value 
+ * indicates success and non-zero values indicate errors.
+ */
 enum e_errors
 {
-	USAGE,
-	PATHS,
+	/**
+	 * @brief Indicates that the program was used incorrectly.
+	 *
+	 * This error occurs when the program receives invalid input or arguments
+	 * that do not match the expected format or requirements.
+	 */
+	USAGE = 1,
+	/**
+	 * @brief Indicates that the paths could not be loaded.
+	 *
+	 * This error occurs when the program fails to retrieve or parse the 
+	 * required paths, such as environment variables or configuration data.
+	 */
+	PATHS = 2,
 };
 
 // FUNCTIONS

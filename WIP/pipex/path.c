@@ -6,13 +6,13 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:47:11 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/17 14:55:00 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/17 15:33:44 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	**get_paths(char **env)
+char	**get_paths(const char **env)
 {
 	int		i;
 	char	**paths;
@@ -28,6 +28,27 @@ char	**get_paths(char **env)
 	if (!paths)
 		return (NULL);
 	return (paths);
+}
+
+int	check_access(char **paths, char *prog)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	if (!paths | !prog)
+		return (-1);
+	while (paths[i])
+	{
+		tmp = allo_trip_strcat(paths[i], "/", prog);
+		if (!tmp)
+			return (-1);
+		if (access(tmp, X_OK) == 0)
+			return (free(tmp), 1);
+		free(tmp);
+		i++;
+	}
+	return (0);
 }
 
 char	*allo_strcat(const char *s1, const char *s2)

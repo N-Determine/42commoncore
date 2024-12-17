@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/17 15:12:20 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/17 15:33:20 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,34 @@ void	ft_free_list(char **arr);
  * elements to prevent memory leaks.
  *
  */
-char	**get_paths(char **env);
+char	**get_paths(const char **env);
+/**
+ * @brief Checks if the given program is accessible in any of the provided
+ * paths.
+ *
+ * This function iterates through an array of paths, appending the program
+ * name to each path with a '/' separator, and checks if the resulting file
+ * is executable. It uses the `access` system call to determine if the program
+ * can be executed from a particular path.
+ *
+ * @param paths A null-terminated array of strings representing directories
+ * to search.
+ * @param prog  The program name to check 
+ * for accessibility.
+ *
+ * @return 
+ * - `1` if the program is found and executable in one of the paths.
+ * 
+ * - `0` if the program is not found or executable in any of the paths.
+ * 
+ * - `-1` if a memory allocation error occurs while constructing the path or 
+ * if paths and/or prog is equal to `NULL`
+ *
+ * @note This function dynamically allocates memory for each path-program
+ * combination using `allo_trip_strcat`. All allocated memory is freed before
+ * returning.
+ */
+int		check_access(char **paths, char *prog);
 /**
  * @brief Concatenates two strings into a newly allocated string.
  *

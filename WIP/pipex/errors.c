@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/17 15:02:03 by adeters          ###   ########.fr       */
+/*   Created: 2024/12/17 14:58:36 by adeters           #+#    #+#             */
+/*   Updated: 2024/12/17 15:02:26 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int ac, char **av, char **env)
+int	print_errors(int code)
 {
-	char **paths = get_paths(env);
-	if (!paths)
-		return (print_errors(PATHS));
-	char *first = allo_trip_strcat(paths[0], "/", "ls");
-	ft_printf("first path: %s\n", first);
-	free(first);
-	ft_free_list(paths);
-	return (0);
+	if (code == PATHS)
+		ft_fprintf(2, "Could not load the paths array\n");
+	return (1);
 }

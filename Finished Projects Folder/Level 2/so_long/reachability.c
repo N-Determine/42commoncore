@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 19:40:47 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/12 15:46:28 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/18 20:27:28 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static int	flood_fill(int i, int j, char **map, t_data *data)
 {
-	char	*tmp;
-
 	if (map[i][j] == '1' || map[i][j] == '2')
 		return (1);
 	if (map[i][j] == 'C')

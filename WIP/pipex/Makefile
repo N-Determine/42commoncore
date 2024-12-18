@@ -10,7 +10,7 @@ ARCH = libft.a
 %.o: %.c
 	$(COMP) $(FLAGS) -c $< -o $@
 
-all: $(ARCH) $(NAME)
+all: $(ARCHst) $(NAME)
 
 $(ARCH):
 	make -C ./libft

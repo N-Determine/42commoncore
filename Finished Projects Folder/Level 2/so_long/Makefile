@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 10:19:36 by adeters           #+#    #+#              #
-#    Updated: 2024/12/18 20:23:11 by adeters          ###   ########.fr        #
+#    Updated: 2024/12/18 20:27:12 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,9 @@ init.c destroy.c load_map.c locate_pois.c main.c movement.c\
 print_gamestate.c reachability.c
 ARCH = libft.a
 OBJS = $(SRCS:.c=.o)
+
+%.o: %.c
+	$(COMP) $(FLAGS) -c $< -o $@
 
 all: $(NAME)
 

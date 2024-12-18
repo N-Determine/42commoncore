@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 10:19:36 by adeters           #+#    #+#              #
-#    Updated: 2024/11/14 18:47:22 by adeters          ###   ########.fr        #
+#    Updated: 2024/12/18 20:23:11 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,14 +20,11 @@ print_gamestate.c reachability.c
 ARCH = libft.a
 OBJS = $(SRCS:.c=.o)
 
-MAKEFLAGS = --jobs
+all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C ./libft
 	cp ./libft/libft.a ./libft.a
-	cc $(OBJS) -o $(NAME) $(ARCH) $(XFLAGS)
-
-all: $(NAME)
 	cc $(OBJS) -o $(NAME) $(ARCH) $(XFLAGS)
 
 clean:
@@ -43,6 +40,6 @@ re: fclean all
 tidy: multi clean
 
 multi:
-	make --jobs=16
+	make --jobs
 
 .PHONY: all clean fclean re bonus multi tidy

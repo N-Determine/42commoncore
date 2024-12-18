@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/17 17:21:26 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/18 20:47:56 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,15 @@ char	**execve_arr_maker(char **paths, char *arg, int *error)
 	if (index < 0)
 	{
 		ft_fprintf(2, "%s: %s\n", strerror(errno), arr[0]);
-		return (*error = ACCESS, free(arr), NULL);
+		return (*error = ACCESS, ft_free_list(arr), NULL);
 	}
 	tmp = allo_trip_strcat(paths[index], "/", arr[0]);
 	if (!tmp)
-		return (*error = MALLOC, free(arr), NULL);
+		return (*error = MALLOC, ft_free_list(arr), NULL);
 	free(arr[0]);
 	arr[0] = ft_strdup(tmp);
+	if (!arr[0])
+		return (*error = MALLOC, ft_free_list(arr), NULL);
 	free(tmp);
 	return (arr);
 }

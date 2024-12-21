@@ -1,1 +1,0 @@
-Please create Doxygen documentation for this function. Remember to include any relevant edge cases that might break the function, display example code inline (e.g., ft_bzero(buffer, 10); -> buffer is now filled with zeroes), and avoid using @code and @endcode blocks

@@ -41,7 +41,6 @@ char	**execve_arr_maker(char **paths, char *arg, int *error)
 	return (arr);
 }
 
-// Hey
 int	main(int ac, const char **av, const char **env)
 {
 	char	**paths;

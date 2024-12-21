@@ -20,7 +20,7 @@ char	**get_paths(const char **env)
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strnstr(env[i], "PATH=/home", 20) != 0)
+		if (ft_strnstr(env[i], "PATH=", 20) != 0)
 			break ;
 		i++;
 	}

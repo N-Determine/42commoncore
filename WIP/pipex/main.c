@@ -15,7 +15,7 @@
 #define ARG "ls"
 
 // Pass the error as int * to controll the output
-char	**execve_arr_maker(char **paths, char *arg, int *error)
+char	**execve_arr_maker(char **paths, const char *arg, int *error)
 {
 	int		index;
 	char	*tmp;
@@ -51,6 +51,7 @@ int	main(int ac, const char **av, const char **env)
 	paths = get_paths(env);
 	if (!paths)
 		return (print_errors(PATHS));
+	ft_printf("check\n");
 	p = fork();
 	if (p == 0)
 	{

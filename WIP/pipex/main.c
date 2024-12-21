@@ -66,7 +66,7 @@ int	main(int ac, const char **av, const char **env)
 		}
 	}
 	else if (p >= 1)
-	{	
+	{
 		ft_free_list(paths);
 	}
 	else

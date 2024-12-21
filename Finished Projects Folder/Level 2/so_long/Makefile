@@ -40,7 +40,7 @@ fclean: clean
 
 re: fclean all
 
-tidy: multi clean
+tidy: all clean
 
 multi:
 	make --jobs

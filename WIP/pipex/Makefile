@@ -8,7 +8,7 @@ OBJS = $(SRCS:.c=.o)
 ARCH = libft.a
 
 %.o: %.c
-	$(COMP) $(FLAGS) -c $< -o $@
+	$(COMP) $(FLAGS) -c $< -o objs/$@
 
 all: $(ARCHst) $(NAME)
 
@@ -17,22 +17,21 @@ $(ARCH):
 	cp ./libft/libft.a ./libft.a
 
 $(NAME): $(OBJS) $(ARCH)
-	$(COMP) $(FLAGS) $(OBJS) -o $(NAME) $(ARCH)
+	$(COMP) $(FLAGS) $(addprefix objs/,$(OBJS)) -o $(NAME) $(ARCH)
 
 clean:
 	make clean -C ./libft
-	rm -rf $(OBJS)
+	rm -rf $(addprefix objs/,$(OBJS))
 
 fclean: clean
 	make fclean -C ./libft
 	rm -rf $(NAME)
 	rm -rf $(ARCH)
+	rm -rf $(addprefix objs/,$(OBJS))
 
 re: fclean all
-
-tidy: all clean
 
 make:
 	make --jobs
 
-.PHONY: all clean fclean re tidy arch
+.PHONY: all clean fclean re

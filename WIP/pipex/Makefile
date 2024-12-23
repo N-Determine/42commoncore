@@ -9,7 +9,7 @@ OPATH = objs/
 ARCH = libft.a
 
 %.o: %.c
-	$(COMP) $(FLAGS) -c $< -o objs/$@
+	$(COMP) $(FLAGS) -c $< -o $(OPATH)$@
 
 all: $(ARCH) $(NAME)
 

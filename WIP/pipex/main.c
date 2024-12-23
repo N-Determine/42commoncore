@@ -51,7 +51,6 @@ int	main(int ac, const char **av, const char **env)
 	paths = get_paths(env);
 	if (!paths)
 		return (print_errors(PATHS));
-	ft_printf("check\n");
 	p = fork();
 	if (p == 0)
 	{

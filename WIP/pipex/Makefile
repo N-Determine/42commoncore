@@ -4,34 +4,36 @@ COMP = cc
 FLAGS = -Wall -Wextra -g # -Werror
 
 SRCS = main.c free.c path.c errors.c
-OBJS = $(SRCS:.c=.o)
+OFOLDER = objs
 OPATH = objs/
+OBJS = $(addprefix $(OPATH), $(SRCS:.c=.o))
 ARCH = libft.a
 
-%.o: %.c
-	$(COMP) $(FLAGS) -c $< -o $(OPATH)$@
+$(OPATH)%.o: %.c
+	@mkdir -p $(OFOLDER)
+	@$(COMP) $(FLAGS) -c $< -o $@
 
 all: $(ARCH) $(NAME)
 
 $(ARCH):
-	make -C ./libft
-	cp ./libft/libft.a ./libft.a
+	@make --no-print-directory -C ./libft
+	@cp ./libft/libft.a ./libft.a
 
 $(NAME): $(OBJS) $(ARCH)
-	$(COMP) $(FLAGS) $(addprefix $(OPATH),$(OBJS)) -o $(NAME) $(ARCH)
+	@$(COMP) $(FLAGS) $(OBJS) -o $(NAME) $(ARCH)
+	@echo "make: $(NAME) executed!"
 
 clean:
-	make clean -C ./libft
-	rm -rf $(addprefix $(OPATH),$(OBJS))
+	@make clean --no-print-directory -C ./libft
+	@rm -rf $(OBJS)
+	@rm -rf $(OFOLDER)
+	@rm -rf $(ARCH)
+	@echo "make: clean executed!"
 
 fclean: clean
-	make fclean -C ./libft
-	rm -rf $(NAME)
-	rm -rf $(ARCH)
+	@rm -rf $(NAME)
+	@echo "make: fclean executed!"
 
 re: fclean all
-
-make:
-	make --jobs
 
 .PHONY: all clean fclean re

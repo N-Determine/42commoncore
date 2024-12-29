@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/08 16:34:00 by adeters           #+#    #+#              #
-#    Updated: 2024/11/15 19:59:33 by adeters          ###   ########.fr        #
+#    Updated: 2024/12/29 17:28:28 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRCS_GNL	=	get_next_line/get_next_line.c
 
 OBJS = $(SRCS_LIBFT:.c=.o) $(SRCS_PRINTF:.c=.o) $(SRCS_GNL:.c=.o)
 
-MAKEFLAGS = --jobs
+MAKEFLAGS = --jobs -s
 
 %.o: %.c
 	$(COMP) $(FLAGS) -c $< -o $@

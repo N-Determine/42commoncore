@@ -9,6 +9,9 @@ OPATH = objs/
 OBJS = $(addprefix $(OPATH), $(SRCS:.c=.o))
 ARCH = libft.a
 
+COLOR = \033[1;32m
+RESET = \033[0m
+
 $(OPATH)%.o: %.c
 	@mkdir -p $(OFOLDER)
 	@$(COMP) $(FLAGS) -c $< -o $@
@@ -18,22 +21,22 @@ all: $(ARCH) $(NAME)
 $(ARCH):
 	@make --no-print-directory -C ./libft
 	@cp ./libft/libft.a ./libft.a
-	@echo "make: $(ARCH) executed!"
+	@echo "$(COLOR)make: $(ARCH) executed!$(RESET)"
 
 $(NAME): $(OBJS) $(ARCH)
 	@$(COMP) $(FLAGS) $(OBJS) -o $(NAME) $(ARCH)
-	@echo "make: $(NAME) executed!"
+	@echo "$(COLOR)make: $(NAME) executed!$(RESET)"
 
 clean:
 	@make clean --no-print-directory -C ./libft
 	@rm -rf $(OBJS)
 	@rm -rf $(OFOLDER)
 	@rm -rf $(ARCH)
-	@echo "make: clean executed!"
+	@echo "$(COLOR)make: clean executed!$(RESET)"
 
 fclean: clean
 	@rm -rf $(NAME)
-	@echo "make: fclean executed!"
+	@echo "$(COLOR)make: fclean executed!$(RESET)"
 
 re: fclean all
 

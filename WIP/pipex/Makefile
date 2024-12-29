@@ -18,6 +18,7 @@ all: $(ARCH) $(NAME)
 $(ARCH):
 	@make --no-print-directory -C ./libft
 	@cp ./libft/libft.a ./libft.a
+	@echo "make: $(ARCH) executed!"
 
 $(NAME): $(OBJS) $(ARCH)
 	@$(COMP) $(FLAGS) $(OBJS) -o $(NAME) $(ARCH)

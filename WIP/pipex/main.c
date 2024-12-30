@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/18 20:47:56 by adeters          ###   ########.fr       */
+/*   Updated: 2024/12/30 18:28:17 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int ac, const char **av, const char **env)
 	p = fork();
 	if (p == 0)
 	{
-		exe = execve_arr_maker(paths, av[2], &error);
+		exe = execve_arr_maker(paths, av[1], &error);
 		if (!exe)
 			return (ft_free_list(paths), print_errors(error));
 		ft_free_list(paths);
@@ -66,7 +66,16 @@ int	main(int ac, const char **av, const char **env)
 	}
 	else if (p >= 1)
 	{
+		wait(NULL);
+		exe = execve_arr_maker(paths, av[2], &error);
+		if (!exe)
+			return (ft_free_list(paths), print_errors(error));
 		ft_free_list(paths);
+		if (execve(exe[0], exe, NULL) == -1)
+		{
+			ft_free_list(exe);
+			exit (1);
+		}
 	}
 	else
 	{

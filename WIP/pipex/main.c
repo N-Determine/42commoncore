@@ -6,13 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/30 18:28:17 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/04 16:16:37 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-#define ARG "ls"
 
 // Pass the error as int * to controll the output
 char	**execve_arr_maker(char **paths, const char *arg, int *error)
@@ -45,16 +43,17 @@ int	main(int ac, const char **av, const char **env)
 {
 	char	**paths;
 	char	**exe;
-	pid_t	p;
+	int		id;
 	int		error;
 
 	paths = get_paths(env);
 	if (!paths)
 		return (print_errors(PATHS));
-	p = fork();
-	if (p == 0)
+	// get stuff from a file using cat
+	id = fork();
+	if (id == 0)
 	{
-		exe = execve_arr_maker(paths, av[1], &error);
+		exe = execve_arr_maker(paths, av[2], &error);
 		if (!exe)
 			return (ft_free_list(paths), print_errors(error));
 		ft_free_list(paths);
@@ -64,10 +63,10 @@ int	main(int ac, const char **av, const char **env)
 			exit (1);
 		}
 	}
-	else if (p >= 1)
+	else if (id >= 1)
 	{
 		wait(NULL);
-		exe = execve_arr_maker(paths, av[2], &error);
+		exe = execve_arr_maker(paths, av[3], &error);
 		if (!exe)
 			return (ft_free_list(paths), print_errors(error));
 		ft_free_list(paths);
@@ -79,6 +78,7 @@ int	main(int ac, const char **av, const char **env)
 	}
 	else
 	{
+		ft_fprintf(2, "%s\n", strerror(errno));
 		ft_free_list(paths);
 	}
 }

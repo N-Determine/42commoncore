@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/30 17:51:03 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/04 16:40:33 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <errno.h>
-# include <wait.h>
+# include <sys/wait.h>
 
 // ENUMS
 /**

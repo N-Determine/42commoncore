@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/04 16:16:37 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/05 13:17:58 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	main(int ac, const char **av, const char **env)
 	int		id;
 	int		error;
 
+	if (ac < 5)
+		return (print_errors(USAGE));
 	paths = get_paths(env);
 	if (!paths)
 		return (print_errors(PATHS));

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/05 13:36:56 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/05 14:01:10 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ int	main(int ac, const char **av, const char **env)
 		return (print_errors(PATHS));
 	// get stuff from a file using cat
 	id = fork();
+	if (id == -1)
+	{
+		ft_fprintf(2, "%s\n", strerror(errno));
+		ft_free_list(paths);
+	}
 	if (id == 0)
 	{
 		exe = execve_arr_maker(paths, av[2], &error);
@@ -79,7 +84,7 @@ int	main(int ac, const char **av, const char **env)
 			exit (1);
 		}
 	}
-	else if (id >= 1)
+	else
 	{
 		int wstatus;
 		wait(&wstatus);
@@ -96,10 +101,5 @@ int	main(int ac, const char **av, const char **env)
 			ft_free_list(exe);
 			exit (1);
 		}
-	}
-	else
-	{
-		ft_fprintf(2, "%s\n", strerror(errno));
-		ft_free_list(paths);
 	}
 }

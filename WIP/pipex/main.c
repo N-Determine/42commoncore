@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/05 13:17:58 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/05 13:36:56 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,20 @@ char	**execve_arr_maker(char **paths, const char *arg, int *error)
 	return (arr);
 }
 
+int ft_wifexited(int status)
+{
+	if ((status & 0x7f) == 0)
+		return (1);
+	return (0);
+}
+
+int ft_wexitstatus(int status)
+{
+	return (((status) & 0xff00) >> 8);
+}
+
+
+
 int	main(int ac, const char **av, const char **env)
 {
 	char	**paths;
@@ -46,8 +60,8 @@ int	main(int ac, const char **av, const char **env)
 	int		id;
 	int		error;
 
-	if (ac < 5)
-		return (print_errors(USAGE));
+	//if (ac < 5)
+	//	return (print_errors(USAGE));
 	paths = get_paths(env);
 	if (!paths)
 		return (print_errors(PATHS));
@@ -67,7 +81,12 @@ int	main(int ac, const char **av, const char **env)
 	}
 	else if (id >= 1)
 	{
-		wait(NULL);
+		int wstatus;
+		wait(&wstatus);
+		if (ft_wifexited(wstatus))
+		{	
+			ft_printf("Exit status child: %i\n", ft_wexitstatus(wstatus));
+		}
 		exe = execve_arr_maker(paths, av[3], &error);
 		if (!exe)
 			return (ft_free_list(paths), print_errors(error));

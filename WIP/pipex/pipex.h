@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/06 16:50:27 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/06 17:39:29 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <errno.h>
+# include <fcntl.h>
 # include <sys/wait.h>
 
 // ENUMS
@@ -74,7 +75,7 @@ int		print_errors(int code);
 // free.c
 void	ft_free_list(char **arr);
 
-// ftw.c
+// helpers.c
 /**
  * @brief Checks if a child process has exited.
  * 
@@ -96,7 +97,7 @@ void	ft_free_list(char **arr);
  * function; otherwise, the behavior of this function may be undefined.
  * Do this by passing an int by reference int he wait function.
  */
-int ft_wifexited(int status);
+int		ft_wifexited(int status);
 /**
  * @brief Extracts the exit status of a terminated child process.
  * 
@@ -118,7 +119,31 @@ int ft_wifexited(int status);
  * normally before calling this function. If the child process did not 
  * exit normally, the returned value may be undefined.
  */
-int ft_wexitstatus(int status);
+int		ft_wexitstatus(int status);
+/**
+ * Determines the write mode for the file at the end of the command chain.
+ * 
+ * This function is used to select the appropriate mode for writing to a file.
+ * It supports two modes:
+ * 
+ * `code = 1`: Overwrites the file (uses `O_TRUNC`).
+ * 
+ * `code = 0`: Appends to the file (used for the here_doc in the bonus, 
+ * with `O_APPEND`).
+ * 
+ * @param code An integer indicating the desired mode:
+ * 
+ * - `1`: Normal mode (overwrite).
+ * 
+ * - `0`: Append mode.
+ * 
+ * @return The appropriate flags for the `open` system call:
+ * 
+ * - `O_WRONLY | O_CREAT | O_TRUNC` for normal mode.
+ * 
+ * - `O_WRONLY | O_CREAT | O_APPEND` for append mode.
+ */
+int		write_mode(int code);
 
 //path.c
 /**

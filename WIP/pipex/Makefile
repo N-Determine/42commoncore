@@ -3,7 +3,7 @@ NAME = pipex
 COMP = cc
 FLAGS = -Wall -Wextra -g # -Werror
 
-SRCS = main.c free.c path.c errors.c ftw.c
+SRCS = main.c free.c path.c errors.c helpers.c
 OFOLDER = objs
 OPATH = objs/
 OBJS = $(addprefix $(OPATH), $(SRCS:.c=.o))

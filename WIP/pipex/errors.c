@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:58:36 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/06 16:47:41 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/06 16:50:53 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	print_errors(int code)
 	if (code == PATHS)
 		ft_fprintf(2, "PATH could not be loaded\n");
 	if (code == PIPE)
-		ft_fprintf(2, "Pipe failed to execute\n");
+		ft_fprintf(2, "Pipe function failed to execute\n");
+	if (code == FORK)
+		ft_fprintf(2, "Fork function failed to execute\n");
 	return (code);
 }

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/06 16:47:08 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/06 16:51:48 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,18 @@ int	main(int ac, const char **av, const char **env)
 	if (!paths)
 		return (print_errors(PATHS));
 	// get stuff from a file using cat
-	if (pipe(fd[0]) < 0)
+	if (pipe(fd[0]) == -1)
 	{
 		ft_free_list(paths);
-		return(print_errors(PIPE));
+		return (print_errors(PIPE));
 	}
 	pid1 = fork();
 	if (pid1 == -1)
 	{
-		ft_fprintf(2, "%s\n", strerror(errno));
+		close(fd[0][0]);
+		close(fd[0][1]);
 		ft_free_list(paths);
+		return (print_errors(FORK));
 	}
 	if (pid1 == 0)
 	{
@@ -87,8 +89,10 @@ int	main(int ac, const char **av, const char **env)
 	pid2 = fork();
 	if (pid2 == -1)
 	{
-		ft_fprintf(2, "%s\n", strerror(errno));
+		close(fd[0][0]);
+		close(fd[0][1]);
 		ft_free_list(paths);
+		return (print_errors(FORK));
 	}
 	if (pid2 == 0)
 	{

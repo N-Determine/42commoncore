@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/06 16:09:29 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/06 16:47:08 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,60 @@ char	**execve_arr_maker(char **paths, const char *arg, int *error)
 
 int	main(int ac, const char **av, const char **env)
 {
-	// Make a pipex struct for this stuff
 	char	**paths;
 	char	**exe;
-	int		id;
+	int		pid1;
+	int		pid2;
 	int		error;
 	int		fd[2][2];
 	int		wstatus;
 
 	//if (ac < 5)
 	//	return (print_errors(USAGE));
+
+	
 	paths = get_paths(env);
 	if (!paths)
 		return (print_errors(PATHS));
 	// get stuff from a file using cat
-	id = fork();
-	if (id == -1)
+	if (pipe(fd[0]) < 0)
+	{
+		ft_free_list(paths);
+		return(print_errors(PIPE));
+	}
+	pid1 = fork();
+	if (pid1 == -1)
 	{
 		ft_fprintf(2, "%s\n", strerror(errno));
 		ft_free_list(paths);
 	}
-	if (id == 0)
+	if (pid1 == 0)
 	{
+		dup2(fd[0][1], STDOUT_FILENO);
+		close(fd[0][0]);
+		close(fd[0][1]);
+		exe = execve_arr_maker(paths, av[1], &error);
+		if (!exe)
+			return (ft_free_list(paths), print_errors(error));
+		ft_free_list(paths);
+		if (execve(exe[0], exe, NULL) == -1)
+		{
+			ft_free_list(exe);
+			exit (1);
+		}
+	}
+	
+	pid2 = fork();
+	if (pid2 == -1)
+	{
+		ft_fprintf(2, "%s\n", strerror(errno));
+		ft_free_list(paths);
+	}
+	if (pid2 == 0)
+	{
+		dup2(fd[0][0], STDIN_FILENO);
+		close(fd[0][0]);
+		close(fd[0][1]);
 		exe = execve_arr_maker(paths, av[2], &error);
 		if (!exe)
 			return (ft_free_list(paths), print_errors(error));
@@ -73,10 +105,18 @@ int	main(int ac, const char **av, const char **env)
 			exit (1);
 		}
 	}
-	wait(&wstatus);
-	if (ft_wifexited(wstatus))
-	{	
-		ft_printf("Exit status child: %i\n", ft_wexitstatus(wstatus));
-	}
-	free(paths);
+	// Close the pipe once here
+	close(fd[0][0]);
+	close(fd[0][1]);
+	
+	// Wait for every single process here
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
+	
+	// wait(&wstatus);
+	// if (ft_wifexited(wstatus))
+	// {	
+	// 	ft_printf("Exit status child: %i\n", ft_wexitstatus(wstatus));
+	// }
+	ft_free_list(paths);
 }

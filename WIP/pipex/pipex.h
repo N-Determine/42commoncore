@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/06 17:39:29 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/06 18:20:49 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,21 @@ enum e_errors
 	PIPE = 7,
 	FORK = 8,
 };
+
+//	STRUCTS
+typedef struct s_data
+{
+	char	**paths;
+	char	**exe;
+	int		pid1;
+	int		pid2;
+	int		error;
+	int		fd[2][2];
+	int		final_fd;
+	int		init_fd;
+	int		wstatus;
+	int		mode;
+} t_data;
 
 // FUNCTIONS
 // errors.c

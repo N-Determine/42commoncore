@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/06 17:54:43 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/06 18:14:36 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ char	**execve_arr_maker(char **paths, const char *arg, int *error)
 		return (*error = MALLOC, ft_free_list(arr), NULL);
 	free(tmp);
 	return (arr);
+}
+
+void	cleaner(int fd[2][2], char **paths, int final_fd)
+{
+		close(final_fd);
+		close(fd[0][0]);
+		close(fd[0][1]);
+		close(fd[1][0]);
+		close(fd[1][1]);
+		ft_free_list(paths);
 }
 
 int	main(int ac, const char **av, const char **env)
@@ -73,6 +83,8 @@ int	main(int ac, const char **av, const char **env)
 	if (!paths)
 		return (print_errors(PATHS));
 
+	// !!! ONLY CHECK PATHS IF IT ISNT PUT INTO THE PROGRAMM ITSELF
+
 
 
 
@@ -86,17 +98,11 @@ int	main(int ac, const char **av, const char **env)
 		ft_free_list(paths);
 		return (print_errors(PIPE));
 	}
+
+	// First command block
 	pid1 = fork();
 	if (pid1 == -1)
-	{
-		close(final_fd);
-		close(fd[0][0]);
-		close(fd[0][1]);
-		close(fd[1][0]);
-		close(fd[1][1]);
-		ft_free_list(paths);
-		return (print_errors(FORK));
-	}
+		return (cleaner(fd, paths, final_fd), print_errors(FORK));
 	if (pid1 == 0)
 	{
 		
@@ -104,9 +110,12 @@ int	main(int ac, const char **av, const char **env)
 		dup2(fd[0][1], STDOUT_FILENO);
 		close(fd[0][0]);
 		close(fd[0][1]);
+		// Redirecting input
+		dup2(init_fd, STDIN_FILENO);
+		close(fd[1][0]);
+		close(fd[1][1]);
+		close(init_fd);
 
-
-		
 		exe = execve_arr_maker(paths, av[2], &error);
 		if (!exe)
 			return (ft_free_list(paths), print_errors(error));
@@ -118,17 +127,10 @@ int	main(int ac, const char **av, const char **env)
 		}
 	}
 	
+	// Mid command block 1
 	pid2 = fork();
 	if (pid2 == -1)
-	{
-		close(final_fd);
-		close(fd[0][0]);
-		close(fd[0][1]);
-		close(fd[1][0]);
-		close(fd[1][1]);
-		ft_free_list(paths);
-		return (print_errors(FORK));
-	}
+		return (cleaner(fd, paths, final_fd), print_errors(FORK));
 	if (pid2 == 0)
 	{
 		// Redirect input
@@ -149,17 +151,11 @@ int	main(int ac, const char **av, const char **env)
 			exit (1);
 		}
 	}
+
+  	// Last Command block (from Mid command block 1)
 	pid1 = fork();
 	if (pid1 == -1)
-	{
-		close(final_fd);
-		close(fd[0][0]);
-		close(fd[0][1]);
-		close(fd[1][0]);
-		close(fd[1][1]);
-		ft_free_list(paths);
-		return (print_errors(FORK));
-	}
+		return (cleaner(fd, paths, final_fd), print_errors(FORK));
 	if (pid1 == 0)
 	{
 		// Redirect input
@@ -167,9 +163,9 @@ int	main(int ac, const char **av, const char **env)
 		close(fd[1][0]);
 		close(fd[1][1]);
 		// Redirect output
-		dup2(final_fd, STDOUT_FILENO);
 		close(fd[0][0]);
 		close(fd[0][1]);
+		dup2(final_fd, STDOUT_FILENO);
 		close(final_fd);
 		exe = execve_arr_maker(paths, av[4], &error);
 		if (!exe)
@@ -182,14 +178,12 @@ int	main(int ac, const char **av, const char **env)
 		}
 	}
 
+
+
+
 	// Close every fd and free any memory here
-	close(fd[0][0]);
-	close(fd[0][1]);
-	close(fd[1][0]);
-	close(fd[1][1]);
+	cleaner(fd, paths, final_fd);
 	close(init_fd);
-	close(final_fd);
-	ft_free_list(paths);
 	
 	// Wait for every single process here -> Make it a loop
 	waitpid(pid1, NULL, 0);

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/06 18:58:22 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/06 19:45:54 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,10 +167,21 @@ int	main(int ac, const char **av, const char **env)
 	close(data.init_fd);
 	
 	// Wait for every single process here -> Make it a loop
-	waitpid(data.pid1, NULL, 0);
-	waitpid(data.pid2, NULL, 0);
-	waitpid(data.pid1, NULL, 0);
-
+	waitpid(data.pid1, &data.wstatus, 0);
+	if (ft_wifexited(data.wstatus))
+	{	
+		ft_printf("Exit status child: %i\n", ft_wexitstatus(data.wstatus));
+	}
+	waitpid(data.pid2, &data.wstatus, 0);
+	if (ft_wifexited(data.wstatus))
+	{	
+		ft_printf("Exit status child: %i\n", ft_wexitstatus(data.wstatus));
+	}
+	waitpid(data.pid1, &data.wstatus, 0);
+	if (ft_wifexited(data.wstatus))
+	{	
+		ft_printf("Exit status child: %i\n", ft_wexitstatus(data.wstatus));
+	}
 
 
 

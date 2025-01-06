@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/05 14:01:10 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/06 16:09:29 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,15 @@ char	**execve_arr_maker(char **paths, const char *arg, int *error)
 	return (arr);
 }
 
-int ft_wifexited(int status)
-{
-	if ((status & 0x7f) == 0)
-		return (1);
-	return (0);
-}
-
-int ft_wexitstatus(int status)
-{
-	return (((status) & 0xff00) >> 8);
-}
-
-
-
 int	main(int ac, const char **av, const char **env)
 {
+	// Make a pipex struct for this stuff
 	char	**paths;
 	char	**exe;
 	int		id;
 	int		error;
+	int		fd[2][2];
+	int		wstatus;
 
 	//if (ac < 5)
 	//	return (print_errors(USAGE));
@@ -84,22 +73,10 @@ int	main(int ac, const char **av, const char **env)
 			exit (1);
 		}
 	}
-	else
-	{
-		int wstatus;
-		wait(&wstatus);
-		if (ft_wifexited(wstatus))
-		{	
-			ft_printf("Exit status child: %i\n", ft_wexitstatus(wstatus));
-		}
-		exe = execve_arr_maker(paths, av[3], &error);
-		if (!exe)
-			return (ft_free_list(paths), print_errors(error));
-		ft_free_list(paths);
-		if (execve(exe[0], exe, NULL) == -1)
-		{
-			ft_free_list(exe);
-			exit (1);
-		}
+	wait(&wstatus);
+	if (ft_wifexited(wstatus))
+	{	
+		ft_printf("Exit status child: %i\n", ft_wexitstatus(wstatus));
 	}
+	free(paths);
 }

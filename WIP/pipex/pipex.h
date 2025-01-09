@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/06 18:20:49 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/09 11:07:04 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_data
 	int		init_fd;
 	int		wstatus;
 	int		mode;
-} t_data;
+}	t_data;
 
 // FUNCTIONS
 // errors.c
@@ -89,6 +89,7 @@ int		print_errors(int code);
 
 // free.c
 void	ft_free_list(char **arr);
+void	cleaner(int fd[2][2], char **paths, int final_fd);
 
 // helpers.c
 /**

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/09 10:45:22 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/09 11:06:12 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,6 @@ char	**execve_arr_maker(char **paths, const char *arg, int *error)
 		free(tmp);
 	}
 	return (arr);
-}
-
-void	cleaner(int fd[2][2], char **paths, int final_fd)
-{
-	close(final_fd);
-	close(fd[0][0]);
-	close(fd[0][1]);
-	close(fd[1][0]);
-	close(fd[1][1]);
-	ft_free_list(paths);
 }
 
 int	main(int ac, const char **av, const char **env)

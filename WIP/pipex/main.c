@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/09 11:06:12 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/09 11:12:31 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,10 @@ int	main(int ac, const char **av, const char **env)
 	// !!! ONLY CHECK PATHS IF IT ISNT PUT INTO THE PROGRAMM ITSELF
 
 	// Create the 2 necessary pipes
-	if (pipe(data.fd[0]) == -1 | pipe(data.fd[1]) == -1)
-	{
-		ft_free_list(data.paths);
-		return (print_errors(PIPE));
-	}
-
+	if (pipe(data.fd[0]) == -1) 
+		return (ft_free_list(data.paths), print_errors(PIPE));
+	if (pipe(data.fd[1]) == -1)
+		return (close(data.fd[0][0]), close(data.fd[0][1]), ft_free_list(data.paths), print_errors(PIPE));
 	// First command block
 	data.pid1 = fork();
 	if (data.pid1 == -1)

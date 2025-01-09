@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/06 19:45:54 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/09 10:45:22 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,28 @@ char	**execve_arr_maker(char **paths, const char *arg, int *error)
 		ft_fprintf(2, "%s: %s\n", strerror(errno), arr[0]);
 		return (*error = ACCESS, ft_free_list(arr), NULL);
 	}
-	tmp = allo_trip_strcat(paths[index], "/", arr[0]);
-	if (!tmp)
-		return (*error = MALLOC, ft_free_list(arr), NULL);
-	free(arr[0]);
-	arr[0] = ft_strdup(tmp);
-	if (!arr[0])
-		return (*error = MALLOC, ft_free_list(arr), NULL);
-	free(tmp);
+	if (ft_strchr(arr[0], '/') == 0)
+	{
+		tmp = allo_trip_strcat(paths[index], "/", arr[0]);
+		if (!tmp)
+			return (*error = MALLOC, ft_free_list(arr), NULL);
+		free(arr[0]);
+		arr[0] = ft_strdup(tmp);
+		if (!arr[0])
+			return (*error = MALLOC, ft_free_list(arr), NULL);
+		free(tmp);
+	}
 	return (arr);
 }
 
 void	cleaner(int fd[2][2], char **paths, int final_fd)
 {
-		close(final_fd);
-		close(fd[0][0]);
-		close(fd[0][1]);
-		close(fd[1][0]);
-		close(fd[1][1]);
-		ft_free_list(paths);
+	close(final_fd);
+	close(fd[0][0]);
+	close(fd[0][1]);
+	close(fd[1][0]);
+	close(fd[1][1]);
+	ft_free_list(paths);
 }
 
 int	main(int ac, const char **av, const char **env)
@@ -64,8 +67,12 @@ int	main(int ac, const char **av, const char **env)
 		data.mode = 1;
 
 	// Making the fds for the file to read and to write to
-	data.final_fd = open(av[ac - 1], write_mode(data.mode), 0644); // Protect
-	data.init_fd = open(av[1], O_RDONLY, 0644); // Protect
+	data.final_fd = open(av[ac - 1], write_mode(data.mode), 0644);
+	if (data.final_fd == -1)
+		return (1);
+	data.init_fd = open(av[1], O_RDONLY, 0644);
+	if (data.init_fd == -1)
+		return (1);
 
 	// Getting the paths for the binarys
 	data.paths = get_paths(env);

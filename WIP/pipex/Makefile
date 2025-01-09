@@ -40,4 +40,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+tidy: all clean
+
+.PHONY: all clean fclean re tidy

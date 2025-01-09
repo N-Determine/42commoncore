@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:47:11 by adeters           #+#    #+#             */
-/*   Updated: 2024/12/17 16:33:48 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/09 10:43:29 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	check_access(char **paths, char *prog, int mode)
 	i = 0;
 	if (!paths | !prog)
 		return (-1);
+	if (access(prog, mode) == 0)
+		return (1);
 	while (paths[i])
 	{
 		tmp = allo_trip_strcat(paths[i], "/", prog);

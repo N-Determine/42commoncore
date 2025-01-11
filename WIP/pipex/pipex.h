@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/09 11:07:04 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/11 15:31:21 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+
+// Limit of maximum pipes; changable at compile time
+# ifndef FD_LIMIT
+#  define FD_LIMIT 508
+# endif
 
 // ENUMS
 /**
@@ -69,10 +74,9 @@ typedef struct s_data
 {
 	char	**paths;
 	char	**exe;
-	int		pid1;
-	int		pid2;
+	int		pid[FD_LIMIT + 1];
 	int		error;
-	int		fd[2][2];
+	int		fd[FD_LIMIT][2];
 	int		final_fd;
 	int		init_fd;
 	int		wstatus;
@@ -89,7 +93,6 @@ int		print_errors(int code);
 
 // free.c
 void	ft_free_list(char **arr);
-void	cleaner(int fd[2][2], char **paths, int final_fd);
 
 // helpers.c
 /**

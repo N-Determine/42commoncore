@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/09 11:12:31 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/11 15:30:31 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,21 @@ char	**execve_arr_maker(char **paths, const char *arg, int *error)
 	return (arr);
 }
 
+void	fd_closer(t_data *data, int pipes_open)
+{
+	int	i;
+
+	i = 0;
+	close(data->init_fd);
+	close(data->final_fd);
+	while (i < pipes_open)
+	{
+		close(data->fd[i][0]);
+		close(data->fd[i][1]);
+		i++;
+	}
+}
+
 int	main(int ac, const char **av, const char **env)
 {
 	t_data data;
@@ -69,28 +84,25 @@ int	main(int ac, const char **av, const char **env)
 	if (!data.paths)
 		return (print_errors(PATHS));
 
-	// !!! ONLY CHECK PATHS IF IT ISNT PUT INTO THE PROGRAMM ITSELF
-
 	// Create the 2 necessary pipes
 	if (pipe(data.fd[0]) == -1) 
 		return (ft_free_list(data.paths), print_errors(PIPE));
 	if (pipe(data.fd[1]) == -1)
 		return (close(data.fd[0][0]), close(data.fd[0][1]), ft_free_list(data.paths), print_errors(PIPE));
+	pipe(data.fd[2]);
+	pipe(data.fd[3]);
+
 	// First command block
-	data.pid1 = fork();
-	if (data.pid1 == -1)
-		return (cleaner(data.fd, data.paths, data.final_fd), print_errors(FORK));
-	if (data.pid1 == 0)
+	data.pid[0] = fork();
+	if (data.pid[0] == -1)
+		return (cleaner(&data), print_errors(FORK));
+	if (data.pid[0] == 0)
 	{
-		// Redirecting output
-		dup2(data.fd[0][1], STDOUT_FILENO);
-		close(data.fd[0][0]);
-		close(data.fd[0][1]);
 		// Redirecting input
 		dup2(data.init_fd, STDIN_FILENO);
-		close(data.fd[1][0]);
-		close(data.fd[1][1]);
-		close(data.init_fd);
+		// Redirecting output
+		dup2(data.fd[1][1], STDOUT_FILENO);
+		fd_closer(&data, 4);
 
 		data.exe = execve_arr_maker(data.paths, av[2], &data.error);
 		if (!data.exe)
@@ -104,19 +116,16 @@ int	main(int ac, const char **av, const char **env)
 	}
 	
 	// Mid command block 1
-	data.pid2 = fork();
-	if (data.pid2 == -1)
-		return (cleaner(data.fd, data.paths, data.final_fd), print_errors(FORK));
-	if (data.pid2 == 0)
+	data.pid[1] = fork();
+	if (data.pid[1] == -1)
+		return (cleaner(&data), print_errors(FORK));
+	if (data.pid[1] == 0)
 	{
 		// Redirect input
-		dup2(data.fd[0][0], STDIN_FILENO);
-		close(data.fd[0][0]);
-		close(data.fd[0][1]);
+		dup2(data.fd[1][0], STDIN_FILENO);
 		// Redirect output
-		dup2(data.fd[1][1], STDOUT_FILENO);
-		close(data.fd[1][0]);
-		close(data.fd[1][1]);
+		dup2(data.fd[2][1], STDOUT_FILENO);
+		fd_closer(&data, 4);
 		data.exe = execve_arr_maker(data.paths, av[3], &data.error);
 		if (!data.exe)
 			return (ft_free_list(data.paths), print_errors(data.error));
@@ -128,21 +137,39 @@ int	main(int ac, const char **av, const char **env)
 		}
 	}
 
-  	// Last Command block (from Mid command block 1)
-	data.pid1 = fork();
-	if (data.pid1 == -1)
-		return (cleaner(data.fd, data.paths, data.final_fd), print_errors(FORK));
-	if (data.pid1 == 0)
+	// Mid command block 1
+	data.pid[1] = fork();
+	if (data.pid[1] == -1)
+		return (cleaner(&data), print_errors(FORK));
+	if (data.pid[1] == 0)
 	{
 		// Redirect input
-		dup2(data.fd[1][0], STDIN_FILENO);
-		close(data.fd[1][0]);
-		close(data.fd[1][1]);
+		dup2(data.fd[2][0], STDIN_FILENO);
 		// Redirect output
-		close(data.fd[0][0]);
-		close(data.fd[0][1]);
+		dup2(data.fd[3][1], STDOUT_FILENO);
+		fd_closer(&data, 4);
+		data.exe = execve_arr_maker(data.paths, av[3], &data.error);
+		if (!data.exe)
+			return (ft_free_list(data.paths), print_errors(data.error));
+		ft_free_list(data.paths);
+		if (execve(data.exe[0], data.exe, NULL) == -1)
+		{
+			ft_free_list(data.exe);
+			exit (1);
+		}
+	}
+
+	// Last Command block
+	data.pid[2] = fork();
+	if (data.pid[2] == -1)
+		return (cleaner(&data), print_errors(FORK));
+	if (data.pid[2] == 0)
+	{
+		// Redirect input
+		dup2(data.fd[3][0], STDIN_FILENO);
+		// Redirect output
 		dup2(data.final_fd, STDOUT_FILENO);
-		close(data.final_fd);
+		fd_closer(&data, 4);
 		data.exe = execve_arr_maker(data.paths, av[4], &data.error);
 		if (!data.exe)
 			return (ft_free_list(data.paths), print_errors(data.error));
@@ -155,36 +182,20 @@ int	main(int ac, const char **av, const char **env)
 	}
 
 
-
-
 	// Close every fd and free any memory here
-	cleaner(data.fd, data.paths, data.final_fd);
 	close(data.init_fd);
-	
+	fd_closer(&data, 4);
+	ft_free_list(data.paths);
 	// Wait for every single process here -> Make it a loop
-	waitpid(data.pid1, &data.wstatus, 0);
-	if (ft_wifexited(data.wstatus))
-	{	
-		ft_printf("Exit status child: %i\n", ft_wexitstatus(data.wstatus));
-	}
-	waitpid(data.pid2, &data.wstatus, 0);
-	if (ft_wifexited(data.wstatus))
-	{	
-		ft_printf("Exit status child: %i\n", ft_wexitstatus(data.wstatus));
-	}
-	waitpid(data.pid1, &data.wstatus, 0);
+
+	wait(NULL);
+	waitpid(data.pid[3], &data.wstatus, 0);
 	if (ft_wifexited(data.wstatus))
 	{	
 		ft_printf("Exit status child: %i\n", ft_wexitstatus(data.wstatus));
 	}
 
-
-
-
-	// Getting the exit status for the last execution
-	// wait(&wstatus);
-	// if (ft_wifexited(wstatus))
-	// {	
-	// 	ft_printf("Exit status child: %i\n", ft_wexitstatus(wstatus));
-	// }
+	
 }
+
+

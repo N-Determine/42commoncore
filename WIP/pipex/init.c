@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:50:53 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 16:38:00 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/11 17:10:39 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	init_prog(t_data *data, int ac, const char **av, const char **env)
 	else
 		data->mode = 0;
 	data->processes = ac - data->mode - 3;
+	if (data->processes > FD_LIMIT)
+		return (print_errors(LIMIT));
 	data->final_fd = open(av[ac - 1], write_mode(data->mode), 0644);
 	if (data->final_fd == -1)
 		return (print_errors(OPEN));

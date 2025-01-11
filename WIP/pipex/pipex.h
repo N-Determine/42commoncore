@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 16:37:11 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/11 17:14:43 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ enum e_errors
 	PIPE = 7,
 	FORK = 8,
 	OPEN = 9,
+	LIMIT = 10,
 };
 
 //	STRUCTS
@@ -149,16 +150,16 @@ int		ft_wexitstatus(int status);
  * This function is used to select the appropriate mode for writing to a file.
  * It supports two modes:
  * 
- * `code = 1`: Overwrites the file (uses `O_TRUNC`).
+ * `code = 0`: Overwrites the file (uses `O_TRUNC`).
  * 
- * `code = 0`: Appends to the file (used for the here_doc in the bonus, 
+ * `code = 1`: Appends to the file (used for the here_doc in the bonus, 
  * with `O_APPEND`).
  * 
  * @param code An integer indicating the desired mode:
  * 
- * - `1`: Normal mode (overwrite).
+ * - `0`: Normal mode (overwrite).
  * 
- * - `0`: Append mode.
+ * - `1`: Append mode.
  * 
  * @return The appropriate flags for the `open` system call:
  * 

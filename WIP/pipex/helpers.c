@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:35:12 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 16:19:23 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/11 17:14:18 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_wexitstatus(int status)
 
 int	write_mode(int code)
 {
-	if (code == 1)
+	if (code == 0)
 		return (O_WRONLY | O_CREAT | O_TRUNC);
 	return (O_WRONLY | O_CREAT | O_APPEND);
 }

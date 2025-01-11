@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:58:36 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 16:11:05 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/11 17:09:59 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ int	print_errors(int code)
 		ft_fprintf(2, "Fork function failed to execute\n");
 	if (code == OPEN)
 		ft_fprintf(2, "Open function failed to execute\n");
+	if (code == LIMIT)
+		ft_fprintf(2, "Two many pipes used (Limit: %i)\n", FD_LIMIT);
 	return (code);
 }

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 16:26:39 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/11 16:36:12 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 int	main(int ac, const char **av, const char **env)
 {
 	t_data	data;
-	int code;
 
 	data.code = init_prog(&data, ac, av, env);
 	if (data.code)

@@ -6,72 +6,29 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 15:48:40 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/11 16:06:16 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// Pass the error as int * to controll the output
-char	**execve_arr_maker(char **paths, const char *arg, int *error)
-{
-	int		index;
-	char	*tmp;
-	char	**arr;
+#define AMOUNT 3
 
-	arr = ft_split(arg, ' ');
-	if (!arr)
-		return (*error = SPLIT, NULL);
-	index = check_access(paths, arr[0], X_OK);
-	if (index < 0)
-	{
-		ft_fprintf(2, "%s: %s\n", strerror(errno), arr[0]);
-		return (*error = ACCESS, ft_free_list(arr), NULL);
-	}
-	if (ft_strchr(arr[0], '/') == 0)
-	{
-		tmp = allo_trip_strcat(paths[index], "/", arr[0]);
-		if (!tmp)
-			return (*error = MALLOC, ft_free_list(arr), NULL);
-		free(arr[0]);
-		arr[0] = ft_strdup(tmp);
-		if (!arr[0])
-			return (*error = MALLOC, ft_free_list(arr), NULL);
-		free(tmp);
-	}
-	return (arr);
-}
-
-void	fd_closer(t_data *data, int pipes_open)
-{
-	int	i;
-
-	i = 0;
-	close(data->init_fd);
-	close(data->final_fd);
-	while (i < pipes_open)
-	{
-		close(data->fd[i][0]);
-		close(data->fd[i][1]);
-		i++;
-	}
-}
-
-int	pipe_maker(t_data *data, int pipes_amt)
+int wait_all(t_data *data, int processes)
 {
 	int i;
 
 	i = 0;
-	while (i < pipes_amt)
+	while (i < processes - 1)
 	{
-		if (pipe(data->fd[i]) == -1)
-			return (fd_closer(data, i), 0);
+		wait(NULL);
 		i++;
 	}
+	waitpid(data->pid[processes - 1], &data->wstatus, 0);
+	if (ft_wifexited(data->wstatus))
+		return (ft_wexitstatus(data->wstatus));
 	return (1);
 }
-
-#define AMOUNT 4
 
 int	main(int ac, const char **av, const char **env)
 {
@@ -100,7 +57,6 @@ int	main(int ac, const char **av, const char **env)
 	if (!data.paths)
 		return (print_errors(PATHS));
 
-
 	// Create the 2 necessary pipes
 	if (!pipe_maker(&data, AMOUNT))
 		return (ft_free_list(data.paths), print_errors(PIPE));
@@ -124,8 +80,8 @@ int	main(int ac, const char **av, const char **env)
 			exit (1);
 		}
 	}
-	
-	// Mid command block 1
+
+	// Mid command block 1 -> only use in bonus
 	data.pid[1] = fork();
 	if (data.pid[1] == -1)
 		return (ft_free_list(data.paths), fd_closer(&data, AMOUNT), print_errors(FORK));
@@ -146,10 +102,10 @@ int	main(int ac, const char **av, const char **env)
 	}
 
 	// Last Command block
-	data.pid[2] = fork();
-	if (data.pid[2] == -1)
+	data.pid[ac - 2] = fork();
+	if (data.pid[ac - 2] == -1)
 		return (ft_free_list(data.paths), fd_closer(&data, AMOUNT), print_errors(FORK));
-	if (data.pid[2] == 0)
+	if (data.pid[ac - 2] == 0)
 	{
 		dup2(data.fd[2][0], STDIN_FILENO);
 		dup2(data.final_fd, STDOUT_FILENO);
@@ -165,17 +121,9 @@ int	main(int ac, const char **av, const char **env)
 		}
 	}
 
-
 	// Close every fd and free any memory here
-	close(data.init_fd);
 	fd_closer(&data, AMOUNT);
-	ft_free_list(data.paths);
-	// Wait for every single process here -> Make it a loop
-
-	wait(NULL);
-	waitpid(data.pid[2], &data.wstatus, 0);
-	if (ft_wifexited(data.wstatus))
-		return (ft_wexitstatus(data.wstatus));
+	return (ft_free_list(data.paths), wait_all(&data, AMOUNT));
 }
 
 

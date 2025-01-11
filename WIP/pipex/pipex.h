@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 15:31:21 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/11 15:51:58 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int		print_errors(int code);
 
 // free.c
 void	ft_free_list(char **arr);
+void	fd_closer(t_data *data, int pipes_open);
 
 // helpers.c
 /**
@@ -163,6 +164,10 @@ int		ft_wexitstatus(int status);
  * - `O_WRONLY | O_CREAT | O_APPEND` for append mode.
  */
 int		write_mode(int code);
+
+// init.c
+char	**execve_arr_maker(char **paths, const char *arg, int *error);
+int		pipe_maker(t_data *data, int pipes_amt);
 
 //path.c
 /**

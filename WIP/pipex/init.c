@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:50:53 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 16:35:55 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/11 16:38:00 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	init_prog(t_data *data, int ac, const char **av, const char **env)
 		data->mode = 1;
 	else
 		data->mode = 0;
+	data->processes = ac - data->mode - 3;
 	data->final_fd = open(av[ac - 1], write_mode(data->mode), 0644);
 	if (data->final_fd == -1)
 		return (print_errors(OPEN));
@@ -29,7 +30,7 @@ int	init_prog(t_data *data, int ac, const char **av, const char **env)
 	data->paths = get_paths(env);
 	if (!data->paths)
 		return (fd_closer(data, 0), print_errors(PATHS));
-	if (!pipe_maker(data, ac - data->mode - 3))
+	if (!pipe_maker(data, data->processes))
 	{
 		fd_closer(data, 0);
 		return (ft_free_list(data->paths), print_errors(PIPE));

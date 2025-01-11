@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 16:22:42 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/11 16:37:11 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_data
 	int		wstatus;
 	int		mode;
 	int		code;
+	int		processes;
 }	t_data;
 
 // FUNCTIONS

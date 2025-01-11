@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 15:51:58 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/11 16:22:42 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ enum e_errors
 	NFOUND = 6,
 	PIPE = 7,
 	FORK = 8,
+	OPEN = 9,
 };
 
 //	STRUCTS
@@ -81,6 +82,7 @@ typedef struct s_data
 	int		init_fd;
 	int		wstatus;
 	int		mode;
+	int		code;
 }	t_data;
 
 // FUNCTIONS
@@ -164,8 +166,10 @@ int		ft_wexitstatus(int status);
  * - `O_WRONLY | O_CREAT | O_APPEND` for append mode.
  */
 int		write_mode(int code);
+int		wait_all(t_data *data, int processes);
 
 // init.c
+int		init_prog(t_data *data, int ac, const char **av, const char **env);
 char	**execve_arr_maker(char **paths, const char *arg, int *error);
 int		pipe_maker(t_data *data, int pipes_amt);
 

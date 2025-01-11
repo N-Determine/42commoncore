@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 16:06:16 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/11 16:26:39 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,53 +14,15 @@
 
 #define AMOUNT 3
 
-int wait_all(t_data *data, int processes)
-{
-	int i;
-
-	i = 0;
-	while (i < processes - 1)
-	{
-		wait(NULL);
-		i++;
-	}
-	waitpid(data->pid[processes - 1], &data->wstatus, 0);
-	if (ft_wifexited(data->wstatus))
-		return (ft_wexitstatus(data->wstatus));
-	return (1);
-}
-
 int	main(int ac, const char **av, const char **env)
 {
-	t_data data;
+	t_data	data;
+	int code;
 
-	// Usage Protection
-	if (ac < 5)
-		return (print_errors(USAGE));
-
-	// Only in bonus! Change the write mode for the final file
-	if (ft_strncmp(av[1], "here_doc", 8) == 0)
-		data.mode = 0;
-	else
-		data.mode = 1;
-
-	// Making the fds for the file to read and to write to
-	data.final_fd = open(av[ac - 1], write_mode(data.mode), 0644);
-	if (data.final_fd == -1)
-		return (1);
-	data.init_fd = open(av[1], O_RDONLY, 0644);
-	if (data.init_fd == -1)
-		return (1);
-
-	// Getting the paths for the binarys
-	data.paths = get_paths(env);
-	if (!data.paths)
-		return (print_errors(PATHS));
-
-	// Create the 2 necessary pipes
-	if (!pipe_maker(&data, AMOUNT))
-		return (ft_free_list(data.paths), print_errors(PIPE));
-
+	data.code = init_prog(&data, ac, av, env);
+	if (data.code)
+		return (data.code);
+	
 	// First command block
 	data.pid[0] = fork();
 	if (data.pid[0] == -1)

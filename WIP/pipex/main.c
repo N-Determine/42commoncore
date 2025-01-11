@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 15:30:31 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/11 15:42:50 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	fd_closer(t_data *data, int pipes_open)
 	}
 }
 
+#define AMOUNT 4
+
 int	main(int ac, const char **av, const char **env)
 {
 	t_data data;
@@ -95,15 +97,12 @@ int	main(int ac, const char **av, const char **env)
 	// First command block
 	data.pid[0] = fork();
 	if (data.pid[0] == -1)
-		return (cleaner(&data), print_errors(FORK));
+		return (ft_free_list(data.paths), fd_closer(&data, AMOUNT), print_errors(FORK));
 	if (data.pid[0] == 0)
 	{
-		// Redirecting input
 		dup2(data.init_fd, STDIN_FILENO);
-		// Redirecting output
 		dup2(data.fd[1][1], STDOUT_FILENO);
-		fd_closer(&data, 4);
-
+		fd_closer(&data, AMOUNT);
 		data.exe = execve_arr_maker(data.paths, av[2], &data.error);
 		if (!data.exe)
 			return (ft_free_list(data.paths), print_errors(data.error));
@@ -118,36 +117,12 @@ int	main(int ac, const char **av, const char **env)
 	// Mid command block 1
 	data.pid[1] = fork();
 	if (data.pid[1] == -1)
-		return (cleaner(&data), print_errors(FORK));
+		return (ft_free_list(data.paths), fd_closer(&data, AMOUNT), print_errors(FORK));
 	if (data.pid[1] == 0)
 	{
-		// Redirect input
 		dup2(data.fd[1][0], STDIN_FILENO);
-		// Redirect output
 		dup2(data.fd[2][1], STDOUT_FILENO);
-		fd_closer(&data, 4);
-		data.exe = execve_arr_maker(data.paths, av[3], &data.error);
-		if (!data.exe)
-			return (ft_free_list(data.paths), print_errors(data.error));
-		ft_free_list(data.paths);
-		if (execve(data.exe[0], data.exe, NULL) == -1)
-		{
-			ft_free_list(data.exe);
-			exit (1);
-		}
-	}
-
-	// Mid command block 1
-	data.pid[1] = fork();
-	if (data.pid[1] == -1)
-		return (cleaner(&data), print_errors(FORK));
-	if (data.pid[1] == 0)
-	{
-		// Redirect input
-		dup2(data.fd[2][0], STDIN_FILENO);
-		// Redirect output
-		dup2(data.fd[3][1], STDOUT_FILENO);
-		fd_closer(&data, 4);
+		fd_closer(&data, AMOUNT);
 		data.exe = execve_arr_maker(data.paths, av[3], &data.error);
 		if (!data.exe)
 			return (ft_free_list(data.paths), print_errors(data.error));
@@ -162,14 +137,12 @@ int	main(int ac, const char **av, const char **env)
 	// Last Command block
 	data.pid[2] = fork();
 	if (data.pid[2] == -1)
-		return (cleaner(&data), print_errors(FORK));
+		return (ft_free_list(data.paths), fd_closer(&data, AMOUNT), print_errors(FORK));
 	if (data.pid[2] == 0)
 	{
-		// Redirect input
-		dup2(data.fd[3][0], STDIN_FILENO);
-		// Redirect output
+		dup2(data.fd[2][0], STDIN_FILENO);
 		dup2(data.final_fd, STDOUT_FILENO);
-		fd_closer(&data, 4);
+		fd_closer(&data, AMOUNT);
 		data.exe = execve_arr_maker(data.paths, av[4], &data.error);
 		if (!data.exe)
 			return (ft_free_list(data.paths), print_errors(data.error));
@@ -184,18 +157,14 @@ int	main(int ac, const char **av, const char **env)
 
 	// Close every fd and free any memory here
 	close(data.init_fd);
-	fd_closer(&data, 4);
+	fd_closer(&data, AMOUNT);
 	ft_free_list(data.paths);
 	// Wait for every single process here -> Make it a loop
 
 	wait(NULL);
-	waitpid(data.pid[3], &data.wstatus, 0);
+	waitpid(data.pid[2], &data.wstatus, 0);
 	if (ft_wifexited(data.wstatus))
-	{	
-		ft_printf("Exit status child: %i\n", ft_wexitstatus(data.wstatus));
-	}
-
-	
+		return (ft_wexitstatus(data.wstatus));
 }
 
 

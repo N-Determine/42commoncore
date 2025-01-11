@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 15:42:50 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/11 15:48:40 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,20 @@ void	fd_closer(t_data *data, int pipes_open)
 	}
 }
 
+int	pipe_maker(t_data *data, int pipes_amt)
+{
+	int i;
+
+	i = 0;
+	while (i < pipes_amt)
+	{
+		if (pipe(data->fd[i]) == -1)
+			return (fd_closer(data, i), 0);
+		i++;
+	}
+	return (1);
+}
+
 #define AMOUNT 4
 
 int	main(int ac, const char **av, const char **env)
@@ -86,13 +100,10 @@ int	main(int ac, const char **av, const char **env)
 	if (!data.paths)
 		return (print_errors(PATHS));
 
+
 	// Create the 2 necessary pipes
-	if (pipe(data.fd[0]) == -1) 
+	if (!pipe_maker(&data, AMOUNT))
 		return (ft_free_list(data.paths), print_errors(PIPE));
-	if (pipe(data.fd[1]) == -1)
-		return (close(data.fd[0][0]), close(data.fd[0][1]), ft_free_list(data.paths), print_errors(PIPE));
-	pipe(data.fd[2]);
-	pipe(data.fd[3]);
 
 	// First command block
 	data.pid[0] = fork();

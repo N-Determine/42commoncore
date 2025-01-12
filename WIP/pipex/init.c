@@ -61,10 +61,7 @@ char	**execve_arr_maker(char **paths, const char *arg, int *error)
 		if (!tmp)
 			return (*error = MALLOC, ft_free_list(arr), NULL);
 		free(arr[0]);
-		arr[0] = ft_strdup(tmp);
-		if (!arr[0])
-			return (*error = MALLOC, ft_free_list(arr), NULL);
-		free(tmp);
+		arr[0] = tmp;
 	}
 	return (arr);
 }

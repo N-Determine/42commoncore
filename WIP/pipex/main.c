@@ -19,6 +19,10 @@ int	main(int ac, const char **av, const char **env)
 	data.code = init_prog(&data, ac, av, env);
 	if (data.code)
 		return (data.code);
+
+	// Try if you can use ft_fprintf to write directly into the initial file descriptor.
+	// That might be the easiest way without any weird get next line stuff
+
 	
 	// First command block
 	data.pid[0] = fork();

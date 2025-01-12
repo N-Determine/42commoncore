@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 17:05:54 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 12:35:47 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ int	main(int ac, const char **av, const char **env)
 	}
 
 	// Last Command block
-	data.pid[ac - 2] = fork();
-	if (data.pid[ac - 2] == -1)
+	data.pid[data.processes - 1] = fork();
+	if (data.pid[data.processes - 1] == -1)
 		return (ft_free_list(data.paths), fd_closer(&data, data.processes), print_errors(FORK));
-	if (data.pid[ac - 2] == 0)
+	if (data.pid[data.processes - 1] == 0)
 	{
 		dup2(data.fd[data.processes - 1][0], STDIN_FILENO);
 		dup2(data.final_fd, STDOUT_FILENO);

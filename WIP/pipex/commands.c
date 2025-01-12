@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 13:52:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 16:08:52 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 16:30:22 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int	first_command(t_data *data, const char **av)
 		dup2(data->fd[1][1], STDOUT_FILENO);
 		fd_closer(data, data->procs);
 		data->exe = execve_arr_maker(data->paths, av[2 + data->mode], &data->error);
-		if (!data->exe)
-			return (ft_free_list(data->paths), print_errors(data->error));
 		ft_free_list(data->paths);
+		if (!data->exe)
+			return (print_errors(data->error));
 		if (execve(data->exe[0], data->exe, NULL) == -1)
 		{
-			ft_free_list(data->exe), 
+			ft_free_list(data->exe);
 			exit(print_errors(EXEC));
 		}
 	}
@@ -52,12 +52,12 @@ int	mid_commands(t_data *data, const char **av, int i)
 		dup2(data->fd[i + 1][1], STDOUT_FILENO);
 		fd_closer(data, data->procs);
 		data->exe = execve_arr_maker(data->paths, av[2 + i + data->mode], &data->error);
-		if (!data->exe)
-			return (ft_free_list(data->paths), print_errors(data->error));
 		ft_free_list(data->paths);
+		if (!data->exe)
+			return (print_errors(data->error));
 		if (execve(data->exe[0], data->exe, NULL) == -1)
 		{
-			ft_free_list(data->exe), 
+			ft_free_list(data->exe);
 			exit(print_errors(EXEC));
 		}
 	}
@@ -78,12 +78,12 @@ int	last_command(t_data *data, const char **av, int ac)
 		dup2(data->final_fd, STDOUT_FILENO);
 		fd_closer(data, data->procs);
 		data->exe = execve_arr_maker(data->paths, av[ac - 2], &data->error);
-		if (!data->exe)
-			return (ft_free_list(data->paths), print_errors(data->error));
 		ft_free_list(data->paths);
+		if (!data->exe)
+			return (print_errors(data->error));
 		if (execve(data->exe[0], data->exe, NULL) == -1)
 		{
-			ft_free_list(data->exe), 
+			ft_free_list(data->exe);
 			exit(print_errors(EXEC));
 		}
 	}

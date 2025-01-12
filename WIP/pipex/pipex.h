@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 14:07:23 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 15:03:58 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,15 @@ enum e_errors
 	 */
 	PATHS = 2,
 	/**
-	 * @brief Indicates that the programm could not be accessed.
+	 * @brief Indicates that the programm could not be found.
 	 *
 	 */
-	ACCESS = 3,
+	ACCESS = 127,
+	/**
+	 * @brief Indicates that the permission for the program was denied
+	 *
+	 */
+	PERM = 126,
 	SPLIT = 4,
 	MALLOC = 5,
 	/**
@@ -73,7 +78,7 @@ enum e_errors
 	 * get_next_line function failed during here_doc
 	 */
 	GNL = 11,
-	EXEC,
+	EXEC = 12,
 };
 
 //	STRUCTS
@@ -222,8 +227,6 @@ char	**get_paths(const char **env);
  * @param paths A null-terminated array of strings representing directories
  * to search.
  * @param prog  The program name to check for accessibility.
- * @param mode  The access mode to check for. Check the manual for the 
- * `access` system call to see valid options.
  *
  * @return 
  * - The `index` of the path in the `paths` array where the program is 

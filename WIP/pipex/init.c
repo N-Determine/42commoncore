@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:50:53 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 13:55:12 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 15:04:07 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ char	**execve_arr_maker(char **paths, const char *arg, int *error)
 	arr = ft_split(arg, ' ');
 	if (!arr)
 		return (*error = SPLIT, NULL);
-	index = check_access(paths, arr[0], X_OK);
+	index = check_access(paths, arr[0], F_OK);
 	if (index < 0)
 	{
-		ft_fprintf(2, "%s: %s\n", strerror(errno), arr[0]);
-		return (*error = ACCESS, ft_free_list(arr), NULL);
+		*error = PERM;
+		if (index == -1)
+			*error = ACCESS;
+		return (ft_free_list(arr), NULL);
 	}
 	if (ft_strchr(arr[0], '/') == 0)
 	{

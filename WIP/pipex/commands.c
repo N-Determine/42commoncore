@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 13:52:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 14:09:02 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 14:43:37 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	last_command(t_data *data, const char **av, int ac)
 		dup2(data->fd[data->procs - 1][0], STDIN_FILENO);
 		dup2(data->final_fd, STDOUT_FILENO);
 		fd_closer(data, data->procs);
-		// Check if error handling still works here
 		data->exe = execve_arr_maker(data->paths, av[ac - 2], &data->error);
 		if (!data->exe)
 			return (ft_free_list(data->paths), print_errors(data->error));

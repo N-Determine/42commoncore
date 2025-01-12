@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:50:53 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 15:04:07 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 15:08:40 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	**execve_arr_maker(char **paths, const char *arg, int *error)
 	arr = ft_split(arg, ' ');
 	if (!arr)
 		return (*error = SPLIT, NULL);
-	index = check_access(paths, arr[0], F_OK);
+	index = check_access(paths, arr[0]);
 	if (index < 0)
 	{
 		*error = PERM;

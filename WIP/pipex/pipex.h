@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 15:03:58 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 15:08:43 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,7 @@ char	**get_paths(const char **env);
  * inputs are invalid, or if a memory allocation error occurs.
  *
  */
-int		check_access(char **paths, char *prog, int mode);
+int		check_access(char **paths, char *prog);
 /**
  * @brief Concatenates two strings into a newly allocated string.
  *

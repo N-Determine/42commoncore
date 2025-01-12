@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:58:36 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 14:54:50 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 15:06:04 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	print_errors(int code)
 {
 	if (code == ACCESS)
-		ft_fprintf(2, "command not found\n");
+		ft_fprintf(2, "shell: command not found: \n");
 	if (code == PERM)
-		ft_fprintf(2, "permission denied\n");
+		ft_fprintf(2, "shell: permission denied: \n");
 	if (code == USAGE)
 		ft_fprintf(2, "Usage: ./pipex infile command command outfile\n");
 	if (code == PATHS)

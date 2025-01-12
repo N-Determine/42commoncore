@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:35:12 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 12:42:10 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 16:05:50 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	wait_all(t_data *data, int processes)
 	waitpid(data->pid[processes - 1], &data->wstatus, 0);
 	if (ft_wifexited(data->wstatus))
 		return (ft_wexitstatus(data->wstatus));
-	return (1);
+	return (data->error);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)

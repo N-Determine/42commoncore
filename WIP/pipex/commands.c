@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 13:52:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 14:43:37 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 16:08:52 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ int	first_command(t_data *data, const char **av)
 			return (ft_free_list(data->paths), print_errors(data->error));
 		ft_free_list(data->paths);
 		if (execve(data->exe[0], data->exe, NULL) == -1)
-			return (ft_free_list(data->exe), print_errors(EXEC));
+		{
+			ft_free_list(data->exe), 
+			exit(print_errors(EXEC));
+		}
 	}
 	return (0);
 }
@@ -53,7 +56,10 @@ int	mid_commands(t_data *data, const char **av, int i)
 			return (ft_free_list(data->paths), print_errors(data->error));
 		ft_free_list(data->paths);
 		if (execve(data->exe[0], data->exe, NULL) == -1)
-			return (ft_free_list(data->exe), print_errors(EXEC));
+		{
+			ft_free_list(data->exe), 
+			exit(print_errors(EXEC));
+		}
 	}
 	return (0);
 }
@@ -76,7 +82,10 @@ int	last_command(t_data *data, const char **av, int ac)
 			return (ft_free_list(data->paths), print_errors(data->error));
 		ft_free_list(data->paths);
 		if (execve(data->exe[0], data->exe, NULL) == -1)
-			return (ft_free_list(data->exe), print_errors(EXEC));
+		{
+			ft_free_list(data->exe), 
+			exit(print_errors(EXEC));
+		}
 	}
 	return (0);
 }

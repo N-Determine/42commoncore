@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 13:08:54 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 13:14:23 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	main(int ac, const char **av, const char **env)
 		limiter = make_limiter(av);
 		if (!limiter)
 			return (1);
+		ft_printf("pipe heredoc> ");
 		line = get_next_line(STDIN_FILENO);
 		if (!line)
 			return (free(limiter), 1);
@@ -51,6 +52,7 @@ int	main(int ac, const char **av, const char **env)
 		{
 			ft_fprintf(data.fd[0][1], "%s", line);
 			free(line);
+			ft_printf("pipe heredoc > ");
 			line = get_next_line(0);
 			if (!line)
 				return (1);

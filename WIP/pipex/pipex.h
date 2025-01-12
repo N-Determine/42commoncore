@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 17:14:43 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 12:42:23 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ int		ft_wexitstatus(int status);
  */
 int		write_mode(int code);
 int		wait_all(t_data *data, int processes);
+int		ft_strcmp(const char *s1, const char *s2);
 
 // init.c
 int		init_prog(t_data *data, int ac, const char **av, const char **env);

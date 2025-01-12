@@ -6,11 +6,25 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 12:35:47 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 13:08:54 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+char *make_limiter(const char **av)
+{
+	char	*limiter;
+	int		size;
+
+	size = ft_strlen(av[2]) + 2;
+	limiter = ft_calloc(sizeof(char), size);
+	if (!limiter)
+		return (NULL);
+	ft_strlcpy(limiter, av[2], size - 1);
+	limiter[size - 2] = '\n';
+	return (limiter);
+}
 
 int	main(int ac, const char **av, const char **env)
 {
@@ -22,6 +36,26 @@ int	main(int ac, const char **av, const char **env)
 
 	// Try if you can use ft_fprintf to write directly into the initial file descriptor.
 	// That might be the easiest way without any weird get next line stuff
+	if (data.mode == 1)
+	{
+		char *line;
+		char *limiter;
+		
+		limiter = make_limiter(av);
+		if (!limiter)
+			return (1);
+		line = get_next_line(STDIN_FILENO);
+		if (!line)
+			return (free(limiter), 1);
+		while (ft_strcmp(line, limiter) != 0)
+		{
+			ft_fprintf(data.fd[0][1], "%s", line);
+			free(line);
+			line = get_next_line(0);
+			if (!line)
+				return (1);
+		}
+	}
 
 	
 	// First command block
@@ -30,7 +64,10 @@ int	main(int ac, const char **av, const char **env)
 		return (ft_free_list(data.paths), fd_closer(&data, data.processes), print_errors(FORK));
 	if (data.pid[0] == 0)
 	{
-		dup2(data.init_fd, STDIN_FILENO);
+		if (data.mode == 0)
+			dup2(data.init_fd, STDIN_FILENO);
+		else
+			dup2(data.fd[0][0], STDIN_FILENO);
 		dup2(data.fd[1][1], STDOUT_FILENO);
 		fd_closer(&data, data.processes);
 		data.exe = execve_arr_maker(data.paths, av[2 + data.mode], &data.error);
@@ -59,7 +96,7 @@ int	main(int ac, const char **av, const char **env)
 				dup2(data.fd[i][0], STDIN_FILENO);
 				dup2(data.fd[i + 1][1], STDOUT_FILENO);
 				fd_closer(&data, data.processes);
-				data.exe = execve_arr_maker(data.paths, av[2 + i], &data.error);
+				data.exe = execve_arr_maker(data.paths, av[2 + i + data.mode], &data.error);
 				if (!data.exe)
 					return (ft_free_list(data.paths), print_errors(data.error));
 				ft_free_list(data.paths);

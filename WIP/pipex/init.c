@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:50:53 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/11 17:10:39 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 12:46:49 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ int	init_prog(t_data *data, int ac, const char **av, const char **env)
 	data->final_fd = open(av[ac - 1], write_mode(data->mode), 0644);
 	if (data->final_fd == -1)
 		return (print_errors(OPEN));
-	data->init_fd = open(av[1], O_RDONLY, 0644);
-	if (data->init_fd == -1)
-		return (close(data->final_fd), print_errors(OPEN));
+	if (data->mode == 0)
+	{
+		data->init_fd = open(av[1], O_RDONLY, 0644);
+		if (data->init_fd == -1)
+			return (close(data->final_fd), print_errors(OPEN));
+	}
 	data->paths = get_paths(env);
 	if (!data->paths)
 		return (fd_closer(data, 0), print_errors(PATHS));

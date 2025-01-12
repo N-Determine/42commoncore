@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:50:53 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 13:34:00 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 13:55:12 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	pipe_maker(t_data *data, int pipes_amt)
 	return (0);
 }
 
-char *make_limiter(const char **av)
+char	*make_limiter(const char **av)
 {
 	char	*limiter;
 	int		size;

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 13:34:13 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 14:07:23 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ enum e_errors
 	 * get_next_line function failed during here_doc
 	 */
 	GNL = 11,
+	EXEC,
 };
 
 //	STRUCTS
@@ -89,9 +90,15 @@ typedef struct s_data
 	int		mode;
 	int		code;
 	int		procs;
+	int		index;
 }	t_data;
 
 // FUNCTIONS
+// commands.c
+int		first_command(t_data *data, const char **av);
+int		mid_commands(t_data *data, const char **av, int i);
+int		last_command(t_data *data, const char **av, int ac);
+
 // errors.c
 /**
  * @brief Prints an error message to the stderr depeding on a code (from the

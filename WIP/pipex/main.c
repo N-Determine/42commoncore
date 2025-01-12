@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 16:16:35 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 16:36:43 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 int	main(int ac, const char **av, const char **env)
 {
 	t_data	data;
+
+	// The commands shoud never return anything unless fork fails!
+	// instead of letting them return anything they should exit
+	// Chaning data->error in them will not change shit because it is in another
+	// process
+	// the thing in the waitall will not work as execve was never exectued
+
 
 	data.code = init_prog(&data, ac, av, env);
 	if (data.code)

@@ -23,7 +23,7 @@
 
 // Limit of maximum pipes; changable at compile time
 # ifndef FD_LIMIT
-#  define FD_LIMIT 508
+#  define FD_LIMIT 510
 # endif
 
 // ENUMS

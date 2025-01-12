@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:50:53 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 12:46:49 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 13:34:00 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	init_prog(t_data *data, int ac, const char **av, const char **env)
 		data->mode = 1;
 	else
 		data->mode = 0;
-	data->processes = ac - data->mode - 3;
-	if (data->processes > FD_LIMIT)
+	data->procs = ac - data->mode - 3;
+	if (data->procs > FD_LIMIT)
 		return (print_errors(LIMIT));
 	data->final_fd = open(av[ac - 1], write_mode(data->mode), 0644);
 	if (data->final_fd == -1)
@@ -35,11 +35,6 @@ int	init_prog(t_data *data, int ac, const char **av, const char **env)
 	data->paths = get_paths(env);
 	if (!data->paths)
 		return (fd_closer(data, 0), print_errors(PATHS));
-	if (!pipe_maker(data, data->processes))
-	{
-		fd_closer(data, 0);
-		return (ft_free_list(data->paths), print_errors(PIPE));
-	}
 	return (0);
 }
 
@@ -77,8 +72,46 @@ int	pipe_maker(t_data *data, int pipes_amt)
 	while (i < pipes_amt)
 	{
 		if (pipe(data->fd[i]) == -1)
-			return (fd_closer(data, i), 0);
+			return (fd_closer(data, i), print_errors(PIPE));
 		i++;
 	}
-	return (1);
+	return (0);
+}
+
+char *make_limiter(const char **av)
+{
+	char	*limiter;
+	int		size;
+
+	size = ft_strlen(av[2]) + 2;
+	limiter = ft_calloc(sizeof(char), size);
+	if (!limiter)
+		return (NULL);
+	ft_strlcpy(limiter, av[2], size - 1);
+	limiter[size - 2] = '\n';
+	return (limiter);
+}
+
+int	get_here_doc(t_data *data, const char **av)
+{
+	char	*line;
+	char	*limiter;
+
+	limiter = make_limiter(av);
+	if (!limiter)
+		return (print_errors(GNL));
+	ft_printf("pipe heredoc> ");
+	line = get_next_line(STDIN_FILENO);
+	if (!line)
+		return (free(limiter), print_errors(GNL));
+	while (ft_strcmp(line, limiter) != 0)
+	{
+		ft_fprintf(data->fd[0][1], "%s", line);
+		free(line);
+		ft_printf("pipe heredoc> ");
+		line = get_next_line(0);
+		if (!line)
+			return (free(limiter), print_errors(GNL));
+	}
+	return (free(limiter), free(line), 0);
 }

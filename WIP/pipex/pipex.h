@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 12:42:23 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/12 13:34:13 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ enum e_errors
 	FORK = 8,
 	OPEN = 9,
 	LIMIT = 10,
+	/**
+	 * get_next_line function failed during here_doc
+	 */
+	GNL = 11,
 };
 
 //	STRUCTS
@@ -84,7 +88,7 @@ typedef struct s_data
 	int		wstatus;
 	int		mode;
 	int		code;
-	int		processes;
+	int		procs;
 }	t_data;
 
 // FUNCTIONS
@@ -175,6 +179,8 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		init_prog(t_data *data, int ac, const char **av, const char **env);
 char	**execve_arr_maker(char **paths, const char *arg, int *error);
 int		pipe_maker(t_data *data, int pipes_amt);
+char	*make_limiter(const char **av);
+int		get_here_doc(t_data *data, const char **av);
 
 //path.c
 /**

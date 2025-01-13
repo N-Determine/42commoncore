@@ -6,11 +6,18 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 13:52:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 19:17:44 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 19:42:53 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void stop_it(t_data *data, int err, char *arg)
+{
+	fr_lst(data->paths);
+	fd_cl(data, data->procs);
+	exit (p_err_arg(err, arg));
+}
 
 int	first_command(t_data *data, const char **av)
 {

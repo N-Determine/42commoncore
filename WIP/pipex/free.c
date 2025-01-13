@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:09:05 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 19:26:56 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 19:37:34 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,16 @@ void	fr_lst(char **arr)
 	int	i;
 
 	i = 0;
-	while (arr[i])
+	if (arr)
 	{
-		free(arr[i]);
-		i++;
+		while (arr[i])
+		{
+			free(arr[i]);
+			i++;
+		}
+		free(arr);
+		arr = NULL;
 	}
-	free(arr);
 }
 
 void	fd_cl(t_data *data, int pipes_open)

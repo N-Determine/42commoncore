@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:09:05 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 19:18:44 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 19:26:56 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ void	fd_cl(t_data *data, int pipes_open)
 	int	i;
 
 	i = 0;
-	if (data->mode == 0)
+	if (data->mode == 0 && data->init_fd != -1)
 		close(data->init_fd);
-	close(data->final_fd);
+	if (data->final_fd != -1)
+		close(data->final_fd);
 	while (i < pipes_open)
 	{
 		close(data->fd[i][0]);

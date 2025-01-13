@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:50:53 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 19:18:33 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 19:26:30 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	init_prog(t_data *data, int ac, const char **av, const char **env)
 	else
 		data->mode = 0;
 	data->procs = ac - data->mode - 3;
+	data->init_fd = -1;
+	data->final_fd = -1;
 	if (data->procs > FD_LIMIT)
 		return (p_err(LIMIT));
 	data->paths = get_paths(env);

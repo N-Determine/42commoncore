@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 13:52:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 19:53:34 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 19:54:47 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ int	first_command(t_data *data, const char **av)
 			data->init_fd = open(av[1], O_RDONLY, 0644);
 			if (data->init_fd == -1)
 				stop_it(data, OPEN, av[1]);
-		}
-		if (data->mode == 0)
-		{
 			if (dup2(data->init_fd, STDIN_FILENO) == -1)
 				stop_it(data, DUP, NULL);
 		}

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 18:06:43 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 19:18:15 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,13 @@ int	main(int ac, const char **av, const char **env)
 {
 	t_data	data;
 
-	// The commands shoud never return anything unless fork fails!
-	// instead of letting them return anything they should exit
-	// Chaning data->error in them will not change shit because it is in another
-	// process
-	// the thing in the waitall will not work as execve was never exectued
-
-
 	data.code = init_prog(&data, ac, av, env);
 	if (data.code)
 		return (data.code);
 	if (pipe_maker(&data, data.procs))
-		return (fd_closer(&data, 0), ft_free_list(data.paths), PIPE);
+		return (fd_cl(&data, 0), fr_lst(data.paths), PIPE);
 	if (data.mode == 1 && get_here_doc(&data, av))
-		return (fd_closer(&data, data.procs), ft_free_list(data.paths), GNL);
+		return (fd_cl(&data, data.procs), fr_lst(data.paths), GNL);
 	data.code = first_command(&data, av);
 	if (data.code)
 		return (data.code);
@@ -44,6 +37,6 @@ int	main(int ac, const char **av, const char **env)
 	data.code = last_command(&data, av, ac);
 	if (data.code)
 		return (data.code);
-	fd_closer(&data, data.procs);
-	return (ft_free_list(data.paths), wait_all(&data, data.procs));
+	fd_cl(&data, data.procs);
+	return (fr_lst(data.paths), wait_all(&data, data.procs));
 }

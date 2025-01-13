@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 13:52:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 18:18:56 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 19:17:44 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,33 @@ int	first_command(t_data *data, const char **av)
 	data->pid[0] = fork();
 	if (data->pid[0] == -1)
 	{
-		ft_free_list(data->paths);
-		return (fd_closer(data, data->procs), print_errors(FORK));
+		fr_lst(data->paths);
+		return (fd_cl(data, data->procs), p_err(FORK));
 	}
 	if (data->pid[0] == 0)
 	{
+		if (data->mode == 0)
+		{
+			if (access(av[1], R_OK) != 0)
+				exit (p_err_arg(PERM, av[1]));
+			data->init_fd = open(av[1], O_RDONLY, 0644);
+			if (data->init_fd == -1)
+				exit (p_err(OPEN));
+		}
 		if (data->mode == 0)
 			dup2(data->init_fd, STDIN_FILENO);
 		else
 			dup2(data->fd[0][0], STDIN_FILENO);
 		dup2(data->fd[1][1], STDOUT_FILENO);
-		fd_closer(data, data->procs);
-		data->exe = execve_arr_maker(data->paths, av[2 + data->mode], &data->error);
-		ft_free_list(data->paths);
+		fd_cl(data, data->procs);
+		data->exe = mk_exe(data->paths, av[2 + data->mode], &data->error);
+		fr_lst(data->paths);
 		if (!data->exe)
-			exit(print_errors_arg(data->error, av[2 + data->mode]));
+			exit(p_err_arg(data->error, av[2 + data->mode]));
 		if (execve(data->exe[0], data->exe, NULL) == -1)
 		{
-			ft_free_list(data->exe);
-			exit(print_errors(EXEC));
+			fr_lst(data->exe);
+			exit(p_err(EXEC));
 		}
 	}
 	return (0);
@@ -45,20 +53,20 @@ int	mid_commands(t_data *data, const char **av, int i)
 {
 	data->pid[i] = fork();
 	if (data->pid[i] == -1)
-		return (ft_free_list(data->paths), fd_closer(data, data->procs), print_errors(FORK));
+		return (fr_lst(data->paths), fd_cl(data, data->procs), p_err(FORK));
 	if (data->pid[i] == 0)
 	{
 		dup2(data->fd[i][0], STDIN_FILENO);
 		dup2(data->fd[i + 1][1], STDOUT_FILENO);
-		fd_closer(data, data->procs);
-		data->exe = execve_arr_maker(data->paths, av[2 + i + data->mode], &data->error);
-		ft_free_list(data->paths);
+		fd_cl(data, data->procs);
+		data->exe = mk_exe(data->paths, av[2 + i + data->mode], &data->error);
+		fr_lst(data->paths);
 		if (!data->exe)
-			exit(print_errors_arg(data->error, av[2 + i + data->mode]));
+			exit(p_err_arg(data->error, av[2 + i + data->mode]));
 		if (execve(data->exe[0], data->exe, NULL) == -1)
 		{
-			ft_free_list(data->exe);
-			exit(print_errors(EXEC));
+			fr_lst(data->exe);
+			exit(p_err(EXEC));
 		}
 	}
 	return (0);
@@ -69,22 +77,27 @@ int	last_command(t_data *data, const char **av, int ac)
 	data->pid[data->procs - 1] = fork();
 	if (data->pid[data->procs - 1] == -1)
 	{
-		ft_free_list(data->paths);
-		return (fd_closer(data, data->procs), print_errors(FORK));
+		fr_lst(data->paths);
+		return (fd_cl(data, data->procs), p_err(FORK));
 	}
 	if (data->pid[data->procs - 1] == 0)
 	{
+		if (access(av[ac - 1], W_OK) != 0 && access(av[ac - 1], F_OK) == 0)
+			exit (p_err_arg(PERM, av[ac - 1]));
+		data->final_fd = open(av[ac - 1], write_mode(data->mode), 0644);
+		if (data->final_fd == -1)
+			exit (p_err(OPEN));
 		dup2(data->fd[data->procs - 1][0], STDIN_FILENO);
 		dup2(data->final_fd, STDOUT_FILENO);
-		fd_closer(data, data->procs);
-		data->exe = execve_arr_maker(data->paths, av[ac - 2], &data->error);
-		ft_free_list(data->paths);
+		fd_cl(data, data->procs);
+		data->exe = mk_exe(data->paths, av[ac - 2], &data->error);
+		fr_lst(data->paths);
 		if (!data->exe)
-			exit(print_errors_arg(data->error, av[ac - 2]));
+			exit(p_err_arg(data->error, av[ac - 2]));
 		if (execve(data->exe[0], data->exe, NULL) == -1)
 		{
-			ft_free_list(data->exe);
-			exit(print_errors(EXEC));
+			fr_lst(data->exe);
+			exit(p_err(EXEC));
 		}
 	}
 	return (0);

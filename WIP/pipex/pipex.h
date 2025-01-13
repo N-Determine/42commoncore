@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 18:20:03 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 19:17:02 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <sys/wait.h>
-
 
 // Limit of maximum pipes; changable at compile time
 # ifndef FD_LIMIT
@@ -110,12 +109,12 @@ int		last_command(t_data *data, const char **av, int ac);
  * @brief Prints an error message to the stderr depeding on a code (from the
  * e_errors enum)
  */
-int		print_errors(int code);
-int		print_errors_arg(int code, const char *arg);
+int		p_err(int code);
+int		p_err_arg(int code, const char *arg);
 
 // free.c
-void	ft_free_list(char **arr);
-void	fd_closer(t_data *data, int pipes_open);
+void	fr_lst(char **arr);
+void	fd_cl(t_data *data, int pipes_open);
 
 // helpers.c
 /**
@@ -147,7 +146,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 
 // init.c
 int		init_prog(t_data *data, int ac, const char **av, const char **env);
-char	**execve_arr_maker(char **paths, const char *arg, int *error);
+char	**mk_exe(char **paths, const char *arg, int *error);
 int		pipe_maker(t_data *data, int pipes_amt);
 char	*make_limiter(const char **av);
 int		get_here_doc(t_data *data, const char **av);

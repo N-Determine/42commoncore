@@ -6,13 +6,13 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:58:36 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 18:14:40 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 19:07:52 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	print_errors(int code)
+int	p_err(int code)
 {
 	if (code == USAGE)
 		ft_fprintf(2, "Usage: ./pipex infile command command outfile\n");
@@ -31,7 +31,7 @@ int	print_errors(int code)
 	return (code);
 }
 
-int	print_errors_arg(int code, const char *arg)
+int	p_err_arg(int code, const char *arg)
 {
 	if (code == ACCESS)
 		ft_fprintf(2, "shell: command not found: %s\n", arg);

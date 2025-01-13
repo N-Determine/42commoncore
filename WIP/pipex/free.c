@@ -6,13 +6,13 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:09:05 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 13:10:09 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 19:18:44 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_free_list(char **arr)
+void	fr_lst(char **arr)
 {
 	int	i;
 
@@ -25,7 +25,7 @@ void	ft_free_list(char **arr)
 	free(arr);
 }
 
-void	fd_closer(t_data *data, int pipes_open)
+void	fd_cl(t_data *data, int pipes_open)
 {
 	int	i;
 

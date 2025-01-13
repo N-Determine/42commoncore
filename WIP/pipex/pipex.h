@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 15:08:43 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 18:20:03 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+
 
 // Limit of maximum pipes; changable at compile time
 # ifndef FD_LIMIT
@@ -110,56 +111,13 @@ int		last_command(t_data *data, const char **av, int ac);
  * e_errors enum)
  */
 int		print_errors(int code);
+int		print_errors_arg(int code, const char *arg);
 
 // free.c
 void	ft_free_list(char **arr);
 void	fd_closer(t_data *data, int pipes_open);
 
 // helpers.c
-/**
- * @brief Checks if a child process has exited.
- * 
- * This function serves as an equivalent to the `WIFEXITED` macro.
- * It determines whether the child process corresponding to the given 
- * `status` has terminated normally.
- * 
- * @param status
- * The status value set by the `wait()` or `waitpid()` function
- * in the parent process. This value encodes information about the 
- * termination of a child process.
- * 
- * @return
- * - `1` if the child process has exited normally.
- * - `0` if the child process has not yet exited.
- * 
- * @note
- * Ensure that `status` contains a valid result from a `wait()`-like 
- * function; otherwise, the behavior of this function may be undefined.
- * Do this by passing an int by reference int he wait function.
- */
-int		ft_wifexited(int status);
-/**
- * @brief Extracts the exit status of a terminated child process.
- * 
- * This function serves as an equivalent to the `WEXITSTATUS` macro.
- * It retrieves the exit code of the child process if it terminated 
- * normally, as indicated by a prior call to `ft_wifexited()`.
- * 
- * @param status
- * The status value returned by the `wait()` or `waitpid()` function
- * in the parent process. This value should represent a child process 
- * that has exited normally.
- * 
- * @return
- * The exit code of the child process, as set by the `exit()` function 
- * or returned from the `main()` function.
- * 
- * @note
- * Call `ft_wifexited(status)` first to ensure the process has exited 
- * normally before calling this function. If the child process did not 
- * exit normally, the returned value may be undefined.
- */
-int		ft_wexitstatus(int status);
 /**
  * Determines the write mode for the file at the end of the command chain.
  * 

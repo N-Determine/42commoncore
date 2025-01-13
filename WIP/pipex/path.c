@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:47:11 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 15:45:42 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 18:46:10 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	check_access(char **paths, char *prog)
 		return (-1);
 	if (access(prog, F_OK) == 0 && access(prog, X_OK) == 0)
 		return (1);
-	else if (access(prog, F_OK) == 0)
+	else if (access(prog, F_OK) == 0 && access(prog, X_OK) != 0)
 		return (-2);
 	while (paths[i])
 	{
@@ -49,7 +49,7 @@ int	check_access(char **paths, char *prog)
 			return (-1);
 		if (access(tmp, X_OK) == 0 && access(tmp, F_OK) == 0)
 			return (free(tmp), i);
-		else if (access(tmp, F_OK) == 0)
+		else if (access(tmp, F_OK) == 0 && access(prog, X_OK) != 0)
 			return (free(tmp), -2);
 		free(tmp);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 13:52:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 16:36:24 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 18:18:56 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	first_command(t_data *data, const char **av)
 		data->exe = execve_arr_maker(data->paths, av[2 + data->mode], &data->error);
 		ft_free_list(data->paths);
 		if (!data->exe)
-			return (print_errors(data->error));
+			exit(print_errors_arg(data->error, av[2 + data->mode]));
 		if (execve(data->exe[0], data->exe, NULL) == -1)
 		{
 			ft_free_list(data->exe);
@@ -54,7 +54,7 @@ int	mid_commands(t_data *data, const char **av, int i)
 		data->exe = execve_arr_maker(data->paths, av[2 + i + data->mode], &data->error);
 		ft_free_list(data->paths);
 		if (!data->exe)
-			return (print_errors(data->error));
+			exit(print_errors_arg(data->error, av[2 + i + data->mode]));
 		if (execve(data->exe[0], data->exe, NULL) == -1)
 		{
 			ft_free_list(data->exe);
@@ -80,7 +80,7 @@ int	last_command(t_data *data, const char **av, int ac)
 		data->exe = execve_arr_maker(data->paths, av[ac - 2], &data->error);
 		ft_free_list(data->paths);
 		if (!data->exe)
-			return (print_errors(data->error));
+			exit(print_errors_arg(data->error, av[ac - 2]));
 		if (execve(data->exe[0], data->exe, NULL) == -1)
 		{
 			ft_free_list(data->exe);

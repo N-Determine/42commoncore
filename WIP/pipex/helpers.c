@@ -6,25 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:35:12 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/12 16:17:48 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 18:16:53 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-int	ft_wifexited(int status)
-{
-	if ((status & 0x7f) == 0)
-	{
-		return (1);
-	}
-	return (0);
-}
-
-int	ft_wexitstatus(int status)
-{
-	return (((status) & 0xff00) >> 8);
-}
 
 int	write_mode(int code)
 {
@@ -40,12 +26,12 @@ int	wait_all(t_data *data, int processes)
 	i = 0;
 	while (i < processes - 1)
 	{
-		wait(NULL);
+		waitpid(data->pid[i], NULL, 0);
 		i++;
 	}
-	waitpid(data->pid[processes - 1], &data->wstatus, 0);
-	if (ft_wifexited(data->wstatus))
-		return (ft_wexitstatus(data->wstatus));
+	waitpid(data->pid[i], &data->wstatus, 0);
+	if (WIFEXITED(data->wstatus))
+		return (WEXITSTATUS(data->wstatus));
 	return (1);
 }
 

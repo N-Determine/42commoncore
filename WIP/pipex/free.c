@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:09:05 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 19:37:34 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 20:04:47 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,15 @@ void	fd_cl(t_data *data, int pipes_open)
 		close(data->fd[i][1]);
 		i++;
 	}
+}
+
+int	stop_it(t_data *data, int err, const char *arg)
+{
+	fr_lst(data->paths);
+	fd_cl(data, data->procs);
+	if (arg)
+		exit (p_err_arg(err, arg));
+	else
+		exit (p_err(err));
+	return (0);
 }

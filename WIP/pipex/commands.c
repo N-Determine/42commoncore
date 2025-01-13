@@ -6,22 +6,55 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 13:52:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 19:54:47 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 20:04:43 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void stop_it(t_data *data, int err, const char *arg)
+int	first_command(t_data *data, const char **av)
 {
-	fr_lst(data->paths);
-	fd_cl(data, data->procs);
-	if (arg)
-		exit (p_err_arg(err, arg));
-	else
-		exit (p_err(err));
+	data->pid[0] = fork();
+	if (data->pid[0] == -1)
+	{
+		fr_lst(data->paths);
+		return (fd_cl(data, data->procs), p_err(FORK));
+	}
+	if (data->pid[0] == 0)
+		return (first_help(data, av));
+	return (0);
 }
 
+int	first_help(t_data *data, const char **av)
+{
+	if (data->mode == 0)
+	{
+		if (access(av[1], R_OK) != 0)
+			return (stop_it(data, PERM, av[1]));
+		data->init_fd = open(av[1], O_RDONLY, 0644);
+		if (data->init_fd == -1)
+			return (stop_it(data, OPEN, av[1]));
+		if (dup2(data->init_fd, STDIN_FILENO) == -1)
+			return (stop_it(data, DUP, NULL));
+	}
+	else
+	{
+		if (dup2(data->fd[0][0], STDIN_FILENO) == -1)
+			return (stop_it(data, DUP, NULL));
+	}
+	if (dup2(data->fd[1][1], STDOUT_FILENO) == -1)
+		return (stop_it(data, DUP, NULL));
+	fd_cl(data, data->procs);
+	data->exe = mk_exe(data->paths, av[2 + data->mode], &data->error);
+	fr_lst(data->paths);
+	if (!data->exe)
+		return (exit(p_err_arg(data->error, av[2 + data->mode])), 0);
+	if (execve(data->exe[0], data->exe, NULL) == -1)
+		return (fr_lst(data->exe), exit(p_err(EXEC)), 0);
+	return (0);
+}
+
+/*
 int	first_command(t_data *data, const char **av)
 {
 	data->pid[0] = fork();
@@ -58,7 +91,7 @@ int	first_command(t_data *data, const char **av)
 			return (fr_lst(data->exe), exit(p_err(EXEC)), 0);
 	}
 	return (0);
-}
+} */
 
 int	mid_commands(t_data *data, const char **av, int i)
 {

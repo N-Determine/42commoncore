@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 19:30:56 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 20:05:30 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_data
 // FUNCTIONS
 // commands.c
 int		first_command(t_data *data, const char **av);
+int		first_help(t_data *data, const char **av);
 int		mid_commands(t_data *data, const char **av, int i);
 int		last_command(t_data *data, const char **av, int ac);
 
@@ -119,6 +120,7 @@ int		p_err_arg(int code, const char *arg);
 // free.c
 void	fr_lst(char **arr);
 void	fd_cl(t_data *data, int pipes_open);
+int		stop_it(t_data *data, int err, const char *arg);
 
 // helpers.c
 /**

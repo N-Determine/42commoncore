@@ -6,17 +6,20 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 13:52:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 19:42:53 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 19:52:29 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void stop_it(t_data *data, int err, char *arg)
+void stop_it(t_data *data, int err, const char *arg)
 {
 	fr_lst(data->paths);
 	fd_cl(data, data->procs);
-	exit (p_err_arg(err, arg));
+	if (arg)
+		exit (p_err_arg(err, arg));
+	else
+		exit (p_err(err));
 }
 
 int	first_command(t_data *data, const char **av)
@@ -32,26 +35,30 @@ int	first_command(t_data *data, const char **av)
 		if (data->mode == 0)
 		{
 			if (access(av[1], R_OK) != 0)
-				exit (p_err_arg(PERM, av[1]));
+				stop_it(data, PERM, av[1]);
 			data->init_fd = open(av[1], O_RDONLY, 0644);
 			if (data->init_fd == -1)
-				exit (p_err(OPEN));
+				stop_it(data, OPEN, av[1]);
 		}
 		if (data->mode == 0)
-			dup2(data->init_fd, STDIN_FILENO);
+		{
+			if (dup2(data->init_fd, STDIN_FILENO) == -1)
+				stop_it(data, DUP, NULL);
+		}
 		else
-			dup2(data->fd[0][0], STDIN_FILENO);
-		dup2(data->fd[1][1], STDOUT_FILENO);
+		{
+			if (dup2(data->fd[0][0], STDIN_FILENO) == -1)
+				stop_it(data, DUP, NULL);
+		}
+		if (dup2(data->fd[1][1], STDOUT_FILENO) == -1)
+			stop_it(data, DUP, NULL);
 		fd_cl(data, data->procs);
 		data->exe = mk_exe(data->paths, av[2 + data->mode], &data->error);
 		fr_lst(data->paths);
 		if (!data->exe)
 			exit(p_err_arg(data->error, av[2 + data->mode]));
 		if (execve(data->exe[0], data->exe, NULL) == -1)
-		{
-			fr_lst(data->exe);
-			exit(p_err(EXEC));
-		}
+			return (fr_lst(data->exe), exit(p_err(EXEC)), 0);
 	}
 	return (0);
 }

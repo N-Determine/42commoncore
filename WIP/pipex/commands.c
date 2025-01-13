@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 13:52:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 19:52:29 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/13 19:53:34 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,7 @@ int	mid_commands(t_data *data, const char **av, int i)
 		if (!data->exe)
 			exit(p_err_arg(data->error, av[2 + i + data->mode]));
 		if (execve(data->exe[0], data->exe, NULL) == -1)
-		{
-			fr_lst(data->exe);
-			exit(p_err(EXEC));
-		}
+			return (fr_lst(data->exe), exit(p_err(EXEC)), 0);
 	}
 	return (0);
 }
@@ -109,10 +106,7 @@ int	last_command(t_data *data, const char **av, int ac)
 		if (!data->exe)
 			exit(p_err_arg(data->error, av[ac - 2]));
 		if (execve(data->exe[0], data->exe, NULL) == -1)
-		{
-			fr_lst(data->exe);
-			exit(p_err(EXEC));
-		}
+			return (fr_lst(data->exe), exit(p_err(EXEC)), 0);
 	}
 	return (0);
 }

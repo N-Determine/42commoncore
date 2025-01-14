@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 20:05:30 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 14:49:05 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int		first_command(t_data *data, const char **av);
 int		first_help(t_data *data, const char **av);
 int		mid_commands(t_data *data, const char **av, int i);
 int		last_command(t_data *data, const char **av, int ac);
+int		last_help(t_data *data, const char **av, int ac);
 
 // errors.c
 /**

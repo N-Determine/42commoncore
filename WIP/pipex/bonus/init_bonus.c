@@ -6,11 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:50:53 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 19:26:30 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 17:33:26 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 int	init_prog(t_data *data, int ac, const char **av, const char **env)
 {

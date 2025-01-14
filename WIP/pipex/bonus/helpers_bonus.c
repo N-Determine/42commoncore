@@ -6,11 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:35:12 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 18:16:53 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 17:33:22 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 int	write_mode(int code)
 {

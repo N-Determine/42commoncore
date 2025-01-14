@@ -6,11 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:58:36 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 19:07:52 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 17:33:16 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 int	p_err(int code)
 {

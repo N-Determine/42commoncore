@@ -6,14 +6,14 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 14:57:12 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 17:50:11 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "libft.h"
+# include "libft/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
@@ -23,7 +23,7 @@
 
 // Limit of maximum pipes; changable at compile time
 # ifndef FD_LIMIT
-#  define FD_LIMIT 510
+#  define FD_LIMIT 508
 # endif
 
 // ENUMS
@@ -42,63 +42,126 @@ enum e_errors
 {
 	/**
 	 * @brief Indicates that the program was used incorrectly.
-	 *
-	 * This error occurs when the program receives invalid input or arguments
-	 * that do not match the expected format or requirements.
 	 */
 	USAGE = 1,
 	/**
 	 * @brief Indicates that the paths could not be loaded.
-	 *
-	 * This error occurs when the program fails to retrieve or parse the 
-	 * required paths, such as environment variables or configuration data.
 	 */
 	PATHS = 2,
+	/**
+	 * @brief Indicates an error within the ft_split function
+	 */
 	SPLIT = 4,
+	/**
+	 * @brief Indicates an error while allocating space using malloc
+	 */
 	MALLOC = 5,
 	/**
-	 * command not found
+	 * @brief Indicates an error while executing the pipe function
 	 */
-	NFOUND = 6,
-	PIPE = 7,
-	FORK = 8,
-	OPEN = 9,
-	LIMIT = 10,
+	PIPE = 6,
 	/**
-	 * get_next_line function failed during here_doc
+	 * @brief Indicates an error while executing the fork function
 	 */
-	GNL = 11,
-	EXEC = 12,
+	FORK = 7,
 	/**
-	 * dup2 failed
+	 * @brief Indicates an error while executing the open function.
 	 */
-	DUP = 13,
+	OPEN = 8,
+	/**
+	 * @brief Indicates that too many fd are used. 
+	 * 
+	 * This means that the amount of commands require more pipes than
+	 * can be opened by the defined FD_LIMIT that is defined within the
+	 * pipex header (pipex.h)
+	 */
+	LIMIT = 9,
+	/**
+	 * @brief Indicates an error while executing the get_next_line function.
+	 */
+	GNL = 10,
+	/**
+	 * @brief Indicates an error while executing the execve function.
+	 */
+	EXEC = 11,
+	/**
+	 * dup2 function failed to execute
+	 */
+	DUP = 12,
+	/**
+	 * @brief Indicates that the permission for the program/file was denied
+	 */
+	PERM = 126,
 	/**
 	 * @brief Indicates that the programm could not be found.
 	 *
 	 */
 	ACCESS = 127,
-	/**
-	 * @brief Indicates that the permission for the program was denied
-	 *
-	 */
-	PERM = 126,
 };
 
 //	STRUCTS
+/**
+ * @brief Big structure that captures all necessary data and includes
+ * all necessary variables withing the program.
+ */
 typedef struct s_data
 {
+	/**
+	 * Array of possible paths in which an executable might be
+	 */
 	char	**paths;
+	/**
+	 * Array consisting of a executable name, optionally flags 
+	 * and a terminating NULL
+	 */
 	char	**exe;
+	/**
+	 * Array of maximum possible concurrent processes (limited by
+	 * FD_LIMIT)
+	 */
 	int		pid[FD_LIMIT + 1];
+	/**
+	 * Variable that is used in some functions passed by reference
+	 * to set an error code when the return value is of another type.
+	 * 
+	 * Also used within the main function to return the proper exit
+	 * status.
+	 */
 	int		error;
+	/**
+	 * 2D Array of maximum possible file descriptors (limited by 
+	 * FD_LIMIT).
+	 */
 	int		fd[FD_LIMIT][2];
+	/**
+	 * File descriptor that is opened when the outfile is opened
+	 */
 	int		final_fd;
+	/**
+	 * File descriptor that is opened when the infile is opened
+	 */
 	int		init_fd;
+	/**
+	 * Variable that is passed by reference in the waitpid function
+	 * to return the exit status of the last proccess
+	 */
 	int		wstatus;
-	int		mode;
-	int		code;
+	/**
+	 * Amount of processes and therefore pipes needed to successfully
+	 * use the program
+	 */
 	int		procs;
+	/**
+	 * Used to differentiate between the regular mode of reading
+	 * from a file and the here_doc mode in which it reads from 
+	 * the standart input. It will increase some indexes as the
+	 * here_doc mode will always have one argument more (LIMITER)
+	 */
+	int		mode;
+	/**
+	 * Index variable used in the main function to loop through the
+	 * mid_commands function
+	 */
 	int		index;
 }	t_data;
 
@@ -116,11 +179,31 @@ int		last_help(t_data *data, const char **av, int ac);
  * e_errors enum)
  */
 int		p_err(int code);
+/**
+ * @brief Prints an error message to the stderr depeding on a code (from the
+ * e_errors enum). Also takes in an argument that can be printed out as well
+ * (such as the command that caused the problem)
+ */
 int		p_err_arg(int code, const char *arg);
 
 // free.c
+/**
+ * @brief Function that clears a 2D Array completely
+ */
 void	fr_lst(char **arr);
+/**
+ * @brief Function that clears all file descriptors that have been opened 
+ * up within the programm
+ * 
+ * Takes the data structure containing the necessary data and the amount of 
+ * pipes that have been opened before.
+ */
 void	fd_cl(t_data *data, int pipes_open);
+/**
+ * @brief Function that stops a process cleanly by exiting it with a code
+ * that is given as an argument. It uses the fr_lst() and the fd_cl() function
+ * to free any allocated space and close any previously opened file descriptor.
+ */
 int		stop_it(t_data *data, int err, const char *arg);
 
 // helpers.c

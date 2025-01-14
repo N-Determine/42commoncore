@@ -6,11 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 13:52:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 14:49:23 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 17:33:12 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 int	first_command(t_data *data, const char **av)
 {

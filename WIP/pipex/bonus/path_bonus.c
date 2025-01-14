@@ -6,11 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:47:11 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/13 18:46:10 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 17:33:30 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 char	**get_paths(const char **env)
 {

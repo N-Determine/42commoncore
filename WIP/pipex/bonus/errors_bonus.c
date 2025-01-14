@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:58:36 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 18:21:39 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 19:22:24 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	p_err(int code)
 		ft_fprintf(2, "Two many pipes used (Limit: %i)\n", FD_LIMIT);
 	if (code == EXEC)
 		ft_fprintf(2, "Execve function failed to execute\n");
+	if (code == EXEC)
+		ft_fprintf(2, "get_next_line function failed to execute\n");
 	return (code);
 }
 

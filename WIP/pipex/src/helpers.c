@@ -6,18 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:35:12 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 18:04:42 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 19:23:09 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-int	write_mode(int code)
-{
-	if (code == 0)
-		return (O_WRONLY | O_CREAT | O_TRUNC);
-	return (O_WRONLY | O_CREAT | O_APPEND);
-}
 
 int	wait_all(t_data *data, int processes)
 {

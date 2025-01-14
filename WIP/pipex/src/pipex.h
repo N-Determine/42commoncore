@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 18:05:30 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 19:23:15 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,13 @@ enum e_errors
 	 */
 	LIMIT = 9,
 	/**
-	 * @brief Indicates an error while executing the get_next_line function.
-	 */
-	GNL = 10,
-	/**
 	 * @brief Indicates an error while executing the execve function.
 	 */
-	EXEC = 11,
+	EXEC = 10,
 	/**
 	 * dup2 function failed to execute
 	 */
-	DUP = 12,
+	DUP = 11,
 	/**
 	 * @brief Indicates that the permission for the program/file was denied
 	 */
@@ -151,25 +147,12 @@ typedef struct s_data
 	 * use the program
 	 */
 	int		procs;
-	/**
-	 * Used to differentiate between the regular mode of reading
-	 * from a file and the here_doc mode in which it reads from 
-	 * the standart input. It will increase some indexes as the
-	 * here_doc mode will always have one argument more (LIMITER)
-	 */
-	int		mode;
-	/**
-	 * Index variable used in the main function to loop through the
-	 * mid_commands function
-	 */
-	int		index;
 }	t_data;
 
 // FUNCTIONS
 // commands.c
 int		first_command(t_data *data, const char **av);
 int		first_help(t_data *data, const char **av);
-int		mid_commands(t_data *data, const char **av, int i);
 int		last_command(t_data *data, const char **av, int ac);
 int		last_help(t_data *data, const char **av, int ac);
 
@@ -207,30 +190,6 @@ void	fd_cl(t_data *data, int pipes_open);
 int		stop_it(t_data *data, int err, const char *arg);
 
 // helpers.c
-/**
- * Determines the write mode for the file at the end of the command chain.
- * 
- * This function is used to select the appropriate mode for writing to a file.
- * It supports two modes:
- * 
- * `code = 0`: Overwrites the file (uses `O_TRUNC`).
- * 
- * `code = 1`: Appends to the file (used for the here_doc in the bonus, 
- * with `O_APPEND`).
- * 
- * @param code An integer indicating the desired mode:
- * 
- * - `0`: Normal mode (overwrite).
- * 
- * - `1`: Append mode.
- * 
- * @return The appropriate flags for the `open` system call:
- * 
- * - `O_WRONLY | O_CREAT | O_TRUNC` for normal mode.
- * 
- * - `O_WRONLY | O_CREAT | O_APPEND` for append mode.
- */
-int		write_mode(int code);
 int		wait_all(t_data *data, int processes);
 int		ft_strcmp(const char *s1, const char *s2);
 
@@ -238,8 +197,6 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		init_prog(t_data *data, int ac, const char **av, const char **env);
 char	**mk_exe(char **paths, const char *arg, int *error);
 int		pipe_maker(t_data *data, int pipes_amt);
-char	*make_limiter(const char **av);
-int		get_here_doc(t_data *data, const char **av);
 
 //path.c
 /**

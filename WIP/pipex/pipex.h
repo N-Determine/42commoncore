@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 14:49:05 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 14:57:12 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,6 @@ enum e_errors
 	 * required paths, such as environment variables or configuration data.
 	 */
 	PATHS = 2,
-	/**
-	 * @brief Indicates that the programm could not be found.
-	 *
-	 */
-	ACCESS = 127,
-	/**
-	 * @brief Indicates that the permission for the program was denied
-	 *
-	 */
-	PERM = 126,
 	SPLIT = 4,
 	MALLOC = 5,
 	/**
@@ -83,6 +73,16 @@ enum e_errors
 	 * dup2 failed
 	 */
 	DUP = 13,
+	/**
+	 * @brief Indicates that the programm could not be found.
+	 *
+	 */
+	ACCESS = 127,
+	/**
+	 * @brief Indicates that the permission for the program was denied
+	 *
+	 */
+	PERM = 126,
 };
 
 //	STRUCTS

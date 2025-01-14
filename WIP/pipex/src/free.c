@@ -6,11 +6,11 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:09:05 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 17:33:19 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 18:04:45 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "pipex.h"
 
 void	fr_lst(char **arr)
 {

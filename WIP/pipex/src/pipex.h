@@ -6,14 +6,14 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 17:50:11 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 18:05:30 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "libft/libft.h"
+# include "libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>

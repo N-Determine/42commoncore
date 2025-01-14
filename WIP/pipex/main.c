@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 14:42:24 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 14:51:32 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ int	main(int ac, const char **av, const char **env)
 		return (fd_cl(&data, data.procs), fr_lst(data.paths), GNL);
 	data.code = first_command(&data, av);
 	if (data.code)
-		return (data.code);
+		return (fd_cl(&data, data.procs), fr_lst(data.paths), data.code);
 	data.index = 1;
 	while (data.index < data.procs - 1 && data.procs > 2)
 	{
 		data.code = mid_commands(&data, av, data.index);
 		if (data.code)
-			return (data.code);
+			return (fd_cl(&data, data.procs), fr_lst(data.paths), data.code);
 		data.index++;
 	}
 	data.code = last_command(&data, av, ac);
 	if (data.code)
-		return (data.code);
+		return (fd_cl(&data, data.procs), fr_lst(data.paths), data.code);
 	fd_cl(&data, data.procs);
 	return (fr_lst(data.paths), wait_all(&data, data.procs));
 }

@@ -6,21 +6,17 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:50:53 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 18:23:01 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 20:42:35 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	init_prog(t_data *data, int ac, const char **av, const char **env)
+int	init_prog(t_data *data, int ac, const char **env)
 {
-	if (ac < 5)
+	if (ac != 5)
 		return (p_err(USAGE));
-	if (ft_strncmp(av[1], "here_doc", 8) == 0)
-		data->mode = 1;
-	else
-		data->mode = 0;
-	data->procs = ac - data->mode - 3;
+	data->procs = ac - 3;
 	data->init_fd = -1;
 	data->final_fd = -1;
 	if (data->procs > FD_LIMIT)
@@ -71,42 +67,4 @@ int	pipe_maker(t_data *data, int pipes_amt)
 		i++;
 	}
 	return (0);
-}
-
-char	*make_limiter(const char **av)
-{
-	char	*limiter;
-	int		size;
-
-	size = ft_strlen(av[2]) + 2;
-	limiter = ft_calloc(sizeof(char), size);
-	if (!limiter)
-		return (NULL);
-	ft_strlcpy(limiter, av[2], size - 1);
-	limiter[size - 2] = '\n';
-	return (limiter);
-}
-
-int	get_here_doc(t_data *data, const char **av)
-{
-	char	*line;
-	char	*limiter;
-
-	limiter = make_limiter(av);
-	if (!limiter)
-		return (p_err(GNL));
-	ft_printf("pipe heredoc> ");
-	line = get_next_line(STDIN_FILENO);
-	if (!line)
-		return (free(limiter), p_err(GNL));
-	while (ft_strcmp(line, limiter) != 0)
-	{
-		ft_fprintf(data->fd[0][1], "%s", line);
-		free(line);
-		ft_printf("pipe heredoc> ");
-		line = get_next_line(0);
-		if (!line)
-			return (free(limiter), p_err(GNL));
-	}
-	return (free(limiter), free(line), 0);
 }

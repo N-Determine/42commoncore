@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:52:39 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 18:57:21 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 20:37:13 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,46 @@ int		stop_it(t_data *data, int err, const char *arg);
 int		write_mode(int code);
 int		wait_all(t_data *data, int processes);
 int		ft_strcmp(const char *s1, const char *s2);
+/**
+ * @brief Concatenates two strings into a newly allocated string.
+ *
+ * This function allocates memory for a new string that contains
+ * the concatenation of `s1` and `s2`. Both input strings remain
+ * unmodified. If either input is `NULL`, the function returns `NULL`.
+ *
+ * @param s1 The first input string.
+ * @param s2 The second input string.
+ *
+ * @return A pointer to a newly allocated string containing the concatenated
+ * result. Returns `NULL` if memory allocation fails or if any input is `NULL`.
+ *
+ * @note The caller is responsible for freeing the returned string to 
+ * avoid memory leaks.
+ *
+ */
+char	*allo_strcat(const char *s1, const char *s2);
+/**
+ * @brief Concatenates three strings into a newly allocated string.
+ *
+ * This function creates a new string that is the concatenation 
+ * of `s1`, `s2`, and `s3`. It uses `allo_strcat` internally to perform
+ * the concatenation in two steps. If any input is `NULL`, the function
+ * returns `NULL`.
+ *
+ * @param s1 The first input string.
+ * @param s2 The second input string.
+ * @param s3 The third input string.
+ *
+ * @return A pointer to a newly allocated string containing the 
+ * concatenated result. Returns `NULL` if memory allocation fails 
+ * or if any input is `NULL`.
+ *
+ * @note The caller is responsible for freeing the returned string to prevent
+ * memory leaks. This function also frees intermediate allocations in case of
+ * failure.
+ *
+ */
+char	*allo_trip_strcat(const char *s1, const char *s2, const char *s3);
 
 // init.c
 int		init_prog(t_data *data, int ac, const char **av, const char **env);
@@ -284,45 +324,5 @@ char	**get_paths(const char **env);
  *
  */
 int		check_access(char **paths, char *prog);
-/**
- * @brief Concatenates two strings into a newly allocated string.
- *
- * This function allocates memory for a new string that contains
- * the concatenation of `s1` and `s2`. Both input strings remain
- * unmodified. If either input is `NULL`, the function returns `NULL`.
- *
- * @param s1 The first input string.
- * @param s2 The second input string.
- *
- * @return A pointer to a newly allocated string containing the concatenated
- * result. Returns `NULL` if memory allocation fails or if any input is `NULL`.
- *
- * @note The caller is responsible for freeing the returned string to 
- * avoid memory leaks.
- *
- */
-char	*allo_strcat(const char *s1, const char *s2);
-/**
- * @brief Concatenates three strings into a newly allocated string.
- *
- * This function creates a new string that is the concatenation 
- * of `s1`, `s2`, and `s3`. It uses `allo_strcat` internally to perform
- * the concatenation in two steps. If any input is `NULL`, the function
- * returns `NULL`.
- *
- * @param s1 The first input string.
- * @param s2 The second input string.
- * @param s3 The third input string.
- *
- * @return A pointer to a newly allocated string containing the 
- * concatenated result. Returns `NULL` if memory allocation fails 
- * or if any input is `NULL`.
- *
- * @note The caller is responsible for freeing the returned string to prevent
- * memory leaks. This function also frees intermediate allocations in case of
- * failure.
- *
- */
-char	*allo_trip_strcat(const char *s1, const char *s2, const char *s3);
 
 #endif

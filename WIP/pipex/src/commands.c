@@ -6,13 +6,13 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 13:52:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 19:20:21 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 20:39:25 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	first_command(t_data *data, const char **av)
+int	cmd1(t_data *data, const char **av)
 {
 	data->pid[0] = fork();
 	if (data->pid[0] == -1)
@@ -21,11 +21,11 @@ int	first_command(t_data *data, const char **av)
 		return (fd_cl(data, data->procs), p_err(FORK));
 	}
 	if (data->pid[0] == 0)
-		return (first_help(data, av));
+		return (cmd1_help(data, av));
 	return (0);
 }
 
-int	first_help(t_data *data, const char **av)
+int	cmd1_help(t_data *data, const char **av)
 {
 	if (access(av[1], R_OK) != 0)
 		return (stop_it(data, PERM, av[1]));
@@ -46,7 +46,7 @@ int	first_help(t_data *data, const char **av)
 	return (0);
 }
 
-int	last_command(t_data *data, const char **av, int ac)
+int	cmd2(t_data *data, const char **av, int ac)
 {
 	data->pid[data->procs - 1] = fork();
 	if (data->pid[data->procs - 1] == -1)
@@ -55,11 +55,11 @@ int	last_command(t_data *data, const char **av, int ac)
 		return (fd_cl(data, data->procs), p_err(FORK));
 	}
 	if (data->pid[data->procs - 1] == 0)
-		return (last_help(data, av, ac));
+		return (cmd2_help(data, av, ac));
 	return (0);
 }
 
-int	last_help(t_data *data, const char **av, int ac)
+int	cmd2_help(t_data *data, const char **av, int ac)
 {
 	if (access(av[ac - 1], W_OK) != 0 && access(av[ac - 1], F_OK) == 0)
 		return (stop_it(data, PERM, av[ac - 1]));

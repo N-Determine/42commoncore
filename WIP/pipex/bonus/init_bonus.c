@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:50:53 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 18:06:53 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 18:31:24 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	init_prog(t_data *data, int ac, const char **av, const char **env)
 		return (p_err(LIMIT));
 	data->paths = get_paths(env);
 	if (!data->paths)
-		return (fd_cl(data, 0), p_err(PATHS));
+		return (p_err(PATHS));
 	return (0);
 }
 
@@ -94,11 +94,11 @@ int	get_here_doc(t_data *data, const char **av)
 
 	limiter = make_limiter(av);
 	if (!limiter)
-		return (p_err(GNL));
+		return (p_err(MALLOC));
 	ft_printf("pipe heredoc> ");
 	line = get_next_line(STDIN_FILENO);
 	if (!line)
-		return (free(limiter), p_err(GNL));
+		return (get_next_line(-1), free(limiter), p_err(GNL));
 	while (ft_strcmp(line, limiter) != 0)
 	{
 		ft_fprintf(data->fd[0][1], "%s", line);
@@ -106,7 +106,7 @@ int	get_here_doc(t_data *data, const char **av)
 		ft_printf("pipe heredoc> ");
 		line = get_next_line(0);
 		if (!line)
-			return (free(limiter), p_err(GNL));
+			return (get_next_line(-1), free(limiter), p_err(GNL));
 	}
-	return (free(limiter), free(line), 0);
+	return (get_next_line(-1), free(limiter), free(line), 0);
 }

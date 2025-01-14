@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:58:36 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 18:06:42 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 18:21:39 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	p_err(int code)
 {
 	if (code == USAGE)
-		ft_fprintf(2, "Usage: ./pipex infile command command outfile\n");
+		ft_fprintf(2, "Usage: ./pipex infile cmd1 cmd2 outfile\n");
 	if (code == PATHS)
 		ft_fprintf(2, "PATH could not be loaded\n");
 	if (code == PIPE)

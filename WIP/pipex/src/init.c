@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:50:53 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 18:04:38 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 18:23:01 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	init_prog(t_data *data, int ac, const char **av, const char **env)
 		return (p_err(LIMIT));
 	data->paths = get_paths(env);
 	if (!data->paths)
-		return (fd_cl(data, 0), p_err(PATHS));
+		return (p_err(PATHS));
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:43:35 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 18:04:33 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 18:25:20 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int ac, const char **av, const char **env)
 		return (data.error);
 	if (pipe_maker(&data, data.procs))
 		return (fd_cl(&data, 0), fr_lst(data.paths), PIPE);
-	if (data.error == 1 && get_here_doc(&data, av))
+	if (data.mode == 1 && get_here_doc(&data, av))
 		return (fd_cl(&data, data.procs), fr_lst(data.paths), GNL);
 	data.error = first_command(&data, av);
 	if (data.error)

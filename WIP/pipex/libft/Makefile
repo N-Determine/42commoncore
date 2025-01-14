@@ -6,7 +6,7 @@
 #    By: adeters <adeters@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/08 16:34:00 by adeters           #+#    #+#              #
-#    Updated: 2024/12/29 17:28:28 by adeters          ###   ########.fr        #
+#    Updated: 2025/01/14 18:45:30 by adeters          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,21 +39,21 @@ SRCS_GNL	=	get_next_line/get_next_line.c
 
 OBJS = $(SRCS_LIBFT:.c=.o) $(SRCS_PRINTF:.c=.o) $(SRCS_GNL:.c=.o)
 
-MAKEFLAGS = --jobs -s
+MAKEFLAGS = --jobs
 
 %.o: %.c
-	$(COMP) $(FLAGS) -c $< -o $@
+	@$(COMP) $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
+	@ar rc $(NAME) $(OBJS)
 
 all: $(NAME)
 
 clean:
-	rm -rf $(OBJS) $(OBJS_BONUS)
+	@rm -rf $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
 

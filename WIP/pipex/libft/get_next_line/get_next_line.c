@@ -6,46 +6,46 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:12:06 by adeters           #+#    #+#             */
-/*   Updated: 2024/11/15 19:23:54 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/14 18:43:45 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int		ft_check_nl(char *str);
-char	*free_foo(char **buffer, char *line);
-char	*ft_update(char *buffer);
-char	*make_line(char **buffer, char *line, int code);
+static int	ft_check_nl(char *str);
+static char	*free_foo(char **buffer, char *line);
+static char	*ft_update(char *buffer);
+static char	*make_line(char **buffer, char *line, int code);
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[1024];
+	static char	*buffer = NULL;
 	char		*line;
 	ssize_t		bytes_read;
 
 	line = NULL;
 	if (fd < 0 || fd >= 1024)
-		return (NULL);
+		return (free_foo(&buffer, NULL));
 	bytes_read = 1;
-	while (!ft_check_nl(buffer[fd]) && bytes_read > 0)
+	while (!ft_check_nl(buffer) && bytes_read > 0)
 	{
-		buffer[fd] = ft_update(buffer[fd]);
-		if (!buffer[fd])
+		buffer = ft_update(buffer);
+		if (!buffer)
 			return (NULL);
-		bytes_read = read(fd, buffer[fd] + ft_strlen(buffer[fd]), BUFFER_SIZE);
+		bytes_read = read(fd, buffer + ft_strlen(buffer), BUFFER_SIZE);
 		if (bytes_read < 0)
-			return (free_foo(&buffer[fd], NULL));
+			return (free_foo(&buffer, NULL));
 	}
-	if (ft_check_nl(buffer[fd]))
-		return (make_line(&buffer[fd], line, 1));
-	if (buffer[fd] && ft_strlen(buffer[fd]))
-		line = make_line(&buffer[fd], line, 0);
-	free(buffer[fd]);
-	buffer[fd] = NULL;
+	if (ft_check_nl(buffer))
+		return (make_line(&buffer, line, 1));
+	if (buffer && ft_strlen(buffer))
+		line = make_line(&buffer, line, 0);
+	free(buffer);
+	buffer = NULL;
 	return (line);
 }
 
-int	ft_check_nl(char *str)
+static int	ft_check_nl(char *str)
 {
 	int	index;
 
@@ -61,7 +61,7 @@ int	ft_check_nl(char *str)
 	return (0);
 }
 
-char	*free_foo(char **buffer, char *line)
+static char	*free_foo(char **buffer, char *line)
 {
 	free(*buffer);
 	free(line);
@@ -69,7 +69,7 @@ char	*free_foo(char **buffer, char *line)
 	return (NULL);
 }
 
-char	*ft_update(char *buffer)
+static char	*ft_update(char *buffer)
 {
 	char	*tmp_buffer;
 
@@ -98,7 +98,7 @@ char	*ft_update(char *buffer)
 	return (tmp_buffer);
 }
 
-char	*make_line(char **buffer, char *line, int code)
+static char	*make_line(char **buffer, char *line, int code)
 {
 	if (code == 1)
 	{
@@ -116,48 +116,111 @@ char	*make_line(char **buffer, char *line, int code)
 		return (free_foo(buffer, line));
 	return (line);
 }
-/* 
+
+/* #include "get_next_line.h"
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <fcntl.h>
 #include <stdio.h>
 
-int main(void)
+int		decode_file(int *lpf, int *f, int *fr, char *str);
+int		error_handler(int code);
+ssize_t	frame_proc_duration(clock_t start, clock_t end);
+
+int	main(int argc, char **argv)
 {
-	int fd1 = open("t1.txt", O_RDWR);
-	int fd2 = open("t2.txt", O_RDWR);
-	int fd3 = open("t3.txt", O_RDWR);
-	int i;
-	int j = 0;
-	char *str;
-	
-	while (j < 7)
-	{
-		i = 0;
-		while (i < 3)
+	int 	lines_per_frame; int frames; int frame_rate;
+	ssize_t	proc_time; ssize_t delay_time;
+	clock_t	start, end;
+	char	*str = NULL;
+
+	if (argc != 3)
+		return (error_handler(1));
+	ssize_t duration = atoi(argv[2]) * 1000000;
+	if (duration <= 0)
+		return (error_handler(2));
+	int fd = open(argv[1], O_RDWR);
+	if (fd < 0)
+		return (error_handler(3));
+	str = get_next_line(fd);
+	if (!decode_file(&lines_per_frame, &frames, &frame_rate, str))
+		return (error_handler(4));
+	delay_time = 1000000 / frame_rate;
+	// Play movie for chosen duration
+	do {
+		int frame_line = 0;
+		int index = 0;
+		// Print a single frame
+		while (index < frames && duration > 0)
 		{
-			str = get_next_line(fd1);
-			printf("%s", str);
-			free(str);
-			i++;
+			start = clock();
+			system("clear");
+			frame_line = 0;
+			while (frame_line < lines_per_frame)
+			{
+				if (str)
+					free(str);
+				str = get_next_line(fd);
+				if (str)
+					printf("%s", str); fflush(stdout);
+				frame_line++;
+			}
+			duration -= 1000000 / frame_rate;
+			index++;
+			end = clock();
+			proc_time = frame_proc_duration(start, end);
+			if (proc_time < delay_time)
+				usleep(delay_time - proc_time);
+			else
+				usleep(delay_time);
 		}
-		i = 0;
-		while (i < 3)
-		{
-			str = get_next_line(fd2);
-			printf("%s", str);
-			free(str);
-			i++;
-		}
-		i = 0;
-		while (i < 3)
-		{
-			str = get_next_line(fd3);
-			printf("%s", str);
-			free(str);
-			i++;
-		}
-		j++;
-	}
+		close(fd);
+		fd = open(argv[1], O_RDWR);
+		str = get_next_line(fd);
+	} while (duration > 0);
+	system("clear");
+	get_next_line(-1);
 	free(str);
-	close(fd1);
-	close(fd2);
-	close(fd3);
+}
+
+int decode_file(int *lpf, int *f, int *fr, char *str)
+{
+
+	*lpf = atoi(str);
+	*f = atoi(strchr(str, '-') + 1);
+	*fr = atoi(strchr(strchr(str, '-') + 1, '-') + 1);
+	if (!*lpf || !*f || !*fr)
+		return (0);
+	return (1);
+}
+
+int	error_handler(int code)
+{
+	if (code == 1)
+	{
+		fprintf(stderr, "Usage: ./a.out [file.txt] [duration in s]\n");
+		return (1);
+	}
+	if (code == 2)
+	{
+		fprintf(stderr, "Not a valid duration");
+		return (2);
+	}
+	if (code == 3)
+	{
+		fprintf(stderr, "Could not open file.\n");
+		return(3);
+	}
+	if (code == 4)
+	{
+		fprintf(stderr, "Error reading formating code.\n");
+		return (4);
+	}
+	return (0);
+}
+
+ssize_t frame_proc_duration(clock_t start, clock_t end)
+{
+	return ((ssize_t)((double)(end - start) / CLOCKS_PER_SEC * 1000000));
 } */

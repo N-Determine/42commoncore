@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:38:47 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/15 16:50:41 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/15 16:55:18 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 static int	ft_count_chars(int n);
 
-int		ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 		i++;
 	return (i);
 }

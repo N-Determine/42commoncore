@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:14:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/15 16:51:13 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/15 16:56:20 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ void	p_str_fd(int fd, char *str)
 
 void	p_timestamp(void)
 {
-	
 }
 
 void	p_log(int philo_nb, int action)
 {
 	p_timestamp();
-	p_str_fd(1, "philosopher");
 	p_nbr_fd(1, philo_nb);
 	if (action == FORK)
 		p_str_fd(1, " has taken fork\n");

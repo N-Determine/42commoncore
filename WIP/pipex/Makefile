@@ -15,7 +15,7 @@ OPATH = objs/
 OBJS = $(addprefix $(OPATH), $(SRC_FILES:.c=.o))
 OBJS_B = $(addprefix $(OPATH), $(SRC_FILES_B:.c=.o))
 
-ARCH = libft.a
+ARCH = ./src/libft.a
 
 COLOR = \033[1;32m
 RESET = \033[0m
@@ -31,16 +31,16 @@ $(OPATH)%.o: bonus/%.c
 	@$(COMP) $(FLAGS) -c $< -o $@
 
 $(ARCH):
-	@make --no-print-directory -C ./libft
+	@make --no-print-directory -C ./libft > /dev/null
 	@cp ./libft/libft.a ./src/libft.a
 	@echo "$(COLOR)make: $(ARCH) executed!$(RESET)"
 
 $(NAME): $(OBJS) $(ARCH)
-	@$(COMP) $(FLAGS) $(OBJS) -o $(NAME) $(addprefix src/, $(ARCH))
+	@$(COMP) $(FLAGS) $(OBJS) -o $(NAME) $(ARCH)
 	@echo "$(COLOR)make: $(NAME) executed!$(RESET)"
 
 $(NAME_B): $(OBJS_B) $(ARCH)
-	@$(COMP) $(FLAGS) $(OBJS_B) -o $(NAME_B) $(addprefix src/, $(ARCH))
+	@$(COMP) $(FLAGS) $(OBJS_B) -o $(NAME_B) $(ARCH)
 	@echo "$(COLOR)make: $(NAME_B) executed!$(RESET)"
 
 bonus: $(ARCH) $(NAME_B)
@@ -49,8 +49,8 @@ clean:
 	@make clean --no-print-directory -C ./libft
 	@rm -rf $(OBJS)
 	@rm -rf $(OFOLDER)
-	@rm -rf $(addprefix src/, $(ARCH))
-	@rm -rf $(addprefix libft/, $(ARCH))
+	@rm -rf $(ARCH)
+	@rm -rf ./libft/libft.a
 	@echo "$(COLOR)make: clean executed!$(RESET)"
 
 fclean: clean

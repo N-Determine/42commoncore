@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:38:47 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/15 16:55:18 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/15 18:37:11 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,14 @@ static int	ft_count_chars(int n)
 		chars++;
 	}
 	return (chars);
+}
+
+unsigned int	time_passed(t_data *data)
+{
+	double	elapsed;
+
+	gettimeofday(&data->curr, NULL);
+	elapsed = (data->curr.tv_sec - data->start.tv_sec) + ((data->curr.tv_usec
+				- data->start.tv_usec) / 1000000.0);
+	return (1000 * elapsed);
 }

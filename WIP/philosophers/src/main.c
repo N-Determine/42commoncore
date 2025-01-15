@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:03:52 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/15 16:55:21 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/15 18:41:03 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 
 int	main(void)
 {
-	p_log(5, FORK);
+	t_data	data;
+
+	gettimeofday(&data.start, NULL);
+	usleep(213 * 1000);
+	p_log(&data, 5, FORK);
 }

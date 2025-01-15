@@ -1,4 +1,4 @@
-NAME = philosophers
+NAME = filo
 
 COMP = cc
 FLAGS = -Wall -Wextra -Werror -g

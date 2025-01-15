@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:47:11 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 20:36:49 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/15 13:35:25 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ char	**get_paths(const char **env)
 	char	**paths;
 
 	i = 0;
+	paths = NULL;
 	while (env[i])
 	{
 		if (ft_strnstr(env[i], "PATH=", 5) != 0)
 			break ;
 		i++;
 	}
-	paths = ft_split(env[i] + 5, ':');
+	if (env[i])
+		paths = ft_split(env[i] + 5, ':');
 	if (!paths)
 		return (NULL);
 	return (paths);
@@ -36,12 +38,14 @@ int	check_access(char **paths, char *prog)
 	int		i;
 
 	i = 0;
-	if (!paths | !prog)
+	if (!prog)
 		return (-1);
 	if (access(prog, F_OK) == 0 && access(prog, X_OK) == 0)
 		return (1);
 	else if (access(prog, F_OK) == 0 && access(prog, X_OK) != 0)
 		return (-2);
+	if (!paths)
+		return (-1);
 	while (paths[i])
 	{
 		tmp = allo_trip_strcat(paths[i], "/", prog);

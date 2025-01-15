@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 13:52:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 18:21:35 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/15 13:47:23 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	first_help(t_data *data, const char **av)
 {
 	if (data->mode == 0)
 	{
-		if (access(av[1], R_OK) != 0)
+		if (access(av[1], F_OK) == 0 && access(av[1], R_OK) != 0)
 			return (stop_it(data, PERM, av[1]));
-		data->init_fd = open(av[1], O_RDONLY, 0644);
+		data->init_fd = open(av[1], O_RDONLY);
 		if (data->init_fd == -1)
 			return (stop_it(data, OPEN, av[1]));
 		if (dup2(data->init_fd, STDIN_FILENO) == -1)
@@ -93,7 +93,7 @@ int	last_help(t_data *data, const char **av, int ac)
 {
 	if (access(av[ac - 1], W_OK) != 0 && access(av[ac - 1], F_OK) == 0)
 		return (stop_it(data, PERM, av[ac - 1]));
-	data->final_fd = open(av[ac - 1], write_mode(data->mode), 0644);
+	data->final_fd = open(av[ac - 1], write_mode(data->mode));
 	if (data->final_fd == -1)
 		return (stop_it(data, OPEN, NULL));
 	if (dup2(data->fd[data->procs - 1][0], STDIN_FILENO) == -1)

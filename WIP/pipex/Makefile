@@ -50,9 +50,11 @@ clean:
 	@rm -rf $(OBJS)
 	@rm -rf $(OFOLDER)
 	@rm -rf $(addprefix src/, $(ARCH))
+	@rm -rf $(addprefix libft/, $(ARCH))
 	@echo "$(COLOR)make: clean executed!$(RESET)"
 
 fclean: clean
+	@rm -rf 
 	@rm -rf $(NAME)
 	@rm -rf $(NAME_B)
 	@echo "$(COLOR)make: fclean executed!$(RESET)"

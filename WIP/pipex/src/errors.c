@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:58:36 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/14 18:17:46 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/15 13:54:17 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ int	p_err_arg(int code, const char *arg)
 		ft_fprintf(2, "shell: command not found: %s\n", arg);
 	if (code == PERM)
 		ft_fprintf(2, "shell: permission denied: %s\n", arg);
+	if (code == OPEN)
+		ft_fprintf(2, "shell: could not open file: %s\n", arg);
 	return (code);
 }

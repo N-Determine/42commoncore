@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:03:45 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/16 16:37:42 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/16 17:10:50 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,36 @@ typedef struct s_data
 	unsigned int				elapsed;
 }					t_data;
 
+typedef struct s_atoi_data
+{
+	int	sign;
+	int	nmb;
+	int	i;
+}				t_atoi_data;
+
 // FUNCTIONS
 // helpers.c
 int					ft_strlen(char *str);
 void				p_nbr_fd(int fd, int n);
+/**
+ * @brief Converts a string to an integer.
+ *
+ * This function parses the initial portion of the string pointed to by @p nptr
+ * and converts it to an integer, taking into account leading whitespace and an
+ * optional sign. The conversion stops at the first non-numeric character after
+ * the digits, if any. If the string does not contain any valid integer
+ * representation, it returns -1.
+ *
+ * @param nptr A pointer to the string to be converted.
+ * @return The converted integer from the string. If @p nptr is NULL or the
+ * string does not start with a number, returns -1.
+ *
+ * @note The function does not check for integer overflow or underflow.
+ *
+ *
+ * `int value = ft_atoi("  -123abc");` -> value will be -123
+ *
+ */
 int					ft_atoi(const char *nptr);
 unsigned int		time_passed(t_data *data);
 // printer.c

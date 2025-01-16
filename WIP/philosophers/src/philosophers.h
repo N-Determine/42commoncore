@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:03:45 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/16 15:58:40 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/16 16:37:42 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,6 @@ unsigned int		time_passed(t_data *data);
  * @brief Prints a string str to the file descriptor fd
  */
 void				p_str_fd(int fd, char *str);
-/**
- * @brief Prints the current timestamp
- */
-void				p_timestamp(t_data *data);
 /**
  * @brief Prints a log for every action of any philosopher
  */

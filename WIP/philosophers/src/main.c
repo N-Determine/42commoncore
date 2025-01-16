@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:03:52 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/16 15:57:10 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/16 16:00:42 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	parse_args(t_data *data, int ac, char **av)
 {
+	// Look for proper limitations for these values
 	if (ac < 5 || ac > 6)
 		return (data->error = USAGE);
 	data->nbp = ft_atoi(av[1]);

@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:03:45 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/16 15:56:34 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/16 15:58:40 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ typedef struct s_data
 		*/
 	unsigned int				nbte;
 	unsigned int				error;
-	struct timeval	start;
-	struct timeval	curr;
-	unsigned int	elapsed;
+	struct timeval				start;
+	struct timeval				curr;
+	unsigned int				elapsed;
 }					t_data;
 
 // FUNCTIONS

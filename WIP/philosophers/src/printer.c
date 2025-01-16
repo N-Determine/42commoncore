@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:14:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/16 15:56:24 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/16 15:59:37 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	p_log(t_data *data, int philo_nb, int action)
 		p_str_fd(1, " died\n");
 }
 
-int		p_err(int code)
+int	p_err(int code)
 {
 	if (code == USAGE)
 		p_str_fd(2, "Usage: ./philosopher nb ttd tte tts [nbte]\n");

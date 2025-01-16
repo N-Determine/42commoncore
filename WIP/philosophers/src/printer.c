@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:14:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/16 16:37:34 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/16 16:40:57 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	p_str_fd(int fd, char *str)
 void	p_log(t_data *data, int philo_nb, int action)
 {
 	p_nbr_fd(1, time_passed(data));
-	p_str_fd(1, "ms:\t");
+	p_str_fd(1, "\t");
 	p_nbr_fd(1, philo_nb);
 	if (action == FORK)
 		p_str_fd(1, " has taken fork\n");

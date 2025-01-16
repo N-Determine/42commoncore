@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:14:34 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/15 18:40:44 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/16 15:56:24 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void	p_str_fd(int fd, char *str)
 
 void	p_timestamp(t_data *data)
 {
-	unsigned int	elapsed;
-
-	elapsed = time_passed(data);
-	p_nbr_fd(1, elapsed);
+	p_nbr_fd(1, time_passed(data));
 }
 
 void	p_log(t_data *data, int philo_nb, int action)
@@ -40,4 +37,11 @@ void	p_log(t_data *data, int philo_nb, int action)
 		p_str_fd(1, " is thinking\n");
 	if (action == DIE)
 		p_str_fd(1, " died\n");
+}
+
+int		p_err(int code)
+{
+	if (code == USAGE)
+		p_str_fd(2, "Usage: ./philosopher nb ttd tte tts [nbte]\n");
+	return (code);
 }

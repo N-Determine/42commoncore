@@ -6,7 +6,7 @@
 /*   By: adeters <adeters@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:03:45 by adeters           #+#    #+#             */
-/*   Updated: 2025/01/15 18:38:58 by adeters          ###   ########.fr       */
+/*   Updated: 2025/01/16 15:56:34 by adeters          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ enum				e_errors
 	* @brief The program was not executed correctly (e.g. faulty arguments)
 	*/
 	USAGE = 1,
+	/**
+	 * @brief gettimeofday function failed to execute
+	 */
+	GTOD = 2,
 };
 
 enum				e_actions
@@ -43,7 +47,7 @@ typedef struct s_data
 		*
 		* The number of philosophers and also the number of forks.
 		*/
-	int				nbp;
+	unsigned int				nbp;
 	/**
 		* @brief  time_to_die (in milliseconds)
 		*
@@ -51,7 +55,7 @@ typedef struct s_data
 		* since the beginning of their last meal or the beginning of
 		* the simulation, they die.
 		*/
-	int				ttd;
+	unsigned int				ttd;
 	/**
 		* @brief time_to_eat (in milliseconds)
 		*
@@ -59,20 +63,21 @@ typedef struct s_data
 		*
 		* During that time, they will need to hold two forks.
 		*/
-	int				tte;
+	unsigned int				tte;
 	/**
 		* @brief time_to_sleep (in milliseconds)
 		*
 		* The time a philosopher will spend sleeping.
 		*/
-	int				tts;
+	unsigned int				tts;
 	/**
 		* @brief number_of_times_each_philosopher_must_eat (optional argument)
 		* If all philosophers have eaten at least
 		* number_of_times_each_philosopher_must_eat times, the simulation stops.
 		* If not specified, the simulation stops when a philosopher dies.
 		*/
-	int				nbte;
+	unsigned int				nbte;
+	unsigned int				error;
 	struct timeval	start;
 	struct timeval	curr;
 	unsigned int	elapsed;
@@ -82,6 +87,7 @@ typedef struct s_data
 // helpers.c
 int					ft_strlen(char *str);
 void				p_nbr_fd(int fd, int n);
+int					ft_atoi(const char *nptr);
 unsigned int		time_passed(t_data *data);
 // printer.c
 /**
@@ -96,5 +102,6 @@ void				p_timestamp(t_data *data);
  * @brief Prints a log for every action of any philosopher
  */
 void				p_log(t_data *data, int philo_nb, int action);
+int					p_err(int code);
 
 #endif
